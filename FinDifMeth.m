@@ -8,7 +8,7 @@ function yDeriv = FinDifMeth(xData,yData,xDeriv,ordDeriv,acc)
 %% Description
 % 
 % Given the pairs of values of the independent variable x and the
-% dependent variable y of an arbitrary function y = f(x) this 
+% dependent variable y of an arbitrary function y = f(x), this 
 % function returns the value of an arbitrary derivative of the
 % function f in an arbitrary set of values of the dependent variable
 % with an arbitrary order of accuracy using the finite difference
@@ -17,11 +17,11 @@ function yDeriv = FinDifMeth(xData,yData,xDeriv,ordDeriv,acc)
 %% Variables
 % 
 % This function has the form of 
-% yDeriv = FinDifMeth(xData,yData,xDeriv,ordDeriv,acc)
+% yDeriv = FinDifMeth(xData,yData,xDeriv,ordDeriv,acc).
 % 
 % xData and yData are the aforementioned pairs of values of the 
 % independent variable x and the dependent variable y 
-% (yData(i) = f(xData(i))). yData and xData have to be proper 
+% (yData(i) = f(xData(i))). xData and yData have to be proper 
 % vectors (that is in column form).
 % 
 % xDeriv is the aformentioned set of values of the dependent 
@@ -67,28 +67,28 @@ for i = 1:N
     xDataSet = xData;
     indSet = zeros(npoints,1);
     
-%     In the following loop the indeces of npoints elements of xData
-%     with the closest values to the value of the i-th element of 
-%     xDeriv are found.
+%     In the following loop, the indeces of npoints elements of 
+%     xData with the closest values to the value of the i-th element 
+%     of xDeriv are found.
 
     for j = 1:npoints
         [~,indSet(j)] = min(abs(xDeriv(i) - xDataSet));
         
-%         In the following line it is assured that the same element
+%         In the following line, it is assured that the same element
 %         of xData is not selected twice.
 
         xDataSet(indSet(j)) = 2 * max(abs(xDeriv(i) - xDataSet)) + xDeriv(i);
     end
     indSet = sort(indSet);
     
-%     In the following line it is assured that the values of the
+%     In the following line, it is assured that the values of the
 %     dependent variable are small so that their values to a 
 %     potentially high power will not be too high.
 
     xSet = (xData(indSet) - xDeriv(i));
     ySet = yData(indSet);
 
-%     In the following lines we solve the problem demonstrated in 
+%     In the following lines, we solve the problem demonstrated in 
 %     the following comment lines for the example of
 %     FinDifMeth(xData=[x1;x2;x3],yData=[y1;y2;y3],xDeriv,ordDeriv=1,acc=2):
 %     
@@ -98,9 +98,9 @@ for i = 1:N
 %     
 %     A * a = b
 % 
-%     |1      1       1   |    *   |a0|   =  |             0             |
-%     |y1     y2      y3  |        |a1|      |             1             |
-%     |y1^2   y2^2    y3^2|        |a2|      |2 * (xDeriv(i) - xDeriv(i))|
+%     | 1            1       1     |    *   |a0|   =  |                   0                   |
+%     | y1         y2      y3    |        |a1|       |                    1                  |
+%     | y1^2   y2^2    y3^2 |        |a2|       | 2 * (xDeriv(i) - xDeriv(i)) |
 
     A=zeros(npoints,npoints);
     b=zeros(npoints,1);
@@ -114,10 +114,6 @@ for i = 1:N
     yDeriv(i) = a * ySet;
     
 end
-    
-    
-    
-    
 
 end
 
