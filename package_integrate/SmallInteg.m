@@ -59,7 +59,6 @@ a = [0;a];
 
 p = flipud(a);
 
-
 SResul=polyval(p,xmax)-polyval(p,xmin);
 
 end
