@@ -1,0 +1,16 @@
+YY=zeros()
+
+xmax=16;
+x= (0:xmax/2)'*2;
+y=sin(x)+1;
+Y=-cos(xmax)+xmax+1;
+xmin=0;
+
+n=2;
+
+figr=1;
+ZInteg1 = ZIntegral1(x,y,xmin,xmax,n,figr);
+hold on;
+plot(linspace(0,16,100),1+sin(linspace(0,16,100)), 'k');
+
+

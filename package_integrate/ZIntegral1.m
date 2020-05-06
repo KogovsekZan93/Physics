@@ -271,14 +271,14 @@ for j = 2 : n
 end
 a = linsolve(A, yy);
 p = flipud(a);
-if xmin < Ipoints(2)
-    X = (linspace(xmin, min(xmax, Ipoints(2)), N))';
+if xmin < Ipoints(min(2,l))
+    X = (linspace(xmin, min(xmax, Ipoints(min(2,l))), N))';
     Y = polyval(p, X);
     h = area(X, Y);
     h.FaceColor = [0, 0, 1];
     h.FaceAlpha = 0.3;
 end
-X = (linspace(min(Ipoints(1), xmin), Ipoints(2), N))';
+X = (linspace(min(Ipoints(1), xmin), Ipoints(min(2,l)), N))';
 Y = polyval(p, X);
 plot(X, Y, 'r', 'LineWidth', 1.2);
 
