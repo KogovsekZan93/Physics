@@ -2,7 +2,7 @@ function ZInteg1 = ZIntegral1(x, y, xmin, xmax, Psacc, figr)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
-% Date: 6.5.2020
+% Date: 9.7.2020
 % 
 %% Description
 % 
@@ -63,9 +63,14 @@ function ZInteg1 = ZIntegral1(x, y, xmin, xmax, Psacc, figr)
 y = y(I);
 
 %     In the following lines, the xmin and xmax values are set so 
-%     that xmax > xmin. If the input xmax < xmin, ZInteg1, i.e. the 
-%     output value, will be multiplied by -1 (BoundaryOrder). 
-%     See Line 137.
+%     that xmax > xmin. To account for the case of xmax < xmin, 
+%     the final result will be multiplied by the integer 
+%     BoundaryOrder. BoundaryOrder integer serves as the 
+%     indicator of whether the input xmax < xmin or not, and is 
+%     assigned the value “-1” in the former case and the value “1” 
+%     in the latter case. BoundaryOrder integer is also used to 
+%     assign the proper color scheme to the optional visualization 
+%     of the integration. 
 
 BoundaryOrder = 1;
 if xmax < xmin
@@ -110,7 +115,7 @@ end
 %     by the use of the DrawZInteg1 function.
 
 if figr ~= 0
-    DrawZInteg1(x, y, Ipoints, Smatrix, xmin, xmax, figr);
+    DrawZInteg1(x, y, Ipoints, Smatrix, xmin, xmax, BoundaryOrder, figr);
 end
 
 %     Finally, the integral is calculated by summing the appropriate 
@@ -179,6 +184,7 @@ function [Ipoints, Smatrix] = GetPointsZIntegral1(x, n)
 % the values of the closest n x(i) values to every P point in I(k) 
 % interval.
 
+
 len = length(x);
 
 Ipoints = zeros(len - n + 1,1);
@@ -192,11 +198,11 @@ end
 
 end
 
-function DrawZInteg1(x, y, Ipoints,  Smatrix, xmin, xmax, figr)
+function DrawZInteg1(x, y, Ipoints,  Smatrix, xmin, xmax, BoundaryOrder, figr)
 %% Visualization of numerical integration with ZIntegral1
 % 
 % Author: Žan Kogovšek
-% Date: 6.5.2020
+% Date: 9.7.2020
 % 
 %% Description
 % 
@@ -206,8 +212,12 @@ function DrawZInteg1(x, y, Ipoints,  Smatrix, xmin, xmax, figr)
 % the values y(i) of the dependent variable Y of an arbitrary 
 % function Y = f(X) are plotted as blue circles (i.e. (x(i),y(i)) 
 % points), the approximation of the f function is plotted as a red 
-% line and the integral is plotted as the semi-transparent blue 
-% area under the red curve. 
+% line and the integral is plotted as the semi-transparent area 
+% under the red curve. The semi-transparent area is blue if the 
+% original upper limit of integration has a higher value than the 
+% original lower limit of integration, and is red if that is not the 
+% case. 
+%
 % 
 %% Variables
 % 
@@ -233,15 +243,19 @@ function DrawZInteg1(x, y, Ipoints,  Smatrix, xmin, xmax, figr)
 % 
 % xmin is the lower limit of integration and xmax is the upper limit 
 % of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval.
+% [min(x), max(x)] interval. 
+% 
+% BoundaryOrder is the indicator of whether the original input 
+% xmax < xmin or not, and has the value “-1” in the former case 
+% and the value “1” in the latter case. 
 % 
 % figr is the index of the figure in which the integration will be 
 % visualized. It has to be a nonzero integer. 
  
+
 %     N represents the number of points with which each section 
 %     of the approximation of the function and the integral will be 
 %     plotted. 
-
 
 N = 1000;
 
@@ -250,6 +264,12 @@ clf;
 hold on;
 
 l = length(Ipoints);
+
+if BoundaryOrder == 1
+    ColorFace = [0, 0, 1];
+else
+    ColorFace = [1, 0, 0];
+end
 
 %     The following lines contain three sections, each separated 
 %     from the next by an empty line. They deal with the X values 
@@ -260,7 +280,6 @@ l = length(Ipoints);
 %     Lagrange polynomial is plotted over an appropriate interval.
 %     Finally, the area under the curve, which represents the 
 %     integral is plotted. 
-
 
 xx = x(Smatrix(1, :));
 yy = y(Smatrix(1, :));
@@ -275,7 +294,7 @@ if xmin < Ipoints(min(2,l))
     X = (linspace(xmin, min(xmax, Ipoints(min(2,l))), N))';
     Y = polyval(p, X);
     h = area(X, Y);
-    h.FaceColor = [0, 0, 1];
+    h.FaceColor = ColorFace;
     h.FaceAlpha = 0.3;
 end
 X = (linspace(min(Ipoints(1), xmin), Ipoints(min(2,l)), N))';
@@ -296,14 +315,14 @@ for i = 2 : l - 1
         X = (linspace(xmin, min(xmax, Ipoints(i + 1)), N))';
         Y = polyval(p, X);
         h = area(X, Y);
-        h.FaceColor = [0, 0, 1];
+        h.FaceColor = ColorFace;
         h.FaceAlpha = 0.3;
     else
         if xmin < Ipoints(i) && xmax > Ipoints(i)
             X = (linspace(Ipoints(i), min(Ipoints(i + 1), xmax), N))';
             Y = polyval(p, X);
             h = area(X, Y);
-            h.FaceColor = [0, 0, 1];
+            h.FaceColor = ColorFace;
             h.FaceAlpha = 0.3;
         end
     end    
@@ -325,7 +344,7 @@ if xmax > Ipoints(l)
     X = (linspace(max(xmin, Ipoints(l)), xmax, N))';
     Y = polyval(p, X);
     h = area(X, Y);
-    h.FaceColor = [0, 0, 1];
+    h.FaceColor = ColorFace;
     h.FaceAlpha = 0.3;
 end
 X = (linspace(Ipoints(l), max(max(x), xmax), N))';
@@ -381,6 +400,7 @@ function SubZInteg1 = SubZIntegral1(x, y, xmin, xmax)
 % is the value of the integral of p(x) Lagrange polynomial with the 
 % upper and lower limits of integration xmin and xmax 
 % respectively.
+
 
 %     In the following lines, the vector of coefficients a for the 
 %     Lagrange polynomial is calculated.  
