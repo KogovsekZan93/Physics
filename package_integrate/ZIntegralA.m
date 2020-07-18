@@ -8,13 +8,13 @@ function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
 % 
 % Given the values x(i) of the independent variable X and the 
 % values y(i) of the dependent variable Y of an arbitrary function 
-% Y = f(X), this function returns the value of the integral of the 
-%  function f with the upper and lower limits of integration xmin 
-% and xmax respectively. The integration is performed with a 
+% Y = f(X), this function returns the value of the integral of the f 
+% function with the upper and lower limits of integration xmin and 
+% xmax respectively. The integration is performed with a 
 % pseudo-order of accuracy Psacc, i.e. the integration is 
-% accurate if f is a polynomial of the degree of Psacc of less. 
-% The integration can either be visualized in the figure figure(figr) 
-% if figr is a natural number or not if figr is "0". 
+% accurate if the f function is a polynomial of the degree of 
+% Psacc or less. The integration can either be visualized in the 
+% figure figure(figr) if figr is a natural number or not if figr is "0". 
 % 
 %% Variables
 % 
@@ -33,9 +33,9 @@ function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
 % [min(x), max(x)] interval. 
 % 
 % Psacc is the pseudo-order of accuracy of the integration, i.e. 
-% the integration is accurate if f is a polynomial of the degree of 
-% Psacc of less. It has to be an integer contained in the interval 
-% [0, length(x) – 1]. 
+% the integration is accurate if the f function is a polynomial of 
+% the degree of Psacc or less. It has to be an integer contained 
+% in the interval [0, length(x) – 1]. 
 % 
 % mode is the selected mode of integration. 
 %       If mode == 0, the basic mode of integration will be 
@@ -60,7 +60,7 @@ function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
 % integration will not be visualized. 
 % 
 % ZIntegA is the output of the ZIntegralA function and it is the 
-% numerical integral of the function f with the limits of integration 
+% numerical integral of the f function with the limits of integration 
 % xmin and xmax with the pseudo-order of accuracy Psacc. 
 % 
 %% Pseudo-order of accuracy integration principle
