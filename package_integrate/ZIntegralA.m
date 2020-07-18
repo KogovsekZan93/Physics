@@ -1,8 +1,8 @@
-function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, figr, mode)
+function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 18.7.2020
 % 
 %% Description
 % 
@@ -19,31 +19,23 @@ function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, figr, mode)
 %% Variables
 % 
 % This function has the form of 
-% ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, figr, mode)
+% ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
 % 
 % x and y are vectors of aforementioned values x(i) and y(i), 
 % respectively, of the independent variable X and of the 
 % dependent variable Y, respectively, of an arbitrary function 
 % Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors of 
 % real numbers of equal length. x vector does not have to be 
-% sorted (i.e. it is not required that x(i) > x(j) for every i > j).
+% sorted (i.e. it is not required that x(i) > x(j) for every i > j). 
 % 
 % xmin is the lower limit of integration and xmax is the upper limit 
 % of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval.
+% [min(x), max(x)] interval. 
 % 
 % Psacc is the pseudo-order of accuracy of the integration, i.e. 
 % the integration is accurate if f is a polynomial of the degree of 
 % Psacc of less. It has to be an integer contained in the interval 
-% [0, length(x) – 1].
-% 
-% figr is the index of the figure in which the integration will be 
-% visualized. It has to be a nonzero integer. If figr == 0, the 
-% integration will not be visualized.
-% 
-% ZIntegA is the output of the ZIntegralA function and it is the 
-% numerical integral of the function f with the limits of integration 
-% xmin and xmax with the pseudo-order of accuracy Psacc.
+% [0, length(x) – 1]. 
 % 
 % mode is the selected mode of integration. 
 %       If mode == 0, the basic mode of integration will be 
@@ -54,21 +46,29 @@ function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, figr, mode)
 %       intervals (see “Pseudo-order of accuracy integration 
 %       principle” for further details) are augmented so that 
 %       Lagrange polynomial extrapolation is averted for every I(k) 
-%       possible.
+%       possible. 
 %       If mode == 2, an augmented mode of the basic mode of 
 %       integration will be performed. In this mode, the limits of I(k) 
 %       intervals (see “Pseudo-order of accuracy integration 
 %       principle” for further details) are augmented so that not 
-%       more than 1 + half of x(k, l) values of the S(k) set are 
-%       higher or lower than the limits of I(k) for every I(k) interval 
+%       more than 1 + half of x(i) values of the S(k) set are higher 
+%       or lower than the limits of I(k) for every I(k) interval 
 %       possible. 
+% 
+% figr is the index of the figure in which the integration will be 
+% visualized. It has to be a nonzero integer. If figr == 0, the 
+% integration will not be visualized. 
+% 
+% ZIntegA is the output of the ZIntegralA function and it is the 
+% numerical integral of the function f with the limits of integration 
+% xmin and xmax with the pseudo-order of accuracy Psacc. 
 % 
 %% Pseudo-order of accuracy integration principle
 % 
 % This function uses the GetPointsZIntegralA0 function to divide 
 % the X axis into several intervals I(k). In every I(k) interval, there 
-% is a set S(k) of Psacc + 1 x(k, l) values. For each point P in the 
-% interval I(k), the x(i, k) values of S(k) are the closest Psacc + 1 
+% is a set S(k) of Psacc + 1 x(i) values. For each point P in the 
+% interval I(k), the x(i) values of S(k) are the closest Psacc + 1 
 % x(i) values to the P point. In each I(k) interval, the f function is 
 % approximated by the Lagrange polynomial p(k) which is based 
 % on {(x(i), y(i)) | x(i) is in S(k)}. This approximation of the function 
@@ -110,14 +110,14 @@ end
 %     In the following line, the borders for the intervals I(k) are 
 %     calculated and given in the vector Ipoints together with the 
 %     corresponding S(k) sets, each of which is represented by 
-%     the corresponding row in the matrix Smatrix, e.i. the x(k, l) 
-%     values in Smatrix(k, :) (= S(k)) are the closest Psacc + 1 x(i) 
-%     values to each P point in the interval 
-%     [Ipoints(k), Ipoints(k + 1)]. For more details see the 
-%     GetPointsZIntegralA0 function documentation. 
-%     If mode ~=0, the limits of I(k) are further augmented by 
-%     either the GetPointsZIntegralA1 function (i.e. if mode == 1) 
-%     or the GetPointsZIntegralA2 function (i.e. if mode == 2). 
+%     the corresponding row in the matrix Smatrix, e.i. the 
+%     x(Smatrix(k, :)) values are the closest Psacc + 1 x(i) values 
+%     to each P point in the interval [Ipoints(k), Ipoints(k + 1)]. 
+%     For more details see the GetPointsZIntegralA0 function 
+%     documentation. If mode ~=0, the limits of I(k) are further 
+%     augmented by either the GetPointsZIntegralA1 function 
+%     (i.e. if mode == 1) or the GetPointsZIntegralA2 function 
+%     (i.e. if mode == 2). 
 
 if mode == 0
     [Ipoints, Smatrix] = GetPointsZIntegralA0(x, Psacc + 1);
@@ -187,19 +187,19 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA0(x, n)
 %% Basic border points of intervals I(k) calculation
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 18.7.2020
 % 
 %% Description
 % 
 % Given the values x(i) of the independent variable X and a 
 % natural number n, this function returns the vector Ipoints and 
 % the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n x(k, l) values 
-% for each I(k) interval such that for each point P in the I(k) 
-% interval the x(k, l) values of the S(k) set are the closest n x(i) 
-% values to the P point. The borders of the I(k) intervals are 
-% represented by the vector Ipoints and the sets S(k) are 
-% represented by the matrix Smatrix.
+% I(k) in such a way that there exists a set S(k) of n x(i) values for 
+% each I(k) interval such that for each point P in the I(k) interval 
+% the x(i) values of the S(k) set are the closest n x(i) values to the 
+% P point. The borders of the I(k) intervals are represented by 
+% the vector Ipoints and the S(k) sets are represented by the 
+% matrix Smatrix. 
 %  
 %% Variables
 % 
@@ -208,18 +208,18 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA0(x, n)
 % 
 % x is a vector of aforementioned values x(i) of the independent 
 % variable X. x has to be a column vector of real numbers and 
-% has to be sorted (i.e. it is required for x(i) > x(j) for every i > j).
+% has to be sorted (i.e. it is required for x(i) > x(j) for every i > j). 
 % 
 % n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector the same n x(k, l) values (they are given in the 
-% k-th row of the Smatrix matrix) are the closest n x(i) values to 
-% any point in the I(k) interval.
+% Ipoints vector, the same n x(i) values (their indices are given in 
+% the k-th row of the Smatrix matrix) are the closest n x(i) values 
+% to any point in the I(k) interval.
 % 
 % Ipoints is a column vector. Each interval I(k) is 
 % [Ipoints(k), Ipoints(k + 1)].
 % 
 % Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% the values of the closest n x(k, l) values to every P point in I(k) 
+% indices of the closest n x(i) values to every P point in the I(k) 
 % interval.
 
 
@@ -242,25 +242,24 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
 %% calculation
 %
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 18.7.2020
 % 
 %% Description
 % 
 % Given the values x(i) of the independent variable X and a 
 % natural number n, this function returns the vector Ipoints and 
 % the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n x(k, l) values 
-% for each I(k) interval such that for each point P in the I(k) 
-% interval, the x(k, l) values of the S(k) set are the closest n x(i) 
-% values to the P point. The I(k) intervals can be further 
-% augmented so that for each I(k) interval (except for the I(k) 
-% intervals at least one of the limits of which is either inf or -inf) 
-% the I(k) interval is contained in the [min(x(k, l)), max(x(k, l))]. 
-% This way, extrapolation of the Lagrange polynomials in the 
-% numerical integration is prevented all possible I(k) intervals. 
-% The borders of the augmented I(k) intervals are represented 
-% by the vector Ipoints and the sets S(k) are represented by the 
-% matrix Smatrix.
+% I(k) in such a way that there exists a set S(k) of n x(i) values for 
+% each I(k) interval such that for each point P in the I(k) interval 
+% the x(i) values of the S(k) set are the closest n x(i) values to the 
+% P point. The I(k) intervals can be further augmented so that for 
+% each I(k) interval (except for the I(k) intervals at least one of 
+% the limits of which is either inf or -inf) the I(k) interval is 
+% contained in the [min(S(k)), max(S(k))]. This way, extrapolation 
+% of the Lagrange polynomials in the numerical integration is 
+% prevented all possible I(k) intervals. The borders of the 
+% augmented I(k) intervals are represented by the vector Ipoints 
+% and the S(k) sets are represented by the matrix Smatrix.
 %  
 %% Variables
 % 
@@ -272,24 +271,22 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
 % has to be sorted (i.e. it is required for x(i) > x(j) for every i > j). 
 % 
 % n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector the same n x(i) values (they are given in the k-th 
-% row of the Smatrix matrix) are the closest n x(i) values to any 
-% point in the I(k) interval with the constraint that every I(k) 
+% Ipoints vector, the same n x(i) values (their indices are given in 
+% the k-th row of the Smatrix matrix) are the closest n x(i) values 
+% to any point in the I(k) interval with the constraint that every I(k) 
 % interval (except for the I(k) intervals at least one of the limits of 
 % which is either inf or -inf) has to be contained in the interval 
-%  [min(x(k, l)), max(x(k, l))]. 
+% [min(x(Smatrix(k, :))), max(x(Smatrix(k, :)))]. 
 % 
 % Ipoints is a column vector. Each interval I(k) is 
 % [Ipoints(k), Ipoints(k + 1)]. 
 % 
 % Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% the values of the closest n x(i) values to every P point in I(k) 
+% indices of the closest n x(i) values to every P point in the I(k) 
 % interval with the constraint that every I(k) interval (except for the 
 % I(k) intervals at least one of the limits of which is either inf or 
 % -inf) has to be contained in the interval 
-% [min(x(k, l)), max(x(k, l))]. 
-
-
+% [min(x(Smatrix(k, :))), max(x(Smatrix(k, :)))]. 
 
 len = length(x);
 
@@ -314,26 +311,26 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA2(x, n)
 %% calculation
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 18.7.2020
 % 
 %% Description
 % 
 % Given the values x(i) of the independent variable X and a 
 % natural number n, this function returns the vector Ipoints and 
 % the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n x(k, l) values 
-% for each I(k) interval such that for each point P in the I(k) 
-% interval, the x(i) values of the S(k) set are the closest n x(i) 
-% values to the P point. The I(k) intervals can be further 
-% augmented so that for each I(k) interval (except for the I(k) 
-% intervals at least one of the limits of which is either inf or -inf) 
-% the I(k) interval is contained in the interval between the middle 
-% two (if n is even) or middle three (if n is odd) x(k, l) points. This 
-% way, the Lagrange polynomials are integrated over parts of 
-% such I(k) intervals, over which the approximation of the f 
-% function may have the greatest fidelity. The borders of the 
-% augmented I(k) intervals are represented by the vector Ipoints 
-% and the sets S(k) are represented by the matrix Smatrix.
+% I(k) in such a way that there exists a set S(k) of n x(i) values for 
+% each I(k) interval such that for each point P in the I(k) interval 
+% the x(i) values of the S(k) set are the closest n x(i) values to the 
+% P point. The I(k) intervals can be further augmented so that for 
+% each I(k) interval (except for the I(k) intervals at least one of 
+% the limits of which is either inf or -inf) the I(k) interval is 
+% contained in the interval between the middle two (if n is even) 
+% or middle three (if n is odd) points of S(k). This way, the 
+% Lagrange polynomials are integrated over parts of such I(k) 
+% intervals, over which the approximation of the f function may 
+% have the greatest fidelity. The borders of the augmented I(k) 
+% intervals are represented by the vector Ipoints and the S(k) 
+% sets are represented by the matrix Smatrix.
 %  
 %% Variables
 % 
@@ -345,23 +342,23 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA2(x, n)
 % has to be sorted (i.e. it is required for x(i) > x(j) for every i > j).
 % 
 % n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector the same n x(i) values (they are given in the k-th 
-% row of the Smatrix matrix) are the closest n x(i) values to any 
-% point in the I(k) interval with the constraint that every I(k) 
+% Ipoints vector, the same n x(i) values (their indices are given in 
+% the k-th row of the Smatrix matrix) are the closest n x(i) values 
+% to any point in the I(k) interval with the constraint that every I(k) 
 % interval (except for the I(k) intervals at least one of the limits of 
 % which is either inf or -inf) has to be contained in the interval 
-% between the middle two (if n is even) or middle three 
-% (if n is odd) x(k, l) points. 
+% between the middle two (if n is even) or middle three (if n is 
+% odd) x(S(k, l)) points. 
 % 
 % Ipoints is a column vector. Each interval I(k) is 
 % [Ipoints(k), Ipoints(k + 1)]. 
 % 
 % Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% the values of the closest n x(i) values to every P point in I(k) 
+% indices of the closest n x(i) values to every P point in the I(k) 
 % interval with the constraint that every I(k) interval (except for the 
 % I(k) intervals at least one of the limits of which is either inf or 
 % -inf) has to be contained in the interval between the middle two 
-% (if n is even) or middle three (if n is odd) x(k, l) points. 
+% (if n is even) or middle three (if n is odd) x(S(k, l)) points. 
 
 
 len = length(x);
@@ -385,7 +382,7 @@ function DrawZIntegA(x, y, Ipoints,  Smatrix, xmin, xmax, BoundaryOrder, figr)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 18.7.2020
 % 
 %% Description
 % 
@@ -415,14 +412,9 @@ function DrawZIntegA(x, y, Ipoints,  Smatrix, xmin, xmax, BoundaryOrder, figr)
 % sorted (i.e. it is not required for x(i) > x(j) for every i > j).
 % 
 % Ipoints is a column vector and Smatrix is a matrix. For each 
-% interval [Ipoints(I), Ipoints(I+1)], the plotted approximation of 
+% interval [Ipoints(k), Ipoints(k+1)], the plotted approximation of 
 % the f function will be the Lagrange polynomial which is based 
-% on the set {(x(i), y(i)) | x(i) is in Smatrix(:, I)}. For X < Ipoints(1) 
-% the Lagrange polynomial which is the approximation of the f 
-% function is based on the set {(x(i), y(i)) | x(i) is in Smatrix(:, 1)} 
-% and for X > Ipoints(end) the Lagrange polynomial which is the 
-% approximation of the f function is based on the set 
-% {(x(i), y(i)) | x(i) is in Smatrix(:, end)}.
+% on the set {(x(i), y(i)) | i is in Smatrix(k, :)}. 
 % 
 % xmin is the lower limit of integration and xmax is the upper limit 
 % of integration. The limits do not have to be contained in the 
@@ -551,7 +543,7 @@ function SubZIntegA = SubZIntegralA(x, y, xmin, xmax)
 %% Integration of the Lagrange polynomial
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 18.7.2020
 % 
 %% Description
 % 
