@@ -254,12 +254,12 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
 % the x(i) values of the S(k) set are the closest n x(i) values to the 
 % P point. The I(k) intervals can be further augmented so that for 
 % each I(k) interval (except for the I(k) intervals at least one of 
-% the limits of which is either inf or -inf) the I(k) interval is 
+% the limits of which is either inf or -inf), the I(k) interval is 
 % contained in the [min(S(k)), max(S(k))]. This way, extrapolation 
 % of the Lagrange polynomials in the numerical integration is 
-% prevented all possible I(k) intervals. The borders of the 
+% prevented for all possible I(k) intervals. The borders of the 
 % augmented I(k) intervals are represented by the vector Ipoints 
-% and the S(k) sets are represented by the matrix Smatrix.
+% and the S(k) sets are represented by the matrix Smatrix. 
 %  
 %% Variables
 % 

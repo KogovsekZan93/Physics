@@ -1,82 +1,83 @@
-function yDeriv = ZDerivativeA(xData, yData, ordDeriv, acc, xDeriv, figr, mode)
-%% Generalized numerical integration
+function yDeriv = ZDerivativeA(xData, yData, ordDeriv, Acc, xDeriv, figr, mode)
+%% Finite difference numerical differentiation
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 13.9.2020
 % 
 %% Description
 % 
-% Given the values x(i) of the independent variable X and the 
-% values y(i) of the dependent variable Y of an arbitrary function 
-% Y = f(X), this function returns the value of the integral of the 
-%  function f with the upper and lower limits of integration xmin 
-% and xmax respectively. The integration is performed with a 
-% pseudo-order of accuracy Acc, i.e. the integration is 
-% accurate if f is a polynomial of the degree of Acc of less. 
-% The integration can either be visualized in the figure figure(figr) 
-% if figr is a natural number or not if figr is "0". 
+% Given the values xData(i) of the independent variable X and 
+% the values yData(i) of the dependent variable Y of an arbitrary 
+% function Y = f(X), this function returns the value of the 
+% derivative of the order of ordDeriv for values xDeriv(i) of the 
+% independent variable X. The differentiation is performed with 
+% the finite difference method with the order of accuracy Acc, 
+% i.e. the integration is accurate if the f function is a polynomial of 
+% the degree of Acc of less. 
+% The actual function being differentiated (i.e. the piecewise 
+% polynomial interpolation which is the approximation of the f 
+% function) can either be visualized in the figure figure(figr) if figr 
+% is a natural number or not if figr == 0. 
 % 
 %% Variables
 % 
 % This function has the form of 
-% ZIntegA = ZIntegralA(x, y, xmin, xmax, Acc, figr, mode)
+% yDeriv = ZDerivativeA(xData, yData, ordDeriv, acc, xDeriv, figr, mode)
 % 
-% x and y are vectors of aforementioned values x(i) and y(i), 
-% respectively, of the independent variable X and of the 
-% dependent variable Y, respectively, of an arbitrary function 
-% Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors of 
-% real numbers of equal length. x vector does not have to be 
-% sorted (i.e. it is not required that x(i) > x(j) for every i > j).
+% xData and yData are vectors of aforementioned values 
+% xData(i) and yData(i), respectively, of the independent variable 
+% X and of the dependent variable Y, respectively, of an arbitrary 
+% function Y = f(X) (yData(i) = f(xData(i)). x and y both have to be 
+% column vectors of real numbers of equal length. xData vector 
+% does not have to be sorted (i.e. it is not required that 
+% xData (i) > xData (j) for every i > j).
 % 
-% xmin is the lower limit of integration and xmax is the upper limit 
-% of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval.
+% ordDeriv is the order of the differentiation. It has to be an 
+% integer contained in the interval [1, length(xData) – Acc].
 % 
-% Acc is the pseudo-order of accuracy of the integration, i.e. 
-% the integration is accurate if f is a polynomial of the degree of 
-% Acc of less. It has to be an integer contained in the interval 
-% [0, length(x) – 1].
+% Acc is the order of accuracy of the differentiation, i.e. the 
+% differentiation is accurate if the f function is a polynomial of the 
+% degree of Acc of less. It has to be an integer contained in the 
+% interval [1, length(xData) – ordDeriv].
+%
+% xDeriv is a vector of values of the independent variable X in 
+% which the value of the derivative of the f function is to be 
+% calculated. The values of the xDeriv vector do not have to be 
+% contained in the [min(xData), max(xData)] interval. 
 % 
-% figr is the index of the figure in which the integration will be 
-% visualized. It has to be a nonzero integer. If figr == 0, the 
-% integration will not be visualized.
+% figr is the index of the figure in which the actual function being 
+% differentiated (i.e. the piecewise polynomial interpolation which 
+% is the approximation of the f function) will be visualized. It has 
+% to be a positive integer. If figr == 0, the differentiation will not 
+% be visualized.
 % 
-% ZIntegA is the output of the ZIntegralA function and it is the 
-% numerical integral of the function f with the limits of integration 
-% xmin and xmax with the pseudo-order of accuracy Acc.
-% 
-% mode is the selected mode of integration. 
-%       If mode == 0, the basic mode of integration will be 
-%       performed (see “Pseudo-order of accuracy integration 
-%       principle” for further details). 
+% mode is the selected mode of differentiation. 
+%       If mode == 0, the basic mode of differentiation will be 
+%       performed. The derivative in each point xDeriv(i) will be 
+%       calculated based on the values of the f function in the 
+%       closest Acc + ordDeriv values of xData to the xDeriv(i).
 %       If mode == 1, an augmented mode of the basic mode of 
-%       integration will be performed. In this mode, the limits of I(k) 
-%       intervals (see “Pseudo-order of accuracy integration 
-%       principle” for further details) are augmented so that 
-%       Lagrange polynomial extrapolation is averted for every I(k) 
-%       possible.
+%       differentiation will be performed. In this mode, the 
+%       derivative in each point xDeriv(i) will be calculated based 
+%       on the values of the f function in the closest 
+%       Acc + ordDeriv values of xData to the xDeriv(i) with the 
+%       constraint that xDeriv(i) need be both less than the largest 
+%       and greater than the smallest of the values of the 
+%       Acc + ordDeriv values of xData.
 %       If mode == 2, an augmented mode of the basic mode of 
-%       integration will be performed. In this mode, the limits of I(k) 
-%       intervals (see “Pseudo-order of accuracy integration 
-%       principle” for further details) are augmented so that not 
-%       more than 1 + half of x(k, l) values of the S(k) set are 
-%       higher or lower than the limits of I(k) for every I(k) interval 
-%       possible. 
-% 
-%% Pseudo-order of accuracy integration principle
-% 
-% This function uses the GetPointsZIntegralA0 function to divide 
-% the X axis into several intervals I(k). In every I(k) interval, there 
-% is a set S(k) of Acc + 1 x(k, l) values. For each point P in the 
-% interval I(k), the x(i, k) values of S(k) are the closest Acc + 1 
-% x(i) values to the P point. In each I(k) interval, the f function is 
-% approximated by the Lagrange polynomial p(k) which is based 
-% on {(x(i), y(i)) | x(i) is in S(k)}. This approximation of the function 
-% f is then integrated with the limits of integration xmin and xmax. 
-% With the GetPointsZIntegralA1 function and the 
-% GetPointsZIntegralA2 function, the limits of I(k) intervals are 
-% further augmented. See the description of the two functions 
-% for further details. 
+%       differentiation will be performed. In this mode, the 
+%       derivative in each point xDeriv(i) will be calculated based 
+%       on the values of the f function in the closest 
+%       Acc + ordDeriv values of xData to the xDeriv(i) with the 
+%       constraint that no more than 1 + half of the Acc + ordDeriv 
+%       values of xData are to be either larger or smaller than 
+%       xDeriv(i).
+%
+% yDeriv is the output of the ZDerivativeA function and it is the 
+% vector of the values of the derivative of the order of ordDeriv 
+% of the f function (d^(ordDeriv) f / dX^(ordDeriv) := F) for the X 
+% values of xDeriv (yDeriv(i) = F(xDeriv(i))) calculated with the 
+% finite difference method with the order of accuracy Acc.
 
 
 %     In the following lines, the x and y values are sorted.
@@ -84,61 +85,48 @@ function yDeriv = ZDerivativeA(xData, yData, ordDeriv, acc, xDeriv, figr, mode)
 [xData, I] = sort(xData);
 yData = yData(I);
 
-%     In the following lines, the xmin and xmax values are set so 
-%     that xmax > xmin. To account for the case of xmax < xmin, 
-%     the final result will be multiplied by the integer 
-%     BoundaryOrder. BoundaryOrder integer serves as the 
-%     indicator of whether the input xmax < xmin or not, and is 
-%     assigned the value “-1” in the former case and the value “1” 
-%     in the latter case. BoundaryOrder integer is also used to 
-%     assign the proper color scheme to the optional visualization 
-%     of the integration. 
-
 %     In the following line, the borders for the intervals I(k) are 
-%     calculated and given in the vector Ipoints together with the 
-%     corresponding S(k) sets, each of which is represented by 
-%     the corresponding row in the matrix Smatrix, e.i. the x(k, l) 
-%     values in Smatrix(k, :) (= S(k)) are the closest Acc + 1 x(i) 
-%     values to each P point in the interval 
-%     [Ipoints(k), Ipoints(k + 1)]. For more details see the 
-%     GetPointsZIntegralA0 function documentation. 
-%     If mode ~=0, the limits of I(k) are further augmented by 
-%     either the GetPointsZIntegralA1 function (i.e. if mode == 1) 
-%     or the GetPointsZIntegralA2 function (i.e. if mode == 2). 
+%     calculated. The I(k) intervals are defined as follows: for all 
+%     xDeriv(i) values in I(k), the corresponding yDeriv(i) values 
+%     are calculated based on the same Acc + ordDeriv pairs of 
+%     values (xData(k),yData(k)). The borders of the intervals and 
+%     the associated pairs of values are dependent on the 
+%     "mode" parameter. 
 
-npoints = acc + ordDeriv;
+
+npoints = Acc + ordDeriv;
 
 if mode == 0
-    [Ipoints, Smatrix] = GetPointsZIntegralA0(xData, npoints);
+    [Ipoints, Smatrix] = GetPointsZDerivativeA0(xData, npoints);
 else
     if mode == 1
-        [Ipoints, Smatrix] = GetPointsZIntegralA1(xData, npoints);
+        [Ipoints, Smatrix] = GetPointsZDerivativeA1(xData, npoints);
     else
         if mode == 2
-            [Ipoints, Smatrix] = GetPointsZIntegralA2(xData, npoints);
+            [Ipoints, Smatrix] = GetPointsZDerivativeA2(xData, npoints);
         end
     end
 end
 
-%     In the following lines the intervals I(k) in which xmin and 
-%     xmax are located (represented by k indices zonemin and 
-%     zonemax, respectively) are found. 
+%     In the following lines, the coefficients of the Lagrange 
+%     polynomials with which the f function is approximated over 
+%     appropriate I(k) intervals as well as the coefficients of the 
+%     polynomials which are the derivatives of the Lagrange 
+%     polynomials are calculated.
 
 [pMatrix, pDerivMatrix] = GetLagrangePolynomialMatrix(xData, yData, Smatrix,ordDeriv);
 
-%     In the following lines, if 0 ~= 0, the numerical integration is 
-%     visualized by the use of the DrawZIntegA function.
+%     In the following lines, if 0 ~= 0, the approximation of the f 
+%     function is visualized by the use of the DrawfApproximation 
+%     function. 
 
 if figr ~= 0
-    DrawZIntegA(xData, yData, Ipoints,  pMatrix, figr, min(xDeriv), max(xDeriv));
+    DrawfApproximation(xData, yData, Ipoints,  pMatrix, figr, min(xDeriv), max(xDeriv));
 end
 
-%     Finally, the integral is calculated by summing the appropriate 
-%     integrals of the approximation of f function over each 
-%     interval. The appropriate integrals over each interval are the 
-%     integrals over all intervals between intervals in which xmin 
-%     and xmax are located and the integrals of parts of the 
-%     intervals in which xmin and/or xmax are located.
+%     Finally, the intervals in which individual xDeriv(i) points are 
+%     located are identified and the numerical differentiation of the 
+%     f function is performed in each xDeriv(i) point. 
 
 len_Ipoints = length(Ipoints);
 
@@ -160,7 +148,7 @@ end
 
 end
 
-function [Ipoints, Smatrix] = GetPointsZIntegralA0(x, n)
+function [Ipoints, Smatrix] = GetPointsZDerivativeA0(x, n)
 %% Basic border points of intervals I(k) calculation
 % 
 % Author: Žan Kogovšek
@@ -181,22 +169,22 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA0(x, n)
 %% Variables
 % 
 % This function has the form of 
-% [Ipoints, Smatrix] = GetPointsZIntegralA0(x, n)
+% [Ipoints, Smatrix] = GetPointsZDerivativeA0(x, n)
 % 
 % x is a vector of aforementioned values x(i) of the independent 
 % variable X. x has to be a column vector of real numbers and 
-% has to be sorted (i.e. it is required for x(i) > x(j) for every i > j).
+% has to be sorted (i.e. it is required for x(i) > x(j) for every i > j). 
 % 
 % n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector the same n x(k, l) values (they are given in the 
-% k-th row of the Smatrix matrix) are the closest n x(i) values to 
-% any point in the I(k) interval.
+% Ipoints vector, the same n x(i) values (their indices are given in 
+% the k-th row of the Smatrix matrix) are the closest n x(i) values 
+% to any point in the I(k) interval.
 % 
 % Ipoints is a column vector. Each interval I(k) is 
 % [Ipoints(k), Ipoints(k + 1)].
 % 
 % Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% the values of the closest n x(k, l) values to every P point in I(k) 
+% indices of the closest n x(i) values to every P point in the I(k) 
 % interval.
 
 
@@ -214,7 +202,7 @@ end
 
 end
 
-function [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
+function [Ipoints, Smatrix] = GetPointsZDerivativeA1(x, n)
 %% First augmented border points of intervals I(k) 
 %% calculation
 %
@@ -226,49 +214,48 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
 % Given the values x(i) of the independent variable X and a 
 % natural number n, this function returns the vector Ipoints and 
 % the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n x(k, l) values 
-% for each I(k) interval such that for each point P in the I(k) 
-% interval, the x(k, l) values of the S(k) set are the closest n x(i) 
-% values to the P point. The I(k) intervals can be further 
-% augmented so that for each I(k) interval (except for the I(k) 
-% intervals at least one of the limits of which is either inf or -inf) 
-% the I(k) interval is contained in the [min(x(k, l)), max(x(k, l))]. 
-% This way, extrapolation of the Lagrange polynomials in the 
-% numerical integration is prevented all possible I(k) intervals. 
-% The borders of the augmented I(k) intervals are represented 
-% by the vector Ipoints and the sets S(k) are represented by the 
-% matrix Smatrix.
+% I(k) in such a way that there exists a set S(k) of n x(i) values for 
+% each I(k) interval such that for each point P in the I(k) interval 
+% the x(i) values of the S(k) set are the closest n x(i) values to the 
+% P point. The I(k) intervals can be further augmented so that for 
+% each I(k) interval (except for the I(k) intervals at least one of 
+% the limits of which is either inf or -inf), the I(k) interval is 
+% contained in the [min(S(k)), max(S(k))]. This way, extrapolation 
+% of the Lagrange polynomials in the numerical differentiation is 
+% prevented for all possible I(k) intervals. The borders of the 
+% augmented I(k) intervals are represented by the vector Ipoints 
+% and the S(k) sets are represented by the matrix Smatrix. 
 %  
 %% Variables
 % 
 % This function has the form of 
-% [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
+% [Ipoints, Smatrix] = GetPointsZDerivativeA1(x, n)
 % 
 % x is a vector of aforementioned values x(i) of the independent 
 % variable X. x has to be a column vector of real numbers and 
 % has to be sorted (i.e. it is required for x(i) > x(j) for every i > j). 
 % 
 % n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector the same n x(i) values (they are given in the k-th 
-% row of the Smatrix matrix) are the closest n x(i) values to any 
-% point in the I(k) interval with the constraint that every I(k) 
+% Ipoints vector, the same n x(i) values (their indices are given in 
+% the k-th row of the Smatrix matrix) are the closest n x(i) values 
+% to any point in the I(k) interval with the constraint that every I(k) 
 % interval (except for the I(k) intervals at least one of the limits of 
 % which is either inf or -inf) has to be contained in the interval 
-%  [min(x(k, l)), max(x(k, l))]. 
+% [min(x(Smatrix(k, :))), max(x(Smatrix(k, :)))]. 
 % 
 % Ipoints is a column vector. Each interval I(k) is 
 % [Ipoints(k), Ipoints(k + 1)]. 
 % 
 % Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% the values of the closest n x(i) values to every P point in I(k) 
+% indices of the closest n x(i) values to every P point in the I(k) 
 % interval with the constraint that every I(k) interval (except for the 
 % I(k) intervals at least one of the limits of which is either inf or 
 % -inf) has to be contained in the interval 
-% [min(x(k, l)), max(x(k, l))]. 
+% [min(x(Smatrix(k, :))), max(x(Smatrix(k, :)))]. 
 
 len = length(x);
 
-[Ipoints, Smatrix] = GetPointsZIntegralA0(x, n);
+[Ipoints, Smatrix] = GetPointsZDerivativeA0(x, n);
 
 for i = 1 : len - n
     if Ipoints(i + 1) > x(Smatrix(i, end))
@@ -284,7 +271,7 @@ end
 
 end
 
-function [Ipoints, Smatrix] = GetPointsZIntegralA2(x, n)
+function [Ipoints, Smatrix] = GetPointsZDerivativeA2(x, n)
 %% Second augmented border points of intervals I(k) 
 %% calculation
 % 
@@ -296,52 +283,52 @@ function [Ipoints, Smatrix] = GetPointsZIntegralA2(x, n)
 % Given the values x(i) of the independent variable X and a 
 % natural number n, this function returns the vector Ipoints and 
 % the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n x(k, l) values 
-% for each I(k) interval such that for each point P in the I(k) 
-% interval, the x(i) values of the S(k) set are the closest n x(i) 
-% values to the P point. The I(k) intervals can be further 
-% augmented so that for each I(k) interval (except for the I(k) 
-% intervals at least one of the limits of which is either inf or -inf) 
-% the I(k) interval is contained in the interval between the middle 
-% two (if n is even) or middle three (if n is odd) x(k, l) points. This 
-% way, the Lagrange polynomials are integrated over parts of 
-% such I(k) intervals, over which the approximation of the f 
-% function may have the greatest fidelity. The borders of the 
-% augmented I(k) intervals are represented by the vector Ipoints 
-% and the sets S(k) are represented by the matrix Smatrix.
+% I(k) in such a way that there exists a set S(k) of n x(i) values for 
+% each I(k) interval such that for each point P in the I(k) interval 
+% the x(i) values of the S(k) set are the closest n x(i) values to the 
+% P point. The I(k) intervals can be further augmented so that for 
+% each I(k) interval (except for the I(k) intervals at least one of 
+% the limits of which is either inf or -inf) the I(k) interval is 
+% contained in the interval between the middle two (if n is even) 
+% or middle three (if n is odd) points of S(k). This way, the 
+% Lagrange polynomials are differentiated only in such I(k) 
+% intervals in which the approximation of the f function may have 
+% the greatest fidelity. The borders of the augmented I(k) 
+% intervals are represented by the vector Ipoints and the S(k) 
+% sets are represented by the matrix Smatrix.
 %  
 %% Variables
 % 
 % This function has the form of 
-% [Ipoints, Smatrix] = GetPointsZIntegralA2(x, n)
+% [Ipoints, Smatrix] = GetPointsZDerivativeA2(x, n)
 % 
 % x is a vector of aforementioned values x(i) of the independent 
 % variable X. x has to be a column vector of real numbers and 
 % has to be sorted (i.e. it is required for x(i) > x(j) for every i > j).
 % 
 % n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector the same n x(i) values (they are given in the k-th 
-% row of the Smatrix matrix) are the closest n x(i) values to any 
-% point in the I(k) interval with the constraint that every I(k) 
+% Ipoints vector, the same n x(i) values (their indices are given in 
+% the k-th row of the Smatrix matrix) are the closest n x(i) values 
+% to any point in the I(k) interval with the constraint that every I(k) 
 % interval (except for the I(k) intervals at least one of the limits of 
 % which is either inf or -inf) has to be contained in the interval 
-% between the middle two (if n is even) or middle three 
-% (if n is odd) x(k, l) points. 
+% between the middle two (if n is even) or middle three (if n is 
+% odd) x(S(k, l)) points. 
 % 
 % Ipoints is a column vector. Each interval I(k) is 
 % [Ipoints(k), Ipoints(k + 1)]. 
 % 
 % Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% the values of the closest n x(i) values to every P point in I(k) 
+% indices of the closest n x(i) values to every P point in the I(k) 
 % interval with the constraint that every I(k) interval (except for the 
 % I(k) intervals at least one of the limits of which is either inf or 
 % -inf) has to be contained in the interval between the middle two 
-% (if n is even) or middle three (if n is odd) x(k, l) points. 
+% (if n is even) or middle three (if n is odd) x(S(k, l)) points. 
 
 
 len = length(x);
 
-[Ipoints, Smatrix] = GetPointsZIntegralA0(x, n);
+[Ipoints, Smatrix] = GetPointsZDerivativeA0(x, n);
 
 for i = 1 : len - n
     if Ipoints(i + 1) > x(Smatrix(i, floor((n + 3) / 2)))
@@ -356,8 +343,11 @@ end
 
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [p, pDeriv] = GetLagrangePolynomial(x, y, ordDeriv)
-%% Visualization of numerical integration with ZIntegralA
+%% Lagrange polynomial approximation of the f function 
+%% and its derivative polynomial coefficients calculation
 % 
 % Author: Žan Kogovšek
 % Date: 15.7.2020
@@ -404,7 +394,7 @@ end
 
 end
 
-function DrawZIntegA(x, y, Ipoints,  pMatrix, figr, xmin, xmax)
+function DrawfApproximation(x, y, Ipoints,  pMatrix, figr, xmin, xmax)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
@@ -428,7 +418,7 @@ function DrawZIntegA(x, y, Ipoints,  pMatrix, figr, xmin, xmax)
 %% Variables
 % 
 % This function has the form of 
-% DrawZIntegA(x, y, Ipoints, Smatrix, xmin, xmax, figr)
+% DrawfApproximation(x, y, Ipoints, Smatrix, xmin, xmax, figr)
 % 
 % x and y are vectors of aforementioned values x(i) and y(i), 
 % respectively, of the independent variable X and of the 
