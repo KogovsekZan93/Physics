@@ -27,10 +27,10 @@ function yDeriv = ZDerivativeA(xData, yData, ordDeriv, Acc, xDeriv, figr, mode)
 % xData and yData are vectors of aforementioned values 
 % xData(i) and yData(i), respectively, of the independent variable 
 % X and of the dependent variable Y, respectively, of an arbitrary 
-% function Y = f(X) (yData(i) = f(xData(i)). x and y both have to be 
-% column vectors of real numbers of equal length. xData vector 
-% does not have to be sorted (i.e. it is not required that 
-% xData (i) > xData (j) for every i > j).
+% function Y = f(X) (yData(i) = f(xData(i)). xData and yData both 
+% have to be column vectors of real numbers of equal length. 
+% xData vector does not have to be sorted (i.e. it is not required 
+% that xData(i) > xData(j) for every i > j).
 % 
 % ordDeriv is the order of the differentiation. It has to be an 
 % integer contained in the interval [1, length(xData) – Acc].
@@ -343,18 +343,53 @@ end
 
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [p, pDeriv] = GetLagrangePolynomial(x, y, ordDeriv)
 %% Lagrange polynomial approximation of the f function 
 %% and its derivative polynomial coefficients calculation
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 23.12.2020
 % 
 %% Description
 % 
-% Using this function, the visualization of the numerical 
+% Given the values x(i) of the independent variable X and the 
+% values y(i) of the dependent variable Y of an arbitrary function 
+% Y = f(X), this function returns the coefficients of the Lagrange 
+% polynomial p and the coefficients of the polynomial which is 
+% the ordDeriv-th derivative of the Lagrange polynomial pDeriv. 
+% 
+%% Variables
+% 
+% This function has the form of 
+% [p, pDeriv] = GetLagrangePolynomial(x, y, ordDeriv)
+% 
+% x and y are vectors of aforementioned values x(i) and y(i), 
+% respectively, of the independent variable X and of the 
+% dependent variable Y, respectively, of an arbitrary function 
+% Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors 
+% of real numbers of equal length. x vector needs to be sorted 
+% (i.e. it is required that x(i) > x(j) for every i > j).
+% 
+% ordDeriv is the order of the derivative of the Lagrange 
+% polynomial of points (x(i), y(i)), the coefficients of which will be 
+% given in pDeriv. It has to be a natural number. 
+% 
+% p is the column vector of the coefficients of the Lagrange 
+% polynomial of points (x(i), y(i)). The vector p is
+% constructed so that the value of the Lagrange polynomial at 
+% the value xx of variable X is p(1) * power(X, length(xx) - 1) + ... 
+% + ... p(1 + m) * power(X, length(xx) - 1 - m) + ... + p(length(xx)).
+% 
+% pDeriv is the column vector of the coefficients of the 
+% polynomial which is the ordDeriv-the derivative of the 
+% Lagrange polynomial of points (x(i), y(i)). The vector pDeriv is 
+% constructed so that the value of the derivative of the Lagrange 
+% polynomial at the value xx of variable X is 
+% pDeriv(1) * power(X, length(xx) - ordDeriv - 1) + ... 
+% + ... pDeriv(1 + m) * power(X, length(xx) - ordDeriv - 1 - m) + ... 
+% + pDeriv(length(xx) - ordDeriv).
+
 
 n = length(x);
 A = ones(n, n);
@@ -365,12 +400,12 @@ end
 
 a = linsolve(A, y);
 
-%     In the following lines, the coefficients in a vector of 
-%     coefficients are modified so that they represent the 
-%     coefficients of the polynomial which is the integral of the p 
-%     Lagrange polynomial. 
-
 p = flipud(a);
+
+%     In the following lines, the coefficients of the Lagrange 
+%     polynomial are modified so that they represent the 
+%     coefficients of the polymomial which is the ordDeriv-th 
+%     derivative of the Lagrange polynomial. 
 
 for i = ordDeriv + 1 : n
     a(i) = a(i) * factorial(i - 1) / factorial(i - 1 - ordDeriv);
@@ -381,6 +416,8 @@ a = a(ordDeriv + 1 : end);
 pDeriv = flipud(a);
 
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [pMatrix, pDerivMatrix] = GetLagrangePolynomialMatrix(xData, yData, Smatrix,ordDeriv)
 nIInter = length(Smatrix(:, 1));
