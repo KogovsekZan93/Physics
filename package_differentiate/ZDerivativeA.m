@@ -30,7 +30,7 @@ function yDeriv = ZDerivativeA(xData, yData, ordDeriv, Acc, xDeriv, figr, mode)
 % function Y = f(X) (yData(i) = f(xData(i)). xData and yData both 
 % have to be column vectors of real numbers of equal length. 
 % xData vector does not have to be sorted (i.e. it is not required 
-% that xData(i) > xData(j) for every i > j).
+% that xData(i) > xData(j) for every i > j). 
 % 
 % ordDeriv is the order of the differentiation. It has to be an 
 % integer contained in the interval [1, length(xData) – Acc].
@@ -343,7 +343,6 @@ end
 
 end
 
-
 function [p, pDeriv] = GetLagrangePolynomial(x, y, ordDeriv)
 %% Lagrange polynomial approximation of the f function 
 %% and its derivative polynomial coefficients calculation
@@ -378,17 +377,17 @@ function [p, pDeriv] = GetLagrangePolynomial(x, y, ordDeriv)
 % p is the column vector of the coefficients of the Lagrange 
 % polynomial of points (x(i), y(i)). The vector p is
 % constructed so that the value of the Lagrange polynomial at 
-% the value xx of variable X is p(1) * power(X, length(xx) - 1) + ... 
-% + ... p(1 + m) * power(X, length(xx) - 1 - m) + ... + p(length(xx)).
+% the value xx of variable X is p(1) * power(xx, length(x) - 1) + ... 
+% + ... p(1 + m) * power(xx, length(x) - 1 - m) + ... + p(length(x)).
 % 
 % pDeriv is the column vector of the coefficients of the 
 % polynomial which is the ordDeriv-the derivative of the 
 % Lagrange polynomial of points (x(i), y(i)). The vector pDeriv is 
 % constructed so that the value of the derivative of the Lagrange 
 % polynomial at the value xx of variable X is 
-% pDeriv(1) * power(X, length(xx) - ordDeriv - 1) + ... 
-% + ... pDeriv(1 + m) * power(X, length(xx) - ordDeriv - 1 - m) + ... 
-% + pDeriv(length(xx) - ordDeriv).
+% pDeriv(1) * power(xx, length(x) - ordDeriv - 1) + ... 
+% + ... pDeriv(1 + m) * power(xx, length(x) - ordDeriv - 1 - m) + ... 
+% + pDeriv(length(x) - ordDeriv).
 
 
 n = length(x);
@@ -417,9 +416,74 @@ pDeriv = flipud(a);
 
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [pMatrix, pDerivMatrix] = GetLagrangePolynomialMatrix(xData, yData, Smatrix, ordDeriv)
+%% Matrix of the coefficients of the Lagrange polynomials 
+%% approximation of the f function and the matrix of the 
+%% coefficients of the derivatives of the Lagrange 
+%% polynomials calculation
+% 
+% Author: Žan Kogovšek
+% Date: 25.12.2020
+% 
+%% Description
+% 
+% Given the values xData(i) of the independent variable X and 
+% the values yData(i) of the dependent variable Y of an arbitrary 
+% function Y = f(X) and the matrix of indices Smatrix, this function 
+% returns the matrix pMatrix of coefficients of Lagrange 
+% polynomials. Each column of the pMatrix contains the 
+% coefficients of the Lagrange polynomial of the values of 
+% xData(i) and yData(i) which are represented by the indices of 
+% the corresponding row of the Smatrix. 
+% Each column of pDerivMatrix contains the coefficients of the 
+% polynomial which is the ordDeriv-th derivative of the Lagrange 
+% polynomial which is represented by the corresponding column 
+% of the pMatrix. 
+% 
+%% Variables
+% 
+% xData and yData are vectors of aforementioned values 
+% xData(i) and yData(i), respectively, of the independent variable 
+% X and of the dependent variable Y, respectively, of an arbitrary 
+% function Y = f(X) (yData(i) = f(xData(i)). xData and yData both 
+% have to be column vectors of real numbers of equal length. 
+% xData vector has to be sorted (i.e. it is required that 
+% xData(i) > xData(j) for every i > j). 
+% 
+% Smatrix is a matrix. The values of each row Smatrix(k, :) are 
+% indices of the xData(i) and yData(i) values which will be used 
+% for the calculation of the coefficients of the Lagrange 
+% polynomial which are given in the k-th column of the output 
+% matrix pMatrix. 
+% 
+% ordDeriv is the desired order of the derivative of the Lagrange 
+% polynomials.
+% 
+% pMatrix is the matrix each column pMatrix(:, k) of which 
+% contains the coefficients of the Lagrange polynomial based on 
+% the values xData(i) and yData(i) which are indexed in the row 
+% Smatrix(k, :) of Smatrix (i.e. the Lagrange polynomial is based 
+% on the set of pairs of values 
+% {(xData(i), yData(i)) | i is contained in Smatrix(k, :)}). 
+% Each column pMatrix(:, k) is constructed so that the value of 
+% the Lagrange polynomial at the value xx of variable X is 
+% pMatrix(1, k) * power(xx, length(Smatrix(:, k)) - 1) + ... 
+% + ... pMatrix(1 + m) * power(xx, length(Smatrix(:, k)) - 1 - m) + ... 
+% + pMatrix(length(Smatrix(:, k))). 
+% 
+% pDerivMatrix is the matrix each column pDerivMatrix(:, k) of 
+% which contains the coefficients of the polynomial which is the 
+% ordDeriv-th derivative of the Lagrange polynomial represented 
+% by the column pMatrix(:, k) of pMatrix. Each column 
+% pDerivMatrix(:, k) is constructed so that the value of the 
+% polynomial at the value xx of variable X is 
+% pDerivMatrix(1, k) * 
+% power(xx, length(Smatrix(:, k)) - ordDeriv - 1) + ... 
+% + ... pDerivMatrix(1 + m) * 
+% power(xx, length(Smatrix(:, k)) - ordDeriv - 1 - m) + ... 
+% + pDerivMatrix(length(Smatrix(:, k)) - ordDeriv). 
 
-function [pMatrix, pDerivMatrix] = GetLagrangePolynomialMatrix(xData, yData, Smatrix,ordDeriv)
+
 nIInter = length(Smatrix(:, 1));
 npoints = length(Smatrix(1, :));
 pMatrix = zeros(npoints, nIInter);
@@ -430,6 +494,8 @@ for i = 1 : nIInter
 end
 
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function DrawfApproximation(x, y, Ipoints,  pMatrix, figr, xmin, xmax)
 %% Visualization of numerical integration with ZIntegralA
