@@ -442,6 +442,9 @@ function [pMatrix, pDerivMatrix] = GetLagrangePolynomialMatrix(xData, yData, Sma
 % 
 %% Variables
 % 
+% This function has the form of 
+% [pMatrix, pDerivMatrix] = GetLagrangePolynomialMatrix(xData, yData, Smatrix, ordDeriv)
+% 
 % xData and yData are vectors of aforementioned values 
 % xData(i) and yData(i), respectively, of the independent variable 
 % X and of the dependent variable Y, respectively, of an arbitrary 
@@ -495,66 +498,53 @@ end
 
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function DrawfApproximation(x, y, Ipoints,  pMatrix, figr, xmin, xmax)
-%% Visualization of numerical integration with ZIntegralA
+%% Visualization of the approximation of the function 
+%% being differentiated
 % 
 % Author: Žan Kogovšek
-% Date: 15.7.2020
+% Date: 10.1.2021
 % 
 %% Description
 % 
-% Using this function, the visualization of the numerical 
-% integration with ZIntegralA is plotted in the figure figure(figr). 
-% The input values values x(i) of the independent variable X and 
-% the values y(i) of the dependent variable Y of an arbitrary 
-% function Y = f(X) are plotted as blue circles (i.e. (x(i),y(i)) 
-% points), the approximation of the f function is plotted as a red 
-% line and the integral is plotted as the semi-transparent area 
-% under the red curve. The semi-transparent area is blue if the 
-% original upper limit of integration has a higher value than the 
-% original lower limit of integration, and is red if that is not the 
-% case. 
+% Using this function, the visualization of the function fApprox 
+% being differentiated by the ZDerivativeA is plotted in the figure 
+% figure(figr). fApprox is the approximation of the f function. The 
+% input values x(i) of the independent variable X and the values 
+% y(i) of the dependent variable Y of the f function Y = f(X) 
+% are plotted as blue circles. The fApprox is a piecwise 
+% defined function. In each of the X intervals, the fApprox is 
+% defined as the Lagrange polynomial of the X interval specific 
+% subset of the (x(i), y(i)) pairs of points. 
 %
-% 
 %% Variables
 % 
 % This function has the form of 
-% DrawfApproximation(x, y, Ipoints, Smatrix, xmin, xmax, figr)
+% DrawfApproximation(x, y, Ipoints,  pMatrix, figr, xmin, xmax)
 % 
 % x and y are vectors of aforementioned values x(i) and y(i), 
 % respectively, of the independent variable X and of the 
 % dependent variable Y, respectively, of an arbitrary function 
-% Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors of 
-% real numbers of equal length. x vector does not have to be 
-% sorted (i.e. it is not required for x(i) > x(j) for every i > j).
+% Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors 
+% of real numbers of equal length. x vector has to be sorted (i.e. 
+% it is required that x(i) > x(j) for every i > j). 
 % 
-% Ipoints is a column vector and Smatrix is a matrix. For each 
-% interval [Ipoints(I), Ipoints(I+1)], the plotted approximation of 
+% Ipoints is a column vector and pMatrix is a matrix. For each 
+% interval [Ipoints(k), Ipoints(k +1)], the plotted approximation of 
 % the f function will be the Lagrange polynomial which is based 
-% on the set {(x(i), y(i)) | x(i) is in Smatrix(:, I)}. For X < Ipoints(1) 
-% the Lagrange polynomial which is the approximation of the f 
-% function is based on the set {(x(i), y(i)) | x(i) is in Smatrix(:, 1)} 
-% and for X > Ipoints(end) the Lagrange polynomial which is the 
-% approximation of the f function is based on the set 
-% {(x(i), y(i)) | x(i) is in Smatrix(:, end)}.
-% 
-% xmin is the lower limit of integration and xmax is the upper limit 
-% of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval. 
-% 
-% BoundaryOrder is the indicator of whether the original input 
-% xmax < xmin or not, and has the value “-1” in the former case 
-% and the value “1” in the latter case. 
+% on the set {(x(i), y(i)) | x(i) is in pMatrix(:, k)}. 
 % 
 % figr is the index of the figure in which the integration will be 
 % visualized. It has to be a nonzero integer. 
- 
+% 
+% xmin and xmax are the lower and the upper limit of the X 
+% interval [xmin, xmax], respectively. The approximation of the f 
+% function will be visualized over the union of the [xmin, xmax] 
+% interval and the [min(x), max(x)] interval. 
+
 
 %     N represents the number of points with which each section 
-%     of the approximation of the function and the integral will be 
-%     plotted. 
+%     of the approximation of the function will be plotted. 
 
 N = 1000;
 
@@ -564,29 +554,28 @@ hold on;
 
 len_Ipoints = length(Ipoints);
 
-%     The following lines contain three sections, each separated 
-%     from the next by an empty line. They deal with the X values 
-%     lower than Ipoints(2) (first section), higher than 
-%     Ipoints(end - 1) (third section) and the intermediary values 
-%     (second section), respectively. In each section, the vector 
-%     of coefficients p of the appropriate Lagrange polynomial is 
-%     calculated. Then the Lagrange polynomial is plotted over an 
-%     appropriate interval. Finally, the area under the curve which 
-%     represents the integral is plotted. 
-
-X = (linspace(min(min(x), xmin), Ipoints(2), N))';
-Y = polyval(pMatrix(:, 1), X);
-plot(X, Y, 'r', 'LineWidth', 1.2);
-
-for i = 2 : len_Ipoints - 2
-    X = (linspace(Ipoints(i), Ipoints(i + 1), N))';
-    Y = polyval(pMatrix(:, i), X);
-    plot(X, Y, 'r','LineWidth', 1.2);
-end
+% The following lines contain the code for plotting the 
+% approximation of the f function either if len_Ipoints ~= 2 or if 
+% len_Ipoints == 2 (in the case of which the approximation of the 
+% function is the Lagrange polynomial of all (x(i), y(i)) pairs). 
 
 if len_Ipoints ~= 2
-    X = (linspace(Ipoints(len_Ipoints-1), max(max(x), xmax), N))';
+    X = (linspace(min(min(x), xmin), Ipoints(2), N))';
+    Y = polyval(pMatrix(:, 1), X);
+    plot(X, Y, 'r', 'LineWidth', 1.2);
+    
+    for i = 2 : len_Ipoints - 2
+        X = (linspace(Ipoints(i), Ipoints(i + 1), N))';
+        Y = polyval(pMatrix(:, i), X);
+        plot(X, Y, 'r','LineWidth', 1.2);
+    end
+            
+    X = (linspace(Ipoints(len_Ipoints - 1), max(max(x), xmax), N))';
     Y = polyval(pMatrix(:, end), X);
+    plot(X, Y, 'r', 'LineWidth', 1.2);
+else
+    X = (linspace(min(min(x), xmin), max(max(x), xmax), N))';
+    Y = polyval(pMatrix(:, 1), X);
     plot(X, Y, 'r', 'LineWidth', 1.2);
 end
 
