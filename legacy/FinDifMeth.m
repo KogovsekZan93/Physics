@@ -3,7 +3,7 @@ function yDeriv = FinDifMeth(xData,yData,xDeriv,ordDeriv,acc)
 %% Finite difference method differentiation
 % 
 % Author: Žan Kogovšek
-% Date: 7.6.2018
+% Date: 5.3.2021
 % 
 %% Description
 % 
@@ -116,4 +116,3 @@ for i = 1:N
 end
 
 end
-
