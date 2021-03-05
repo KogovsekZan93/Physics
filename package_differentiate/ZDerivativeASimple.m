@@ -3,7 +3,7 @@ function yDeriv = ZDerivativeASimple(xData, yData, ordDeriv, xDeriv)
 %% predefined values of parameters
 % 
 % Author: Žan Kogovšek
-% Date: 20.2.2021
+% Date: 5.3.2021
 % 
 %% Description
 % 
@@ -50,7 +50,7 @@ function yDeriv = ZDerivativeASimple(xData, yData, ordDeriv, xDeriv)
 
 Acc = 3;
 figr = 0;
-mode = 1;
+mode = 2;
 
 yDeriv = ZDerivativeA(xData, yData, ordDeriv, Acc, xDeriv, figr, mode);
 
