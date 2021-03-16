@@ -95,10 +95,11 @@ y = y(I);
 %     assign the proper color scheme to the optional visualization 
 %     of the integration. 
 
-BoundaryOrder = 1;
 if xmax < xmin
     [xmax, xmin] = deal(xmin, xmax);
     BoundaryOrder = -1;
+else
+    BoundaryOrder = 1;
 end
 
 %     If Psacc == 0, the basic mode of integration is the only 
