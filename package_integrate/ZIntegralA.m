@@ -139,7 +139,7 @@ end
 len_Ipoints = length(Ipoints);
 
 for i = 2 : len_Ipoints
-    if Ipoints(i) > xmin
+    if Ipoints(i) >= xmin
         zonemin = i - 1;
         break;
     end
