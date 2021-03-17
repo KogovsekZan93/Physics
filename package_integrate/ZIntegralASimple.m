@@ -1,4 +1,4 @@
-function ZIntegASimple = ZIntegralASimple(x, y, xmin, xmax)
+function ZIntegASimple = ZIntegralASimple(x, y, xmin, xmax, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
@@ -42,7 +42,12 @@ function ZIntegASimple = ZIntegralASimple(x, y, xmin, xmax)
 
 Psacc = 3;
 mode = 1;
-figr = 0;
+
+if length(varargin) == 1
+    figr = varargin{1};
+else
+    figr = 0;
+end
 
 ZIntegASimple = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr);
 
