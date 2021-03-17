@@ -88,18 +88,17 @@ y = y(I);
 %     In the following lines, the xmin and xmax values are set so 
 %     that xmax > xmin. To account for the case of xmax < xmin, 
 %     the final result will be multiplied by the integer 
-%     BoundaryOrder. BoundaryOrder integer serves as the 
-%     indicator of whether the input xmax < xmin or not, and is 
-%     assigned the value “-1” in the former case and the value “1” 
-%     in the latter case. BoundaryOrder integer is also used to 
-%     assign the proper color scheme to the optional visualization 
-%     of the integration. 
+%     LimitOrder. LimitOrder integer serves as the indicator of 
+%     whether the input xmax < xmin or not, and is assigned the 
+%     value “-1” in the former case and the value “1” in the latter 
+%     case. LimitOrder integer is also used to assign the proper 
+%     color scheme to the optional visualization of the integration. 
 
 if xmax < xmin
     [xmax, xmin] = deal(xmin, xmax);
-    BoundaryOrder = -1;
+    LimitOrder = -1;
 else
-    BoundaryOrder = 1;
+    LimitOrder = 1;
 end
 
 %     If Psacc == 0, the basic mode of integration is the only 
@@ -157,7 +156,7 @@ end
 %     visualized by the use of the DrawZIntegA function.
 
 if figr ~= 0
-    DrawZIntegA(x, y, Ipoints, Smatrix, xmin, xmax, BoundaryOrder, figr);
+    DrawZIntegA(x, y, Ipoints, Smatrix, xmin, xmax, LimitOrder, figr);
 end
 
 %     Finally, the integral is calculated by summing the appropriate 
@@ -171,7 +170,7 @@ if zonemin == zonemax
     ZIntegA = SubZIntegralA(x(Smatrix(zonemin, :)), y(Smatrix(zonemin, :)), xmin, xmax);
 else
     ZIntegA = SubZIntegralA(x(Smatrix(zonemin, :)), y(Smatrix(zonemin, :)), xmin, Ipoints(zonemin + 1)) + SubZIntegralA(x(Smatrix(zonemax, :)), y(Smatrix(zonemax, :)), Ipoints(zonemax), xmax);
-    if zonemax-1 ~= zonemin
+    if zonemax - 1 ~= zonemin
         for i = 1 : zonemax - zonemin - 1
             ZIntegA = ZIntegA + SubZIntegralA(x(Smatrix(zonemax - i, :)), y(Smatrix(zonemax - i, :)), Ipoints(zonemax - i), Ipoints(zonemax - i + 1));
         end
@@ -181,7 +180,7 @@ end
 %     In the following line, if the input xmax < xmin, ZIntegA is 
 %     multiplied by "-1".
 
-ZIntegA = ZIntegA * BoundaryOrder;
+ZIntegA = ZIntegA * LimitOrder;
 
 end
 
@@ -386,7 +385,7 @@ end
 
 end
 
-function DrawZIntegA(x, y, Ipoints,  Smatrix, xmin, xmax, BoundaryOrder, figr)
+function DrawZIntegA(x, y, Ipoints,  Smatrix, xmin, xmax, LimitOrder, figr)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
@@ -426,7 +425,7 @@ function DrawZIntegA(x, y, Ipoints,  Smatrix, xmin, xmax, BoundaryOrder, figr)
 % of integration. The limits do not have to be contained in the 
 % [min(x), max(x)] interval. 
 % 
-% BoundaryOrder is the indicator of whether the original input 
+% LimitOrder is the indicator of whether the original input 
 % xmax < xmin or not, and has the value “-1” in the former case 
 % and the value “1” in the latter case. 
 % 
@@ -446,7 +445,7 @@ hold on;
 
 len_Ipoints = length(Ipoints);
 
-if BoundaryOrder == 1
+if LimitOrder == 1
     ColorFace = [0, 0, 1];
 else
     ColorFace = [1, 0, 0];

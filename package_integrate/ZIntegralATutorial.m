@@ -43,8 +43,8 @@ V = [1.000000000000000; 1.909297426825682;
     0.712096683334935];
 x = t;
 y = V; 
-xmin = 0;   % Lower integration boundary. 
-xmax = 8;   % Upper integration boundary. 
+xmin = 0;   % Lower integration limit. 
+xmax = 8;   % Upper integration limit. 
 Psacc = 0; % Pseudo-order of accuracy. 
 mode = 0;   % Mode of integration. See later. 
 figr = 1;   % Figure number for the plot. 
@@ -83,8 +83,8 @@ V = [1.000000000000000; 1.909297426825682;
     0.712096683334935];
 x = t;
 y = V; 
-xmin = 0;   % Lower integration boundary. 
-xmax = 8;   % Upper integration boundary. 
+xmin = 0;   % Lower integration limit. 
+xmax = 8;   % Upper integration limit. 
 Psacc = 3; % Pseudo-order of accuracy. 
 mode = 1;   % Mode of integration. See later. 
 figr = 1;   % Figure number for the plot. 
@@ -120,8 +120,8 @@ V = [1.000000000000000; 1.909297426825682;
     0.712096683334935];
 x = t;
 y = V; 
-xmin = 0;	% Lower integration boundary. 
-xmax = 8;	% Upper integration boundary. 
+xmin = 0;	% Lower integration limit. 
+xmax = 8;	% Upper integration limit. 
 Psacc = 9 - 1; % Pseudo-order of accuracy. 
 mode = 1;	% Mode of integration. See later. 
 figr = 1;	% Figure number for the plot. 
@@ -147,8 +147,8 @@ clearvars X;
 
 x = [0; 1; 3; 5; 8; 35; 37; 40; 45];
 y = [10; 9; 8; 11; 13; 5; 4; 3; 2];
-xmin = 0;   % Lower integration boundary. 
-xmax = 45;   % Upper integration boundary. 
+xmin = 0;   % Lower integration limit. 
+xmax = 45;   % Upper integration limit. 
 Psacc = 3;	% Pseudo-order of accuracy. 
 mode = 1;   % Mode of integration. 
 figr = 1;   % Figure number for the plot. 
@@ -161,8 +161,8 @@ clearvars  ZIntegA;
 
 x = [-3; -2; 3; 4; 5; 8];
 y = sin(x);
-xmin = -2;   % Lower integration boundary. 
-xmax = 4;	% Upper integration boundary. 
+xmin = -2;   % Lower integration limit. 
+xmax = 4;	% Upper integration limit. 
 Psacc = 2;	% Pseudo-order of accuracy. 
 mode = 0;	% Mode of integration. 
 figr=1;	% Figure number for the plot. 
