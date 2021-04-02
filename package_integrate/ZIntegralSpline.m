@@ -128,6 +128,7 @@ end
 
 %     In the following lines, if 0 ~= 0, the numerical integration is 
 %     visualized by the use of the DrawZIntegA function.
+
 if length(varargin) == 1
     DrawZIntegA(x, y, ppData, xmin, xmax, BoundaryOrder, varargin{1});
 end
@@ -139,22 +140,17 @@ end
 %     and xmax are located and the integrals of parts of the 
 %     intervals in which xmin and/or xmax are located.
 
-ppInteg.coefs                                                                                   %% Tu je problem
-breaksReal
-
 if zonemin == zonemax
-    ZIntegSpl = ppval(ppInteg, xmax) - ppval(ppInteg, xmin);
+    ppIntegPartial = mkpp([breaks(zonemin); breaks(zonemin + 1)], coefsInteg(zonemin , :));
+    ZIntegSpl = ppval(ppIntegPartial, xmax) - ppval(ppIntegPartial, xmin);
 else
-    ppIntegPartialzonemin = mkpp([breaksReal(zonemin); breaksReal(zonemin + 1)], coefsInteg(zonemin , :));
-    ppIntegPartialzonemax = mkpp([breaksReal(zonemax); breaksReal(zonemax + 1)], coefsInteg(zonemax, :));
+    ppIntegPartialzonemin = mkpp([breaks(zonemin); breaks(zonemin + 1)], coefsInteg(zonemin , :));
+    ppIntegPartialzonemax = mkpp([breaks(zonemax); breaks(zonemax + 1)], coefsInteg(zonemax, :));
     ZIntegSpl = (ppval(ppIntegPartialzonemax, xmax) - ppval(ppIntegPartialzonemax, breaksReal(zonemax))) + (ppval(ppIntegPartialzonemin, breaksReal(zonemin + 1)) - ppval(ppIntegPartialzonemin, xmin));
     if zonemax - 1 ~= zonemin
         for i = 1 : zonemax - zonemin - 1
-            ppIntegPartial = mkpp([breaksReal(zonemin + i); breaksReal(zonemin + i + 1)], coefsInteg(zonemin + i, :));
-            [breaksReal(zonemin + i); breaksReal(zonemin + i + 1)]
-            coefsInteg(zonemin + i, :)
+            ppIntegPartial = mkpp([breaks(zonemin + i); breaks(zonemin + i + 1)], coefsInteg(zonemin + i, :));
             ZIntegSpl = ZIntegSpl + (ppval(ppIntegPartial, breaksReal(zonemin + i + 1)) - ppval(ppIntegPartial, breaksReal(zonemin + i)));
-%             ZIntegSpl = ZIntegSpl + (ppval(ppInteg, breaksReal(zonemax - i + 1)) - ppval(ppInteg, breaksReal(zonemax - i)));
             ppval(ppInteg, breaksReal(zonemax - i))
         end
     end
