@@ -1,4 +1,4 @@
-function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
+function ZIntegA = ZIntegralA(xData, yData, xmin, xmax, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
@@ -79,11 +79,57 @@ function ZIntegA = ZIntegralA(x, y, xmin, xmax, Psacc, mode, figr)
 % further augmented. See the description of the two functions 
 % for further details. 
 
+pars = inputParser;
+
+paramName = 'xData';
+errorMsg = '''xData'' must be a column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'yData';
+errorMsg = '''yData'' must be a column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'xmin';
+errorMsg = '''xmin'' must be a scalar number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'xmax';
+errorMsg = '''xmax'' must be a scalar number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'PseudoAccuracy';
+defaultVal = 3;
+errorMsg = '''PseudoAccuracy'' must be a natural number, lower than ''length(xData)''.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    x >= 0 && mod(x,1) == 0 && x < length(xData), errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn)
+
+paramName = 'Mode';
+defaultVal = 1;
+errorMsg = '''Mode'' must be either ''0'', ''1'', or ''2''.';
+validationFcn = @(x)assert(x == 0 || x == 1 || x == 2, errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn)
+
+paramName = 'Figure';
+defaultVal = 0;
+errorMsg = '''Figure'' must be a natural number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && x > 0 ...
+    && mod(x,1) == 0, errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn)
+
+parse(pars, xData, yData, xmin, xmax, varargin{:});
+
+% p.Results.Psacc
+% Psacc=p.Results.Psacc
 
 %     In the following lines, the x and y values are sorted.
 
-[x, I] = sort(x);
-y = y(I);
+[xData, I] = sort(xData);
+yData = yData(I);
 
 %     In the following lines, the xmin and xmax values are set so 
 %     that xmax > xmin. To account for the case of xmax < xmin, 
@@ -104,7 +150,7 @@ end
 %     If Psacc == 0, the basic mode of integration is the only 
 %     sensible one. 
 
-if Psacc == 0
+if psacc == 0
     mode = 0;
 end
 
@@ -121,13 +167,13 @@ end
 %     (i.e. if mode == 2). 
 
 if mode == 0
-    [Ipoints, Smatrix] = GetPointsZIntegralA0(x, Psacc + 1);
+    [Ipoints, Smatrix] = GetPointsZIntegralA0(xData, psacc + 1);
 else
     if mode == 1
-        [Ipoints, Smatrix] = GetPointsZIntegralA1(x, Psacc + 1);
+        [Ipoints, Smatrix] = GetPointsZIntegralA1(xData, psacc + 1);
     else
         if mode == 2
-            [Ipoints, Smatrix] = GetPointsZIntegralA2(x, Psacc + 1);
+            [Ipoints, Smatrix] = GetPointsZIntegralA2(xData, psacc + 1);
         end
     end
 end
@@ -156,7 +202,7 @@ end
 %     visualized by the use of the DrawZIntegA function.
 
 if figr ~= 0
-    DrawZIntegA(x, y, Ipoints, Smatrix, xmin, xmax, LimitOrder, figr);
+    DrawZIntegA(xData, yData, Ipoints, Smatrix, xmin, xmax, LimitOrder, figr);
 end
 
 %     Finally, the integral is calculated by summing the appropriate 
@@ -167,12 +213,12 @@ end
 %     intervals in which xmin and/or xmax are located.
 
 if zonemin == zonemax
-    ZIntegA = SubZIntegralA(x(Smatrix(zonemin, :)), y(Smatrix(zonemin, :)), xmin, xmax);
+    ZIntegA = SubZIntegralA(xData(Smatrix(zonemin, :)), yData(Smatrix(zonemin, :)), xmin, xmax);
 else
-    ZIntegA = SubZIntegralA(x(Smatrix(zonemin, :)), y(Smatrix(zonemin, :)), xmin, Ipoints(zonemin + 1)) + SubZIntegralA(x(Smatrix(zonemax, :)), y(Smatrix(zonemax, :)), Ipoints(zonemax), xmax);
+    ZIntegA = SubZIntegralA(xData(Smatrix(zonemin, :)), yData(Smatrix(zonemin, :)), xmin, Ipoints(zonemin + 1)) + SubZIntegralA(xData(Smatrix(zonemax, :)), yData(Smatrix(zonemax, :)), Ipoints(zonemax), xmax);
     if zonemax - 1 ~= zonemin
         for i = 1 : zonemax - zonemin - 1
-            ZIntegA = ZIntegA + SubZIntegralA(x(Smatrix(zonemax - i, :)), y(Smatrix(zonemax - i, :)), Ipoints(zonemax - i), Ipoints(zonemax - i + 1));
+            ZIntegA = ZIntegA + SubZIntegralA(xData(Smatrix(zonemax - i, :)), yData(Smatrix(zonemax - i, :)), Ipoints(zonemax - i), Ipoints(zonemax - i + 1));
         end
     end
 end
