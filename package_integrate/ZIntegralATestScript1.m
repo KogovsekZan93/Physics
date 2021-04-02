@@ -17,9 +17,9 @@ xData = [-3; -2; 3; 4; 5; 8];
 yData = sin(xData);
 xmin = -2;   % Lower integration limit. 
 xmax = 4;	% Upper integration limit. 
-Psacc = 4;	% Pseudo-order of accuracy. 
+Psacc = 0;	% Pseudo-order of accuracy. 
 mode = 1;	% Mode of integration. 
-figr = 2;	% Figure number for the plot. 
+figr = 1;	% Figure number for the plot. 
 ZIntegA = ZIntegralA(xData, yData, xmin, xmax, 'Figure', figr,'Mode', mode,'PseudoAccuracy', Psacc);
 xlabel('x'); ylabel('y'); set(gca, 'FontSize', 14);
 xx = linspace(min(xData), max(xData), 1000); yy = sin(xx);
