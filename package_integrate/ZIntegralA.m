@@ -123,8 +123,9 @@ addParameter(pars, paramName, defaultVal, validationFcn)
 
 parse(pars, xData, yData, xmin, xmax, varargin{:});
 
-% p.Results.Psacc
-% Psacc=p.Results.Psacc
+psacc = pars.Results.PseudoAccuracy;
+mode = pars.Results.Mode;
+figr = pars.Results.Figure;
 
 %     In the following lines, the x and y values are sorted.
 
@@ -167,13 +168,13 @@ end
 %     (i.e. if mode == 2). 
 
 if mode == 0
-    [Ipoints, Smatrix] = GetPointsZIntegralA0(xData, psacc + 1);
+    [Ipoints, Smatrix] = GetIntervalEndpointsA0(xData, psacc + 1);
 else
     if mode == 1
-        [Ipoints, Smatrix] = GetPointsZIntegralA1(xData, psacc + 1);
+        [Ipoints, Smatrix] = GetIntervalEndpointsA1(xData, psacc + 1);
     else
         if mode == 2
-            [Ipoints, Smatrix] = GetPointsZIntegralA2(xData, psacc + 1);
+            [Ipoints, Smatrix] = GetIntervalEndpointsA2(xData, psacc + 1);
         end
     end
 end
@@ -227,207 +228,6 @@ end
 %     multiplied by "-1".
 
 ZIntegA = ZIntegA * LimitOrder;
-
-end
-
-function [Ipoints, Smatrix] = GetPointsZIntegralA0(x, n)
-%% Basic border points of intervals I(k) calculation
-% 
-% Author: Žan Kogovšek
-% Date: 20.2.2021
-% 
-%% Description
-% 
-% Given the values x(i) of the independent variable X and a 
-% natural number n, this function returns the vector Ipoints and 
-% the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n values of the 
-% x vector for each I(k) interval such that for any point P in the 
-% I(k) interval, the elements of the S(k) set are the closest n 
-% values of the x vector to the P point. The borders of the I(k) 
-% intervals are represented by the vector Ipoints and the sets 
-% S(k) are represented by the matrix Smatrix. 
-%  
-%% Variables
-% 
-% This function has the form of 
-% [Ipoints, Smatrix] = GetPointsZDerivativeA0(x, n)
-% 
-% x is the vector of the aforementioned values x(i) of the 
-% independent variable X. x has to be a column vector of real 
-% numbers and has to be sorted (i.e. it is required for x(i) > x(j) 
-% for every i > j). 
-% 
-% n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector, the same n values of the x vector (their indices 
-% are given in the k-th row of the Smatrix matrix) are the closest 
-% n values of the x vector to any point in the I(k) interval. 
-% 
-% Ipoints is a column vector representing the I(k) intervals. Each 
-% interval I(k) is [Ipoints(k), Ipoints(k + 1)]. 
-% 
-% Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% indices of the closest n values of the x vector to any point in 
-% the I(k) interval. 
-
-
-len = length(x);
-
-Ipoints = zeros(len - n + 2,1);
-Ipoints(1) = - inf;
-Ipoints(2 : len - n + 1) = (x(1 : len - n) + x(n + 1 : len)) / 2;
-Ipoints(len - n + 2) = inf;
-
-Smatrix = zeros(len - n + 1, n);
-for i = 1 : len - n + 1
-    Smatrix(i, 1 : n) = (1 : n) + i - 1;
-end
-
-end
-
-function [Ipoints, Smatrix] = GetPointsZIntegralA1(x, n)
-%% First augmented border points of intervals I(k) 
-%% calculation
-%
-% Author: Žan Kogovšek
-% Date: 20.2.2021
-% 
-%% Description
-% 
-% Given the values x(i) of the independent variable X and a 
-% natural number n, this function returns the vector Ipoints and 
-% the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n values of the 
-% x vector for each I(k) interval such that for any point P in the 
-% I(k) interval, the elements of the S(k) set are the closest n 
-% values of the x vector to the P point. The I(k) intervals can be 
-% further augmented so that for each I(k) interval (except for the 
-% I(k) intervals at least one of the limits of which is either inf or 
-% -inf), the I(k) interval is contained in the [min(S(k)), max(S(k))]. 
-% This way, extrapolation of the Lagrange polynomials in the 
-% numerical integration is prevented for all possible I(k) intervals. 
-% The borders of the augmented I(k) intervals are represented 
-% by the vector Ipoints and the S(k) sets are represented by the 
-% matrix Smatrix. 
-%  
-%% Variables
-% 
-% This function has the form of 
-% [Ipoints, Smatrix] = GetPointsZDerivativeA1(x, n)
-% 
-% x is the vector of the aforementioned values x(i) of the 
-% independent variable X. x has to be a column vector of real 
-% numbers and has to be sorted (i.e. it is required for x(i) > x(j) 
-% for every i > j). 
-% 
-% n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector, the same n values of the x vector (their indices 
-% are given in the k-th row of the Smatrix matrix) are the closest 
-% n values of the x vector to any point in the I(k) interval with the 
-% constraint that every I(k) interval (except for the I(k) intervals at 
-% least one of the limits of which is either inf or -inf) has to be 
-% contained in the interval 
-% [min(x(Smatrix(k, :))), max(x(Smatrix(k, :)))]. 
-% 
-% Ipoints is a column vector representing the I(k) intervals. Each 
-% interval I(k) is [Ipoints(k), Ipoints(k + 1)]. 
-% 
-% Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% indices of the closest n values of the x vector to any point in 
-% the I(k) interval with the constraint that every I(k) interval 
-% (except for the I(k) intervals at least one of the limits of which 
-% is either inf or -inf) has to be contained in the interval 
-% [min(x(Smatrix(k, :))), max(x(Smatrix(k, :)))]. 
-
-len = length(x);
-
-[Ipoints, Smatrix] = GetPointsZIntegralA0(x, n);
-
-for i = 1 : len - n
-    if Ipoints(i + 1) > x(Smatrix(i, end))
-        Ipoints(i + 1) = x(Smatrix(i, end));
-    end
-end
-
-for i = 2 : len - n + 1
-    if Ipoints(i, 1) < x(Smatrix(i, 1))
-        Ipoints(i) = x(Smatrix(i, 1));
-    end
-end
-
-end
-
-function [Ipoints, Smatrix] = GetPointsZIntegralA2(x, n)
-%% Second augmented border points of intervals I(k) 
-%% calculation
-% 
-% Author: Žan Kogovšek
-% Date: 20.2.2021
-% 
-%% Description
-% 
-% Given the values x(i) of the independent variable X and a 
-% natural number n, this function returns the vector Ipoints and 
-% the matrix Smatrix. The X variable can be divided into intervals 
-% I(k) in such a way that there exists a set S(k) of n values of the 
-% x vector for each I(k) interval such that for any point P in the 
-% I(k) interval, the elements of the S(k) set are the closest n 
-% values of the x vector to the P point. The I(k) intervals can be 
-% further augmented so that for each I(k) interval (except for the 
-% I(k) intervals at least one of the limits of which is either inf or 
-% -inf) the I(k) interval is contained in the interval between the 
-% middle two (if n is even) or middle three (if n is odd) points of 
-% S(k). This way, the Lagrange polynomials are integrated only in 
-% such I(k) intervals in which the approximation of the f function 
-% may have the greatest fidelity. The borders of the augmented 
-% I(k) intervals are represented by the vector Ipoints and the S(k) 
-% sets are represented by the matrix Smatrix. 
-%  
-%% Variables
-% 
-% This function has the form of 
-% [Ipoints, Smatrix] = GetPointsZDerivativeA2(x, n)
-% 
-% x is the vector of the aforementioned values x(i) of the 
-% independent variable X. x has to be a column vector of real 
-% numbers and has to be sorted (i.e. it is required for x(i) > x(j) 
-% for every i > j). 
-% 
-% n is a natural number. In each interval I(k), represented by the 
-% Ipoints vector, the same n values of the x vector (their indices 
-% are given in the k-th row of the Smatrix matrix) are the closest 
-% n values of the x vector to any point in the I(k) interval with the 
-% constraint that every I(k) interval (except for the I(k) intervals at 
-% least one of the limits of which is either inf or -inf) has to be 
-% contained in the interval between the middle two (if n is even) 
-% or middle three (if n is odd) S(k) elements. 
-% 
-% Ipoints is a column vector representing the I(k) intervals. Each 
-% interval I(k) is [Ipoints(k), Ipoints(k + 1)]. 
-% 
-% Smatrix is a matrix. The values of each row Smatrix(k, :) are 
-% indices of the closest n values of the x vector to any point in 
-% the I(k) interval with the constraint that every I(k) interval 
-% (except for the I(k) intervals at least one of the limits of which 
-% is either inf or -inf) has to be contained in the interval between 
-% the middle two (if n is even) or middle three (if n is odd) S(k) 
-% points. 
-
-
-len = length(x);
-
-[Ipoints, Smatrix] = GetPointsZIntegralA0(x, n);
-
-for i = 1 : len - n
-    if Ipoints(i + 1) > x(Smatrix(i, floor((n + 3) / 2)))
-        Ipoints(i + 1) = x(Smatrix(i, floor((n + 3) / 2)));
-    end
-end
-for i = 2 : len - n + 1
-    if Ipoints(i) < x(Smatrix(i, ceil((n - 1) / 2)))
-        Ipoints(i) = x(Smatrix(i, ceil((n - 1) / 2)));
-    end
-end
 
 end
 
