@@ -1,11 +1,9 @@
 function p = ConstructPolynomial(xData, yData)
 
-n = length(xData);
-A = ones(n, n);
-for j = 2 : n
-    A(:,j) = power(xData, j - 1);
-end
-a = linsolve(A, yData);
+xDataLength = length(xData);
+
+a = GetPolynomialCoefficients(xData, yData, xDataLength);
+
 p = flipud(a);
 
 end

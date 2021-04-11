@@ -1,15 +1,16 @@
 xData = [0;1;2;3;4;5;6;12;15;16;17;18];
 yData = sin(xData) + 1;
-number = 4;
+number = 2;
 [Ipoints, Smatrix] = GetIntervalEndpointsA1(xData, number);
-Psacc = number - 1;
 mode = 1;
 % xEvaluate = [-1;1;0.1;0.2;0.4;1.5;2.2;4.6;8.3;19;20];
-xmax= 15;
-xmin = 0.5;
-xEvaluate = (linspace(xmin,xmax,10000))';
-xIntegrate = xEvaluate;
-yIntegrate = SmatrixIpointsIntegralValue(xData, yData, Ipoints, Smatrix, xIntegrate);
+xmax= 23;
+xmin = -2;
+xEvaluate = (linspace(xmin,xmax,1000))';
+% xEvaluate = [1;2;3;4;5;6;7;8] + 0.1;
+ordDeriv = 1;
+xDerivative = xEvaluate;
+yDerivative = SmatrixIpointsDerivativeValue(xData, yData, Ipoints, Smatrix, xDerivative, ordDeriv);
 yEvaluate = SmatrixIpointsFunctionValue(xData, yData, Ipoints, Smatrix, xEvaluate);
 figure(1);
 clf;
@@ -20,10 +21,14 @@ grid on;
 
 figure(2);
 clf;
-plot(xIntegrate, yIntegrate,'b');
+plot(xDerivative, yDerivative,'b');
 grid on;
-SmatrixIpointsIntegralValue(xData, yData, Ipoints, Smatrix, [xmin;xmax])
-ZIntegralA(xData, yData, xmin, xmax, 'PseudoAccuracy', Psacc, 'Mode', mode, 'Figure', 3)
+yDerivative=SmatrixIpointsDerivativeValue(xData, yData, Ipoints, Smatrix, xDerivative, ordDeriv);
+Acc = number - ordDeriv;
+xDeriv = xDerivative;
+figr = 0;
+yDeriv = ZDerivativeA(xData, yData, ordDeriv, Acc, xDeriv, figr, mode);
+sum(abs(yDeriv - yDerivative))
 
 % tic;SmatrixIpointsIntegralValue(xData, yData, Ipoints, Smatrix, [xmin;xmax]);toc;
 % tic;ZIntegralA(xData, yData, xmin, xmax, 'PseudoAccuracy', Psacc, 'Mode', mode);toc;

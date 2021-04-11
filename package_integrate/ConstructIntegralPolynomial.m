@@ -1,16 +1,8 @@
-function p = ConstructIntegralPolynomial(xData, yData)
-n = length(xData);
-A = ones(n, n);
-for i = 2 : n
-    A(:, i) = power(xData, i - 1);
-end
-a = linsolve(A, yData);
+function pIntegral = ConstructIntegralPolynomial(xData, yData)
+xDataLength = length(xData);
 
-for i = 1 : n
-    a(i) = a(i) / i;
-end
-a = [0; a];
+a = [0; GetPolynomialCoefficients(xData, yData, xDataLength)./(1 : xDataLength)'];
 
-p = flipud(a);
+pIntegral = flipud(a);
 
 end

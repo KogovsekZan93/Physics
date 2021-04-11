@@ -5,32 +5,32 @@ function yIntegrate = SmatrixIpointsIntegralValue(xData, yData, Ipoints, Smatrix
 j = 2;
 a = 1;
 
-xIntegratelength = length(xIntegrate);
-yIntegrate = zeros(xIntegratelength, 1);
+xIntegrateLength = length(xIntegrate);
+yIntegrate = zeros(xIntegrateLength, 1);
 
 while Ipoints(j) <= xIntegrate(1)
     j = j +1;
 end
 
-p = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+pIntegral = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
 
 Summa = 0;
 
-for b = 2 : xIntegratelength
+for b = 2 : xIntegrateLength
     if xIntegrate(b) >= Ipoints(j)
-        yIntegrate(a : b - 1) = Summa + polyval(p, xIntegrate(a : b - 1)) - polyval(p, xIntegrate(a));
-        Summa = yIntegrate(b - 1) + polyval(p, Ipoints(j)) - polyval(p, xIntegrate(b - 1));
+        yIntegrate(a : b - 1) = Summa + polyval(pIntegral, xIntegrate(a : b - 1)) - polyval(pIntegral, xIntegrate(a));
+        Summa = yIntegrate(b - 1) + polyval(pIntegral, Ipoints(j)) - polyval(pIntegral, xIntegrate(b - 1));
         j = j + 1;
         while Ipoints(j) <= xIntegrate(b)
-            p = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
-            Summa = Summa + polyval(p, Ipoints(j)) - polyval(p, Ipoints(j - 1));
+            pIntegral = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+            Summa = Summa + polyval(pIntegral, Ipoints(j)) - polyval(pIntegral, Ipoints(j - 1));
             j = j +1;
         end
         a = b;
-        p = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+        pIntegral = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
     end
 end
 
-yIntegrate(a : end) = Summa + polyval(p, xIntegrate(a : end)) - polyval(p, max(Ipoints(j - 1), xIntegrate(max(a - 1, 1))));
+yIntegrate(a : end) = Summa + polyval(pIntegral, xIntegrate(a : end)) - polyval(pIntegral, max(Ipoints(j - 1), xIntegrate(max(a - 1, 1))));
 
 end
