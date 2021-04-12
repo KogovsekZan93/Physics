@@ -1,4 +1,4 @@
-function ZIntegSpl = ZIntegralSpline(x, y, xmin, xmax, varargin)
+function yIntegralSpline = ZIntegralSpline_Revised(xData, yData, xIntegralSpline, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
@@ -82,13 +82,12 @@ function ZIntegSpl = ZIntegralSpline(x, y, xmin, xmax, varargin)
 
 %     In the following lines, the x and y values are sorted.
 
-pp = spline(x, y);
+pp = spline(xData, yData);
 [breaks, coefs, ~, ~, ~] = unmkpp(pp);
 ppData = mkpp(breaks, coefs);
 coefsLength = length(coefs);
 coefsInteg = [times(coefs, repmat([1/4, 1/3, 1/2, 1], coefsLength, 1)), zeros(coefsLength,1)];
 
-ppInteg = mkpp(breaks, coefsInteg);
 
 %     In the following lines, the xmin and xmax values are set so 
 %     that xmax > xmin. To account for the case of xmax < xmin, 
@@ -100,37 +99,17 @@ ppInteg = mkpp(breaks, coefsInteg);
 %     assign the proper color scheme to the optional visualization 
 %     of the integration. 
 
-if xmax < xmin
-    [xmax, xmin] = deal(xmin, xmax);
-    BoundaryOrder = -1;
-else
-    BoundaryOrder = 1;
-end
-
 breaksReal = breaks;
 breaksReal(1) = - inf; 
 breaksReal(end) = inf;
-breaksRealLength = length(breaksReal);
 
-for i = 2 : breaksRealLength
-    if breaksReal(i) >= xmin
-        zonemin = i - 1;
-        break;
-    end
-end
-
-for i = 2 : breaksRealLength
-    if breaksReal(i) >= xmax
-        zonemax = i - 1;
-        break;
-    end
-end
+BoundaryOrder = 1;
 
 %     In the following lines, if 0 ~= 0, the numerical integration is 
 %     visualized by the use of the DrawZIntegA function.
 
 if length(varargin) == 1
-    DrawZIntegA(x, y, ppData, xmin, xmax, BoundaryOrder, varargin{1});
+    DrawZIntegA(xData, yData, ppData, min(xIntegralSpline), max(xIntegralSpline), BoundaryOrder, varargin{1});
 end
 
 %     Finally, the integral is calculated by summing the appropriate 
@@ -140,26 +119,41 @@ end
 %     and xmax are located and the integrals of parts of the 
 %     intervals in which xmin and/or xmax are located.
 
-if zonemin == zonemax
-    ppIntegPartial = mkpp([breaks(zonemin); breaks(zonemin + 1)], coefsInteg(zonemin , :));
-    ZIntegSpl = ppval(ppIntegPartial, xmax) - ppval(ppIntegPartial, xmin);
-else
-    ppIntegPartialzonemin = mkpp([breaks(zonemin); breaks(zonemin + 1)], coefsInteg(zonemin , :));
-    ppIntegPartialzonemax = mkpp([breaks(zonemax); breaks(zonemax + 1)], coefsInteg(zonemax, :));
-    ZIntegSpl = (ppval(ppIntegPartialzonemax, xmax) - ppval(ppIntegPartialzonemax, breaksReal(zonemax))) + (ppval(ppIntegPartialzonemin, breaksReal(zonemin + 1)) - ppval(ppIntegPartialzonemin, xmin));
-    if zonemax - 1 ~= zonemin
-        for i = 1 : zonemax - zonemin - 1
-            ppIntegPartial = mkpp([breaks(zonemin + i); breaks(zonemin + i + 1)], coefsInteg(zonemin + i, :));
-            ZIntegSpl = ZIntegSpl + (ppval(ppIntegPartial, breaksReal(zonemin + i + 1)) - ppval(ppIntegPartial, breaksReal(zonemin + i)));
-%             ppval(ppInteg, breaksReal(zonemax - i))
+j = 2;
+a = 1;
+
+xIntegralSplineLength = length(xIntegralSpline);
+yIntegralSpline = zeros(xIntegralSplineLength, 1);
+
+while breaksReal(j) <= xIntegralSpline(1)
+    j = j +1;
+end
+
+ppIntegralSpline = mkpp([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
+
+Summa = 0;
+
+for b = 2 : xIntegralSplineLength
+    if xIntegralSpline(b) >= breaksReal(j)
+        yIntegralSpline(a : b - 1) = Summa + ppval(ppIntegralSpline, xIntegralSpline(a : b - 1)) - ppval(ppIntegralSpline, xIntegralSpline(a));
+        Summa = yIntegralSpline(b - 1) + ppval(ppIntegralSpline, breaks(j)) - ppval(ppIntegralSpline, xIntegralSpline(b - 1));
+        j = j + 1;
+        while breaksReal(j) <= xIntegralSpline(b)
+            ppIntegralSpline = mkpp([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
+            Summa = Summa + ppval(ppIntegralSpline, breaks(j)) - ppval(ppIntegralSpline, breaks(j - 1));
+            j = j +1;
         end
+        a = b;
+        ppIntegralSpline = mkpp([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
     end
 end
+
+yIntegralSpline(a : end) = Summa + ppval(ppIntegralSpline, xIntegralSpline(a : end)) - ppval(ppIntegralSpline, max(breaks(j - 1), xIntegralSpline(max(a - 1, 1))));
 
 %     In the following line, if the input xmax < xmin, ZIntegA is 
 %     multiplied by "-1".
 
-ZIntegSpl = ZIntegSpl * BoundaryOrder;
+yIntegralSpline = yIntegralSpline * BoundaryOrder;
 
 end
 
