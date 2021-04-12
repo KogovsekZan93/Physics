@@ -1,8 +1,8 @@
-function pIntegral = ConstructIntegralPolynomial(xData, yData)
+function pIntegralA = ConstructIntegralPolynomial(xData, yData)
 xDataLength = length(xData);
 
 a = [0; GetPolynomialCoefficients(xData, yData, xDataLength)./(1 : xDataLength)'];
 
-pIntegral = flipud(a);
+pIntegralA = flipud(a);
 
 end

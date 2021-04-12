@@ -1,4 +1,4 @@
-function pDerivative = ConstructDerivativePolynomial(xData, yData, ordDeriv)
+function pDerivativeA = ConstructDerivativePolynomial(xData, yData, ordDeriv)
 xDataLength = length(xData);
 
 a = GetPolynomialCoefficients(xData, yData, xDataLength);
@@ -9,6 +9,6 @@ end
 
 a = a(ordDeriv + 1 : end);
 
-pDerivative = flipud(a);
+pDerivativeA = flipud(a);
 
 end

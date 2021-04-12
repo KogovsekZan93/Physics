@@ -1,4 +1,4 @@
-function yEvaluate = SmatrixIpointsFunctionValue(xData, yData, Ipoints, Smatrix, xEvaluate)
+function yEvaluate = SmatrixIpointsFunctionValue(xData, yData, xEvaluate, Ipoints, Smatrix)
 %SMATRIXIPOINTSFUNCTIONVALUE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,20 +12,20 @@ while Ipoints(j) <= xEvaluate(1)
     j = j +1;
 end
 
-p = ConstructPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+pA = ConstructPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
 
 for b = 2 : xEvaluateLength
     if xEvaluate(b) >= Ipoints(j)
-        yEvaluate(a : b - 1) = polyval(p, xEvaluate(a : b - 1));
+        yEvaluate(a : b - 1) = polyval(pA, xEvaluate(a : b - 1));
         j = j + 1;
         while Ipoints(j) <= xEvaluate(b)
             j = j +1;
         end
         a = b;
-        p = ConstructPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+        pA = ConstructPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
     end
 end
 
-yEvaluate(a : end) = polyval(p, xEvaluate(a : end));
+yEvaluate(a : end) = polyval(pA, xEvaluate(a : end));
 
 end

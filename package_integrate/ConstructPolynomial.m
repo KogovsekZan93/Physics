@@ -1,9 +1,9 @@
-function p = ConstructPolynomial(xData, yData)
+function pA = ConstructPolynomial(xData, yData)
 
 xDataLength = length(xData);
 
 a = GetPolynomialCoefficients(xData, yData, xDataLength);
 
-p = flipud(a);
+pA = flipud(a);
 
 end
