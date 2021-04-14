@@ -1,6 +1,6 @@
 xData = [0;1;2;3;4;5;6;12;15;16;17;18];
 yData = sin(xData) + 1;
-number = 2;
+number = 3;
 [Ipoints, Smatrix] = GetIntervalEndpointsA1(xData, number);
 mode = 1;
 % xEvaluate = [-1;1;0.1;0.2;0.4;1.5;2.2;4.6;8.3;19;20];
@@ -10,7 +10,7 @@ xEvaluate = (linspace(xmin,xmax,1000))';
 % xEvaluate = [1;2;3;4;5;6;7;8] + 0.1;
 ordDeriv = 1;
 xDerivative = xEvaluate;
-yDerivative = SmatrixIpointsDerivativeValue(xData, yData, xDerivative, ordDeriv, Ipoints, Smatrix);
+tic;yDerivative = SmatrixIpointsDerivativeValue(xData, yData, xDerivative, ordDeriv, Ipoints, Smatrix);toc;
 yEvaluate = SmatrixIpointsFunctionValue(xData, yData, xEvaluate, Ipoints, Smatrix);
 figure(1);
 clf;

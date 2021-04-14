@@ -22,8 +22,9 @@ figure(2);
 clf;
 plot(xIntegrate, yIntegrate,'b');
 grid on;
-SmatrixIpointsIntegralValue(xData, yData, [xmin;xmax], Ipoints, Smatrix)
-ZIntegralA(xData, yData, xmin, xmax, 'PseudoAccuracy', Psacc, 'Mode', mode, 'Figure', 3)
+A1=SmatrixIpointsIntegralValue(xData, yData, [xmin;xmax], Ipoints, Smatrix)
+A2 = ZIntegralA(xData, yData, xmin, xmax, 'PseudoAccuracy', Psacc, 'Mode', mode, 'Figure', 3)
+A1(2) - A2
 
 % tic;SmatrixIpointsIntegralValue(xData, yData, Ipoints, Smatrix, [xmin;xmax]);toc;
 % tic;ZIntegralA(xData, yData, xmin, xmax, 'PseudoAccuracy', Psacc, 'Mode', mode);toc;
