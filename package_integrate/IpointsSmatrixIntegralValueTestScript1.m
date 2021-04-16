@@ -9,8 +9,8 @@ xmax= 15;
 xmin = 0.5;
 xEvaluate = (linspace(xmin,xmax,10000))';
 xIntegrate = xEvaluate;
-yIntegrate = SmatrixIpointsIntegralValue(xData, yData, xIntegrate, Ipoints, Smatrix);
-yEvaluate = SmatrixIpointsFunctionValue(xData, yData, xEvaluate, Ipoints, Smatrix);
+yIntegrate = IpointsSmatrixIntegralValue(xData, yData, xIntegrate, Ipoints, Smatrix);
+yEvaluate = IpointsSmatrixFunctionValue(xData, yData, xEvaluate, Ipoints, Smatrix);
 figure(1);
 clf;
 hold on;
@@ -22,7 +22,7 @@ figure(2);
 clf;
 plot(xIntegrate, yIntegrate,'b');
 grid on;
-A1=SmatrixIpointsIntegralValue(xData, yData, [xmin;xmax], Ipoints, Smatrix)
+A1=IpointsSmatrixIntegralValue(xData, yData, [xmin;xmax], Ipoints, Smatrix)
 A2 = ZIntegralA(xData, yData, xmin, xmax, 'PseudoAccuracy', Psacc, 'Mode', mode, 'Figure', 3)
 A1(2) - A2
 

@@ -3,7 +3,7 @@ yData = sin(xData);
 [Ipoints, Smatrix] = GetIntervalEndpointsA0(xData, 4);
 % xEvaluate = [-1;1;0.1;0.2;0.4;1.5;2.2;4.6;8.3;19;20];
 xEvaluate = (linspace(-2,23,10000))';
-yEvaluate = SmatrixIpointsFunctionValue(xData, yData, xEvaluate, Ipoints, Smatrix);
+yEvaluate = IpointsSmatrixFunctionValue(xData, yData, xEvaluate, Ipoints, Smatrix);
 figure(1);
 clf;
 hold on;

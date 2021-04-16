@@ -1,4 +1,4 @@
-function yIntegralA = SmatrixIpointsIntegralValue(xData, yData, xIntegralA, Ipoints, Smatrix)
+function yIntegralA = IpointsSmatrixIntegralValue(xData, yData, xIntegralA, Ipoints, Smatrix)
 %SMATRIXIPOINTSFUNCTIONVALUE Summary of this function goes here
 %   Detailed explanation goes here
 
