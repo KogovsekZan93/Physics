@@ -12,7 +12,7 @@ while Ipoints(j) <= xEvaluate(1)
     j = j +1;
 end
 
-pA = ConstructFunctionPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+pA = ConstructFitPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
 
 for b = 2 : xEvaluateLength
     if xEvaluate(b) >= Ipoints(j)
@@ -22,7 +22,7 @@ for b = 2 : xEvaluateLength
             j = j +1;
         end
         a = b;
-        pA = ConstructFunctionPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+        pA = ConstructFitPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
     end
 end
 

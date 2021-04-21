@@ -11,8 +11,8 @@ plot(xEvaluate, yEvaluate,'b');
 plot(xData,yData,'ro');
 grid on;
 
-p = ConstructFunctionPolynomial(xData(Smatrix(1,:)), yData(Smatrix(1,:)));
+p = ConstructFitPolynomial(xData(Smatrix(1,:)), yData(Smatrix(1,:)));
 plot(xEvaluate,polyval(p,xEvaluate),'b');
 
-p = ConstructFunctionPolynomial(xData(Smatrix(2,:)), yData(Smatrix(2,:)));
+p = ConstructFitPolynomial(xData(Smatrix(2,:)), yData(Smatrix(2,:)));
 plot(xEvaluate,polyval(p,xEvaluate),'r');
