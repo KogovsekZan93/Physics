@@ -27,7 +27,7 @@ xIntegral = sort(xIntegralA);
 figr = 1;
 Varargin = {'PseudoAccuracy', psacc, 'Figure', figr, 'Mode', mode};
 % Varargin = {'PseudoAccuracy', psacc, 'Mode', mode}
-yIntegralA = ZIntegralA_Revised(xData, yData, xIntegralA,...
+yIntegralA = ZIndefiniteIntegralA(xData, yData, xIntegralA,...
     Varargin{:});
 toc;
 % ZIntegA_Revised = ZIntegralA_Revised(xData, yData, 'Figure', figr + 1,'Mode', mode,'PseudoAccuracy', Psacc);

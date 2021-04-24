@@ -1,4 +1,4 @@
-function yIntegralA = ZIntegralA_Revised(xData, yData, xIntegralA, varargin)
+function yIndefiniteIntegralA = ZIndefiniteIntegralA(xData, yData, xIntegralA, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
@@ -139,7 +139,7 @@ figr
 %     (i.e. if mode == 2). 
 
 [FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
-[yIntegralA, Ipoints, Smatrix] = ZIntegralABasic(xData, yData, xIntegralA, vararginBasic{:});
+[yIndefiniteIntegralA, Ipoints, Smatrix] = ZIntegralABasic(xData, yData, xIntegralA, vararginBasic{:});
 
 %     In the following lines, if 0 ~= 0, the numerical integration is 
 %     visualized by the use of the DrawZIntegA function.

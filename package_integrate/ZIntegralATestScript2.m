@@ -9,4 +9,4 @@ Limits = [xmin; xmax];
 % Varargin = {'PseudoAccuracy', psacc, 'Figure', figr, 'Mode', mode};
 Varargin = {'Figure', figr, 'Mode', mode};
 
-ZIntegALim = ZIntegralALimits(xData, yData, Limits, Varargin{:});
+ZIntegALim = ZDefiniteIntegralA(xData, yData, Limits, Varargin{:});
