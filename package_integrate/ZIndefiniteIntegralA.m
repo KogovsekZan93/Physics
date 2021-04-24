@@ -139,7 +139,7 @@ figr
 %     (i.e. if mode == 2). 
 
 [FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
-[yIndefiniteIntegralA, Ipoints, Smatrix] = ZIntegralABasic(xData, yData, xIntegralA, vararginBasic{:});
+[yIndefiniteIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, xIntegralA, vararginBasic{:});
 
 %     In the following lines, if 0 ~= 0, the numerical integration is 
 %     visualized by the use of the DrawZIntegA function.

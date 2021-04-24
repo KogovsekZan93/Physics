@@ -6,7 +6,7 @@ function ZDefIntegA = ZDefiniteIntegralA(xData, yData, Limits, varargin)
 
 [FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
 
-[yIntegralA, Ipoints, Smatrix] = ZIntegralABasic(xData, yData, LimitsSorted, vararginBasic{:});
+[yIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, LimitsSorted, vararginBasic{:});
 
 ZDefIntegA = yIntegralA(2) * LimitOrder;
 
