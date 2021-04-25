@@ -12,6 +12,6 @@ ZDefIntegA = yIntegralA(2) * LimitOrder;
 
 DrawZIntegralAInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, Ipoints, Smatrix};
 DrawZIntegralAHandle = @DrawZIntegralA;
-DrawZDecide(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
+DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
 end

@@ -147,7 +147,7 @@ figr
 ColorFace = [0, 0, 1];
 DrawZIntegralAInput = {xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix};
 DrawZIntegralAHandle = @DrawZIntegralA;
-DrawZDecide(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
+DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
 % if figr ~= 0
 %     DrawZIntegralA(figr, xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix);

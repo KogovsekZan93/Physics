@@ -1,4 +1,4 @@
-function DrawZDecide(DrawZFunctionHandle, Parameters, varargin)
+function DecideIfDrawZ(DrawZFunctionHandle, Parameters, varargin)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
