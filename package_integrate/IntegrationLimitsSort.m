@@ -1,6 +1,19 @@
 function [LimitsSorted, LimitOrder, ColorFace] = IntegrationLimitsSort(Limits)
 %INTEGRATIONLIMITSSORT Summary of this function goes here
 %   Detailed explanation goes here
+
+
+pars = inputParser;
+
+paramName = 'Limits';
+errorMsg = '''Limits'' must be a column vector of two numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) ...
+    && length(Limits) == 2, errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, Limits);
+
+
 LimitOrder = 1;
 LimitsSorted = Limits;
 

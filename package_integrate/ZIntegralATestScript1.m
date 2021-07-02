@@ -30,6 +30,8 @@ Varargin = {'PseudoAccuracy', psacc, 'Figure', figr, 'Mode', mode};
 yIntegralA = ZIndefiniteIntegralA(xData, yData, xIntegralA,...
     Varargin{:});
 toc;
+ZDefiniteIntegralA(xData, yData, xIntegralA,...
+    Varargin{:})
 % ZIntegA_Revised = ZIntegralA_Revised(xData, yData, 'Figure', figr + 1,'Mode', mode,'PseudoAccuracy', Psacc);
 
 % xlabel('x'); ylabel('y'); set(gca, 'FontSize', 14);

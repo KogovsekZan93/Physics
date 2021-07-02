@@ -81,79 +81,31 @@ function [yIntegralA, varargout] = ZBasicIntegralA(xData, yData, xIntegralA, var
 % further augmented. See the description of the two functions 
 % for further details. 
 
+
 pars = inputParser;
-
-paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'yData';
-errorMsg = '''yData'' must be a column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'xIntegralA';
-errorMsg = '''xIntegralA'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
 
 paramName = 'PseudoAccuracy';
 defaultVal = 0;
 errorMsg = '''PseudoAccuracy'' must be a whole number, lower than ''length(xData)''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     x >= 0 && mod(x,1) == 0 && x < length(xData), errorMsg);
-addParameter(pars, paramName, defaultVal, validationFcn)
+addParameter(pars, paramName, defaultVal, validationFcn);
 
 paramName = 'Mode';
 defaultVal = 1;
-errorMsg = '''Mode'' must be either ''0'', ''1'', or ''2''.';
-validationFcn = @(x)assert(x == 0 || x == 1 || x == 2, errorMsg);
-addParameter(pars, paramName, defaultVal, validationFcn)
+addParameter(pars, paramName, defaultVal);
 
-parse(pars, xData, yData, xIntegralA, varargin{:});
+parse(pars, varargin{:});
 
 psacc = pars.Results.PseudoAccuracy;
 mode = pars.Results.Mode;
 
-%     In the following lines, the x and y values are sorted.
-
-%     In the following lines, the xmin and xmax values are set so 
-%     that xmax > xmin. To account for the case of xmax < xmin, 
-%     the final result will be multiplied by the integer 
-%     LimitOrder. LimitOrder integer serves as the indicator of 
-%     whether the input xmax < xmin or not, and is assigned the 
-%     value “-1” in the former case and the value “1” in the latter 
-%     case. LimitOrder integer is also used to assign the proper 
-%     color scheme to the optional visualization of the integration. 
-
-%     If Psacc == 0, the basic mode of integration is the only 
-%     sensible one. 
-
-%     In the following line, the borders for the intervals I(k) are 
-%     calculated and given in the vector Ipoints together with the 
-%     corresponding S(k) sets, each of which is represented by 
-%     the corresponding row in the matrix Smatrix, e.i. the 
-%     x(Smatrix(k, :)) values are the closest Psacc + 1 x(i) values 
-%     to each P point in the interval [Ipoints(k), Ipoints(k + 1)]. 
-%     For more details see the GetPointsZIntegralA0 function 
-%     documentation. If mode ~=0, the limits of I(k) are further 
-%     augmented by either the GetPointsZIntegralA1 function 
-%     (i.e. if mode == 1) or the GetPointsZIntegralA2 function 
-%     (i.e. if mode == 2). 
 
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, psacc + 1, mode);
 varargout{1} = Ipoints;
 varargout{2} = Smatrix;
 
-%     In the following line, if the input xmax < xmin, ZIntegA is 
-%     multiplied by "-1".
-
 yIntegralA = IpointsSmatrixIntegralValue(xData, yData, xIntegralA, Ipoints, Smatrix);
 
-%     In the following lines, if 0 ~= 0, the numerical integration is 
-%     visualized by the use of the DrawZIntegA function.
 
 end

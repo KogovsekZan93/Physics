@@ -1,5 +1,17 @@
-function pIntegral = GetIntegralPolynomialCoefficients(p, xDataLength)
+function pIntegral = GetIntegralPolynomialCoefficients(p)
 
-pIntegral = [p./(xDataLength : -1 : 1)'; 0];
+
+pars = inputParser;
+
+paramName = 'p';
+errorMsg = '''p'' must be a column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), ...
+    errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, p);
+
+
+pIntegral = [p./(length(p) : -1 : 1)'; 0];
 
 end

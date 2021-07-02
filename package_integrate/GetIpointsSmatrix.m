@@ -1,6 +1,30 @@
 function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 %GETSMATRIXIPOINTS Summary of this function goes here
 %   Detailed explanation goes here
+
+
+pars = inputParser;
+
+paramName = 'xData';
+errorMsg = '''xData'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'nA';
+errorMsg = '''nA'' must be a natural number, equal to or lower than length(xData).';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    x >= 1 && mod(x,1) == 0 && x < length(xData), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'mode';
+errorMsg = '''mode'' must be either ''0'', ''1'', or ''2''.';
+validationFcn = @(x)assert(x == 0 || x == 1 || x == 2, errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, xData, nA, mode);
+
+
 xDataLength = length(xData);
 
 Ipoints = zeros(xDataLength - nA + 2, 1);
@@ -40,4 +64,3 @@ else
 end
 
 end
-

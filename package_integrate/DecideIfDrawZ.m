@@ -1,4 +1,4 @@
-function DecideIfDrawZ(DrawZFunctionHandle, Parameters, varargin)
+function DecideIfDrawZ(DrawZFunctionHandle, DrawZInput, varargin)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
@@ -49,21 +49,29 @@ function DecideIfDrawZ(DrawZFunctionHandle, Parameters, varargin)
 %     N represents the number of points with which each section 
 %     of the approximation of the function and the integral will be 
 %     plotted. 
+
+
 pars = inputParser;
+
+paramName = 'DrawZFunctionHandle';
+errorMsg = '''DrawZFunctionHandle'' must be a function handle.';
+validationFcn = @(x)assert(isa(x, 'function_handle'), errorMsg);
+addRequired(pars, paramName, validationFcn);
 
 paramName = 'Figure';
 defaultVal = 0;
 errorMsg = '''Figure'' must be a whole number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     x >= 0 && mod(x,1) == 0, errorMsg);
-addParameter(pars, paramName, defaultVal, validationFcn)
+addParameter(pars, paramName, defaultVal, validationFcn);
 
-parse(pars, varargin{:});
+parse(pars, DrawZFunctionHandle, varargin{:});
 
 figr = pars.Results.Figure;
 
+
 if figr ~= 0
-    DrawZFunctionHandle(figr, Parameters{:});
+    DrawZFunctionHandle(figr, DrawZInput{:});
 end
 
 end

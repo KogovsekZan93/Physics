@@ -2,6 +2,43 @@ function yIntegralA = IpointsSmatrixIntegralValue(xData, yData, xIntegralA, Ipoi
 %SMATRIXIPOINTSFUNCTIONVALUE Summary of this function goes here
 %   Detailed explanation goes here
 
+
+pars = inputParser;
+
+paramName = 'xData';
+errorMsg = '''xData'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'yData';
+errorMsg = '''yData'' must be a column vector of numbers which has the same length as ''xData''';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
+    length(xData) == length(yData), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'xIntegralA';
+errorMsg = '''xIntegralA'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'Ipoints';
+errorMsg = '''Ipoints'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'Smatrix';
+errorMsg = '''Smatrix'' must be a matrix of natural numbers which has the same length as ''Ipoints + 1''';
+validationFcn = @(x)assert(isnumeric(x) && ismatrix(x) && ... 
+    length(x) == length(Ipoints) - 1 && ...
+    any(any((mod(x,1) == 0))) && any(any(x > 0)), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, xData, yData, xIntegralA, Ipoints, Smatrix);
+
+
 j = 2;
 a = 1;
 

@@ -81,37 +81,6 @@ function yIndefiniteIntegralA = ZIndefiniteIntegralA(xData, yData, xIntegralA, v
 % further augmented. See the description of the two functions 
 % for further details. 
 
-pars = inputParser;
-
-paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'yData';
-errorMsg = '''yData'' must be a column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'xIntegralA';
-errorMsg = '''xIntegralA'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'Figure';
-defaultVal = 0;
-errorMsg = '''Figure'' must be a whole number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
-    x >= 0 && mod(x,1) == 0, errorMsg);
-addParameter(pars, paramName, defaultVal, validationFcn)
-
-% parse(pars, xData, yData, xIntegralA, varargin{:});
-parse(pars, xData, yData, xIntegralA);
-
-figr = pars.Results.Figure;
-figr
 %     In the following lines, the x and y values are sorted.
 
 %     In the following lines, the xmin and xmax values are set so 
@@ -138,20 +107,24 @@ figr
 %     (i.e. if mode == 1) or the GetPointsZIntegralA2 function 
 %     (i.e. if mode == 2). 
 
+
+pars = inputParser;
+
+paramName = 'xIntegralA';
+errorMsg = '''xIntegralA'' must be a column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), ... 
+    errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, xIntegralA);
+
+
 [FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
 [yIndefiniteIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, xIntegralA, vararginBasic{:});
-
-%     In the following lines, if 0 ~= 0, the numerical integration is 
-%     visualized by the use of the DrawZIntegA function.
 
 ColorFace = [0, 0, 1];
 DrawZIntegralAInput = {xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix};
 DrawZIntegralAHandle = @DrawZIntegralA;
 DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
-% if figr ~= 0
-%     DrawZIntegralA(figr, xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix);
-% end
-
 end
-
