@@ -49,7 +49,7 @@ while Ipoints(j) <= xIntegralA(1)
     j = j +1;
 end
 
-pIntegralA = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+pIntegralA = GetIntegralPolynomialCoefficients(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
 
 Summa = 0;
 
@@ -59,12 +59,12 @@ for b = 2 : xIntegralALength
         Summa = yIntegralA(b - 1) + polyval(pIntegralA, Ipoints(j)) - polyval(pIntegralA, xIntegralA(b - 1));
         j = j + 1;
         while Ipoints(j) <= xIntegralA(b)
-            pIntegralA = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+            pIntegralA = GetIntegralPolynomialCoefficients(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
             Summa = Summa + polyval(pIntegralA, Ipoints(j)) - polyval(pIntegralA, Ipoints(j - 1));
             j = j +1;
         end
         a = b;
-        pIntegralA = ConstructIntegralPolynomial(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+        pIntegralA = GetIntegralPolynomialCoefficients(xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
     end
 end
 

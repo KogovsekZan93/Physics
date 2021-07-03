@@ -1,17 +1,17 @@
-function pIntegral = GetIntegralPolynomialCoefficients(p)
+function pIntegralA = GetIntegralPolynomialCoefficients(xData, yData)
 
 
 pars = inputParser;
 
-paramName = 'p';
-errorMsg = '''p'' must be a column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), ...
-    errorMsg);
+paramName = 'xData';
+errorMsg = '''xData'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, p);
+parse(pars, xData);
 
 
-pIntegral = [p./(length(p) : -1 : 1)'; 0];
+pIntegralA = CalculateIntegralPolynomialCoefficients(GetFitPolynomialCoefficients(xData, yData));
 
 end
