@@ -6,5 +6,5 @@ yData = sin(xData) + 1;
 xmin = 3;
 xmax = 13;
 xIntegralSpline =[xmin; xmax];
-ZIntegSpl_Revized = ZIntegralSpline_Revised(xData, yData, xIntegralSpline, 2);
+ZIntegSpl_Revized = ZIndefiniteIntegralSpline(xData, yData, xIntegralSpline, 'Figure', 2);
 ZIntegSpl = ZIntegralSpline(xData, yData, xmin, xmax, 1);

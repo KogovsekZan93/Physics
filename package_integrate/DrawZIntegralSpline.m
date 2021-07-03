@@ -1,4 +1,4 @@
-function DrawZIntegralA(figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorFace, Ipoints, Smatrix)
+function DrawZIntegralSpline(figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppData)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
@@ -52,7 +52,7 @@ function DrawZIntegralA(figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorF
 
 
 pars = inputParser;
-
+figure
 paramName = 'figure';
 errorMsg = '''figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
@@ -71,15 +71,15 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
     length(xData) == length(yData), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xIntegralAMin';
-errorMsg = '''xIntegralAMin'' must be a number.';
+paramName = 'xIntegralMin';
+errorMsg = '''xIntegralMin'' must be a number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xIntegralAMax';
-errorMsg = '''xIntegralAMax'' must be a number which is greater than ''xIntegralAMin''.';
+paramName = 'xIntegralMax';
+errorMsg = '''xIntegralMax'' must be a number which is greater than ''xIntegralMin''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
-    xIntegralAMax > xIntegralAMin, errorMsg);
+    xIntegralSplineMax > xIntegralSplineMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'ColorFace';
@@ -88,29 +88,19 @@ validationFcn = @(x)assert(isnumeric(x) && isrow(x) && ...
     length(x) == 3, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'Ipoints';
-errorMsg = '''Ipoints'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
+paramName = 'ppData';
+errorMsg = '''ppData'' must be a structure array.';
+validationFcn = @(x)assert(isstruct(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'Smatrix';
-errorMsg = '''Smatrix'' must be a matrix of natural numbers the length of which is ''length(Ipoints) - 1''';
-validationFcn = @(x)assert(isnumeric(x) && ismatrix(x) && ... 
-    length(x) == length(Ipoints) - 1 && ...
-    any(any((mod(x,1) == 0))) && any(any(x > 0)), errorMsg);
-addRequired(pars, paramName, validationFcn);
+parse(pars, figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppData);
 
-parse(pars, figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorFace, Ipoints, Smatrix);
 
+N = 1000;
 
 figure(figr)
 clf;
 hold on;
-
-N = 1000;
-
-IpointsLength = length(Ipoints);
 
 %     The following lines contain three sections, each separated 
 %     from the next by an empty line. They deal with the X values 
@@ -122,70 +112,15 @@ IpointsLength = length(Ipoints);
 %     appropriate interval. Finally, the area under the curve which 
 %     represents the integral is plotted. 
 
-x = xData(Smatrix(1, :));
-y = yData(Smatrix(1, :));
-nA = length(Smatrix(1, :));
-M = ones(nA);
-for j = 1 : nA - 1
-    M(:, j) = power(x, nA - j);
-end
-pA = linsolve(M, y);
-if xIntegralAMin < Ipoints(2)
-    X = (linspace(xIntegralAMin, min(xIntegralAMax, Ipoints(2)), N))';
-    Y = polyval(pA, X);
-    h = area(X, Y);
-    h.FaceColor = ColorFace;
-    h.FaceAlpha = 0.3;
-end
-X = (linspace(min(min(xData), xIntegralAMin), min(Ipoints(2), max(max(xData), xIntegralAMax)), N))';
-Y = polyval(pA, X);
+X = (linspace(xIntegralSplineMin, xIntegralSplineMax, N))';
+Y = ppval(ppData, X);
+h = area(X, Y);
+h.FaceColor = ColorFace;
+h.FaceAlpha = 0.3;
+
+X = (linspace(min(min(xData), xIntegralSplineMin), max(max(xData), xIntegralSplineMax), N))';
+Y = ppval(ppData, X);
 plot(X, Y, 'r', 'LineWidth', 1.2);
-
-for i = 2 : IpointsLength - 2
-    x = xData(Smatrix(i, :));
-    y = yData(Smatrix(i, :));
-    for j = 1 : nA - 1
-        M(:, j) = power(x, nA - j);
-    end
-    pA = linsolve(M, y);
-    if xIntegralAMin >= Ipoints(i) && xIntegralAMin <= Ipoints(i + 1)
-        X = (linspace(xIntegralAMin, min(xIntegralAMax, Ipoints(i + 1)), N))';
-        Y = polyval(pA, X);
-        h = area(X, Y);
-        h.FaceColor = ColorFace;
-        h.FaceAlpha = 0.3;
-    else
-        if xIntegralAMin <= Ipoints(i) && xIntegralAMax >= Ipoints(i)
-            X = (linspace(Ipoints(i), min(Ipoints(i + 1), xIntegralAMax), N))';
-            Y = polyval(pA, X);
-            h = area(X, Y);
-            h.FaceColor = ColorFace;
-            h.FaceAlpha = 0.3;
-        end
-    end    
-    X = (linspace(Ipoints(i), Ipoints(i + 1), N))';
-    Y = polyval(pA, X);
-    plot(X, Y, 'r','LineWidth', 1.2);
-end
-
-if IpointsLength ~= 2
-    x = xData(Smatrix(IpointsLength - 1, :));
-    y = yData(Smatrix(IpointsLength - 1, :));
-    for j = 1 : nA - 1
-        M(:, j) = power(x, nA - j);
-    end
-    pA = linsolve(M, y);
-    if xIntegralAMax > Ipoints(IpointsLength - 1)
-        X = (linspace(max(xIntegralAMin, Ipoints(IpointsLength - 1)), xIntegralAMax, N))';
-        Y = polyval(pA, X);
-        h = area(X, Y);
-        h.FaceColor = ColorFace;
-        h.FaceAlpha = 0.3;
-    end
-    X = (linspace(Ipoints(IpointsLength - 1), max(max(xData), xIntegralAMax), N))';
-    Y = polyval(pA, X);
-    plot(X, Y, 'r', 'LineWidth', 1.2);
-end
 
 %     In the following line, the input pairs of values (x(i), y(i)) are 
 %     plotted.

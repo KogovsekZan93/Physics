@@ -1,4 +1,4 @@
-function DrawZFitA(figr, xData, yData, xFitMin, xFitMax, Ipoints, Smatrix)
+function DrawZFitA(figr, xData, yData, xFitAMin, xFitAMax, Ipoints, Smatrix)
 %% Visualization of the approximation of the function 
 %% being differentiated
 % 
@@ -77,15 +77,15 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
     length(xData) == length(yData), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xFitMin';
-errorMsg = '''xFitMin'' must be a number.';
+paramName = 'xFitAMin';
+errorMsg = '''xFitAMin'' must be a number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xFitMax';
-errorMsg = '''xFitMax'' must be a number which is greater than ''xFitMin''.';
+paramName = 'xFitAMax';
+errorMsg = '''xFitAMax'' must be a number which is greater than ''xFitAMin''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
-    xFitMax > xFitMin, errorMsg);
+    xFitAMax > xFitAMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'Ipoints';
@@ -101,7 +101,7 @@ validationFcn = @(x)assert(isnumeric(x) && ismatrix(x) && ...
     any(any((mod(x,1) == 0))) && any(any(x > 0)), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, yData, xFitMin, xFitMax, Ipoints, Smatrix);
+parse(pars, figr, xData, yData, xFitAMin, xFitAMax, Ipoints, Smatrix);
 
 
 figure(figr)
@@ -110,7 +110,7 @@ hold on;
 
 N = 1000;
 
-xFit = (linspace(xFitMin, xFitMax, N))';
+xFit = (linspace(xFitAMin, xFitAMax, N))';
 yFit = IpointsSmatrixFitValue(xData, yData, xFit, Ipoints, Smatrix);
 plot(xFit, yFit, 'r', 'LineWidth', 1.2);
 
