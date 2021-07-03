@@ -14,7 +14,7 @@ addRequired(pars, paramName, validationFcn);
 paramName = 'nA';
 errorMsg = '''nA'' must be a natural number which is equal to or lower than length(xData).';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
-    x >= 1 && mod(x,1) == 0 && x < length(xData), errorMsg);
+    x >= 1 && mod(x,1) == 0 && x <= length(xData), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'mode';

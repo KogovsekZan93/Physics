@@ -129,11 +129,13 @@ acc = pars.Results.Accuracy;
 mode = pars.Results.Mode;
 
 
-if acc + ordDeriv > length(xData)
+nA = acc + ordDeriv;
+
+if nA > length(xData)
     error('''Accuracy + OrdDeriv'' must be equal to or lower than ''length(xData)''.');
 end
 
-[Ipoints, Smatrix] = GetIpointsSmatrix(xData, acc + ordDeriv, mode);
+[Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode);
 
 yDerivativeA = IpointsSmatrixDerivativeValue(xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix);
 
