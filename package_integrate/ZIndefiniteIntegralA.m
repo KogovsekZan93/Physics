@@ -111,9 +111,9 @@ function yIndefiniteIntegralA = ZIndefiniteIntegralA(xData, yData, xIntegralA, v
 pars = inputParser;
 
 paramName = 'xIntegralA';
-errorMsg = '''xIntegralA'' must be a column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), ... 
-    errorMsg);
+errorMsg = '''xIntegralA'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, xIntegralA);
