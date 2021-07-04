@@ -1,8 +1,32 @@
 function [yIntegralSpline, varargout] = ZBasicIntegralSpline(xData, yData, xIntegralSpline)
 
+
+pars = inputParser;
+
+paramName = 'xData';
+errorMsg = '''xData'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'yData';
+errorMsg = '''yData'' must be a column vector of numbers which has the same length as ''xData''';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
+    length(xData) == length(yData), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'xIntegralSpline';
+errorMsg = '''xIntegralSpline'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, xData, yData, xIntegralSpline);
+
+
 pp = spline(xData, yData);
 [breaks, coefs, ~, ~, ~] = unmkpp(pp);
-ppData = mkpp(breaks, coefs);
+ppFitSpline = mkpp(breaks, coefs);
 coefsLength = length(coefs);
 coefsInteg = [times(coefs, repmat([1/4, 1/3, 1/2, 1], coefsLength, 1)), zeros(coefsLength,1)];
 
@@ -41,7 +65,7 @@ end
 
 yIntegralSpline(a : end) = Summa + ppval(ppIntegralSpline, xIntegralSpline(a : end)) - ppval(ppIntegralSpline, max(breaks(j - 1), xIntegralSpline(max(a - 1, 1))));
 
-varargout = {ppData};
+varargout = {ppFitSpline};
 
 end
 

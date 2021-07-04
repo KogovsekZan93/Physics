@@ -1,4 +1,6 @@
 function [yFitA, varargout] = ZFitA(xData, yData, xFitA, varargin)
+%ZFITA Summary of this function goes here
+%   Detailed explanation goes here
 
 
 pars = inputParser;
@@ -9,27 +11,24 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'Accuracy';
-defaultVal = 1;
-errorMsg = '''Accuracy'' must be a natural number which is lower than length(xData).';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
-    x >= 1 && mod(x,1) == 0 && x < length(xData), errorMsg);
-addParameter(pars, paramName, defaultVal, validationFcn);
+paramName = 'xFitA';
+errorMsg = '''xFitA'' must be a sorted column vector of numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
+    issorted(x), errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-paramName = 'Mode';
-defaultVal = 1;
-addParameter(pars, paramName, defaultVal);
-
-parse(pars, xData, varargin{:});
-
-acc = pars.Results.Accuracy;
-mode = pars.Results.Mode;
+parse(pars, xData, xFitA);
 
 
-[Ipoints, Smatrix] = GetIpointsSmatrix(xData, acc + 1, mode);
+[FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
 
-yFitA = IpointsSmatrixFitValue(xData, yData, xFitA, Ipoints, Smatrix);
+[yFitA, Ipoints, Smatrix] = ZBasicFitA(xData, yData, xFitA, vararginBasic{:});
+
+DrawZIntegralAInput = {xData, yData, min(xData(1), xFitA(1)), max(xData(end), xFitA(end)), Ipoints, Smatrix};
+DrawZIntegralAHandle = @DrawZFitA;
+DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
 varargout = {Ipoints, Smatrix};
 
 end
+

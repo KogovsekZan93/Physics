@@ -8,3 +8,5 @@ xmax = 13;
 xIntegralSpline =[xmin; xmax];
 ZIntegSpl_Revized = ZIndefiniteIntegralSpline(xData, yData, xIntegralSpline, 'Figure', 2);
 ZIntegSpl = ZIntegralSpline(xData, yData, xmin, xmax, 1);
+Limits = [xmin; xmax+4];
+ZDefIntegSpline = ZDefiniteIntegralSpline(xData, yData, Limits, 'Figure', 3)

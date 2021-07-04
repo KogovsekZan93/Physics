@@ -1,4 +1,4 @@
-function DrawZIntegralSpline(figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppData)
+function DrawZIntegralSpline(figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppFitSpline)
 %% Visualization of numerical integration with ZIntegralA
 % 
 % Author: Žan Kogovšek
@@ -52,7 +52,7 @@ function DrawZIntegralSpline(figr, xData, yData, xIntegralSplineMin, xIntegralSp
 
 
 pars = inputParser;
-figure
+
 paramName = 'figure';
 errorMsg = '''figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
@@ -93,7 +93,7 @@ errorMsg = '''ppData'' must be a structure array.';
 validationFcn = @(x)assert(isstruct(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppData);
+parse(pars, figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppFitSpline);
 
 
 N = 1000;
@@ -113,13 +113,13 @@ hold on;
 %     represents the integral is plotted. 
 
 X = (linspace(xIntegralSplineMin, xIntegralSplineMax, N))';
-Y = ppval(ppData, X);
+Y = ppval(ppFitSpline, X);
 h = area(X, Y);
 h.FaceColor = ColorFace;
 h.FaceAlpha = 0.3;
 
 X = (linspace(min(min(xData), xIntegralSplineMin), max(max(xData), xIntegralSplineMax), N))';
-Y = ppval(ppData, X);
+Y = ppval(ppFitSpline, X);
 plot(X, Y, 'r', 'LineWidth', 1.2);
 
 %     In the following line, the input pairs of values (x(i), y(i)) are 
