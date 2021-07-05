@@ -122,69 +122,63 @@ IpointsLength = length(Ipoints);
 %     appropriate interval. Finally, the area under the curve which 
 %     represents the integral is plotted. 
 
-x = xData(Smatrix(1, :));
-y = yData(Smatrix(1, :));
 nA = length(Smatrix(1, :));
 M = ones(nA);
 for j = 1 : nA - 1
-    M(:, j) = power(x, nA - j);
+    M(:, j) = power(xData(Smatrix(1, :)), nA - j);
 end
-pA = linsolve(M, y);
+pA = linsolve(M, yData(Smatrix(1, :)));
 if xIntegralAMin < Ipoints(2)
-    X = (linspace(xIntegralAMin, min(xIntegralAMax, Ipoints(2)), N))';
-    Y = polyval(pA, X);
-    h = area(X, Y);
+    XFitA = (linspace(xIntegralAMin, min(xIntegralAMax, Ipoints(2)), N))';
+    YFitA = polyval(pA, XFitA);
+    h = area(XFitA, YFitA);
     h.FaceColor = ColorFace;
     h.FaceAlpha = 0.3;
 end
-X = (linspace(min(min(xData), xIntegralAMin), min(Ipoints(2), max(max(xData), xIntegralAMax)), N))';
-Y = polyval(pA, X);
-plot(X, Y, 'r', 'LineWidth', 1.2);
+xFitA = (linspace(min(min(xData), xIntegralAMin), min(Ipoints(2), max(max(xData), xIntegralAMax)), N))';
+yFitA = polyval(pA, xFitA);
+plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);
 
 for i = 2 : IpointsLength - 2
-    x = xData(Smatrix(i, :));
-    y = yData(Smatrix(i, :));
     for j = 1 : nA - 1
-        M(:, j) = power(x, nA - j);
+        M(:, j) = power(xData(Smatrix(i, :)), nA - j);
     end
-    pA = linsolve(M, y);
+    pA = linsolve(M, yData(Smatrix(i, :)));
     if xIntegralAMin >= Ipoints(i) && xIntegralAMin <= Ipoints(i + 1)
-        X = (linspace(xIntegralAMin, min(xIntegralAMax, Ipoints(i + 1)), N))';
-        Y = polyval(pA, X);
-        h = area(X, Y);
+        XFitA = (linspace(xIntegralAMin, min(xIntegralAMax, Ipoints(i + 1)), N))';
+        YFitA = polyval(pA, XFitA);
+        h = area(XFitA, YFitA);
         h.FaceColor = ColorFace;
         h.FaceAlpha = 0.3;
     else
         if xIntegralAMin <= Ipoints(i) && xIntegralAMax >= Ipoints(i)
-            X = (linspace(Ipoints(i), min(Ipoints(i + 1), xIntegralAMax), N))';
-            Y = polyval(pA, X);
-            h = area(X, Y);
+            XFitA = (linspace(Ipoints(i), min(Ipoints(i + 1), xIntegralAMax), N))';
+            YFitA = polyval(pA, XFitA);
+            h = area(XFitA, YFitA);
             h.FaceColor = ColorFace;
             h.FaceAlpha = 0.3;
         end
     end    
-    X = (linspace(Ipoints(i), Ipoints(i + 1), N))';
-    Y = polyval(pA, X);
-    plot(X, Y, 'r','LineWidth', 1.2);
+    xFitA = (linspace(Ipoints(i), Ipoints(i + 1), N))';
+    yFitA = polyval(pA, xFitA);
+    plot(xFitA, yFitA, 'r','LineWidth', 1.2);
 end
 
 if IpointsLength ~= 2
-    x = xData(Smatrix(IpointsLength - 1, :));
-    y = yData(Smatrix(IpointsLength - 1, :));
     for j = 1 : nA - 1
-        M(:, j) = power(x, nA - j);
+        M(:, j) = power(xData(Smatrix(IpointsLength - 1, :)), nA - j);
     end
-    pA = linsolve(M, y);
+    pA = linsolve(M, yData(Smatrix(IpointsLength - 1, :)));
     if xIntegralAMax > Ipoints(IpointsLength - 1)
-        X = (linspace(max(xIntegralAMin, Ipoints(IpointsLength - 1)), xIntegralAMax, N))';
-        Y = polyval(pA, X);
-        h = area(X, Y);
+        XFitA = (linspace(max(xIntegralAMin, Ipoints(IpointsLength - 1)), xIntegralAMax, N))';
+        YFitA = polyval(pA, XFitA);
+        h = area(XFitA, YFitA);
         h.FaceColor = ColorFace;
         h.FaceAlpha = 0.3;
     end
-    X = (linspace(Ipoints(IpointsLength - 1), max(max(xData), xIntegralAMax), N))';
-    Y = polyval(pA, X);
-    plot(X, Y, 'r', 'LineWidth', 1.2);
+    xFitA = (linspace(Ipoints(IpointsLength - 1), max(max(xData), xIntegralAMax), N))';
+    yFitA = polyval(pA, xFitA);
+    plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);
 end
 
 %     In the following line, the input pairs of values (x(i), y(i)) are 

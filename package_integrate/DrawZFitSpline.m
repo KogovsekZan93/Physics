@@ -1,4 +1,4 @@
-function DrawZIntegralSpline(figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppFitSpline)
+function DrawZFitSpline(figr, xData, yData, xFitSplineMin, xFitSplineMax, ppFitSpline)
 
 
 pars = inputParser;
@@ -21,21 +21,15 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
     length(xData) == length(yData), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xIntegralMin';
-errorMsg = '''xIntegralMin'' must be a number.';
+paramName = 'xFitSplineMin';
+errorMsg = '''xFitSplineMin'' must be a number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xIntegralMax';
-errorMsg = '''xIntegralMax'' must be a number which is greater than ''xIntegralMin''.';
+paramName = 'xFitSplineMax';
+errorMsg = '''xFitSplineMax'' must be a number which is greater than ''xFitSplineMin''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
-    xIntegralSplineMax > xIntegralSplineMin, errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'ColorFace';
-errorMsg = '''ColorFace'' must be a row vector of three numbers.';
-validationFcn = @(x)assert(isnumeric(x) && isrow(x) && ... 
-    length(x) == 3, errorMsg);
+    xFitSplineMax > xFitSplineMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'ppFitSpline';
@@ -43,7 +37,7 @@ errorMsg = '''ppFitSpline'' must be a structure array.';
 validationFcn = @(x)assert(isstruct(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ColorFace, ppFitSpline);
+parse(pars, figr, xData, yData, xFitSplineMin, xFitSplineMax, ppFitSpline);
 
 
 N = 1000;
@@ -52,13 +46,7 @@ figure(figr)
 clf;
 hold on;
 
-XFitSpline = (linspace(xIntegralSplineMin, xIntegralSplineMax, N))';
-YFitSpline = ppval(ppFitSpline, XFitSpline);
-h = area(XFitSpline, YFitSpline);
-h.FaceColor = ColorFace;
-h.FaceAlpha = 0.3;
-
-xFitSpline = (linspace(min(min(xData), xIntegralSplineMin), max(max(xData), xIntegralSplineMax), N))';
+xFitSpline = (linspace(xFitSplineMin, xFitSplineMax, N))';
 yFitSpline = ppval(ppFitSpline, xFitSpline);
 plot(xFitSpline, yFitSpline, 'r', 'LineWidth', 1.2);
 
