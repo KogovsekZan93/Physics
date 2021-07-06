@@ -27,7 +27,8 @@ yData=X;
 ordDeriv=2;
 xDeriv=tt;
 figr=2;
-yDeriv=ZDerivativeSpline_Old(xData, yData, ordDeriv, xDeriv, figr);
+% yDeriv=ZDerivativeSpline_Old(xData, yData, ordDeriv, xDeriv, figr);
+yDeriv=ZDerivativeSpline(xData, yData, xDeriv, 'OrdDeriv', ordDeriv);
 
 figure(1);
 clf;
@@ -40,7 +41,8 @@ grid on;
 
 xDerivativeSpline = xDeriv;
 Parameters1 = {'OrdDeriv', 2,'Figure', 24};
-[yDerivativeSpline] = ZDerivativeSpline(xData, yData, xDerivativeSpline, Parameters1{:});
+tic;[yDerivativeSpline] = ZDerivativeSpline(xData, yData, xDerivativeSpline, Parameters1{:});toc;
+% tic;[yDerivativeSpline] = ZDerivativeA(xData, yData, xDerivativeSpline, Parameters1{:});toc;
 
 sum(abs(yDerivativeSpline - yDeriv2))/N
 

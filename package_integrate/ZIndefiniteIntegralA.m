@@ -119,8 +119,8 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xIntegralA);
 
 
-[FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
-[yIndefiniteIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, xIntegralA, vararginBasic{:});
+[FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
+[yIndefiniteIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, xIntegralA, NonFigureParameters{:});
 
 ColorFace = [0, 0, 1];
 DrawZIntegralAInput = {xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix};
