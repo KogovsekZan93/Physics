@@ -6,8 +6,8 @@ function DefiniteIntegralSpline = ZDefiniteIntegralSpline(xData, yData, Limits, 
 
 DefiniteIntegralSpline = yIndefiniteIntegralSpline(2) * LimitOrder;
 
-DrawZIntegralSplineInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
 DrawZIntegralSplineHandle = @DrawZIntegralSpline;
+DrawZIntegralSplineInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
 DecideIfDrawZ(DrawZIntegralSplineHandle, DrawZIntegralSplineInput, varargin{:});
 
 end

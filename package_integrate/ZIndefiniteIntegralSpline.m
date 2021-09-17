@@ -14,9 +14,9 @@ parse(pars, xIntegralSpline);
 
 [yIndefiniteIntegralSpline, ppFitSpline] = ZBasicIntegralSpline(xData, yData, xIntegralSpline);
 
+DrawZIntegralSplineHandle = @DrawZIntegralSpline;
 ColorFace = [0, 0, 1];
 DrawZIntegralSplineInput = {xData, yData, min(xIntegralSpline), max(xIntegralSpline), ColorFace, ppFitSpline};
-DrawZIntegralSplineHandle = @DrawZIntegralSpline;
 DecideIfDrawZ(DrawZIntegralSplineHandle, DrawZIntegralSplineInput, varargin{:});
 
 end

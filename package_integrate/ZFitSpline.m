@@ -1,4 +1,4 @@
-function [yFitA, varargout] = ZFitA(xData, yData, xFitA, varargin)
+function yFitSpline = ZFitSpline(xData, yData, xFitSpline, varargin)
 %ZFITA Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,24 +11,23 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xFitA';
+paramName = 'xFitSpline';
 errorMsg = '''xFitA'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, xData, xFitA);
+parse(pars, xData, xFitSpline);
 
+pp = spline(xData, yData);
+[breaks, coefs, ~, ~, ~] = unmkpp(pp);
+ppFitSpline = mkpp(breaks, coefs);
 
-[FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
+yFitSpline = ppval(ppFitSpline, xFitSpline);
 
-[yFitA, Ipoints, Smatrix] = ZBasicFitA(xData, yData, xFitA, vararginBasic{:});
-
-DrawZFitAHandle = @DrawZFitA;
-DrawZFitAInput = {xData, yData, min(xData(1), xFitA(1)), max(xData(end), xFitA(end)), Ipoints, Smatrix};
-DecideIfDrawZ(DrawZFitAHandle, DrawZFitAInput, FigureParameter{:});
-
-varargout = {Ipoints, Smatrix};
+DrawZFitSplineHandle = @DrawZFitSpline;
+DrawZFitSplineInput = {xData, yData, min(xFitSpline(1), xData(1)), max(xFitSpline(end), xData(end)), ppFitSpline};
+DecideIfDrawZ(DrawZFitSplineHandle, DrawZFitSplineInput, varargin{:});
 
 end
 

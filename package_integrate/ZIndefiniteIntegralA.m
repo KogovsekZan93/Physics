@@ -122,9 +122,9 @@ parse(pars, xIntegralA);
 [FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
 [yIndefiniteIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, xIntegralA, NonFigureParameters{:});
 
+DrawZIntegralAHandle = @DrawZIntegralA;
 ColorFace = [0, 0, 1];
 DrawZIntegralAInput = {xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix};
-DrawZIntegralAHandle = @DrawZIntegralA;
 DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
 end

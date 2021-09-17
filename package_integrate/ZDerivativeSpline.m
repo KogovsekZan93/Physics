@@ -35,11 +35,11 @@ ordDeriv = pars.Results.OrdDeriv;
 figr = pars.Results.Figure;
 
 
-[yDerivativeSpline, ppDerivative, ppFitSpline] = ZBasicDerivativeSpline(xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
-varargout = {ppDerivative};
+[yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ZBasicDerivativeSpline(xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
+varargout = {ppDerivativeSpline};
 
-DrawZFitSplineInput = {xData, yData, min(xDerivativeSpline(1), xData(1)), max(xDerivativeSpline(end), xData(end)), ppFitSpline};
 DrawZFitSplineHandle = @DrawZFitSpline;
+DrawZFitSplineInput = {xData, yData, min(xDerivativeSpline(1), xData(1)), max(xDerivativeSpline(end), xData(end)), ppFitSpline};
 DecideIfDrawZ(DrawZFitSplineHandle, DrawZFitSplineInput, 'Figure', figr);
 
 end

@@ -10,8 +10,8 @@ function DefiniteIntegralA = ZDefiniteIntegralA(xData, yData, Limits, varargin)
 
 DefiniteIntegralA = yIntegralA(2) * LimitOrder;
 
-DrawZIntegralAInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, Ipoints, Smatrix};
 DrawZIntegralAHandle = @DrawZIntegralA;
+DrawZIntegralAInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, Ipoints, Smatrix};
 DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
 end

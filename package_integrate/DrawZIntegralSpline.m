@@ -3,8 +3,8 @@ function DrawZIntegralSpline(figr, xData, yData, xIntegralSplineMin, xIntegralSp
 
 pars = inputParser;
 
-paramName = 'figure';
-errorMsg = '''figure'' must be a natural number.';
+paramName = 'figr';
+errorMsg = '''figr'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
