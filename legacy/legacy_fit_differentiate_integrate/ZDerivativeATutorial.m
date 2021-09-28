@@ -54,7 +54,7 @@ clear all; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
  
-% The principle of numerical integration is to estimate the 
+% The principle of numerical differentiation is to estimate the 
 % function based on the numerical data and then differentiate it. 
 % In the previous case, the X(t) function is estimated to be 
 % linearly connected pairs of neighboring measured points, 
@@ -109,7 +109,7 @@ clear all; clc;
 % also experiment by changing the "mode" and "Acc" 
 % parameters or even numerically evaluate a higher order 
 % derivative by raising the "ordDeriv" parameter. For complete 
-% understanding, see the ZIntegralA documentation and code. 
+% understanding, see the ZDerivativeA documentation and code. 
  
 t = [0; 1; 3; 5; 8; 35; 37; 40; 45];
 X = [10; 9; 8; 11; 13; 5; 4; 3; 2];

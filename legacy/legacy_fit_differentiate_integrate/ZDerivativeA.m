@@ -137,7 +137,7 @@ k = 2;
 
 for i = 1 : len_xDeriv
     for j = k : len_Ipoints
-        if Ipoints(j) >= xDeriv(i)
+        if Ipoints(j) >= xDeriv(i)                                                                %TUKAJ JE RAZLIKA! ORG JE >=
             zone = j - 1;
             k = j;
             break;
