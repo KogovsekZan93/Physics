@@ -1,4 +1,4 @@
-function [yDerivativeSpline, varargout] = ZDerivativeSpline(xData, yData, xDerivativeSpline, varargin)
+function [yDerivativeSpline, varargout] = ZFindDerivativeSpline(xData, yData, xDerivativeSpline, varargin)
 
 
 pars = inputParser;
@@ -35,7 +35,7 @@ ordDeriv = pars.Results.OrdDeriv;
 figr = pars.Results.Figure;
 
 
-[yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ZBasicDerivativeSpline(xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
+[yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ZFindBasicDerivativeSpline(xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
 varargout = {ppDerivativeSpline};
 
 DrawZFitSplineHandle = @DrawZFitSpline;

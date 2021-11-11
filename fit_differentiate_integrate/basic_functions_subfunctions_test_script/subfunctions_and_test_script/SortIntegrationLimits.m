@@ -1,4 +1,4 @@
-function [LimitsSorted, LimitOrder, ColorFace] = IntegrationLimitsSort(Limits)
+function [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits)
 %INTEGRATIONLIMITSSORT Summary of this function goes here
 %   Detailed explanation goes here
 

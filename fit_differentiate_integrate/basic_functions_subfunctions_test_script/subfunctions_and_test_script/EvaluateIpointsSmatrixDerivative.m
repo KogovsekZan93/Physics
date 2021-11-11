@@ -1,4 +1,4 @@
-function yDerivativeA = IpointsSmatrixDerivativeValue(xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix)
+function yDerivativeA = EvaluateIpointsSmatrixDerivative(xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix)
 %SMATRIXIPOINTSFUNCTIONVALUE Summary of this function goes here
 %   Detailed explanation goes here
 

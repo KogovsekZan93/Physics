@@ -1,4 +1,4 @@
-function yDerivativeA = ZDerivativeA(xData, yData, xDerivativeA, varargin)
+function yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeA, varargin)
 [FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
 
 
@@ -19,7 +19,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xData, xDerivativeA);
 
 
-[yDerivativeA, Ipoints, Smatrix] = ZBasicDerivativeA(xData, yData, xDerivativeA, NonFigureParameters{:});
+[yDerivativeA, Ipoints, Smatrix] = ZFindBasicDerivativeA(xData, yData, xDerivativeA, NonFigureParameters{:});
 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, min(xDerivativeA(1), xData(1)), max(xDerivativeA(end), xData(end)), Ipoints, Smatrix};

@@ -1,4 +1,4 @@
-function yIndefiniteIntegralSpline = ZIndefiniteIntegralSpline(xData, yData, xIntegralSpline, varargin)
+function yIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData, xIntegralSpline, varargin)
 
 
 pars = inputParser;
@@ -12,7 +12,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xIntegralSpline);
 
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ZBasicIntegralSpline(xData, yData, xIntegralSpline);
+[yIndefiniteIntegralSpline, ppFitSpline] = ZFindBasicIntegralSpline(xData, yData, xIntegralSpline);
 
 DrawZIntegralSplineHandle = @DrawZIntegralSpline;
 ColorFace = [0, 0, 1];

@@ -1,4 +1,4 @@
-function yFitA = IpointsSmatrixFitValue(xData, yData, xFitA, Ipoints, Smatrix)
+function yFitA = EvaluateIpointsSmatrixFit(xData, yData, xFitA, Ipoints, Smatrix)
 %SMATRIXIPOINTSFUNCTIONVALUE Summary of this function goes here
 %   Detailed explanation goes here
 

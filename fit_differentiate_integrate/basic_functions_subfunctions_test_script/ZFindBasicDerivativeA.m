@@ -1,4 +1,4 @@
-function [yDerivativeA, varargout] = ZBasicDerivativeA(xData, yData, xDerivativeA, varargin)
+function [yDerivativeA, varargout] = ZFindBasicDerivativeA(xData, yData, xDerivativeA, varargin)
 
 
 pars = inputParser;
@@ -45,6 +45,6 @@ end
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode);
 varargout = {Ipoints, Smatrix};
 
-yDerivativeA = IpointsSmatrixDerivativeValue(xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix);
+yDerivativeA = EvaluateIpointsSmatrixDerivative(xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix);
 
 end

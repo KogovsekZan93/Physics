@@ -1,4 +1,4 @@
-function yFitSpline = ZFitSpline(xData, yData, xFitSpline, varargin)
+function yFitSpline = ZFindFitSpline(xData, yData, xFitSpline, varargin)
 %ZFITA Summary of this function goes here
 %   Detailed explanation goes here
 

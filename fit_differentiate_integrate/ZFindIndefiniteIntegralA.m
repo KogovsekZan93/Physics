@@ -1,4 +1,4 @@
-function yIndefiniteIntegralA = ZIndefiniteIntegralA(xData, yData, xIntegralA, varargin)
+function yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIntegralA, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
@@ -120,7 +120,7 @@ parse(pars, xIntegralA);
 
 
 [FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
-[yIndefiniteIntegralA, Ipoints, Smatrix] = ZBasicIntegralA(xData, yData, xIntegralA, NonFigureParameters{:});
+[yIndefiniteIntegralA, Ipoints, Smatrix] = ZFindBasicIntegralA(xData, yData, xIntegralA, NonFigureParameters{:});
 
 DrawZIntegralAHandle = @DrawZIntegralA;
 ColorFace = [0, 0, 1];

@@ -1,4 +1,4 @@
-function [yIntegralA, varargout] = ZBasicIntegralA(xData, yData, xIntegralA, varargin)
+function [yIntegralA, varargout] = ZFindBasicIntegralA(xData, yData, xIntegralA, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek
@@ -105,7 +105,7 @@ mode = pars.Results.Mode;
 varargout{1} = Ipoints;
 varargout{2} = Smatrix;
 
-yIntegralA = IpointsSmatrixIntegralValue(xData, yData, xIntegralA, Ipoints, Smatrix);
+yIntegralA = EvaluateIpointsSmatrixIntegral(xData, yData, xIntegralA, Ipoints, Smatrix);
 
 
 end

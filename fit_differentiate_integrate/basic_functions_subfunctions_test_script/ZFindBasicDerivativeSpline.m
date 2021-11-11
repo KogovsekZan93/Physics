@@ -1,4 +1,4 @@
-function [yDerivativeSpline, varargout] = ZBasicDerivativeSpline(xData, yData, xDerivativeSpline, varargin)
+function [yDerivativeSpline, varargout] = ZFindBasicDerivativeSpline(xData, yData, xDerivativeSpline, varargin)
 
 
 pars = inputParser;

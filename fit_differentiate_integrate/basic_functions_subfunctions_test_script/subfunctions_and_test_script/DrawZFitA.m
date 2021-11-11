@@ -55,7 +55,7 @@ hold on;
 N = 1000;
 
 xFitA = (linspace(xFitAMin, xFitAMax, N))';
-yFitA = IpointsSmatrixFitValue(xData, yData, xFitA, Ipoints, Smatrix);
+yFitA = EvaluateIpointsSmatrixFit(xData, yData, xFitA, Ipoints, Smatrix);
 plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);
 
 plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);

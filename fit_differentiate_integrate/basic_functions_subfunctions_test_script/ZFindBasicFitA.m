@@ -1,4 +1,4 @@
-function [yFitA, varargout] = ZBasicFitA(xData, yData, xFitA, varargin)
+function [yFitA, varargout] = ZFindBasicFitA(xData, yData, xFitA, varargin)
 
 
 pars = inputParser;
@@ -28,7 +28,7 @@ mode = pars.Results.Mode;
 
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, psacc + 1, mode);
 
-yFitA = IpointsSmatrixFitValue(xData, yData, xFitA, Ipoints, Smatrix);
+yFitA = EvaluateIpointsSmatrixFit(xData, yData, xFitA, Ipoints, Smatrix);
 
 varargout = {Ipoints, Smatrix};
 

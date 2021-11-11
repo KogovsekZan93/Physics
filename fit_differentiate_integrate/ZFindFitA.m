@@ -1,4 +1,4 @@
-function [yFitA, varargout] = ZFitA(xData, yData, xFitA, varargin)
+function [yFitA, varargout] = ZFindFitA(xData, yData, xFitA, varargin)
 %ZFITA Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -22,7 +22,7 @@ parse(pars, xData, xFitA);
 
 [FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
 
-[yFitA, Ipoints, Smatrix] = ZBasicFitA(xData, yData, xFitA, vararginBasic{:});
+[yFitA, Ipoints, Smatrix] = ZFindBasicFitA(xData, yData, xFitA, vararginBasic{:});
 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, min(xData(1), xFitA(1)), max(xData(end), xFitA(end)), Ipoints, Smatrix};
