@@ -47,7 +47,7 @@ xMin = 0;   % Lower limit of integration.
 xMax = 8;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
 DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, Limits);
-xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
+xlabel('t [s]'); ylabel('v [m / s]');
 clearvars -except DefiniteIntegralA; clc;
 DefiniteIntegralA   %Display the calculated value in the command 
                                % window. 
@@ -84,13 +84,13 @@ V = [1.000000000000000; 1.909297426825682;
     0.712096683334935];
 xData = T;
 yData = V; 
-xMin = 2.5;   % Lower limit of integration. 
+xMin = 2.2;   % Lower limit of integration. 
 xMax = 11;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
 figr = 1;   % Index of the Figure window. 
-DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, ...
+ZFindDefiniteIntegralA(xData, yData, ...
     Limits, 'Figure', figr);
-xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
+xlabel('t [s]'); ylabel('v [m / s]');
 clear all; clc;
 
 
@@ -125,7 +125,7 @@ figr = 1;   % Index of the Figure window.
 DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, ...
     Limits, 'PseudoAccuracy', psacc, 'Figure', figr);
 clearvars -except DefiniteIntegralA; clc;
-xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
+xlabel('t [s]'); ylabel('v [m / s]');
 x_at_t_equals_8_s = DefiniteIntegralA + 3
 clearvars DefiniteIntegralA;
 
@@ -146,8 +146,8 @@ clearvars DefiniteIntegralA;
 % data vector), the estimation of the actual velocity function 
 % resembles the actual function less. The estimated value of the 
 % x coordiamnte at t == 8 s is also less close to the actual value, 
-% which is about 11.98 m (it was about 12.41 m with 
-% PseudoAccuracy == 3). 
+% which is about 11.98 m (it was estimated to be about 12.41 m 
+% with PseudoAccuracy == 3). 
 % Run the following block of code to see for yourself. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
@@ -168,7 +168,7 @@ DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, ...
 TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
 hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
                                                                         % velocity function. 
-xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
+xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
 clearvars -except DefiniteIntegralA; clc;
 x_at_t_equals_8_s = DefiniteIntegralA + 3
 clearvars DefiniteIntegralA;
@@ -207,19 +207,19 @@ xIntegralA = TIntegral;
 psacc = 3;   % Pseudo Accuracy parameter. 
 VIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, ...
     xIntegralA, 'PseudoAccuracy', psacc);
-XEstimated = VIndefiniteIntegralA + 3;
+X_estimated = VIndefiniteIntegralA + 3;
 figure(1); clf;
-plot(TIntegral, XEstimated, 'r', 'LineWidth', 1.2)   % Plot the 
-                                                                                 % estimated x(t) 
-                                                                                 % function.
-TT = linspace(0, 8, 1000); XX = -cos(2 * TT)/2 + TT + 3.5;
-hold on; plot(TT, XX, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                         % x(t) function. 
+plot(TIntegral, X_estimated, 'r', 'LineWidth', 1.2)   % Plot the 
+                                                                                   % estimated 
+                                                                                   % x(t) function. 
+TT = linspace(0, 8, 1000); XX_actual = -cos(2 * TT)/2 + TT + 3.5;
+hold on; plot(TT, XX_actual, 'k', 'LineWidth', 1.5);   % Plot the 
+                                                                                     % actual x(t) 
+                                                                                     % function. 
 grid on;
-set(gca, 'FontSize', 14);
 xlabel('t [s]'); ylabel('x [m]'); set(gca, 'FontSize', 14);
 legend('Estimated', 'Actual');
-clearvars -except TIntegral XEstimated TT XX; clc;
+clearvars -except TIntegral XEstimated TT XX_actual; clc;
 
 
 %                                           Page 6
@@ -227,15 +227,15 @@ clearvars -except TIntegral XEstimated TT XX; clc;
 
 
 % There is also the optional "Mode" parameter for both the 
-% ZFindIndefiniteIntegralA function and the 
-% ZFindDefiniteIntegralA function, with which modes from 0 to 2 
-% can be chosen (Mode == 1 being the default). If the sampling 
-% points are reasonably equally spaced, the Mode parameter is 
-% of no importance. If the sampling points are highly unequally 
-% far apart, the three different “Modes” give different answers to 
-% the question: “What are the appropriate points at which one 
-% piece of the piecewise polynomial function ends and the other 
-% begins?” 
+% ZFindDefiniteIntegralA function and the 
+% ZFindIndefiniteIntegralA function, with which modes from 0 to 
+% 2 can be chosen (Mode == 1 being the default). If the 
+% sampling points are reasonably equally spaced, the Mode 
+% parameter is of no importance. If the sampling points are 
+% highly unequally far apart, the three different “Modes” give 
+% different answers to the question: “What are the appropriate 
+% points at which one piece of the piecewise polynomial function 
+% ends and the other begins?” 
 % For details, the documentation of the GetIpointsSmatrix 
 % function should be read. With this tutorial, the impact of the 
 % Mode parameter can be explored by running one of the two 
@@ -267,11 +267,12 @@ psacc = 2;   % Pseudo Accuracy parameter.
 figr = 1;   % Index of the Figure window. 
 DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, ...
     Limits, 'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y'); set(gca, 'FontSize', 14);
-xx = linspace(min(xData), max(xData), 1000); yy = sin(xx);
-hold on; plot(xx, yy, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                      % function. 
-Actual_value = cos(xMax) - sin(xMax);
+xlabel('x'); ylabel('y');
+xx = linspace(min(xData), max(xData), 1000); yy_actual = sin(xx);
+hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);   % Plot the 
+                                                                                  % actual 
+                                                                                  % function. 
+Actual_value = -cos(xMax) + cos(xMin);
 clearvars -except DefiniteIntegralA Actual_value; clc;
 Actual_value   %Display the actual value of the definite integral. 
 DefiniteIntegralA   %Display the calculated value in the command 
@@ -279,4 +280,77 @@ DefiniteIntegralA   %Display the calculated value in the command
 
 
 %                                           Page 7
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Alternatively, the definite or the indefinite numerical integral 
+% can be found by estimating the function being integrated to be 
+% a cubic spline using either the ZFindDefiniteIntegralSpline 
+% function or the ZFindIndefiniteIntegralSpline function, 
+% respectively. As with the previous two functions, the integration 
+% of both of these functions can also be visualized by specifying 
+% the optional Figure parameter. The parameters Mode and 
+% Pseudo Accuracy do not apply with these functions. 
+% The following two blocks of code refer to the previous 
+% problem of velocity being measured each second from t == 0 
+% to t == 8 s. Run the first block of code to estimate the value of 
+% the x coordinate at t == 8 s by using
+% ZFindDefiniteIntegralSpline or run the second block of code 
+% to estimate the x(t) function for the time interval [0, 8 s] by 
+% using ZFindIndefiniteIntegralSpline and compare it to the 
+% actual x(t) function. 
+
+T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
+V = [1.000000000000000; 1.909297426825682; 
+    0.243197504692072; 0.720584501801074; 
+    1.989358246623382; 0.455978889110630; 
+    0.463427081999565; 1.990607355694870; 
+    0.712096683334935];
+xData = T;
+yData = V; 
+xMin = 0;   % Lower limit of integration. 
+xMax = 8;   % Upper limit of integration. 
+Limits = [xMin; xMax];   % Limits of integration. 
+figr = 1;   % Index of the Figure window. 
+DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, ...
+    yData, Limits, 'Figure', figr);
+TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
+hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
+                                                                        % velocity function. 
+xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
+clearvars -except DefiniteIntegralSpline; clc;
+x_at_t_equals_8_s = DefiniteIntegralSpline + 3
+clearvars DefiniteIntegralA;
+
+
+T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
+V = [1.000000000000000; 1.909297426825682; 
+    0.243197504692072; 0.720584501801074; 
+    1.989358246623382; 0.455978889110630; 
+    0.463427081999565; 1.990607355694870; 
+    0.712096683334935];
+TIntegral = (linspace(0, 8, 1000))';
+xData = T;
+yData = V; 
+xIntegralA = TIntegral;
+psacc = 3;   % Pseudo Accuracy parameter. 
+VIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline( ...
+    xData, yData, xIntegralA);
+X_estimated = VIndefiniteIntegralSpline + 3;
+TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
+figure(1); clf;
+plot(TIntegral, X_estimated, 'r', 'LineWidth', 1.2)   % Plot the 
+                                                                                   % estimated 
+                                                                                   % x(t) function. 
+TT = linspace(0, 8, 1000); XX_actual = -cos(2 * TT)/2 + TT + 3.5;
+hold on; plot(TT, XX_actual, 'k', 'LineWidth', 1.5);   % Plot the 
+                                                                                     % actual x(t) 
+                                                                                     % function. 
+grid on;
+xlabel('t [s]'); ylabel('x [m]'); set(gca, 'FontSize', 14);
+legend('Estimated', 'Actual');
+clearvars -except TIntegral X_estimated TT XX_actual; clc;
+
+
+%                                           Page 8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

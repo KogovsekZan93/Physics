@@ -62,7 +62,7 @@ plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);
 
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 
-set(gca, 'FontSize', 14)
+set(gca, 'FontSize', 14);
 grid on;
 hold off;
 
