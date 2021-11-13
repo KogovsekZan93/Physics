@@ -35,6 +35,7 @@ ordDeriv = pars.Results.OrdDeriv;
 acc = pars.Results.Accuracy;
 mode = pars.Results.Mode;
 
+
 nA = acc + ordDeriv;
 
 if nA > length(xData)

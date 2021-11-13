@@ -124,7 +124,7 @@ parse(pars, xIntegralA);
 
 DrawZIntegralAHandle = @DrawZIntegralA;
 ColorFace = [0, 0, 1];
-DrawZIntegralAInput = {xData, yData, min(xIntegralA), max(xIntegralA), ColorFace, Ipoints, Smatrix};
+DrawZIntegralAInput = {xData, yData, xIntegralA(1), xIntegralA(end), ColorFace, Ipoints, Smatrix};
 DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
 
 end

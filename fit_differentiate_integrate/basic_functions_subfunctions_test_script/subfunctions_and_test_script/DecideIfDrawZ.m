@@ -60,7 +60,7 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'Figure';
 defaultVal = 0;
-errorMsg = '''Figure'' must be a whole number.';
+errorMsg = '''Figure'' must be a non-negative integer.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     x >= 0 && mod(x,1) == 0, errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);

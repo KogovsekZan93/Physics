@@ -1,4 +1,4 @@
-function [yDerivativeSpline, varargout] = ZFindDerivativeSpline(xData, yData, xDerivativeSpline, varargin)
+function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit(xData, yData, xDerivativePolyFit, PolyDegree, varargin)
 
 
 pars = inputParser;
@@ -9,8 +9,8 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xDerivativeSpline';
-errorMsg = '''xDerivative'' must be a sorted column vector of numbers.';
+paramName = 'xDerivativePolyFit';
+errorMsg = '''xDerivativePolyFit'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -29,17 +29,17 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     x >= 0 && mod(x,1) == 0, errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);
 
-parse(pars, xData, xDerivativeSpline, varargin{:});
+parse(pars, xData, xDerivativePolyFit, varargin{:});
 
 ordDeriv = pars.Results.OrdDeriv;
 figr = pars.Results.Figure;
 
 
-[yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ZFindBasicDerivativeSpline(xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
-varargout = {ppDerivativeSpline};
+[yDerivativePolyFit, pDerivativePolyFit, pFitPolyFit] = ZFindBasicDerivativePolyFit(xData, yData, xDerivativePolyFit, PolyDegree, 'OrdDeriv', ordDeriv);
+varargout = {pDerivativePolyFit};
 
-DrawZFitSplineHandle = @DrawZFitSpline;
-DrawZFitSplineInput = {xData, yData, min(xDerivativeSpline(1), xData(1)), max(xDerivativeSpline(end), xData(end)), ppFitSpline};
-DecideIfDrawZ(DrawZFitSplineHandle, DrawZFitSplineInput, 'Figure', figr);
+DrawZFitPolyFitHandle = @DrawZFitPolyFit;
+DrawZFitPolyFitInput = {xData, yData, min(xData(1), xDerivativePolyFit(1)), max(xData(end), xDerivativePolyFit(end)), pFitPolyFit};
+DecideIfDrawZ(DrawZFitPolyFitHandle, DrawZFitPolyFitInput, 'Figure', figr);
 
 end
