@@ -18,14 +18,14 @@ addRequired(pars, paramName, validationFcn);
 paramName = 'OrdDeriv';
 defaultVal = 1;
 errorMsg = '''OrdDeriv'' must be a natural number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ... 
     x >= 1 && mod(x,1) == 0, errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);
 
 paramName = 'Figure';
 defaultVal = 0;
 errorMsg = '''Figure'' must be a non-negative integer.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ... 
     x >= 0 && mod(x,1) == 0, errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);
 

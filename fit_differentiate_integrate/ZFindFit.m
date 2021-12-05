@@ -1,34 +1,30 @@
-function [yFitA, varargout] = ZFindFit(xData, yData, xFitA, varargin)
-%ZFITA Summary of this function goes here
-%   Detailed explanation goes here
+function [yFitA, varargout] = ZFindFit(xData, yData, xFit, varargin)
 
+[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
 
 pars = inputParser;
 
-paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
+paramName = 'Type';
+defaultVal = 'A';
+errorMsg = '''Type'' must be either "A", "Spline", or "PolyFit".';
+validationFcn = @(x)assert(strcmp(x, 'A') || strcmp(x, 'Spline') ...
+    || strcmp(x, 'PolyFit') , errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn);
 
-paramName = 'xFitA';
-errorMsg = '''xFitA'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
+parse(pars, TypeList{:});
 
-parse(pars, xData, xFitA);
+type = pars.Results.Type;
 
-
-[FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
-
-[yFitA, Ipoints, Smatrix] = ZFindBasicFitA(xData, yData, xFitA, vararginBasic{:});
-
-DrawZFitAHandle = @DrawZFitA;
-DrawZFitAInput = {xData, yData, min(xData(1), xFitA(1)), max(xData(end), xFitA(end)), Ipoints, Smatrix};
-DecideIfDrawZ(DrawZFitAHandle, DrawZFitAInput, FigureParameter{:});
-
-varargout = {Ipoints, Smatrix};
-
+if strcmp(type, 'A')
+    [yFitA, Ipoints, Smatrix] = ZFindFitA(xData, yData, xFit, TypeDeletedList{:});
+    varargout = {Ipoints, Smatrix};
+else
+    if strcmp(type, 'Spline')
+        yFitA = ZFindFitSpline(xData, yData, xFit, TypeDeletedList{:});
+    else
+        [yFitA, pFitPolyFit] = ZFindFitPolyFit(xData, yData, xFit, TypeDeletedList{:});
+        varargout = {pFitPolyFit};
+    end
 end
 
+end

@@ -87,7 +87,7 @@ pars = inputParser;
 paramName = 'PseudoAccuracy';
 defaultVal = 0;
 errorMsg = '''PseudoAccuracy'' must be a whole number, lower than ''length(xData)''.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ... 
     x >= 0 && mod(x,1) == 0 && x < length(xData), errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);
 
