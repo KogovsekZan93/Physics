@@ -1,28 +1,31 @@
-function yDerivativeA = ZFindDerivative(xData, yData, xDerivativeA, varargin)
-[FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
+function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, varargin)
 
+[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
 
 pars = inputParser;
 
-paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
+paramName = 'Type';
+defaultVal = 'A';
+errorMsg = '''Type'' must be either "A", "Spline", or "PolyFit".';
+validationFcn = @(x)assert(strcmp(x, 'A') || strcmp(x, 'Spline') ...
+    || strcmp(x, 'PolyFit') , errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn);
 
-paramName = 'xDerivativeA';
-errorMsg = '''xDerivativeA'' must be a sorted column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
-    issorted(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
+parse(pars, TypeList{:});
 
-parse(pars, xData, xDerivativeA);
+type = pars.Results.Type;
 
-
-[yDerivativeA, Ipoints, Smatrix] = ZFindBasicDerivativeA(xData, yData, xDerivativeA, NonFigureParameters{:});
-
-DrawZFitAHandle = @DrawZFitA;
-DrawZFitAInput = {xData, yData, min(xDerivativeA(1), xData(1)), max(xDerivativeA(end), xData(end)), Ipoints, Smatrix};
-DecideIfDrawZ(DrawZFitAHandle, DrawZFitAInput, FigureParameter{:});
+if strcmp(type, 'A')
+    yDerivative = ZFindDerivativeA(xData, yData, xDerivative, TypeDeletedList{:});
+    varargout = {};
+else
+    if strcmp(type, 'Spline')
+        [yDerivative, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivative, TypeDeletedList{:});
+        varargout = {ppDerivativeSpline};
+    else
+        [yDerivative, pFitPolyFit] = ZFindDerivativePolyFit(xData, yData, xDerivative, TypeDeletedList{:});
+        varargout = {pFitPolyFit};
+    end
+end
 
 end

@@ -1,17 +1,30 @@
-function DefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, Limits, varargin)
+function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin)
 %ZINTEGRALALIMITS Summary of this function goes here
 %   Detailed explanation goes here
 
-[LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
+[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
 
-[FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
+pars = inputParser;
 
-[yIntegralA, Ipoints, Smatrix] = ZFindBasicIntegralA(xData, yData, LimitsSorted, NonFigureParameters{:});
+paramName = 'Type';
+defaultVal = 'A';
+errorMsg = '''Type'' must be either "A", "Spline", or "PolyFit".';
+validationFcn = @(x)assert(strcmp(x, 'A') || strcmp(x, 'Spline') ...
+    || strcmp(x, 'PolyFit') , errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn);
 
-DefiniteIntegralA = yIntegralA(2) * LimitOrder;
+parse(pars, TypeList{:});
 
-DrawZIntegralAHandle = @DrawZIntegralA;
-DrawZIntegralAInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, Ipoints, Smatrix};
-DecideIfDrawZ(DrawZIntegralAHandle, DrawZIntegralAInput, FigureParameter{:});
+type = pars.Results.Type;
+
+if strcmp(type, 'A')
+    DefiniteIntegral = ZFindDefiniteIntegralA(xData, yData, Limits, TypeDeletedList{:});
+else
+    if strcmp(type, 'Spline')
+        DefiniteIntegral = ZFindDefiniteIntegralSpline(xData, yData, Limits, TypeDeletedList{:});
+    else
+        DefiniteIntegral = ZFindDefiniteIntegralPolyFit(xData, yData, Limits, TypeDeletedList{:});
+    end
+end
 
 end
