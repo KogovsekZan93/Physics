@@ -2,7 +2,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, Li
 
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ZFindBasicIntegralPolyFit(xData, yData, LimitsSorted, PolyDegree);
+[yIndefiniteIntegralSpline, ppFitSpline] = ZFindIntegralPolyFitBasic(xData, yData, LimitsSorted, PolyDegree);
 
 DefiniteIntegralPolyFit = yIndefiniteIntegralSpline(2) * LimitOrder;
 

@@ -6,7 +6,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, Limits, vararg
 
 [FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
 
-[yIntegralA, Ipoints, Smatrix] = ZFindBasicIntegralA(xData, yData, LimitsSorted, NonFigureParameters{:});
+[yIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic(xData, yData, LimitsSorted, NonFigureParameters{:});
 
 DefiniteIntegralA = yIntegralA(2) * LimitOrder;
 

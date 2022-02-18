@@ -35,7 +35,7 @@ ordDeriv = pars.Results.OrdDeriv;
 figr = pars.Results.Figure;
 
 
-[yDerivativePolyFit, pDerivativePolyFit, pFitPolyFit] = ZFindBasicDerivativePolyFit(xData, yData, xDerivativePolyFit, PolyDegree, 'OrdDeriv', ordDeriv);
+[yDerivativePolyFit, pDerivativePolyFit, pFitPolyFit] = ZFindDerivativePolyFitBasic(xData, yData, xDerivativePolyFit, PolyDegree, 'OrdDeriv', ordDeriv);
 varargout = {pDerivativePolyFit};
 
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;

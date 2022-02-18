@@ -120,7 +120,7 @@ parse(pars, xIntegralA);
 
 
 [FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
-[yIndefiniteIntegralA, Ipoints, Smatrix] = ZFindBasicIntegralA(xData, yData, xIntegralA, NonFigureParameters{:});
+[yIndefiniteIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic(xData, yData, xIntegralA, NonFigureParameters{:});
 
 DrawZIntegralAHandle = @DrawZIntegralA;
 ColorFace = [0, 0, 1];

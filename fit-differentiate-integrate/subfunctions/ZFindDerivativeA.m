@@ -19,7 +19,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xData, xDerivativeA);
 
 
-[yDerivativeA, Ipoints, Smatrix] = ZFindBasicDerivativeA(xData, yData, xDerivativeA, NonFigureParameters{:});
+[yDerivativeA, Ipoints, Smatrix] = ZFindDerivativeABasic(xData, yData, xDerivativeA, NonFigureParameters{:});
 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, min(xDerivativeA(1), xData(1)), max(xDerivativeA(end), xData(end)), Ipoints, Smatrix};

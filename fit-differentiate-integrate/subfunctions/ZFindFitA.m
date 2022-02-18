@@ -22,7 +22,7 @@ parse(pars, xData, xFitA);
 
 [FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
 
-[yFitA, Ipoints, Smatrix] = ZFindBasicFitA(xData, yData, xFitA, vararginBasic{:});
+[yFitA, Ipoints, Smatrix] = ZFindFitABasic(xData, yData, xFitA, vararginBasic{:});
 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, min(xData(1), xFitA(1)), max(xData(end), xFitA(end)), Ipoints, Smatrix};

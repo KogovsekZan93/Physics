@@ -12,7 +12,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xIntegralPolyFit);
 
 
-[yIndefiniteIntegralPolyFit, pFitPolyFit] = ZFindBasicIntegralPolyFit(xData, yData, xIntegralPolyFit, PolyDegree);
+[yIndefiniteIntegralPolyFit, pFitPolyFit] = ZFindIntegralPolyFitBasic(xData, yData, xIntegralPolyFit, PolyDegree);
 
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
 ColorFace = [0, 0, 1];

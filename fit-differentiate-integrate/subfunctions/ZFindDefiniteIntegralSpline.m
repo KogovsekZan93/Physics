@@ -2,7 +2,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limi
 
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ZFindBasicIntegralSpline(xData, yData, LimitsSorted);
+[yIndefiniteIntegralSpline, ppFitSpline] = ZFindIntegralSplineBasic(xData, yData, LimitsSorted);
 
 DefiniteIntegralSpline = yIndefiniteIntegralSpline(2) * LimitOrder;
 

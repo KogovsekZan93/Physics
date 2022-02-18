@@ -19,7 +19,7 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData, xFitPolyFit);
 
-[yFitPolyFit, pFitPolyFit] = ZFindBasicFitPolyFit(xData, yData, xFitPolyFit, PolyDegree);
+[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFitBasic(xData, yData, xFitPolyFit, PolyDegree);
 
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;
 DrawZFitPolyFitInput = {xData, yData, min(xData(1), xFitPolyFit(1)), max(xData(end), xFitPolyFit(end)), pFitPolyFit};
