@@ -1,4 +1,4 @@
-function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, Limits, PolyDegree,varargin)
+function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, Limits, PolyDegree, varargin)
 
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
 
