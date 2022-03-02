@@ -31,8 +31,8 @@ clear all; clc;   % Clearing variables and workspace is done at or
 % measured. In such cases, numerical integration can be 
 % performed to give an estimation of the actual value of the x 
 % coordinate at t == 0. 
-% ZFindDefiniteIntegral is a tool which can be used to do just 
-% that. 
+% The ZFindDefiniteIntegral function is a tool which can be used 
+% to do just that. 
 % Run the following block of code to numerically integrate the 
 % velocity function from t == 0 to t == 8. 
 
