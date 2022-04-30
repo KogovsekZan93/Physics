@@ -23,8 +23,8 @@ else
         [yDerivative, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivative, TypeDeletedList{:});
         varargout = {ppDerivativeSpline};
     else
-        [yDerivative, pFitPolyFit] = ZFindDerivativePolyFit(xData, yData, xDerivative, TypeDeletedList{:});
-        varargout = {pFitPolyFit};
+        [yDerivative, pDerivativePolyFit] = ZFindDerivativePolyFit(xData, yData, xDerivative, TypeDeletedList{:});
+        varargout = {pDerivativePolyFit};
     end
 end
 

@@ -6,10 +6,10 @@
 % code. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 close all; figure(1); plot(T, V, 'bo', 'MarkerSize', 10);
 xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
@@ -37,10 +37,10 @@ clear all; clc;   % Clearing variables and workspace is done at or
 % velocity function from t == 0 to t == 8. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 xData = T; yData = V; 
 xMin = 0;   % Lower limit of integration. 
@@ -77,10 +77,10 @@ x_at_t_equals_8_s
 % Run the following block of code. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 xData = T; yData = V; 
 xMin = 2.2;   % Lower limit of integration. 
@@ -97,22 +97,23 @@ clear all; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Now, in some cases, a piecewise polynomial of a higher order 
-% may be more appropriate for the estimation of the v(t) function. 
-% In such cases, we can specify the so called “Pseudo 
-% Accuracy” parameter as the optional parameter of the 
-% ZFindDefiniteIntegral function. The Pseudo Accuracy 
+% Now, in some cases, a piecewise interpolation polynomial of a 
+% higher order may be more appropriate for the estimation of 
+% the v(t) function. In such cases, we can specify the so called 
+% “Pseudo Accuracy” parameter as the optional parameter of 
+% the ZFindDefiniteIntegral function. The Pseudo Accuracy 
 % parameter of the FindDefiniteIntegral function is the order of 
-% the piecewise polynomial with which the function is to be 
-% estimated. 
+% the piecewise interpolation polynomial with which the function 
+% is to be estimated. 
 % Let’s try to estimate the v(t) function to be a piecewise cubic 
-% polynomial by running the following block of code. 
+%  interpolation polynomial by running the following block of 
+% code. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 xData = T; yData = V; 
 xMin = 0;   % Lower limit of integration. 
@@ -145,19 +146,19 @@ clearvars DefiniteIntegral;
 % estimation of the function being integrated even if the function 
 % is analytical. For example, if the "Pseudo Accuracy" parameter 
 % is increased to the maximum possible value of 
-% PseudoAccuracy == 9 - 1 ("9" is the size of the velocity/time 
+% "PseudoAccuracy == 9 - 1" ("9" is the size of the velocity/time 
 % data vector), the estimated velocity function resembles the 
 % actual velocity function less. The estimated value of the x 
 % coordinate at t == 8 s is also less close to the actual value, 
 % which is about 11.98 m (it was estimated to be about 12.41 m 
-% with PseudoAccuracy == 3). 
+% with "PseudoAccuracy == 3"). 
 % Run the following block of code to see for yourself. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 xData = T; yData = V; 
 xMin = 0;   % Lower limit of integration. 
@@ -188,7 +189,7 @@ clearvars DefiniteIntegral;
 % evaluated. 
 % At the first (lowest) value of TIntegral, the value of 
 % VIndefiniteIntegral is zero by default. At t == 0, the value of the 
-% x coordinate is 3 m. Therefore, if TIntegral (1) == 0, to 
+% x coordinate is 3 m. Therefore, if "TIntegral (1) == 0", to 
 % estimate the x coordinate at the time points of the TIntegral 
 % vector, the number 3 has to be added to the 
 % VIndefiniteIntegral vector for it to equal the vector X of 
@@ -198,11 +199,11 @@ clearvars DefiniteIntegral;
 % between the actual and the estimated x(t) function for 
 % Pseudo Accuracy == 3.
 
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8]; 
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 TIntegral = (linspace(0, 8, 1000))';
 xData = T; yData = V; 
@@ -232,13 +233,13 @@ clearvars -except TIntegral XEstimated TT XX_actual; clc;
 % There is also the optional "Mode" parameter for both the 
 % ZFindDefiniteIntegral function and the ZFindIndefiniteIntegral 
 % function, with which modes from 0 to 2 can be chosen 
-% (Mode == 1 being the default). If the sampling points are 
+% ("Mode == 1" being the default). If the sampling points are 
 % reasonably equally spaced, the Mode parameter makes little 
 % to no difference. If the sampling points are highly unequally far 
 % apart, the three different “Modes” give different answers to the 
 % question: “What are the appropriate points at which one piece 
-% of the piecewise polynomial function ends and the other 
-% begins?” 
+% of the piecewise  interpolation polynomial function ends and 
+% the other begins?” 
 % For details, the documentation of the GetIpointsSmatrix 
 % function should be read. In this tutorial, the impact of the 
 % “Mode” parameter can be seen by running one of the two 
@@ -334,10 +335,10 @@ Actual_value   %Display the actual value of the definite integral.
 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 xData = T; yData = V; 
 xMin = 0;   % Lower limit of integration. 
@@ -349,7 +350,7 @@ DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'Type', 'Spline', 'Figure', figr);
 TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
 hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                        % velocity function. 
+                                                                         % velocity function. 
 xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
 clearvars -except DefiniteIntegral; clc;
 x_at_t_equals_8_s = DefiniteIntegral + 3
@@ -357,10 +358,10 @@ clearvars DefiniteIntegral;
 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 TIntegral = (linspace(0, 8, 1000))';
 xData = T; yData = V; 
@@ -396,7 +397,7 @@ clearvars; clc;
 % must be set to specify the degree of the regression 
 % polynomial. As with the “Spline” setting of the “Type” 
 % parameter, there are no optional parameters 
-% “Pseudo Accuracy” and “Mode”.
+% “Pseudo Accuracy” and “Mode”. 
 % As in the previous page, the following two blocks of code refer 
 % to the previous problem of velocity being measured each 
 % second from t == 0 to t == 8 s. 
@@ -404,19 +405,19 @@ clearvars; clc;
 % coordinate at t == 8 s using the “PolyFit” setting of the “Type” 
 % parameter of the ZDefiniteIntegral function. Just as a 
 % reminder, the actual value of the x coordinate at t == 8 s is 
-% about 11.98 m.
+% about 11.98 m. 
 % Run the second block of code to estimate the x(t) function for 
 % the time interval [0, 8 s] by using the “PolyFit” setting of the 
 % “Type” parameter of the ZIndefiniteIntegral function and 
 % compare it to the actual x(t) function. 
 % The »PolyDegree« parameter in both cases is set to 
-% PolyDegree == 6. 
+% "PolyDegree == 6". 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 xData = T; yData = V; 
 xMin = 0;   % Lower limit of integration. 
@@ -429,7 +430,7 @@ DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'Type', 'PolyFit', PolyDegree, 'Figure', figr);
 TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
 hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                        % velocity function. 
+                                                                         % velocity function. 
 xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
 clearvars -except DefiniteIntegral; clc;
 x_at_t_equals_8_s = DefiniteIntegral + 3
@@ -437,10 +438,10 @@ clearvars DefiniteIntegral;
 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
+V = [1.000000000000000; 1.909297426825682;
+    0.243197504692072; 0.720584501801074;
+    1.989358246623382; 0.455978889110630;
+    0.463427081999565; 1.990607355694870;
     0.712096683334935];
 TIntegral = (linspace(0, 8, 1000))';
 xData = T; yData = V; 

@@ -7,10 +7,9 @@
 % Let us plot the measurements. Run the following block of 
 % code. 
 
-
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682; 
-    0.141120008059867; -0.756802495307928;  
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
     -0.958924274663138; -0.279415498198926;
    0.656986598718789; 0.989358246623382];
 close all; figure(1); plot(T, X, 'bo', 'MarkerSize', 10);
@@ -36,17 +35,16 @@ clear all; clc;   % Clearing variables and workspace is done at or
 % value of the v(t) function every 0.2 s in the time interval 
 % [-1 s, 9 s]. 
 
-
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682; 
-    0.141120008059867; -0.756802495307928;  
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
     -0.958924274663138; -0.279415498198926;
    0.656986598718789; 0.989358246623382];
 xData = T; yData = X; 
 xDerivative = (-1 : 0.2 : 9)';   % Time points at which v(t) is to be 
                                                % evaluated. 
 yDerivative = ZFindDerivative(xData, yData, ...
-    xDerivative);   % v(t) estimation 
+    xDerivative);   % v(t) estimation. 
 close all; figure(1);
 plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
 xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
@@ -68,22 +66,21 @@ clearvars; clc;
 % function v(t) to the plot of the estimated values of the velocity 
 % function. 
 
-
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682; 
-    0.141120008059867; -0.756802495307928;  
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
     -0.958924274663138; -0.279415498198926;
    0.656986598718789; 0.989358246623382];
 xData = T; yData = X; 
 xDerivative = (-1 : 0.2 : 9)';   % Time points at which v(t) is to be 
                                                % evaluated. 
 yDerivative = ZFindDerivative(xData, yData, ...
-    xDerivative);   % v(t) estimation 
+    xDerivative);   % v(t) estimation. 
 TT = (linspace(-1, 9, 1000))';
-vActual = cos(TT);   % Actual v(t) 
+vActual = cos(TT);   % Actual v(t). 
 close all; figure(1); hold on;
-plot(TT, vActual, 'k', 'MarkerSize', 10);
-plot(xDerivative, yDerivative, 'bo', 'LineWidth', 1.5);
+plot(TT, vActual, 'k', 'LineWidth', 1.5);
+plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
 xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
 legend('Actual', 'Estimated');
 clearvars; clc;
@@ -93,133 +90,139 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Now, in some cases, a piecewise polynomial of a higher order 
-% may be more appropriate for the estimation of the v(t) function. 
-% In such cases, we can specify the so called “Pseudo 
-% Accuracy” parameter as the optional parameter of the 
-% ZFindDefiniteIntegral function. The Pseudo Accuracy 
-% parameter of the FindDefiniteIntegral function is the order of 
-% the piecewise polynomial with which the function is to be 
-% estimated. 
-% Let’s try to estimate the v(t) function to be a piecewise cubic 
-% polynomial by running the following block of code. 
+% Supposedly one also wants to find the acceleration a in the x 
+% coordinate every 0.5 second in the time interval [-1 s, 9 s]. 
+% To find the acceleration in the x coordinate the second-order 
+% derivative of the position in the x coordinate would have to be 
+% calculated. The second- and higher-order numerical 
+% differentiation, can, too, be performed using the 
+% ZFindDerivative function to find an estimation of the a(t) 
+% function. The order of differentiation can be specified using 
+% the optional parameter “OrdDeriv”, the default value of which 
+% is “OrdDeriv == 1”. 
+% The actual acceleration function a(t) is a(t) = -sin(t) if time t is 
+% expressed in seconds and the acceleration a in the x 
+% coordinate is expressed in m / (s^2). 
+% Run the following to block to compare the actual acceleration 
+% function a(t) to the estimated values of a(t) in the specified 
+% time points. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-xData = T; yData = V; 
-xMin = 0;   % Lower limit of integration. 
-xMax = 8;   % Upper limit of integration. 
-Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 3;   % Pseudo Accuracy parameter. 
-figr = 1;   % Index of the Figure window. 
-close all;
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Figure', figr);
-clearvars -except DefiniteIntegral; clc;
-xlabel('t [s]'); ylabel('v [m / s]');
-x_at_t_equals_8_s = DefiniteIntegral + 3   % Remember, the 
-                                                                        % value of the x 
-                                                                        % coordinate at time 
-                                                                        % t == 0 is 3 m. 
-clearvars DefiniteIntegral;
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
+    -0.958924274663138; -0.279415498198926;
+   0.656986598718789; 0.989358246623382];
+xData = T; yData = X; 
+xDerivative = (-1 : 0.5 : 9)';   % Time points at which a(t) is to be 
+                                               % evaluated. 
+ordDeriv = 2;   % Order of differentiation. 
+yDerivative = ZFindDerivative(xData, yData, ...
+    xDerivative, 'OrdDeriv', ordDeriv);   % a(t) estimation. 
+TT = (linspace(-1, 9, 1000))';
+aActual = -sin(TT);   % Actual a(t). 
+close all; figure(1); hold on;
+plot(TT, aActual, 'k', 'LineWidth', 1.5);
+plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
+xlabel('t [s]'); ylabel('a [m / s^2]'); set(gca, 'FontSize', 14); grid on;
+legend('Actual', 'Estimated');
+clearvars; clc;
+
+% As with the velocity function v(t), the estimated acceleration 
+% function is reasonably close to the actual acceleration function 
+% a(t) inside the time interval in which the position in the x 
+% coordinate was measured and much less so outside of it. 
 
 
 %                                           Page 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% At this point, it may become apparent that the actual velocity 
-% function might be a kind of a sinusoidal function. Indeed, the 
-% velocity in m / s is represented by the function 
-% v(t) = sin(2 * t) + 1 if time t is expressed in seconds. It is 
-% important to note that increasing the value of the "Pseudo 
-% Accuracy" parameter may not result in a more accurate 
-% estimation of the function being integrated even if the function 
-% is analytical. For example, if the "Pseudo Accuracy" parameter 
-% is increased to the maximum possible value of 
-% PseudoAccuracy == 9 - 1 ("9" is the size of the velocity/time 
-% data vector), the estimated velocity function resembles the 
-% actual velocity function less. The estimated value of the x 
-% coordinate at t == 8 s is also less close to the actual value, 
-% which is about 11.98 m (it was estimated to be about 12.41 m 
-% with PseudoAccuracy == 3). 
-% Run the following block of code to see for yourself. 
+% How is numerical differentiation performed? In general, a 
+% differentiable function which is associated with the measured 
+% data is assumed and then differentiated. With default settings 
+% of the ZFindDerivative function, the function assumed is a 
+% piecewise interpolation polynomial of the N-th degree, where 
+% N is the sum of the desired order of accuracy and the order of 
+% differentiation. The order of accuracy is represented by the 
+% optional parameter “Accuracy”, the default value of which is 
+% “Accuracy == 2”. 
+% With the following block of code, you can vary the value of the 
+% “Accuracy” parameter and see how this changes the 
+% estimated values of the acceleration function considered in 
+% the previous page and compare it to the actual acceleration 
+% function a(t). 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-xData = T; yData = V; 
-xMin = 0;   % Lower limit of integration. 
-xMax = 8;   % Upper limit of integration. 
-Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 9 - 1;   % Pseudo Accuracy parameter. 
-figr = 1;   % Index of the Figure window. 
-close all;
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Figure', figr);
-TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
-hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                        % velocity function. 
-xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
-clearvars -except DefiniteIntegral; clc;
-x_at_t_equals_8_s = DefiniteIntegral + 3
-clearvars DefiniteIntegral;
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
+    -0.958924274663138; -0.279415498198926;
+   0.656986598718789; 0.989358246623382];
+xData = T; yData = X; 
+xDerivative = (-1 : 0.5 : 9)';   % Time points at which a(t) is to be 
+                                               % evaluated. 
+ordDeriv = 2;   % Order of differentiation. 
+acc = 2;   % Accuracy. 
+yDerivative = ZFindDerivative(xData, yData, ...
+    xDerivative, 'OrdDeriv', ordDeriv, ...
+    'Accuracy', acc);   % a(t) estimation. 
+TT = (linspace(-1, 9, 1000))';
+aActual = -sin(TT);   % Actual a(t). 
+close all; figure(1); hold on;
+plot(TT, aActual, 'k', 'LineWidth', 1.5);
+plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
+xlabel('t [s]'); ylabel('a [m / s^2]'); set(gca, 'FontSize', 14); grid on;
+legend('Actual', 'Estimated');
+clearvars; clc;
 
 
 %                                           Page 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% It is also possible to find the numerical indefinite integral 
-% VIndefiniteIntegral of the velocity function using the 
-% ZFindIndefiniteIntegral function by providing the vector of 
-% values TIntegralA at which the indefinite integral is to be 
-% evaluated. 
-% At the first (lowest) value of TIntegral, the value of 
-% VIndefiniteIntegral is zero by default. At t == 0, the value of the 
-% x coordinate is 3 m. Therefore, if TIntegral (1) == 0, to 
-% estimate the x coordinate at the time points of the TIntegral 
-% vector, the number 3 has to be added to the 
-% VIndefiniteIntegral vector for it to equal the vector X of 
-% estimated values of the coordinate x at time points of 
-% TIntegral. 
-% Run the following block of code to see the comparison 
-% between the actual and the estimated x(t) function for 
-% Pseudo Accuracy == 3.
-
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8]; 
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-TIntegral = (linspace(0, 8, 1000))';
-xData = T; yData = V; 
-xIntegral = TIntegral;
-psacc = 3;   % Pseudo Accuracy parameter. 
-close all;
-VIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, ...
-    xIntegral, 'PseudoAccuracy', psacc);
-X_estimated = VIndefiniteIntegral + 3;
-figure(1); clf;
-plot(TIntegral, X_estimated, 'r', 'LineWidth', 1.2)   % Plot the 
-                                                                                   % estimated 
-                                                                                   % x(t) function. 
-TT = linspace(0, 8, 1000); XX_actual = -cos(2 * TT)/2 + TT + 3.5;
-hold on; plot(TT, XX_actual, 'k', 'LineWidth', 1.5);   % Plot the 
-                                                                                     % actual x(t) 
-                                                                                     % function. 
-grid on;
-xlabel('t [s]'); ylabel('x [m]'); set(gca, 'FontSize', 14);
-legend('Estimated', 'Actual');
-clearvars -except TIntegral XEstimated TT XX_actual; clc;
+% The construction of the piecewise interpolation polynomial 
+% function is defined by the degree of the polynomials as well as 
+% the data points for each polynomial and endpoints of the 
+% intervals over which the polynomials are defined. The latter 
+% two aspects are different for each of three principles or 
+% “modes”, which are represented by the optional parameter 
+% “Mode”, the default value of which is “Mode == 1” but can also 
+% be set to either “0” or “2”. To understand the three modes in 
+% detail, documentation and the code of the functions and their 
+% subfunctions should be referred to. 
+% In general, the “Mode” parameter only changes the result if 
+% the abscissa data points are at least moderately unequally 
+% spaced. 
+% By running the following block of code, the difference 
+% between the three modes can be appreciated in the attempt to 
+% differentiate a function for which the data points are highly 
+% unequally spaced along the abscissa. 
+ 
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45];    % Highly unequally 
+                                                                  % spaced abscissa data 
+                                                                  % points. 
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2];
+xDerivative = (linspace(-5, 35))';
+yDerivativeActual = ZFindDerivative(xData, yData, xDerivative, ...
+     'Type', 'Spline');   % Actual yDerivative. 
+acc = 3;   % Accuracy. 
+yDerivative0 = ZFindDerivative(xData, yData, xDerivative, ...
+     'Accuracy', acc, 'Mode', 0);   % yDerivative estimate if 
+                                                     % Mode paramater is 0. 
+yDerivative1 = ZFindDerivative(xData, yData, xDerivative, ...
+     'Accuracy', acc, 'Mode', 1);   % yDerivative estimate if 
+                                                     % Mode paramater is 1. 
+yDerivative2 = ZFindDerivative(xData, yData, xDerivative, ...
+     'Accuracy', acc, 'Mode', 2);   % yDerivative estimate if 
+                                                     % Mode paramater is 2. 
+close all; figure(1); hold on;
+plot(xDerivative, yDerivativeActual, 'k', 'LineWidth', 2);
+plot(xDerivative, yDerivative0, 'b', 'LineWidth', 1.5);
+plot(xDerivative, yDerivative1, 'r:', 'LineWidth', 1.5);
+plot(xDerivative, yDerivative2, 'g--', 'LineWidth', 1.5);
+legend('Actual', 'Estimated if "Mode == 0"', ...
+    'Estimated if "Mode == 1"', 'Estimated if "Mode == 2"');
+xlabel('x'); ylabel('yDerivative'); set(gca, 'FontSize', 14); grid on;
+clearvars; clc;
 
 
 %                                           Page 6
