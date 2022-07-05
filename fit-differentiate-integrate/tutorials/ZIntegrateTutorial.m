@@ -1,7 +1,7 @@
 % Supposedly one measures a variable which is a function of 
 % time t, such as the velocity v in the x coordinate. The value of v 
 % is measured each second. This gives us two corresponding 
-% vectors of measurements: T for time and V for the velocity v.
+% vectors of measurements: T for time and V for the velocity v. 
 % Let us plot the measurements. Run the following block of 
 % code. 
 
@@ -313,8 +313,8 @@ Actual_value   %Display the actual value of the definite integral.
 
 % Alternatively, the definite or the indefinite numerical integral 
 % can be found by estimating the function being integrated to be 
-% a cubic spline of the data points. This can be done by altering 
-% the optional “Type” parameter to “Spline” of either the 
+% the cubic spline of the data points. This can be done by 
+% altering the optional “Type” parameter to “Spline” of either the 
 % ZDefiniteIntegral function or the ZIndefiniteIntegral function. 
 % The default “Type” parameter, which has been used until this 
 % point in the tutorial, is “A”. Note that due to spline being fully 
@@ -332,7 +332,6 @@ Actual_value   %Display the actual value of the definite integral.
 % the time interval [0, 8 s] by using indefinite integration with 
 % cubic spline interpolation and compare it to the actual x(t) 
 % function.
-
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
 V = [1.000000000000000; 1.909297426825682;
@@ -469,7 +468,7 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This completes the tutorial for the functions ZDefiniteIntegral 
+% This concludes the tutorial for the functions ZDefiniteIntegral 
 % and ZIndefiniteIntegral. For further questions, the 
 % documentation and the code of the functions and their 
 % subfunctions should be referred to. 

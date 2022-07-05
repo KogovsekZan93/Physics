@@ -92,10 +92,10 @@ clearvars; clc;
 
 % Supposedly one also wants to find the acceleration a in the x 
 % coordinate every 0.5 second in the time interval [-1 s, 9 s]. 
-% To find the acceleration in the x coordinate the second-order 
+% To find the acceleration in the x coordinate, the second-order 
 % derivative of the position in the x coordinate would have to be 
 % calculated. The second- and higher-order numerical 
-% differentiation, can, too, be performed using the 
+% differentiation can, too, be performed using the 
 % ZFindDerivative function to find an estimation of the a(t) 
 % function. The order of differentiation can be specified using 
 % the optional parameter “OrdDeriv”, the default value of which 
@@ -183,12 +183,12 @@ clearvars; clc;
 % function is defined by the degree of the polynomials as well as 
 % the data points for each polynomial and endpoints of the 
 % intervals over which the polynomials are defined. The latter 
-% two aspects are different for each of three principles or 
-% “modes”, which are represented by the optional parameter 
-% “Mode”, the default value of which is “Mode == 1” but can also 
-% be set to either “0” or “2”. To understand the three modes in 
-% detail, documentation and the code of the functions and their 
-% subfunctions should be referred to. 
+% two aspects differ among each of three predefined principles, 
+% also called “modes”. They are represented by the optional 
+% parameter “Mode”, the default value of which is “Mode == 1” 
+% but can also be set to either “0” or “2”. To understand the 
+% three modes in detail, documentation and the code of the 
+% functions and their subfunctions should be referred to. 
 % In general, the “Mode” parameter only changes the result if 
 % the abscissa data points are at least moderately unequally 
 % spaced. 
@@ -196,7 +196,7 @@ clearvars; clc;
 % between the three modes can be appreciated in the attempt to 
 % differentiate a function for which the data points are highly 
 % unequally spaced along the abscissa. 
- 
+
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45];    % Highly unequally 
                                                                   % spaced abscissa data 
                                                                   % points. 
@@ -221,88 +221,53 @@ plot(xDerivative, yDerivative1, 'r:', 'LineWidth', 1.5);
 plot(xDerivative, yDerivative2, 'g--', 'LineWidth', 1.5);
 legend('Actual', 'Estimated if "Mode == 0"', ...
     'Estimated if "Mode == 1"', 'Estimated if "Mode == 2"');
-xlabel('x'); ylabel('yDerivative'); set(gca, 'FontSize', 14); grid on;
+xlabel('x'); ylabel('y_D_e_r_i_v_a_t_i_v_e'); set(gca, 'FontSize', 14); grid on;
 clearvars; clc;
 
 
 %                                           Page 6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% There is also the optional "Mode" parameter for both the 
-% ZFindDefiniteIntegral function and the ZFindIndefiniteIntegral 
-% function, with which modes from 0 to 2 can be chosen 
-% (Mode == 1 being the default). If the sampling points are 
-% reasonably equally spaced, the Mode parameter makes little 
-% to no difference. If the sampling points are highly unequally far 
-% apart, the three different “Modes” give different answers to the 
-% question: “What are the appropriate points at which one piece 
-% of the piecewise polynomial function ends and the other 
-% begins?” 
-% For details, the documentation of the GetIpointsSmatrix 
-% function should be read. In this tutorial, the impact of the 
-% “Mode” parameter can be seen by running one of the two 
-% following blocks of code. The three figures generated show 
-% how the estimated y(x) function varies with the “Mode” 
-% parameter when sampling points of the x variable are highly 
-% unequally spaced. 
+% Alternatively, the assumed differentiable function which is 
+% associated with the data can be the cubic spline of the data 
+% points. This can be done by altering the optional “Type” 
+% parameter to “Spline".
+% The default “Type” parameter, which has been used until this 
+% point in the tutorial, is “A”. Note that due to spline being fully 
+% defined by a specific set of data points, there are no optional 
+% parameters “Accuracy” and “Mode” with the “Type” 
+% parameter set to “Spline”. 
+% Keep in mind that as the spline is a piecewise cubic 
+% polynomial, the order of differentiation above 3 will produce 
+% the value 0 for all inquired abscissa points. 
+% Run the following block of code to see how the spline 
+% interpolation and differentiation method compares to 
+% ZFindDerivative function with the default settings and the 
+% actual velocity function in our first case, measuring the value of 
+% the x coordinate over an 8 s interval and trying to determine 
+% the velocity function v(t). 
 
-mode = 0;   % Mode parameter.
-xData = [0; 1; 3; 5; 8; 35; 37; 40; 45];
-yData = [10; 9; 8; 11; 13; 5; 4; 3; 2];
-xMin = 0;   % Lower integration limit. 
-xMax = 45;   % Upper integration limit. 
-Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 3;	% Pseudo Accuracy parameter. 
-figr = 1;   % Index of the Figure window. 
-close all;
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y');
-title(['Mode == 0, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-mode = 1; figr = 2;    % Changing Mode parameter to 1
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y');
-title(['Mode == 1, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-mode = 2; figr = 3;    % Changing Mode parameter to 2
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y');
-title(['Mode == 2, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
+T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
+    -0.958924274663138; -0.279415498198926;
+   0.656986598718789; 0.989358246623382];
+xData = T; yData = X; 
+xDerivative = (linspace(-1, 9, 1000))';   % Time points at which 
+                                                                 % v(t) is to be evaluated. 
+yDerivativeDefault = ZFindDerivative(xData, yData, ...
+    xDerivative);   % v(t) estimation using default settings 
+yDerivativeSpline = ZFindDerivative(xData, yData, xDerivative, ...
+    'Type', 'Spline');   % v(t) estimation using spline interpolation 
+vActual = cos(xDerivative);   % Actual v(t). 
+close all; figure(1); hold on;
+plot(xDerivative, vActual, 'k', 'LineWidth', 1.5);
+plot(xDerivative, yDerivativeDefault, 'b', 'LineWidth', 1.5);
+plot(xDerivative, yDerivativeSpline, 'r', 'LineWidth', 1.5);
+xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
+legend('Actual', 'Estimated using default settings', ...
+    'Estimated using the spline interpolation');
 clearvars; clc;
-
-mode = 0;   % Mode parameter.
-xData = [-3; -2; 3; 4; 5; 8];
-yData = sin(xData);
-xMin = -2;   % Lower integration limit. 
-xMax = 4;	% Upper integration limit. 
-Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 2;   % Pseudo Accuracy parameter. 
-figr = 1;   % Index of the Figure window. 
-close all;
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y');
-title(['Mode == 0, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-xx = linspace(min(xData), max(xData), 1000); yy_actual = sin(xx);
-hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);   % Plot the 
-                                                                                  % actual 
-                                                                                  % function. 
-mode = 1; figr = 2;    % Changing Mode parameter to 1
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y');
-title(['Mode == 1, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);
-mode = 2; figr = 3;    % Changing Mode parameter to 2
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
-xlabel('x'); ylabel('y');
-title(['Mode == 2, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);
-Actual_value = -cos(xMax) + cos(xMin);
-clearvars -except Actual_value; clc;
-Actual_value   %Display the actual value of the definite integral. 
 
 
 %                                           Page 7
@@ -395,7 +360,7 @@ clearvars; clc;
 % must be set to specify the degree of the regression 
 % polynomial. As with the “Spline” setting of the “Type” 
 % parameter, there are no optional parameters 
-% “Pseudo Accuracy” and “Mode”.
+% “Pseudo Accuracy” and “Mode”. 
 % As in the previous page, the following two blocks of code refer 
 % to the previous problem of velocity being measured each 
 % second from t == 0 to t == 8 s. 
