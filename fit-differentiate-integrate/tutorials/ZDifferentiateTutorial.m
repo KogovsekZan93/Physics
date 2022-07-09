@@ -228,6 +228,7 @@ clearvars; clc;
 %                                           Page 6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 % Alternatively, the assumed differentiable function which is 
 % associated with the data can be the cubic spline of the data 
 % points. This can be done by altering the optional “Type” 
@@ -241,7 +242,7 @@ clearvars; clc;
 % polynomial, the order of differentiation above 3 will produce 
 % the value 0 for all inquired abscissa points. 
 % Run the following block of code to see how the spline 
-% interpolation and differentiation method compares to 
+% interpolation and differentiation method compares to the
 % ZFindDerivative function with the default settings and the 
 % actual velocity function in our first case, measuring the value of 
 % the x coordinate over an 8 s interval and trying to determine 
@@ -256,9 +257,9 @@ xData = T; yData = X;
 xDerivative = (linspace(-1, 9, 1000))';   % Time points at which 
                                                                  % v(t) is to be evaluated. 
 yDerivativeDefault = ZFindDerivative(xData, yData, ...
-    xDerivative);   % v(t) estimation using default settings 
+    xDerivative);   % v(t) estimation using default settings. 
 yDerivativeSpline = ZFindDerivative(xData, yData, xDerivative, ...
-    'Type', 'Spline');   % v(t) estimation using spline interpolation 
+    'Type', 'Spline');   % v(t) estimation using spline interpolation. 
 vActual = cos(xDerivative);   % Actual v(t). 
 close all; figure(1); hold on;
 plot(xDerivative, vActual, 'k', 'LineWidth', 1.5);
@@ -274,76 +275,53 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Alternatively, the definite or the indefinite numerical integral 
-% can be found by estimating the function being integrated to be 
-% a cubic spline of the data points. This can be done by altering 
-% the optional “Type” parameter to “Spline” of either the 
-% ZDefiniteIntegral function or the ZIndefiniteIntegral function. 
-% The default “Type” parameter, which has been used until this 
-% point in the tutorial, is “A”. Note that due to spline being fully 
-% defined by a specific set of data points, there are no optional 
-% parameters “Pseudo Accuracy” and “Mode” with the “Type” 
-% parameter set to “Spline”. 
-% The following two blocks of code refer to the previous 
-% problem of velocity being measured each second from t == 0 
-% to t == 8 s. 
-% Run the first block of code to estimate the value of the x 
-% coordinate at t == 8 s by using definite numerical integration 
-% with cubic spline interpolation. Just as a reminder, the actual 
-% value of the x coordinate at t == 8 s is about 11.98 m. 
-% Run the second block of code to estimate the x(t) function for 
-% the time interval [0, 8 s] by using indefinite integration with 
-% cubic spline interpolation and compare it to the actual x(t) 
-% function.
-
+% Another way to find the numerical derivative of a function is to 
+% differentiate the regression polynomial of the data points. This 
+% can be done by altering the optional “Type” parameter to 
+% “PolyFit”. In that case, the required “PolyDegree” parameter 
+% needs to be set. The “PolyDegree” parameter corresponds to 
+% the degree of the regression polynomial. 
+% As with the “Spline” setting of the “Type” parameter, there are 
+% no optional parameters “Pseudo Accuracy” and “Mode”. 
+% We again refer to the first case, measuring the value of 
+% the x coordinate over an 8 s interval and trying to determine 
+% the velocity function v(t). Run the block of code on Page 1 to 
+% see the data points again. With no additional information, the 
+% most reasonable regression polynomial would likely be that of 
+% the fourth degree as the x(t) function seems to have three 
+% local extremes. 
+% Run the following block of code to see how the “PolyFit” 
+% setting of the “Type” parameter compares to spline 
+% interpolation and differentiation, the ZFindDerivative function 
+% with the default settings, and the actual velocity function. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-xData = T; yData = V; 
-xMin = 0;   % Lower limit of integration. 
-xMax = 8;   % Upper limit of integration. 
-Limits = [xMin; xMax];   % Limits of integration. 
-figr = 1;   % Index of the Figure window. 
-close all;
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'Type', 'Spline', 'Figure', figr);
-TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
-hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                        % velocity function. 
-xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
-clearvars -except DefiniteIntegral; clc;
-x_at_t_equals_8_s = DefiniteIntegral + 3
-clearvars DefiniteIntegral;
-
-
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-TIntegral = (linspace(0, 8, 1000))';
-xData = T; yData = V; 
-xIntegralA = TIntegral;
-VIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, ...
-    xIntegralA, 'Type', 'Spline');
-X_estimated = VIndefiniteIntegral + 3;
-TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
-close all; figure(1); clf;
-plot(TIntegral, X_estimated, 'r', 'LineWidth', 1.2)   % Plot the 
-                                                                                   % estimated 
-                                                                                   % x(t) function. 
-TT = linspace(0, 8, 1000); XX_actual = -cos(2 * TT)/2 + TT + 3.5;
-hold on; plot(TT, XX_actual, 'k', 'LineWidth', 1.5);   % Plot the 
-                                                                                     % actual x(t) 
-                                                                                     % function. 
-grid on;
-xlabel('t [s]'); ylabel('x [m]'); set(gca, 'FontSize', 14);
-legend('Estimated', 'Actual');
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
+    -0.958924274663138; -0.279415498198926;
+   0.656986598718789; 0.989358246623382];
+xData = T; yData = X; 
+xDerivative = (linspace(-1, 9, 1000))';   % Time points at which 
+                                                                 % v(t) is to be evaluated. 
+yDerivativeDefault = ZFindDerivative(xData, yData, ...
+    xDerivative);   % v(t) estimation using default settings. 
+yDerivativeSpline = ZFindDerivative(xData, yData, xDerivative, ...
+    'Type', 'Spline');   % v(t) estimation using spline interpolation. 
+polyDegree = 4;   % Degree of the regression polynomial. 
+yDerivativePolyFit = ZFindDerivative(xData, yData, xDerivative, ...
+    'Type', 'PolyFit', ...
+    polyDegree);   % v(t) estimation using the regression 
+                              % polynomial. 
+vActual = cos(xDerivative);   % Actual v(t). 
+close all; figure(1); hold on;
+plot(xDerivative, vActual, 'k', 'LineWidth', 1.5);
+plot(xDerivative, yDerivativeDefault, 'b', 'LineWidth', 1.5);
+plot(xDerivative, yDerivativeSpline, 'r', 'LineWidth', 1.5);
+plot(xDerivative, yDerivativePolyFit, 'g', 'LineWidth', 1.5);
+xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
+legend('Actual', 'Estimated using default settings', ...
+    'Estimated using the spline interpolation', ...
+    'Estimated using the regression polynomial');
 clearvars; clc;
 
 
@@ -351,80 +329,40 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Another alternative is to find either the definite integral or the 
-% indefinite integral by integrating the regression polynomial of 
-% the data points. This can be done by altering the optional 
-% “Type” parameter to “PolyFit” of either the ZDefiniteIntegral 
-% function or the ZIndefiniteIntegral function. With this setting of 
-% the “Type” parameter, the “PolyDegree” required parameter 
-% must be set to specify the degree of the regression 
-% polynomial. As with the “Spline” setting of the “Type” 
-% parameter, there are no optional parameters 
-% “Pseudo Accuracy” and “Mode”. 
-% As in the previous page, the following two blocks of code refer 
-% to the previous problem of velocity being measured each 
-% second from t == 0 to t == 8 s. 
-% Run the first block of code to estimate the value of the x 
-% coordinate at t == 8 s using the “PolyFit” setting of the “Type” 
-% parameter of the ZDefiniteIntegral function. Just as a 
-% reminder, the actual value of the x coordinate at t == 8 s is 
-% about 11.98 m.
-% Run the second block of code to estimate the x(t) function for 
-% the time interval [0, 8 s] by using the “PolyFit” setting of the 
-% “Type” parameter of the ZIndefiniteIntegral function and 
-% compare it to the actual x(t) function. 
-% The »PolyDegree« parameter in both cases is set to 
-% PolyDegree == 6. 
+% At times it may be important to visualize the function which is 
+% differentiated to calculate the numerical derivative. In such 
+% cases, the optional “Figure” parameter can be set to the figure 
+% index in which the function is to be visualized. Setting the 
+% “Figure” parameter to “0” results in no visualization. 
+% Run the following block of code to visualize the data points 
+% along with the functions which were differentiated for each of 
+% the numerical derivatives calculated on the previous page. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-xData = T; yData = V; 
-xMin = 0;   % Lower limit of integration. 
-xMax = 8;   % Upper limit of integration. 
-Limits = [xMin; xMax];   % Limits of integration. 
-PolyDegree = 6;   % Degree of the regression polynomial. 
-figr = 1;   % Index of the Figure window. 
-close all;
-DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'Type', 'PolyFit', PolyDegree, 'Figure', figr);
-TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
-hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
-                                                                        % velocity function. 
-xlabel('t [s]'); ylabel('v [m / s]'); legend('', 'Estimated', '', 'Actual');
-clearvars -except DefiniteIntegral; clc;
-x_at_t_equals_8_s = DefiniteIntegral + 3
-clearvars DefiniteIntegral;
-
-
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-V = [1.000000000000000; 1.909297426825682; 
-    0.243197504692072; 0.720584501801074; 
-    1.989358246623382; 0.455978889110630; 
-    0.463427081999565; 1.990607355694870; 
-    0.712096683334935];
-TIntegral = (linspace(0, 8, 1000))';
-xData = T; yData = V; 
-xIntegralA = TIntegral;
-PolyDegree = 6;   % Degree of the regression polynomial. 
-VIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, ...
-    xIntegralA, 'Type', 'PolyFit', PolyDegree);
-X_estimated = VIndefiniteIntegral + 3;
-TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
-close all; figure(1); clf;
-plot(TIntegral, X_estimated, 'r', 'LineWidth', 1.2)   % Plot the 
-                                                                                   % estimated 
-                                                                                   % x(t) function. 
-TT = linspace(0, 8, 1000); XX_actual = -cos(2 * TT)/2 + TT + 3.5;
-hold on; plot(TT, XX_actual, 'k', 'LineWidth', 1.5);   % Plot the 
-                                                                                     % actual x(t) 
-                                                                                     % function. 
-grid on;
-xlabel('t [s]'); ylabel('x [m]'); set(gca, 'FontSize', 14);
-legend('Estimated', 'Actual');
+X = [0; 0.841470984807897; 0.909297426825682;
+    0.141120008059867; -0.756802495307928;
+    -0.958924274663138; -0.279415498198926;
+   0.656986598718789; 0.989358246623382];
+xData = T; yData = X; 
+xDerivative = (linspace(-1, 9, 1000))';   % Time points at which 
+                                                                 % v(t) is to be evaluated. 
+close all; hold on;
+figr1 = 1;   % Figure paramater value 
+yDerivativeDefault = ZFindDerivative(xData, yData, xDerivative, ...
+    'Figure', figr1);   % v(t) estimation using default settings. 
+title('Default settings of ZFindDerivative function');
+figr2 = 2;   % Figure paramater value 
+yDerivativeSpline = ZFindDerivative(xData, yData, xDerivative, ...
+    'Type', 'Spline', ...
+    'Figure', figr2);   % v(t) estimation using spline interpolation.
+title('Spline interpolation');
+polyDegree = 4;   % Degree of the regression polynomial. 
+figr3 = 3;   % Figure paramater value 
+yDerivativePolyFit = ZFindDerivative(xData, yData, xDerivative, ...
+    'Type', 'PolyFit', polyDegree, ...
+    'Figure', figr3);   % v(t) estimation using the regression 
+                                % polynomial. 
+title('Regression polynomial');
 clearvars; clc;
 
 
@@ -432,10 +370,9 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This completes the tutorial for the functions ZDefiniteIntegral 
-% and ZIndefiniteIntegral. For further questions, the 
-% documentation and the code of the functions and their 
-% subfunctions should be referred to. 
+% This completes the tutorial for the ZFindDerivative function. 
+% For further questions, the documentation and the code of the 
+% function and its subfunctions should be referred to. 
 
 
 %                                           Page 10

@@ -468,10 +468,10 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This concludes the tutorial for the functions ZDefiniteIntegral 
-% and ZIndefiniteIntegral. For further questions, the 
-% documentation and the code of the functions and their 
-% subfunctions should be referred to. 
+% This completes the tutorial for the functions 
+% ZFindDefiniteIntegral and ZFindIndefiniteIntegral. For further 
+% questions, the documentation and the code of the functions 
+% and their subfunctions should be referred to. 
 
 
 %                                           Page 10
