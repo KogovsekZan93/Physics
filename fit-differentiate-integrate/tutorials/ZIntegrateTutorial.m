@@ -13,9 +13,9 @@ V = [1.000000000000000; 1.909297426825682;
     0.712096683334935];
 close all; figure(1); plot(T, V, 'bo', 'MarkerSize', 10);
 xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
-clear all; clc;   % Clearing variables and workspace is done at or 
-                        % near the end of after each block of code for the 
-                        %purposes of clarity of this tutorial. 
+clearvars; clc;   % Clearing variables and workspace is done at 
+                          % or near the end of after each block of code for 
+                          % the purposes of clarity of this tutorial. 
 
 
 %                                           Page 1
@@ -272,6 +272,7 @@ DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
 xlabel('x'); ylabel('y');
 title(['Mode == 2, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 clearvars; clc;
+
 
 mode = 0;   % Mode parameter.
 xData = [-3; -2; 3; 4; 5; 8];

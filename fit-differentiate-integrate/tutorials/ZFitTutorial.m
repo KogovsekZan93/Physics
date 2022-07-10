@@ -1,19 +1,14 @@
-% Supposedly one measures a variable which is a function of 
-% time t, such as the position of an objected, which is 
-% represented by the value of the x coordinate. The value of the 
-% x coordinate is measured each second in the 8 second 
-% interval. This gives us two corresponding vectors of 
-% measurements: T for time and X for the x coordinate.
-% Let us plot the measurements. Run the following block of 
+% Supposedly one measures the variable x which is a function of 
+% the variable y. This gives us two corresponding vectors of 
+% measurements: xData for the x variable and yData for the y 
+% variable. 
+% To plot the measured data points, run the following block of 
 % code. 
 
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682;
-    0.141120008059867; -0.756802495307928;
-    -0.958924274663138; -0.279415498198926;
-   0.656986598718789; 0.989358246623382];
-close all; figure(1); plot(T, X, 'bo', 'MarkerSize', 10);
-xlabel('t [s]'); ylabel('x [m]'); set(gca, 'FontSize', 14); grid on;
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
+close all; figure(1); plot(xData, yData, 'bo', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); set(gca, 'FontSize', 14); grid on;
 clearvars; clc;   % Clearing variables and workspace is done at 
                           % or near the end of after each block of code for 
                           % the purposes of clarity of this tutorial. 
@@ -23,32 +18,31 @@ clearvars; clc;   % Clearing variables and workspace is done at
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Supposedly one wants to find the value of the velocity v in the 
-% x coordinate every 0.2 s not only during the time of 
-% measurement but also a second before the start and a 
-% second after the end of measurements. In such cases, 
-% numerical differentiation can be performed to give an 
-% estimation of the actual value of the velocity function v(t) at 
-% desired time points. 
-% The ZFindDerivative function is a tool which can be used to do 
-% just that. Run the following block of code to plot the estimated 
-% value of the v(t) function every 0.2 s in the time interval 
-% [-1 s, 9 s]. 
+% Supposedly one wants to find the value of the y variable for 
+% the missing integer values of the x variable in the [-5, 70] 
+% interval. The ZFindFit function is a tool which can be used to 
+% do just that. 
+% Run the following block of code to visualize the missing values 
+% of the y variable which were estimated using the ZFindFit 
+% function with its default settings, i.e. without any of its various 
+% optional parameters changed. 
 
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682;
-    0.141120008059867; -0.756802495307928;
-    -0.958924274663138; -0.279415498198926;
-   0.656986598718789; 0.989358246623382];
-xData = T; yData = X; 
-xDerivative = (-1 : 0.2 : 9)';   % Time points at which v(t) is to be 
-                                               % evaluated. 
-yDerivative = ZFindDerivative(xData, yData, ...
-    xDerivative);   % v(t) estimation. 
-close all; figure(1);
-plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
-xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
-clearvars; clc;
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
+xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
+    16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; ...
+    32; 33; 34; 36; 38; 39; 41; 42; 43; 44; 46; 47; 48; 49; 50; 51; ...
+    52; 53; 54; 55; 58; 59; 61; 62; 63; 64; 65; 67; 69; ...
+    70];   % The missing integer values of the x variable at which 
+              % the y variable was not measured. 
+yMissing = ZFindFit(xData, yData, xMissing);
+close all; figure(1); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+clearvars -except xData yData xMissing yMissing; clc;
 
 
 %                                           Page 2
