@@ -49,35 +49,66 @@ clearvars -except xData yData xMissing yMissing; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% How accurate was that estimation of v(t)? It is almost 
-% impossible to know exactly at this point. 
-% The actual x(t) function in our case is x(t) = sin(t) if the value of 
-% the x coordinate is expressed in meters and time t is 
-% expressed in seconds. This means that the actual velocity 
-% function v(t) is v(t) = cos(t) if the velocity v is expressed in 
-% meters per second (m / s) and time t is expressed in seconds. 
-% Run the following block of code to add the actual velocity 
-% function v(t) to the plot of the estimated values of the velocity 
-% function. 
+% With its default settings, the estimated missing values with the 
+% ZFindFit function are calculated using linear interpolation 
+% between the neighboring data points. 
+% The estimation of the missing values can be done in three 
+% ways, determined by the optional parameter “Type”. The 
+% possible settings of “Type” are “A”, “Spline” and “PolyFit”. 
+% With the default setting “A”, a piecewise interpolation 
+% polynomial is used. The degree of the piecewise interpolation 
+% polynomial can be set using the optional parameter 
+% “PseudoAccuracy”, the default value of which is “1” (hence 
+% the linear interpolation with default settings). 
+% Run the following block of code to see the impact of the 
+% variation of the “PseudoAccuracy” parameter on the estimated 
+% missing values of the y variable. 
 
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682;
-    0.141120008059867; -0.756802495307928;
-    -0.958924274663138; -0.279415498198926;
-   0.656986598718789; 0.989358246623382];
-xData = T; yData = X; 
-xDerivative = (-1 : 0.2 : 9)';   % Time points at which v(t) is to be 
-                                               % evaluated. 
-yDerivative = ZFindDerivative(xData, yData, ...
-    xDerivative);   % v(t) estimation. 
-TT = (linspace(-1, 9, 1000))';
-vActual = cos(TT);   % Actual v(t). 
-close all; figure(1); hold on;
-plot(TT, vActual, 'k', 'LineWidth', 1.5);
-plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
-xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
-legend('Actual', 'Estimated');
-clearvars; clc;
+
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
+xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
+    16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; ...
+    32; 33; 34; 36; 38; 39; 41; 42; 43; 44; 46; 47; 48; 49; 50; 51; ...
+    52; 53; 54; 55; 58; 59; 61; 62; 63; 64; 65; 67; 69; ...
+    70];   % The missing integer values of the x variable at which 
+              % the y variable was not measured. 
+close all;
+psacc = 1;
+yMissing1 = ZFindFit(xData, yData, xMissing, ...
+    'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
+                                                    % set to 1
+figure(1); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing1, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“PseudoAccuracy” == "1"');
+psacc = 2;
+yMissing2 = ZFindFit(xData, yData, xMissing, ...
+    'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
+                                                    % set to 2
+figure(2); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing2, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“PseudoAccuracy” == "2"');
+psacc = 3;
+yMissing3 = ZFindFit(xData, yData, xMissing, ...
+    'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
+                                                    % set to 3
+figure(3); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing3, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“PseudoAccuracy” == "3"');
+clearvars -except xData yData xMissing ...
+    yMissing1 yMissing2 yMissing3; clc;
 
 
 %                                           Page 3

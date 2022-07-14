@@ -1,4 +1,4 @@
-function [yFitA, varargout] = ZFindBasicFitA(xData, yData, xFitA, varargin)
+function [yFitA, varargout] = ZFindFitABasic(xData, yData, xFitA, varargin)
 
 
 pars = inputParser;
@@ -11,7 +11,7 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'PseudoAccuracy';
 defaultVal = 1;
-errorMsg = '''PseudoAccuracy'' must be a whole number which is lower than length(xData).';
+errorMsg = '''PseudoAccuracy'' must be a nonnegative integer which is lower than length(xData).';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     x >= 0 && mod(x,1) == 0 && x < length(xData), errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);
