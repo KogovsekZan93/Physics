@@ -64,7 +64,6 @@ clearvars -except xData yData xMissing yMissing; clc;
 % variation of the “PseudoAccuracy” parameter on the estimated 
 % missing values of the y variable. 
 
-
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
 yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
 xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
@@ -115,47 +114,69 @@ clearvars -except xData yData xMissing ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Supposedly one also wants to find the acceleration a in the x 
-% coordinate every 0.5 second in the time interval [-1 s, 9 s]. 
-% To find the acceleration in the x coordinate, the second-order 
-% derivative of the position in the x coordinate would have to be 
-% calculated. The second- and higher-order numerical 
-% differentiation can, too, be performed using the 
-% ZFindDerivative function to find an estimation of the a(t) 
-% function. The order of differentiation can be specified using 
-% the optional parameter “OrdDeriv”, the default value of which 
-% is “OrdDeriv == 1”. 
-% The actual acceleration function a(t) is a(t) = -sin(t) if time t is 
-% expressed in seconds and the acceleration a in the x 
-% coordinate is expressed in m / (s^2). 
-% Run the following to block to compare the actual acceleration 
-% function a(t) to the estimated values of a(t) in the specified 
-% time points. 
+% With the “A” setting of the “Type” optional parameter, in 
+% addition to the “PseudoAccuracy” optional parameter, the 
+% “Mode” optional parameter can also be set. The possible 
+% settings are either “0”, “1”, and “2”, the default being “1”. The 
+% setting of the “Mode” parameter determines the method by 
+% which the data points are selected and the boundaries are 
+% calculated for each of the interpolation polynomials of the 
+% piecewise interpolation polynomial function. 
+% Generally, the variation of the “Mode” parameter only has an 
+% impact when the data points are highly unequally spaced along 
+% the abscissa coordinate, as is indeed the case with the 
+% example presented in this tutorial. 
+% Run the following block of code to see the impact of the 
+% variation of the “Mode” parameter on the estimated values of 
+% the y variable. The “PseudoAccuracy” parameter is set to “3” 
+% for all cases. 
 
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682;
-    0.141120008059867; -0.756802495307928;
-    -0.958924274663138; -0.279415498198926;
-   0.656986598718789; 0.989358246623382];
-xData = T; yData = X; 
-xDerivative = (-1 : 0.5 : 9)';   % Time points at which a(t) is to be 
-                                               % evaluated. 
-ordDeriv = 2;   % Order of differentiation. 
-yDerivative = ZFindDerivative(xData, yData, ...
-    xDerivative, 'OrdDeriv', ordDeriv);   % a(t) estimation. 
-TT = (linspace(-1, 9, 1000))';
-aActual = -sin(TT);   % Actual a(t). 
-close all; figure(1); hold on;
-plot(TT, aActual, 'k', 'LineWidth', 1.5);
-plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
-xlabel('t [s]'); ylabel('a [m / s^2]'); set(gca, 'FontSize', 14); grid on;
-legend('Actual', 'Estimated');
-clearvars; clc;
-
-% As with the velocity function v(t), the estimated acceleration 
-% function is reasonably close to the actual acceleration function 
-% a(t) inside the time interval in which the position in the x 
-% coordinate was measured and much less so outside of it. 
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
+xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
+    16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; ...
+    32; 33; 34; 36; 38; 39; 41; 42; 43; 44; 46; 47; 48; 49; 50; 51; ...
+    52; 53; 54; 55; 58; 59; 61; 62; 63; 64; 65; 67; 69; ...
+    70];   % The missing integer values of the x variable at which 
+              % the y variable was not measured. 
+psacc = 3;   % Pseudo Accuracy paramater 
+                     % set to 3
+close all;
+mode = 0;
+yMissing0 = ZFindFit(xData, yData, xMissing, ...
+    'PseudoAccuracy', psacc, ...
+    'Mode', mode);   % Mode paramater set to 0 
+figure(1); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing0, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“Mode” == "0"');
+mode = 1;
+yMissing1 = ZFindFit(xData, yData, xMissing, ...
+    'PseudoAccuracy', psacc, ...
+    'Mode', mode);   % Mode paramater set to 1 
+figure(2); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing1, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“Mode” == "1"');
+mode = 2;
+yMissing2 = ZFindFit(xData, yData, xMissing, ...
+    'PseudoAccuracy', psacc, ...
+    'Mode', mode);   % Mode paramater set to 2 
+figure(3); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissing2, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“Mode” == "2"');
+clearvars -except xData yData xMissing ...
+    yMissing0 yMissing1 yMissing2; clc;
 
 
 %                                           Page 4
