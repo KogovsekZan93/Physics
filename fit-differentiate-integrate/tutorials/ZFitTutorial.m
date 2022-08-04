@@ -76,7 +76,7 @@ close all;
 psacc = 1;
 yMissing1 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
-                                                    % set to 1
+                                                    % set to 1. 
 figure(1); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissing1, 'ro', 'MarkerSize', 10);
@@ -87,7 +87,7 @@ title('“PseudoAccuracy” == "1"');
 psacc = 2;
 yMissing2 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
-                                                    % set to 2
+                                                    % set to 2. 
 figure(2); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissing2, 'ro', 'MarkerSize', 10);
@@ -98,7 +98,7 @@ title('“PseudoAccuracy” == "2"');
 psacc = 3;
 yMissing3 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
-                                                    % set to 3
+                                                    % set to 3. 
 figure(3); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissing3, 'ro', 'MarkerSize', 10);
@@ -125,7 +125,9 @@ clearvars -except xData yData xMissing ...
 % Generally, the variation of the “Mode” parameter only has an 
 % impact when the data points are highly unequally spaced along 
 % the abscissa coordinate, as is indeed the case with the 
-% example presented in this tutorial. 
+% example presented in this tutorial. For further information, the 
+% documentation of the ZFindFit function and its subfunctions 
+% should be referred to. 
 % Run the following block of code to see the impact of the 
 % variation of the “Mode” parameter on the estimated values of 
 % the y variable. The “PseudoAccuracy” parameter is set to “3” 
@@ -140,12 +142,12 @@ xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
     70];   % The missing integer values of the x variable at which 
               % the y variable was not measured. 
 psacc = 3;   % Pseudo Accuracy paramater 
-                     % set to 3
+                     % set to 3. 
 close all;
 mode = 0;
 yMissing0 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc, ...
-    'Mode', mode);   % Mode paramater set to 0 
+    'Mode', mode);   % Mode paramater set to 0. 
 figure(1); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissing0, 'ro', 'MarkerSize', 10);
@@ -156,7 +158,7 @@ title('“Mode” == "0"');
 mode = 1;
 yMissing1 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc, ...
-    'Mode', mode);   % Mode paramater set to 1 
+    'Mode', mode);   % Mode paramater set to 1. 
 figure(2); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissing1, 'ro', 'MarkerSize', 10);
@@ -167,7 +169,7 @@ title('“Mode” == "1"');
 mode = 2;
 yMissing2 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc, ...
-    'Mode', mode);   % Mode paramater set to 2 
+    'Mode', mode);   % Mode paramater set to 2. 
 figure(3); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissing2, 'ro', 'MarkerSize', 10);
@@ -183,92 +185,80 @@ clearvars -except xData yData xMissing ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% How is numerical differentiation performed? In general, a 
-% differentiable function which is associated with the measured 
-% data is assumed and then differentiated. With default settings 
-% of the ZFindDerivative function, the function assumed is a 
-% piecewise interpolation polynomial of the N-th degree, where 
-% N is the sum of the desired order of accuracy and the order of 
-% differentiation. The order of accuracy is represented by the 
-% optional parameter “Accuracy”, the default value of which is 
-% “Accuracy == 2”. 
-% With the following block of code, you can vary the value of the 
-% “Accuracy” parameter and see how this changes the 
-% estimated values of the acceleration function considered in 
-% the previous page and compare it to the actual acceleration 
-% function a(t). 
+% By setting the “Type” parameter to “Spline”, the estimation of 
+% the missing values is calculated using the cubic spline of the 
+% data points. As the cubic spline is exactly determined for a 
+% given set of data points, with the “Spline” setting of the “Type” 
+% petameter, there are no optional parameters 
+% “PseudoAccuracy” or “Mode”. 
+% Run the following block of code to estimate the missing 
+% values of the y variable for the example given in this tutorial 
+% using the “Spline” setting of the “Type” parameter. 
 
-T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
-X = [0; 0.841470984807897; 0.909297426825682;
-    0.141120008059867; -0.756802495307928;
-    -0.958924274663138; -0.279415498198926;
-   0.656986598718789; 0.989358246623382];
-xData = T; yData = X; 
-xDerivative = (-1 : 0.5 : 9)';   % Time points at which a(t) is to be 
-                                               % evaluated. 
-ordDeriv = 2;   % Order of differentiation. 
-acc = 2;   % Accuracy. 
-yDerivative = ZFindDerivative(xData, yData, ...
-    xDerivative, 'OrdDeriv', ordDeriv, ...
-    'Accuracy', acc);   % a(t) estimation. 
-TT = (linspace(-1, 9, 1000))';
-aActual = -sin(TT);   % Actual a(t). 
-close all; figure(1); hold on;
-plot(TT, aActual, 'k', 'LineWidth', 1.5);
-plot(xDerivative, yDerivative, 'bo', 'MarkerSize', 10);
-xlabel('t [s]'); ylabel('a [m / s^2]'); set(gca, 'FontSize', 14); grid on;
-legend('Actual', 'Estimated');
-clearvars; clc;
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
+xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
+    16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; ...
+    32; 33; 34; 36; 38; 39; 41; 42; 43; 44; 46; 47; 48; 49; 50; 51; ...
+    52; 53; 54; 55; 58; 59; 61; 62; 63; 64; 65; 67; 69; ...
+    70];   % The missing integer values of the x variable at which 
+              % the y variable was not measured. 
+close all;
+yMissingSpline = ZFindFit(xData, yData, xMissing, ...
+    'Type', 'Spline');   % Setting the Type parameter to Spline. 
+figure(1); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissingSpline, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“Type” == "Spline"');
+clearvars -except xData yData xMissing yMissingSpline; clc;
 
 
 %                                           Page 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% The construction of the piecewise interpolation polynomial 
-% function is defined by the degree of the polynomials as well as 
-% the data points for each polynomial and endpoints of the 
-% intervals over which the polynomials are defined. The latter 
-% two aspects differ among each of three predefined principles, 
-% also called “modes”. They are represented by the optional 
-% parameter “Mode”, the default value of which is “Mode == 1” 
-% but can also be set to either “0” or “2”. To understand the 
-% three modes in detail, documentation and the code of the 
-% functions and their subfunctions should be referred to. 
-% In general, the “Mode” parameter only changes the result if 
-% the abscissa data points are at least moderately unequally 
-% spaced. 
-% By running the following block of code, the difference 
-% between the three modes can be appreciated in the attempt to 
-% differentiate a function for which the data points are highly 
-% unequally spaced along the abscissa. 
+% Alternatively, the “Type” parameter can be set to “PolyFit” in 
+% order to estimate the missing values using the regression 
+% polynomial of the data points. The order of the regression 
+% polynomial must be specified using the required 
+% “PolyDegree” parameter. As with the “Spline” setting of the 
+% “Type” parameter, the optional parameters “PseudoAccuracy” 
+% and “Mode“ are not available. 
+% As can be seen by running the block of code on Page 1, the 
+% function y(x) appears to have four local extremes. Perhaps an 
+% appropriate choice for the order of the regression polynomial 
+% would thus be five. 
+% Run the following block of code to estimate the missing 
+% values of the y variable for the example given in this tutorial 
+% using the “PolyFit” setting of the “Type” parameter. The 
+% “PolyDegree” parameter is set to be “5” for reasons 
+% discussed in the previous paragraph. 
 
-xData = [0; 1; 3; 5; 8; 35; 37; 40; 45];    % Highly unequally 
-                                                                  % spaced abscissa data 
-                                                                  % points. 
-yData = [10; 9; 8; 11; 13; 5; 4; 3; 2];
-xDerivative = (linspace(-5, 35))';
-yDerivativeActual = ZFindDerivative(xData, yData, xDerivative, ...
-     'Type', 'Spline');   % Actual yDerivative. 
-acc = 3;   % Accuracy. 
-yDerivative0 = ZFindDerivative(xData, yData, xDerivative, ...
-     'Accuracy', acc, 'Mode', 0);   % yDerivative estimate if 
-                                                     % Mode paramater is 0. 
-yDerivative1 = ZFindDerivative(xData, yData, xDerivative, ...
-     'Accuracy', acc, 'Mode', 1);   % yDerivative estimate if 
-                                                     % Mode paramater is 1. 
-yDerivative2 = ZFindDerivative(xData, yData, xDerivative, ...
-     'Accuracy', acc, 'Mode', 2);   % yDerivative estimate if 
-                                                     % Mode paramater is 2. 
-close all; figure(1); hold on;
-plot(xDerivative, yDerivativeActual, 'k', 'LineWidth', 2);
-plot(xDerivative, yDerivative0, 'b', 'LineWidth', 1.5);
-plot(xDerivative, yDerivative1, 'r:', 'LineWidth', 1.5);
-plot(xDerivative, yDerivative2, 'g--', 'LineWidth', 1.5);
-legend('Actual', 'Estimated if "Mode == 0"', ...
-    'Estimated if "Mode == 1"', 'Estimated if "Mode == 2"');
-xlabel('x'); ylabel('y_D_e_r_i_v_a_t_i_v_e'); set(gca, 'FontSize', 14); grid on;
-clearvars; clc;
+xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
+yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
+xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
+    16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; ...
+    32; 33; 34; 36; 38; 39; 41; 42; 43; 44; 46; 47; 48; 49; 50; 51; ...
+    52; 53; 54; 55; 58; 59; 61; 62; 63; 64; 65; 67; 69; ...
+    70];   % The missing integer values of the x variable at which 
+              % the y variable was not measured. 
+close all;
+PolyDegree = 5;   % Setting the degree of the regression 
+                               % polynomial. 
+yMissingPolyFit = ZFindFit(xData, yData, xMissing, ...
+    'Type', 'PolyFit', ...   % Setting the Type parameter to PolyFit. 
+    PolyDegree);
+figure(1); hold on;
+plot(xData, yData, 'bo', 'MarkerSize', 10);
+plot(xMissing, yMissingPolyFit, 'ro', 'MarkerSize', 10);
+xlabel('x'); ylabel('y'); legend('Data points', ...
+    'Points estimated using ZFindFit function');
+set(gca, 'FontSize', 14); grid on; hold off;
+title('“Type” == "PolyFit"');
+clearvars -except xData yData xMissing yMissingPolyFit; clc;
 
 
 %                                           Page 6

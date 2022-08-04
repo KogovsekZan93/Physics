@@ -1,4 +1,4 @@
-function [yDerivativeA, varargout] = ZFindBasicDerivativeA(xData, yData, xDerivativeA, varargin)
+function [yDerivativeA, varargout] = ZFindDerivativeABasic(xData, yData, xDerivativeA, varargin)
 
 
 pars = inputParser;

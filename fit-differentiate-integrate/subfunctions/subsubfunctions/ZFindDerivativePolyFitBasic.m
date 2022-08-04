@@ -1,4 +1,4 @@
-function [yDerivativePolyFit, varargout] = ZFindBasicDerivativePolyFit(xData, yData, xDerivativePolyFit, PolyDegree, varargin)
+function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFitBasic(xData, yData, xDerivativePolyFit, PolyDegree, varargin)
 
 pars = inputParser;
 

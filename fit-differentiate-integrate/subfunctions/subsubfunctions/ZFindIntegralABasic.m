@@ -1,4 +1,4 @@
-function [yIntegralA, varargout] = ZFindBasicIntegralA(xData, yData, xIntegralA, varargin)
+function [yIntegralA, varargout] = ZFindIntegralABasic(xData, yData, xIntegralA, varargin)
 %% Generalized numerical integration
 % 
 % Author: Žan Kogovšek

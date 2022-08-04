@@ -347,17 +347,17 @@ xData = T; yData = X;
 xDerivative = (linspace(-1, 9, 1000))';   % Time points at which 
                                                                  % v(t) is to be evaluated. 
 close all; hold on;
-figr1 = 1;   % Figure paramater value 
+figr1 = 1;   % Figure paramater value. 
 yDerivativeDefault = ZFindDerivative(xData, yData, xDerivative, ...
     'Figure', figr1);   % v(t) estimation using default settings. 
 title('Default settings of ZFindDerivative function');
-figr2 = 2;   % Figure paramater value 
+figr2 = 2;   % Figure paramater value. 
 yDerivativeSpline = ZFindDerivative(xData, yData, xDerivative, ...
     'Type', 'Spline', ...
-    'Figure', figr2);   % v(t) estimation using spline interpolation.
+    'Figure', figr2);   % v(t) estimation using spline interpolation. 
 title('Spline interpolation');
 polyDegree = 4;   % Degree of the regression polynomial. 
-figr3 = 3;   % Figure paramater value 
+figr3 = 3;   % Figure paramater value. 
 yDerivativePolyFit = ZFindDerivative(xData, yData, xDerivative, ...
     'Type', 'PolyFit', polyDegree, ...
     'Figure', figr3);   % v(t) estimation using the regression 

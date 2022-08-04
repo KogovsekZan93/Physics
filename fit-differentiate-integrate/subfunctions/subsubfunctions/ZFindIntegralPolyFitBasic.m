@@ -1,4 +1,4 @@
-function [yIntegralPolyFit, varargout] = ZFindBasicIntegralPolyFit(xData, yData, xIntegralPolyFit, PolyDegree)
+function [yIntegralPolyFit, varargout] = ZFindIntegralPolyFitBasic(xData, yData, xIntegralPolyFit, PolyDegree)
 
 pars = inputParser;
 

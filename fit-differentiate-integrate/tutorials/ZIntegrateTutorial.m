@@ -261,12 +261,12 @@ DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
 xlabel('x'); ylabel('y');
 title(['Mode == 0, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-mode = 1; figr = 2;    % Changing Mode parameter to 1
+mode = 1; figr = 2;    % Changing Mode parameter to 1. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
 xlabel('x'); ylabel('y');
 title(['Mode == 1, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-mode = 2; figr = 3;    % Changing Mode parameter to 2
+mode = 2; figr = 3;    % Changing Mode parameter to 2. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
 xlabel('x'); ylabel('y');
@@ -274,7 +274,7 @@ title(['Mode == 2, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 clearvars; clc;
 
 
-mode = 0;   % Mode parameter.
+mode = 0;   % Mode parameter. 
 xData = [-3; -2; 3; 4; 5; 8];
 yData = sin(xData);
 xMin = -2;   % Lower integration limit. 
@@ -291,13 +291,13 @@ xx = linspace(min(xData), max(xData), 1000); yy_actual = sin(xx);
 hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);   % Plot the 
                                                                                   % actual 
                                                                                   % function. 
-mode = 1; figr = 2;    % Changing Mode parameter to 1
+mode = 1; figr = 2;    % Changing Mode parameter to 1. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
 xlabel('x'); ylabel('y');
 title(['Mode == 1, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);
-mode = 2; figr = 3;    % Changing Mode parameter to 2
+mode = 2; figr = 3;    % Changing Mode parameter to 2. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
     'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
 xlabel('x'); ylabel('y');

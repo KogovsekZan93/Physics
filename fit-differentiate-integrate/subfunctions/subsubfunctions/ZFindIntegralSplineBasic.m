@@ -1,4 +1,4 @@
-function [yIntegralSpline, varargout] = ZFindBasicIntegralSpline(xData, yData, xIntegralSpline)
+function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic(xData, yData, xIntegralSpline)
 
 
 pars = inputParser;
