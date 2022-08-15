@@ -24,7 +24,24 @@ function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin
 % 
 %% Variables
 % 
-% This function has the form of 
+% This function has the form of DefiniteIntegral = ...
+% ZFindDefiniteIntegral(xData, yData, Limits, varargin)
+% 
+% “xData” and “yData” are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = (df/dX)(X) 
+% (“yData” = (df/dX) (“xData”)). 
+% Both the “xData” vector and the “yData” vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the “xData” vector must in ascending order. 
+% 
+% “Limits” is the vector of the pair of values of the independent 
+% variable X which represent the limits of integration of the df/dX 
+% function. Thus, the function ZFindDefiniteIntegral is to 
+% estimate the value of f(“Limits”(2)) - f(“Limits”(1)). 
+%  The “Limits” vector must be a column vector of two real 
+% numbers. 
+
 
 
 [TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');

@@ -23,7 +23,23 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, xIntegral, 
 % 
 %% Variables
 % 
-% This function has the form of 
+% This function has the form of yIndefiniteIntegral = ...
+% ZFindIndefiniteIntegral(xData, yData, xIntegral, varargin)
+% 
+% “xData” and “yData” are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = (df/dX)(X) 
+% (“yData” = (df/dX) (“xData”)). 
+% Both the “xData” vector and the “yData” vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the “xData” vector must in ascending order. 
+% 
+% “xIntegral” is the vector of the values of the independent 
+% variable X at which the values of the vector 
+% f(“xIntegral”) - f(“xIntegral”(1)) is to be estimated. The 
+% “xDerivative” vector must be a column vector of real numbers. 
+
+
 
 
 

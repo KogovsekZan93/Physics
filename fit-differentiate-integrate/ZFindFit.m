@@ -20,18 +20,20 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 %% Variables
 % 
-% This function has the form of 
+% This function has the form of [yFit, varargout] = ...
+% ZFindFit(xData, yData, xFit, varargin)
 % 
-% yIntegralA = ZIntegralA_Revised(xData, yData, 'XIntegralA', ...
-%     xIntegralA, 'PseudoAccuracy', psacc, 'Figure', figr, 'Mode', mode)
+% “xData” and “yData” are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = f(X) 
+% (“yData” = f(“xData”)). 
+% Both the “xData” vector and the “yData” vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the “xData” vector must in ascending order. 
 % 
-% xData and yData are the vectors of the aforementioned values 
-% xData(i) and yData(i), respectively, of the independent variable 
-% X and of the dependent variable Y, respectively, of an arbitrary 
-% function Y = f(X) (yData(i) = f(xData(i)). xData and yData both 
-% have to be column vectors of real numbers of equal length. 
-% xData vector does not have to be sorted (i.e. it is not required 
-% that xData(i) > xData(j) for every i > j). 
+% “xFit” is the vector of the values of the independent variable X 
+% at which the value of the f function is to be estimated. The 
+% “xFit” vector must be a column vector of real numbers. 
 % 
 % xmin is the lower limit of integration and xmax is the upper limit 
 % of integration. The limits do not have to be contained in the 

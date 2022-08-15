@@ -24,7 +24,23 @@ function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, v
 % 
 %% Variables
 % 
-% This function has the form of 
+% This function has the form of [yDerivative, varargout] = ...
+% ZFindDerivative(xData, yData, xDerivative, varargin)
+% 
+% “xData” and “yData” are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = f(X) 
+% (“yData” = f(“xData”)). 
+% Both the “xData” vector and the “yData” vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the “xData” vector must in ascending order. 
+% 
+% “xDerivative” is the vector of the values of the independent 
+% variable X at which the value of the derivative of the f function 
+% is to be estimated. The “xDerivative” vector must be a column 
+% vector of real numbers. 
+% 
+% 
 
 [TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
 
