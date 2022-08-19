@@ -54,8 +54,8 @@ clearvars -except xData yData xMissing yMissing; clc;
 % between the neighboring data points. 
 % The estimation of the missing values can be done in three 
 % ways, determined by the optional parameter “Type”. The 
-% possible settings of “Type” are “A”, “Spline” and “PolyFit”. 
-% With the default setting “A”, a piecewise interpolation 
+% possible settings of “Type” are “'A'”, “'Spline'” and “'PolyFit'”. 
+% With the default setting “'A'”, a piecewise interpolation 
 % polynomial is used. The degree of the piecewise interpolation 
 % polynomial can be set using the optional parameter 
 % “PseudoAccuracy”, the default value of which is “1” (hence 
@@ -114,7 +114,7 @@ clearvars -except xData yData xMissing ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% With the “A” setting of the “Type” optional parameter, in 
+% With the “'A'” setting of the “Type” optional parameter, in 
 % addition to the “PseudoAccuracy” optional parameter, the 
 % “Mode” optional parameter can also be set. The possible 
 % settings are either “0”, “1”, and “2”, the default being “1”. The 
@@ -185,15 +185,15 @@ clearvars -except xData yData xMissing ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% By setting the “Type” parameter to “Spline”, the estimation of 
+% By setting the “Type” parameter to “'Spline'”, the estimation of 
 % the missing values is calculated using the cubic spline of the 
 % data points. As the cubic spline is exactly determined for a 
-% given set of data points, with the “Spline” setting of the “Type” 
-% petameter, there are no optional parameters 
+% given set of data points, with the “'Spline'” setting of the 
+% “Type” parameter, there are no optional parameters 
 % “PseudoAccuracy” or “Mode”. 
 % Run the following block of code to estimate the missing 
 % values of the y variable for the example given in this tutorial 
-% using the “Spline” setting of the “Type” parameter. 
+% using the “'Spline'” setting of the “Type” parameter. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
 yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
@@ -220,11 +220,11 @@ clearvars -except xData yData xMissing yMissingSpline; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Alternatively, the “Type” parameter can be set to “PolyFit” in 
+% Alternatively, the “Type” parameter can be set to “'PolyFit'” in 
 % order to estimate the missing values using the regression 
 % polynomial of the data points. The order of the regression 
 % polynomial must be specified using the required 
-% “PolyDegree” parameter. As with the “Spline” setting of the 
+% “PolyDegree” parameter. As with the “'Spline'” setting of the 
 % “Type” parameter, the optional parameters “PseudoAccuracy” 
 % and “Mode“ are not available. 
 % As can be seen by running the block of code on Page 1, the 
@@ -233,7 +233,7 @@ clearvars -except xData yData xMissing yMissingSpline; clc;
 % would thus be five. 
 % Run the following block of code to estimate the missing 
 % values of the y variable for the example given in this tutorial 
-% using the “PolyFit” setting of the “Type” parameter. The 
+% using the “'PolyFit'” setting of the “Type” parameter. The 
 % “PolyDegree” parameter is set to be “5” for reasons 
 % discussed in the previous paragraph. 
 

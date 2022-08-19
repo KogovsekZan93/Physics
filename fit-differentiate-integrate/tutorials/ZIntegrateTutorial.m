@@ -315,13 +315,14 @@ Actual_value   %Display the actual value of the definite integral.
 % Alternatively, the definite or the indefinite numerical integral 
 % can be found by estimating the function being integrated to be 
 % the cubic spline of the data points. This can be done by 
-% altering the optional “Type” parameter to “Spline” of either the 
-% ZDefiniteIntegral function or the ZIndefiniteIntegral function. 
+% altering the optional “Type” parameter to “'Spline'” of either 
+% the ZDefiniteIntegral function or the ZIndefiniteIntegral 
+% function. 
 % The default “Type” parameter, which has been used until this 
-% point in the tutorial, is “A”. Note that due to spline being fully 
+% point in the tutorial, is “'A'”. Note that due to spline being fully 
 % defined by a specific set of data points, there are no optional 
 % parameters “Pseudo Accuracy” and “Mode” with the “Type” 
-% parameter set to “Spline”. 
+% parameter set to “'Spline'”. 
 % The following two blocks of code refer to the previous 
 % problem of velocity being measured each second from t == 0 
 % to t == 8 s. 
@@ -391,18 +392,18 @@ clearvars; clc;
 % Another alternative is to find either the definite integral or the 
 % indefinite integral by integrating the regression polynomial of 
 % the data points. This can be done by altering the optional 
-% “Type” parameter to “PolyFit” of either the ZDefiniteIntegral 
+% “Type” parameter to “'PolyFit'” of either the ZDefiniteIntegral 
 % function or the ZIndefiniteIntegral function. With this setting of 
 % the “Type” parameter, the “PolyDegree” required parameter 
 % must be set to specify the degree of the regression 
-% polynomial. As with the “Spline” setting of the “Type” 
+% polynomial. As with the “'Spline'” setting of the “Type” 
 % parameter, there are no optional parameters 
 % “Pseudo Accuracy” and “Mode”. 
 % As in the previous page, the following two blocks of code refer 
 % to the previous problem of velocity being measured each 
 % second from t == 0 to t == 8 s. 
 % Run the first block of code to estimate the value of the x 
-% coordinate at t == 8 s using the “PolyFit” setting of the “Type” 
+% coordinate at t == 8 s using the “'PolyFit'” setting of the “Type” 
 % parameter of the ZDefiniteIntegral function. Just as a 
 % reminder, the actual value of the x coordinate at t == 8 s is 
 % about 11.98 m. 

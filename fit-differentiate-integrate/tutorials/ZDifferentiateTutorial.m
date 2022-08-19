@@ -206,14 +206,14 @@ yDerivativeActual = ZFindDerivative(xData, yData, xDerivative, ...
      'Type', 'Spline');   % Actual yDerivative. 
 acc = 3;   % Accuracy. 
 yDerivative0 = ZFindDerivative(xData, yData, xDerivative, ...
-     'Accuracy', acc, 'Mode', 0);   % yDerivative estimate if 
-                                                     % Mode paramater is 0. 
+     'Accuracy', acc, 'Mode', 0);   % yDerivative estimate if Mode 
+                                                     % paramater is 0. 
 yDerivative1 = ZFindDerivative(xData, yData, xDerivative, ...
-     'Accuracy', acc, 'Mode', 1);   % yDerivative estimate if 
-                                                     % Mode paramater is 1. 
+     'Accuracy', acc, 'Mode', 1);   % yDerivative estimate if Mode 
+                                                     % paramater is 1. 
 yDerivative2 = ZFindDerivative(xData, yData, xDerivative, ...
-     'Accuracy', acc, 'Mode', 2);   % yDerivative estimate if 
-                                                     % Mode paramater is 2. 
+     'Accuracy', acc, 'Mode', 2);   % yDerivative estimate if Mode 
+                                                     % paramater is 2. 
 close all; figure(1); hold on;
 plot(xDerivative, yDerivativeActual, 'k', 'LineWidth', 2);
 plot(xDerivative, yDerivative0, 'b', 'LineWidth', 1.5);
@@ -232,12 +232,12 @@ clearvars; clc;
 % Alternatively, the assumed differentiable function which is 
 % associated with the data can be the cubic spline of the data 
 % points. This can be done by altering the optional “Type” 
-% parameter to “Spline".
+% parameter to “'Spline'".
 % The default “Type” parameter, which has been used until this 
-% point in the tutorial, is “A”. Note that due to spline being fully 
+% point in the tutorial, is “'A'”. Note that due to spline being fully 
 % defined by a specific set of data points, there are no optional 
 % parameters “Accuracy” and “Mode” with the “Type” 
-% parameter set to “Spline”. 
+% parameter set to “'Spline'”. 
 % Keep in mind that as the spline is a piecewise cubic 
 % polynomial, the order of differentiation above 3 will produce 
 % the value 0 for all inquired abscissa points. 
@@ -278,7 +278,7 @@ clearvars; clc;
 % Another way to find the numerical derivative of a function is to 
 % differentiate the regression polynomial of the data points. This 
 % can be done by altering the optional “Type” parameter to 
-% “PolyFit”. In that case, the required “PolyDegree” parameter 
+% “'PolyFit'”. In that case, the required “PolyDegree” parameter 
 % needs to be set. The “PolyDegree” parameter corresponds to 
 % the degree of the regression polynomial. 
 % As with the “Spline” setting of the “Type” parameter, there are 
@@ -290,7 +290,7 @@ clearvars; clc;
 % most reasonable regression polynomial would likely be that of 
 % the fourth degree as the x(t) function seems to have three 
 % local extremes. 
-% Run the following block of code to see how the “PolyFit” 
+% Run the following block of code to see how the “'PolyFit'” 
 % setting of the “Type” parameter compares to spline 
 % interpolation and differentiation, the ZFindDerivative function 
 % with the default settings, and the actual velocity function. 
