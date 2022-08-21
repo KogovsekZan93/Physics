@@ -100,7 +100,7 @@ clear all; clc;
 % Now, in some cases, a piecewise interpolation polynomial of a 
 % higher order may be more appropriate for the estimation of 
 % the v(t) function. In such cases, we can specify the so called 
-% “Pseudo Accuracy” parameter as the optional parameter of 
+% "Pseudo Accuracy" parameter as the optional parameter of 
 % the ZFindDefiniteIntegral function. The Pseudo Accuracy 
 % parameter of the FindDefiniteIntegral function is the order of 
 % the piecewise interpolation polynomial with which the function 
@@ -236,15 +236,15 @@ clearvars -except TIntegral XEstimated TT XX_actual; clc;
 % ("Mode == 1" being the default). If the sampling points are 
 % reasonably equally spaced, the Mode parameter makes little 
 % to no difference. If the sampling points are highly unequally far 
-% apart, the three different “Modes” give different answers to the 
-% question: “What are the appropriate points at which one piece 
+% apart, the three different "Modes" give different answers to the 
+% question: "What are the appropriate points at which one piece 
 % of the piecewise  interpolation polynomial function ends and 
-% the other begins?” 
+% the other begins?" 
 % For details, the documentation of the GetIpointsSmatrix 
 % function should be read. In this tutorial, the impact of the 
-% “Mode” parameter can be seen by running one of the two 
+% "Mode" parameter can be seen by running one of the two 
 % following blocks of code. The three figures generated show 
-% how the estimated y(x) function varies with the “Mode” 
+% how the estimated y(x) function varies with the "Mode" 
 % parameter when sampling points of the x variable are highly 
 % unequally spaced. 
 
@@ -315,14 +315,14 @@ Actual_value   %Display the actual value of the definite integral.
 % Alternatively, the definite or the indefinite numerical integral 
 % can be found by estimating the function being integrated to be 
 % the cubic spline of the data points. This can be done by 
-% altering the optional “Type” parameter to “'Spline'” of either 
+% altering the optional "Type" parameter to "'Spline'" of either 
 % the ZDefiniteIntegral function or the ZIndefiniteIntegral 
 % function. 
-% The default “Type” parameter, which has been used until this 
-% point in the tutorial, is “'A'”. Note that due to spline being fully 
+% The default "Type" parameter, which has been used until this 
+% point in the tutorial, is "'A'". Note that due to spline being fully 
 % defined by a specific set of data points, there are no optional 
-% parameters “Pseudo Accuracy” and “Mode” with the “Type” 
-% parameter set to “'Spline'”. 
+% parameters "Pseudo Accuracy" and "Mode" with the "Type" 
+% parameter set to "'Spline'". 
 % The following two blocks of code refer to the previous 
 % problem of velocity being measured each second from t == 0 
 % to t == 8 s. 
@@ -392,26 +392,26 @@ clearvars; clc;
 % Another alternative is to find either the definite integral or the 
 % indefinite integral by integrating the regression polynomial of 
 % the data points. This can be done by altering the optional 
-% “Type” parameter to “'PolyFit'” of either the ZDefiniteIntegral 
+% "Type" parameter to "'PolyFit'" of either the ZDefiniteIntegral 
 % function or the ZIndefiniteIntegral function. With this setting of 
-% the “Type” parameter, the “PolyDegree” required parameter 
+% the "Type" parameter, the "PolyDegree" required parameter 
 % must be set to specify the degree of the regression 
-% polynomial. As with the “'Spline'” setting of the “Type” 
+% polynomial. As with the "'Spline'" setting of the "Type" 
 % parameter, there are no optional parameters 
-% “Pseudo Accuracy” and “Mode”. 
+% "Pseudo Accuracy" and "Mode". 
 % As in the previous page, the following two blocks of code refer 
 % to the previous problem of velocity being measured each 
 % second from t == 0 to t == 8 s. 
 % Run the first block of code to estimate the value of the x 
-% coordinate at t == 8 s using the “'PolyFit'” setting of the “Type” 
+% coordinate at t == 8 s using the "'PolyFit'" setting of the "Type" 
 % parameter of the ZDefiniteIntegral function. Just as a 
 % reminder, the actual value of the x coordinate at t == 8 s is 
 % about 11.98 m. 
 % Run the second block of code to estimate the x(t) function for 
-% the time interval [0, 8 s] by using the “PolyFit” setting of the 
-% “Type” parameter of the ZIndefiniteIntegral function and 
+% the time interval [0, 8 s] by using the "PolyFit" setting of the 
+% "Type" parameter of the ZIndefiniteIntegral function and 
 % compare it to the actual x(t) function. 
-% The »PolyDegree« parameter in both cases is set to 
+% The "PolyDegree" parameter in both cases is set to 
 % "PolyDegree == 6". 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];

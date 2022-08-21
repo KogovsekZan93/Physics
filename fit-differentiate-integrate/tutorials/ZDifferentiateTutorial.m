@@ -98,8 +98,8 @@ clearvars; clc;
 % differentiation can, too, be performed using the 
 % ZFindDerivative function to find an estimation of the a(t) 
 % function. The order of differentiation can be specified using 
-% the optional parameter “OrdDeriv”, the default value of which 
-% is “OrdDeriv == 1”. 
+% the optional parameter "OrdDeriv", the default value of which 
+% is "OrdDeriv == 1". 
 % The actual acceleration function a(t) is a(t) = -sin(t) if time t is 
 % expressed in seconds and the acceleration a in the x 
 % coordinate is expressed in m / (s^2). 
@@ -144,10 +144,10 @@ clearvars; clc;
 % piecewise interpolation polynomial of the N-th degree, where 
 % N is the sum of the desired order of accuracy and the order of 
 % differentiation. The order of accuracy is represented by the 
-% optional parameter “Accuracy”, the default value of which is 
-% “Accuracy == 2”. 
+% optional parameter "Accuracy", the default value of which is 
+% "Accuracy == 2". 
 % With the following block of code, you can vary the value of the 
-% “Accuracy” parameter and see how this changes the 
+% "Accuracy" parameter and see how this changes the 
 % estimated values of the acceleration function considered in 
 % the previous page and compare it to the actual acceleration 
 % function a(t). 
@@ -184,12 +184,12 @@ clearvars; clc;
 % the data points for each polynomial and endpoints of the 
 % intervals over which the polynomials are defined. The latter 
 % two aspects differ among each of three predefined principles, 
-% also called “modes”. They are represented by the optional 
-% parameter “Mode”, the default value of which is “Mode == 1” 
-% but can also be set to either “0” or “2”. To understand the 
+% also called "modes". They are represented by the optional 
+% parameter "Mode", the default value of which is "Mode == 1" 
+% but can also be set to either "0" or "2". To understand the 
 % three modes in detail, documentation and the code of the 
 % functions and their subfunctions should be referred to. 
-% In general, the “Mode” parameter only changes the result if 
+% In general, the "Mode" parameter only changes the result if 
 % the abscissa data points are at least moderately unequally 
 % spaced. 
 % By running the following block of code, the difference 
@@ -231,13 +231,13 @@ clearvars; clc;
 
 % Alternatively, the assumed differentiable function which is 
 % associated with the data can be the cubic spline of the data 
-% points. This can be done by altering the optional “Type” 
-% parameter to “'Spline'".
-% The default “Type” parameter, which has been used until this 
-% point in the tutorial, is “'A'”. Note that due to spline being fully 
+% points. This can be done by altering the optional "Type" 
+% parameter to "'Spline'".
+% The default "Type" parameter, which has been used until this 
+% point in the tutorial, is "'A'". Note that due to spline being fully 
 % defined by a specific set of data points, there are no optional 
-% parameters “Accuracy” and “Mode” with the “Type” 
-% parameter set to “'Spline'”. 
+% parameters "Accuracy" and "Mode" with the "Type" 
+% parameter set to "'Spline'". 
 % Keep in mind that as the spline is a piecewise cubic 
 % polynomial, the order of differentiation above 3 will produce 
 % the value 0 for all inquired abscissa points. 
@@ -277,12 +277,12 @@ clearvars; clc;
 
 % Another way to find the numerical derivative of a function is to 
 % differentiate the regression polynomial of the data points. This 
-% can be done by altering the optional “Type” parameter to 
-% “'PolyFit'”. In that case, the required “PolyDegree” parameter 
-% needs to be set. The “PolyDegree” parameter corresponds to 
+% can be done by altering the optional "Type" parameter to 
+% "'PolyFit'". In that case, the required "PolyDegree" parameter 
+% needs to be set. The "PolyDegree" parameter corresponds to 
 % the degree of the regression polynomial. 
-% As with the “Spline” setting of the “Type” parameter, there are 
-% no optional parameters “Pseudo Accuracy” and “Mode”. 
+% As with the "Spline" setting of the "Type" parameter, there are 
+% no optional parameters "Pseudo Accuracy" and "Mode". 
 % We again refer to the first case, measuring the value of 
 % the x coordinate over an 8 s interval and trying to determine 
 % the velocity function v(t). Run the block of code on Page 1 to 
@@ -290,8 +290,8 @@ clearvars; clc;
 % most reasonable regression polynomial would likely be that of 
 % the fourth degree as the x(t) function seems to have three 
 % local extremes. 
-% Run the following block of code to see how the “'PolyFit'” 
-% setting of the “Type” parameter compares to spline 
+% Run the following block of code to see how the "'PolyFit'" 
+% setting of the "Type" parameter compares to spline 
 % interpolation and differentiation, the ZFindDerivative function 
 % with the default settings, and the actual velocity function. 
 
@@ -331,9 +331,9 @@ clearvars; clc;
 
 % At times it may be important to visualize the function which is 
 % differentiated to calculate the numerical derivative. In such 
-% cases, the optional “Figure” parameter can be set to the figure 
+% cases, the optional "Figure" parameter can be set to the figure 
 % index in which the function is to be visualized. Setting the 
-% “Figure” parameter to “0” results in no visualization. 
+% "Figure" parameter to "0" results in no visualization. 
 % Run the following block of code to visualize the data points 
 % along with the functions which were differentiated for each of 
 % the numerical derivatives calculated on the previous page. 

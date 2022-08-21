@@ -53,15 +53,15 @@ clearvars -except xData yData xMissing yMissing; clc;
 % ZFindFit function are calculated using linear interpolation 
 % between the neighboring data points. 
 % The estimation of the missing values can be done in three 
-% ways, determined by the optional parameter “Type”. The 
-% possible settings of “Type” are “'A'”, “'Spline'” and “'PolyFit'”. 
-% With the default setting “'A'”, a piecewise interpolation 
+% ways, determined by the optional parameter "Type". The 
+% possible settings of "Type" are "'A'", "'Spline'" and "'PolyFit'". 
+% With the default setting "'A'", a piecewise interpolation 
 % polynomial is used. The degree of the piecewise interpolation 
 % polynomial can be set using the optional parameter 
-% “PseudoAccuracy”, the default value of which is “1” (hence 
+% "PseudoAccuracy", the default value of which is "1" (hence 
 % the linear interpolation with default settings). 
 % Run the following block of code to see the impact of the 
-% variation of the “PseudoAccuracy” parameter on the estimated 
+% variation of the "PseudoAccuracy" parameter on the estimated 
 % missing values of the y variable. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
@@ -83,7 +83,7 @@ plot(xMissing, yMissing1, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“PseudoAccuracy” == "1"');
+title('"PseudoAccuracy" == "1"');
 psacc = 2;
 yMissing2 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
@@ -94,7 +94,7 @@ plot(xMissing, yMissing2, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“PseudoAccuracy” == "2"');
+title('"PseudoAccuracy" == "2"');
 psacc = 3;
 yMissing3 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
@@ -105,7 +105,7 @@ plot(xMissing, yMissing3, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“PseudoAccuracy” == "3"');
+title('"PseudoAccuracy" == "3"');
 clearvars -except xData yData xMissing ...
     yMissing1 yMissing2 yMissing3; clc;
 
@@ -114,23 +114,23 @@ clearvars -except xData yData xMissing ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% With the “'A'” setting of the “Type” optional parameter, in 
-% addition to the “PseudoAccuracy” optional parameter, the 
-% “Mode” optional parameter can also be set. The possible 
-% settings are either “0”, “1”, and “2”, the default being “1”. The 
-% setting of the “Mode” parameter determines the method by 
+% With the "'A'" setting of the "Type" optional parameter, in 
+% addition to the "PseudoAccuracy" optional parameter, the 
+% "Mode" optional parameter can also be set. The possible 
+% settings are either "0", "1", and "2", the default being "1". The 
+% setting of the "Mode" parameter determines the method by 
 % which the data points are selected and the boundaries are 
 % calculated for each of the interpolation polynomials of the 
 % piecewise interpolation polynomial function. 
-% Generally, the variation of the “Mode” parameter only has an 
+% Generally, the variation of the "Mode" parameter only has an 
 % impact when the data points are highly unequally spaced along 
 % the abscissa coordinate, as is indeed the case with the 
 % example presented in this tutorial. For further information, the 
 % documentation of the ZFindFit function and its subfunctions 
 % should be referred to. 
 % Run the following block of code to see the impact of the 
-% variation of the “Mode” parameter on the estimated values of 
-% the y variable. The “PseudoAccuracy” parameter is set to “3” 
+% variation of the "Mode" parameter on the estimated values of 
+% the y variable. The "PseudoAccuracy" parameter is set to "3" 
 % for all cases. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
@@ -154,7 +154,7 @@ plot(xMissing, yMissing0, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“Mode” == "0"');
+title('"Mode" == "0"');
 mode = 1;
 yMissing1 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc, ...
@@ -165,7 +165,7 @@ plot(xMissing, yMissing1, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“Mode” == "1"');
+title('"Mode" == "1"');
 mode = 2;
 yMissing2 = ZFindFit(xData, yData, xMissing, ...
     'PseudoAccuracy', psacc, ...
@@ -176,7 +176,7 @@ plot(xMissing, yMissing2, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“Mode” == "2"');
+title('"Mode" == "2"');
 clearvars -except xData yData xMissing ...
     yMissing0 yMissing1 yMissing2; clc;
 
@@ -185,15 +185,15 @@ clearvars -except xData yData xMissing ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% By setting the “Type” parameter to “'Spline'”, the estimation of 
+% By setting the "Type" parameter to "'Spline'", the estimation of 
 % the missing values is calculated using the cubic spline of the 
 % data points. As the cubic spline is exactly determined for a 
-% given set of data points, with the “'Spline'” setting of the 
-% “Type” parameter, there are no optional parameters 
-% “PseudoAccuracy” or “Mode”. 
+% given set of data points, with the "'Spline'" setting of the 
+% "Type" parameter, there are no optional parameters 
+% "PseudoAccuracy" or "Mode". 
 % Run the following block of code to estimate the missing 
 % values of the y variable for the example given in this tutorial 
-% using the “'Spline'” setting of the “Type” parameter. 
+% using the "'Spline'" setting of the "Type" parameter. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
 yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];
@@ -212,7 +212,7 @@ plot(xMissing, yMissingSpline, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“Type” == "Spline"');
+title('"Type" == "Spline"');
 clearvars -except xData yData xMissing yMissingSpline; clc;
 
 
@@ -220,21 +220,21 @@ clearvars -except xData yData xMissing yMissingSpline; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Alternatively, the “Type” parameter can be set to “'PolyFit'” in 
+% Alternatively, the "Type" parameter can be set to "'PolyFit'" in 
 % order to estimate the missing values using the regression 
 % polynomial of the data points. The order of the regression 
 % polynomial must be specified using the required 
-% “PolyDegree” parameter. As with the “'Spline'” setting of the 
-% “Type” parameter, the optional parameters “PseudoAccuracy” 
-% and “Mode“ are not available. 
+% "PolyDegree" parameter. As with the "'Spline'" setting of the 
+% "Type" parameter, the optional parameters "PseudoAccuracy" 
+% and "Mode" are not available. 
 % As can be seen by running the block of code on Page 1, the 
 % function y(x) appears to have four local extremes. Perhaps an 
 % appropriate choice for the order of the regression polynomial 
 % would thus be five. 
 % Run the following block of code to estimate the missing 
 % values of the y variable for the example given in this tutorial 
-% using the “'PolyFit'” setting of the “Type” parameter. The 
-% “PolyDegree” parameter is set to be “5” for reasons 
+% using the "'PolyFit'" setting of the "Type" parameter. The 
+% "PolyDegree" parameter is set to be "5" for reasons 
 % discussed in the previous paragraph. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
@@ -257,7 +257,7 @@ plot(xMissing, yMissingPolyFit, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('“Type” == "PolyFit"');
+title('"Type" == "PolyFit"');
 clearvars -except xData yData xMissing yMissingPolyFit; clc;
 
 
@@ -273,8 +273,8 @@ clearvars -except xData yData xMissing yMissingPolyFit; clc;
 % the missing data points as well as the measured (input) data 
 % points can easily be visualized by specifying the number of 
 % the figure in which the plot is to be performed. This can be 
-% done by changing the optional “Figure” parameter from its 
-% default value of “0” to a desired natural number. 
+% done by changing the optional "Figure" parameter from its 
+% default value of "0" to a desired natural number. 
 % Run the following block of code to visualize the data points 
 % along an example of the ZFitTutorial function calculated curve 
 % used for the missing data estimation for the example 
