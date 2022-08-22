@@ -27,9 +27,9 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % independent variable X and of the dependent variable Y, 
 % respectively, of an arbitrary function Y = f(X) 
 % ("yData" = f("xData")). 
-% Both the “xData” vector and the "yData" vector must be 
+% Both the "xData" vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
-% values of the "xData" vector must in ascending order. 
+% values of the "xData" vector must be in ascending order. 
 % 
 % "xFit" is the vector of the values of the independent variable X 
 % at which the value of the f function is to be estimated. The 
@@ -57,7 +57,9 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % "Type" optional input parameter. 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
+[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+    (varargin, 'Type');   % Separation of the "Type" parameter from 
+                                    % the other additional input parameters. 
 
 pars = inputParser;
 
@@ -72,14 +74,20 @@ parse(pars, TypeList{:});
 
 type = pars.Results.Type;
 
+% In the following if/else statement, the input parameters are 
+% passed to appropriate functions based on the value of the 
+% "Type" parameter. 
+
 if strcmp(type, 'A')
-    [yFit, Ipoints, Smatrix] = ZFindFitA(xData, yData, xFit, TypeDeletedList{:});
+    [yFit, Ipoints, Smatrix] = ZFindFitA...
+        (xData, yData, xFit, TypeDeletedList{:});
     varargout = {Ipoints, Smatrix};
 else
     if strcmp(type, 'Spline')
         yFit = ZFindFitSpline(xData, yData, xFit, TypeDeletedList{:});
     else
-        [yFit, pFitPolyFit] = ZFindFitPolyFit(xData, yData, xFit, TypeDeletedList{:});
+        [yFit, pFitPolyFit] = ZFindFitPolyFit...
+            (xData, yData, xFit, TypeDeletedList{:});
         varargout = {pFitPolyFit};
     end
 end

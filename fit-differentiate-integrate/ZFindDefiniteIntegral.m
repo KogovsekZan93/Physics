@@ -33,13 +33,13 @@ function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin
 % ("yData" = (df/dX) ("xData")). 
 % Both the “xData” vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
-% values of the "xData" vector must in ascending order. 
+% values of the "xData" vector must be in ascending order. 
 % 
 % "Limits" is the vector of the pair of values of the independent 
 % variable X which represent the limits of integration of the df/dX 
 % function. Thus, the function ZFindDefiniteIntegral is to 
 % estimate the value of f("Limits"(2)) - f("Limits"(1)). 
-%  The “Limits” vector must be a column vector of two real 
+% The "Limits" vector must be a column vector of two real 
 % numbers. 
 % 
 % "varargin" represents the additional input parameters. The 
@@ -64,7 +64,9 @@ function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin
 % "Limits"(1) and the upper limit "Limits"(2). 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
+[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+    (varargin, 'Type');   % Separation of the "Type" parameter from 
+                                    % the other additional input parameters. 
 
 pars = inputParser;
 
@@ -79,13 +81,20 @@ parse(pars, TypeList{:});
 
 type = pars.Results.Type;
 
+% In the following if/else statement, the input parameters are 
+% passed to appropriate functions based on the value of the 
+% "Type" parameter. 
+
 if strcmp(type, 'A')
-    DefiniteIntegral = ZFindDefiniteIntegralA(xData, yData, Limits, TypeDeletedList{:});
+    DefiniteIntegral = ZFindDefiniteIntegralA...
+        (xData, yData, Limits, TypeDeletedList{:});
 else
     if strcmp(type, 'Spline')
-        DefiniteIntegral = ZFindDefiniteIntegralSpline(xData, yData, Limits, TypeDeletedList{:});
+        DefiniteIntegral = ZFindDefiniteIntegralSpline...
+            (xData, yData, Limits, TypeDeletedList{:});
     else
-        DefiniteIntegral = ZFindDefiniteIntegralPolyFit(xData, yData, Limits, TypeDeletedList{:});
+        DefiniteIntegral = ZFindDefiniteIntegralPolyFit...
+            (xData, yData, Limits, TypeDeletedList{:});
     end
 end
 

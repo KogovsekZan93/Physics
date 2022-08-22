@@ -33,7 +33,7 @@ function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, v
 % ("yData" = f("xData")). 
 % Both the "xData" vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
-% values of the "xData" vector must in ascending order. 
+% values of the "xData" vector must be in ascending order. 
 % 
 % "xDerivative" is the vector of the values of the independent 
 % variable X at which the value of the derivative of the f function 
@@ -66,7 +66,9 @@ function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, v
 % "Type" optional input parameter. 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
+[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+    (varargin, 'Type');   % Separation of the "Type" parameter from 
+                                    % the other additional input parameters. 
 
 pars = inputParser;
 
@@ -81,15 +83,22 @@ parse(pars, TypeList{:});
 
 type = pars.Results.Type;
 
+% In the following if/else statement, the input parameters are 
+% passed to appropriate functions based on the value of the 
+% "Type" parameter. 
+
 if strcmp(type, 'A')
-    yDerivative = ZFindDerivativeA(xData, yData, xDerivative, TypeDeletedList{:});
+    yDerivative = ZFindDerivativeA...
+        (xData, yData, xDerivative, TypeDeletedList{:});
     varargout = {};
 else
     if strcmp(type, 'Spline')
-        [yDerivative, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivative, TypeDeletedList{:});
+        [yDerivative, ppDerivativeSpline] = ZFindDerivativeSpline...
+            (xData, yData, xDerivative, TypeDeletedList{:});
         varargout = {ppDerivativeSpline};
     else
-        [yDerivative, pDerivativePolyFit] = ZFindDerivativePolyFit(xData, yData, xDerivative, TypeDeletedList{:});
+        [yDerivative, pDerivativePolyFit] = ZFindDerivativePolyFit...
+            (xData, yData, xDerivative, TypeDeletedList{:});
         varargout = {pDerivativePolyFit};
     end
 end

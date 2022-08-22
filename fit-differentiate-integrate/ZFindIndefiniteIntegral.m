@@ -32,12 +32,14 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, xIntegral, 
 % ("yData" = (df/dX) ("xData")). 
 % Both the “xData” vector and the “yData” vector must be 
 % column vectors of equal length and of real numbers. The 
-% values of the "xData" vector must in ascending order. 
+% values of the "xData" vector must be in ascending order. 
 % 
 % "xIntegral" is the vector of the values of the independent 
 % variable X at which the values of the vector 
 % f("xIntegral") - f("xIntegral"(1)) is to be estimated. The 
-% “xDerivative” vector must be a column vector of real numbers. 
+% "xIntegral" vector must be a column vector of real numbers. 
+% The values of the "xIntegral" vector must be in ascending 
+% order. 
 % 
 % "varargin" represents the additional input parameters. The 
 % basic optional parameters are "Type" and "Figure". 
@@ -59,7 +61,9 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, xIntegral, 
 % values of f("xIntegral") - f("xIntegral"(1)). 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter(varargin, 'Type');
+[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+    (varargin, 'Type');   % Separation of the "Type" parameter from 
+                                    % the other additional input parameters. 
 
 pars = inputParser;
 
@@ -74,13 +78,20 @@ parse(pars, TypeList{:});
 
 type = pars.Results.Type;
 
+% In the following if/else statement, the input parameters are 
+% passed to appropriate functions based on the value of the 
+% "Type" parameter. 
+
 if strcmp(type, 'A')
-    yIndefiniteIntegral = ZFindIndefiniteIntegralA(xData, yData, xIntegral, TypeDeletedList{:});
+    yIndefiniteIntegral = ZFindIndefiniteIntegralA...
+        (xData, yData, xIntegral, TypeDeletedList{:});
 else
     if strcmp(type, 'Spline')
-        yIndefiniteIntegral = ZFindIndefiniteIntegralSpline(xData, yData, xIntegral, TypeDeletedList{:});
+        yIndefiniteIntegral = ZFindIndefiniteIntegralSpline...
+            (xData, yData, xIntegral, TypeDeletedList{:});
     else
-        yIndefiniteIntegral = ZFindIndefiniteIntegralPolyFit(xData, yData, xIntegral, TypeDeletedList{:});
+        yIndefiniteIntegral = ZFindIndefiniteIntegralPolyFit...
+            (xData, yData, xIntegral, TypeDeletedList{:});
     end
 end
 
