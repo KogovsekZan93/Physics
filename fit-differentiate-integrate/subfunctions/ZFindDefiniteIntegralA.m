@@ -4,7 +4,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, Limits, vararg
 
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
 
-[FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
+[FigureParameter, NonFigureParameters] = SeparateAdditionalParameter(varargin, 'Figure');
 
 [yIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic(xData, yData, LimitsSorted, NonFigureParameters{:});
 

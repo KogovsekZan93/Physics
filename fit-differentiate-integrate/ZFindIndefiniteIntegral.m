@@ -61,7 +61,7 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, xIntegral, 
 % values of f("xIntegral") - f("xIntegral"(1)). 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+[TypeList, TypeDeletedList] = SeparateAdditionalParameter...
     (varargin, 'Type');   % Separation of the "Type" parameter from 
                                     % the other additional input parameters. 
 

@@ -66,7 +66,7 @@ function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, v
 % "Type" optional input parameter. 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+[TypeList, TypeDeletedList] = SeparateAdditionalParameter...
     (varargin, 'Type');   % Separation of the "Type" parameter from 
                                     % the other additional input parameters. 
 

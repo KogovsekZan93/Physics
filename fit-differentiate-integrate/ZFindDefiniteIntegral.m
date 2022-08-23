@@ -64,7 +64,7 @@ function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin
 % "Limits"(1) and the upper limit "Limits"(2). 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+[TypeList, TypeDeletedList] = SeparateAdditionalParameter...
     (varargin, 'Type');   % Separation of the "Type" parameter from 
                                     % the other additional input parameters. 
 

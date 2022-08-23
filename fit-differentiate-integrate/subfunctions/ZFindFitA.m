@@ -20,7 +20,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xData, xFitA);
 
 
-[FigureParameter, vararginBasic] = SeparateOptionalParameter(varargin, 'Figure');
+[FigureParameter, vararginBasic] = SeparateAdditionalParameter(varargin, 'Figure');
 
 [yFitA, Ipoints, Smatrix] = ZFindFitABasic(xData, yData, xFitA, vararginBasic{:});
 

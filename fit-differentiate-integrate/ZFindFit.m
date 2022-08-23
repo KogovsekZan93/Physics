@@ -57,7 +57,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % "Type" optional input parameter. 
 
 
-[TypeList, TypeDeletedList] = SeparateOptionalParameter...
+[TypeList, TypeDeletedList] = SeparateAdditionalParameter...
     (varargin, 'Type');   % Separation of the "Type" parameter from 
                                     % the other additional input parameters. 
 

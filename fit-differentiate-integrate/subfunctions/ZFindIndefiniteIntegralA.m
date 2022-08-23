@@ -119,7 +119,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xIntegralA);
 
 
-[FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
+[FigureParameter, NonFigureParameters] = SeparateAdditionalParameter(varargin, 'Figure');
 [yIndefiniteIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic(xData, yData, xIntegralA, NonFigureParameters{:});
 
 DrawZIntegralAHandle = @DrawZIntegralA;

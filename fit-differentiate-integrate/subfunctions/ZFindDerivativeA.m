@@ -1,5 +1,5 @@
 function yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeA, varargin)
-[FigureParameter, NonFigureParameters] = SeparateOptionalParameter(varargin, 'Figure');
+[FigureParameter, NonFigureParameters] = SeparateAdditionalParameter(varargin, 'Figure');
 
 
 pars = inputParser;
