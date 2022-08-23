@@ -3,13 +3,14 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
+% Last changed: 8.23.2022
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
-% and the input vector “yData” of the values of the dependent 
+% and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), this function returns 
-% the vector "yFit" of the estimated values of f("xFit") where 
+% the vector "yFit" of the estimated values of f("xFit"), where 
 % "xFit" is the input vector of values of the X variable. 
 % By setting the optional parameters, the user can: 
 %       (1) choose from various methods of the estimation, some 
@@ -46,7 +47,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 %     parameters. 
 %     "Figure" is the parameter the value of which is the index of 
 %     the figure on which the data points along with the estimation 
-%     of the f function is to be plotted. The value of the “Figure” 
+%     of the f function is to be plotted. The value of the "Figure" 
 %     parameter can be any nonnegative integer. The default 
 %     value is "0", at which no figure is to be plotted. 
 % 

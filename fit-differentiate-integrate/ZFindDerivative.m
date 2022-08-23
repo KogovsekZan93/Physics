@@ -3,6 +3,7 @@ function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, v
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
+% Last changed: 8.23.2022
 % 
 %% Description
 % 
@@ -10,7 +11,7 @@ function [yDerivative, varargout] = ZFindDerivative(xData, yData, xDerivative, v
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), this function returns 
 % the vector "yDerivative" of the estimated values of 
-% f^("OrdDeriv")(" xDerivative") where f^("OrdDeriv") is the 
+% f^("OrdDeriv")(" xDerivative"), where f^("OrdDeriv") is the 
 % "OrdDeriv"-th order derivative of the f function and 
 % "xDerivative" is the input vector of values of the X variable. 
 % By setting the optional parameters, the user can: 
