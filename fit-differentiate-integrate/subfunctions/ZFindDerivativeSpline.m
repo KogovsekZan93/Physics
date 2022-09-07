@@ -42,30 +42,26 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline(xData, yData, xD
 % the f function is to be estimated. The "xDerivativeSpline" 
 % vector must be a column vector of real numbers. 
 % 
-% "varargin" represents the additional input parameters. The 
-% basic optional parameters are "OrdDeriv", "Type", and 
-% "Figure". 
+% "varargin" represents the optional input parameters. The basic 
+% optional parameters are "OrdDeriv" and "Figure". 
 %     "OrdDeriv" is the parameter the value of which is the 
 %     derivative order. The default value is "1". 
-%     "Type" is the parameter which determines the mathematical 
-%     method with which the f function is estimated. The value of 
-%     the "Type" parameter can either be "'A'", "'Spline'", or 
-%     "'PolyFit'". The default value is "'A'". The value of the "Type" 
-%     parameter determines the set of the optional output 
-%     parameters and additional required or optional input 
-%     parameters. 
 %     "Figure" is the parameter the value of which is the index of 
 %     the figure on which the data points along with the estimation 
 %     of the f function is to be plotted. The value of the "Figure" 
 %     parameter can be any nonnegative integer. The default 
 %     value is "0", at which no figure is to be plotted. 
 % 
-% "yDerivative" is the column vector of the estimated values of 
-% f^("OrdDeriv")(" xDerivative"). 
+% "yDerivativeSpline" is the column vector of the estimated 
+% values of f^("OrdDeriv")(" xDerivativeSpline"). 
 % 
-% "varargout" represents the optional output parameters. The 
-% set of the optional parameters depends on the value of the 
-% "Type" optional input parameter. 
+% "varargout" represents the optional output parameter 
+% "ppDerivativeSpline", which is the piecewise polynomial which 
+% represents the function f^("OrdDeriv"). It can be evaluated by 
+% the MATLAB ppval function. The details of the 
+% "ppDerivativeSpline" piecewise polynomial can be extracted 
+% by the MATLAB unmkpp function. 
+
 
 pars = inputParser;
 

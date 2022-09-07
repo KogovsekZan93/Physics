@@ -41,25 +41,18 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limi
 % The "Limits" vector must be a column vector of two real 
 % numbers. 
 % 
-% "varargin" represents the additional input parameters. The 
-% basic optional parameters are "Type" and "Figure". 
-%     "Type" is the parameter which determines the mathematical 
-%     method with which the df/dX function is estimated. The 
-%     value of the "Type" parameter can either be "'A'", "'Spline'", 
-%     or "'PolyFit'". The default value is "'A'". The value of the 
-%     "Type" parameter determines the set of the additional 
-%     required or optional input parameters. 
-%     "Figure" is the parameter the value of which is the index of 
-%     the figure on which the data points along with the estimation 
-%     of the df/dX function is to be plotted. Also, the area under 
-%     the estimated df/dX function curve is filled from 
-%     min("Limits") to max("Limits"). The color of the area is blue 
-%     if "Limits"(2) > "Limits"(1) and red if not. The value of the 
-%     "Figure" parameter can be any nonnegative integer. The 
-%     default value is "0", at which no figure is to be plotted. 
+% "varargin" represents the optional input parameter "Figure". 
+% "Figure" is the parameter the value of which is the index of the 
+% figure on which the data points along with the estimation of the 
+% df/dX function is to be plotted. Also, the area under the 
+% estimated df/dX function curve is filled from min("Limits") to 
+% max("Limits"). The color of the area is blue if 
+% "Limits"(2) > "Limits"(1) and red if not. The value of the 
+% "Figure" parameter can be any nonnegative integer. The 
+% default value is "0", at which no figure is to be plotted. 
 % 
-% "DefiniteIntegral" is the estimated value of the integral of the 
-% df/dX function over the X variable with the lower limit 
+% "DefiniteIntegralSpline" is the estimated value of the integral 
+% of the df/dX function over the X variable with the lower limit 
 % "Limits"(1) and the upper limit "Limits"(2). 
 
 
