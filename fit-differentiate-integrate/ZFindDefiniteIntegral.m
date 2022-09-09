@@ -3,7 +3,7 @@ function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 8.23.2022
+% Last changed: 9.9.2022
 % 
 %% Description
 % 
@@ -55,8 +55,8 @@ function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin
 %     the figure on which the data points along with the estimation 
 %     of the df/dX function is to be plotted. Also, the area under 
 %     the estimated df/dX function curve is filled from 
-%     min("Limits") to max("Limits"). The color of the area is blue 
-%     if "Limits"(2) > "Limits"(1) and red if not. The value of the 
+%     min("Limits") to max("Limits"). The color of the area is red if 
+%     "Limits"(1) > "Limits"(2) and blue if not. The value of the 
 %     "Figure" parameter can be any nonnegative integer. The 
 %     default value is "0", at which no figure is to be plotted. 
 % 

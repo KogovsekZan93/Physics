@@ -3,7 +3,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limi
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.4.2022
+% Last changed: 9.9.2022
 % 
 %% Description
 % 
@@ -46,8 +46,8 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limi
 % figure on which the data points along with the estimation of the 
 % df/dX function is to be plotted. Also, the area under the 
 % estimated df/dX function curve is filled from min("Limits") to 
-% max("Limits"). The color of the area is blue if 
-% "Limits"(2) > "Limits"(1) and red if not. The value of the 
+% max("Limits"). The color of the area is red if 
+% "Limits"(1) > "Limits"(2) and blue if not. The value of the 
 % "Figure" parameter can be any nonnegative integer. The 
 % default value is "0", at which no figure is to be plotted. 
 % 
@@ -56,15 +56,32 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limi
 % "Limits"(1) and the upper limit "Limits"(2). 
 
 
+% The “ColorFace” parameter, obtained in the following line, 
+% determines the color of the area under the estimated curve of 
+% the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
+% not. 
 
-[LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
+[LimitsSorted, LimitOrder, ColorFace] = ...
+    SortIntegrationLimits(Limits);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ZFindIntegralSplineBasic(xData, yData, LimitsSorted);
+[yIndefiniteIntegralSpline, ppFitSpline] = ...
+    ZFindIntegralSplineBasic(xData, yData, LimitsSorted);
+
+% In the following line, the estimated definite integral 
+% "DefiniteIntegralSpline" is calculated by multiplying the 
+% "yIndefiniteIntegralSpline"(2) value by either "1" or "-1" based 
+% on the order of the limits on integration. 
 
 DefiniteIntegralSpline = yIndefiniteIntegralSpline(2) * LimitOrder;
 
+% The following block of code deals with plotting the estimated 
+% curve of the df/dX function and the area under it from 
+% min("Limits") to max("Limits") along with the data points. 
+
 DrawZIntegralSplineHandle = @DrawZIntegralSpline;
-DrawZIntegralSplineInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
-DecideIfDrawZ(DrawZIntegralSplineHandle, DrawZIntegralSplineInput, varargin{:});
+DrawZIntegralSplineInput = {xData, yData, ...
+    LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
+DecideIfDrawZ(DrawZIntegralSplineHandle, ...
+    DrawZIntegralSplineInput, varargin{:});
 
 end

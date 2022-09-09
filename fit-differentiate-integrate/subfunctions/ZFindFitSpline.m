@@ -3,7 +3,7 @@ function yFitSpline = ZFindFitSpline(xData, yData, xFitSpline, varargin)
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.4.2022
+% Last changed: 9.9.2022
 % 
 %% Description
 % 
@@ -50,13 +50,15 @@ function yFitSpline = ZFindFitSpline(xData, yData, xFitSpline, varargin)
 pars = inputParser;
 
 paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xData'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitSpline';
-errorMsg = '''xFitA'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xFitA'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -69,9 +71,14 @@ ppFitSpline = mkpp(breaks, coefs);
 
 yFitSpline = ppval(ppFitSpline, xFitSpline);
 
+% The following block of code deals with plotting the estimated 
+% curve of the f function along with the data points. 
+
 DrawZFitSplineHandle = @DrawZFitSpline;
-DrawZFitSplineInput = {xData, yData, min(xFitSpline(1), xData(1)), max(xFitSpline(end), xData(end)), ppFitSpline};
-DecideIfDrawZ(DrawZFitSplineHandle, DrawZFitSplineInput, varargin{:});
+DrawZFitSplineInput = {xData, yData, ...
+    min(xFitSpline(1), xData(1)), ...
+    max(xFitSpline(end), xData(end)), ppFitSpline};
+DecideIfDrawZ...
+    (DrawZFitSplineHandle, DrawZFitSplineInput, varargin{:});
 
 end
-

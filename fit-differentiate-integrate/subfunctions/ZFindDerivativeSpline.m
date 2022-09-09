@@ -4,7 +4,7 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline(xData, yData, xD
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.4.2022
+% Last changed: 9.9.2022
 % 
 %% Description
 % 
@@ -66,13 +66,15 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline(xData, yData, xD
 pars = inputParser;
 
 paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xData'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xDerivativeSpline';
-errorMsg = '''xDerivative'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xDerivative'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -96,12 +98,19 @@ parse(pars, xData, xDerivativeSpline, varargin{:});
 ordDeriv = pars.Results.OrdDeriv;
 figr = pars.Results.Figure;
 
-
-[yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ZFindDerivativeSplineBasic(xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
+[yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ...
+    ZFindDerivativeSplineBasic...
+    (xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
 varargout = {ppDerivativeSpline};
 
+% The following block of code deals with plotting the estimated 
+% curve of the f function along with the data points. 
+
 DrawZFitSplineHandle = @DrawZFitSpline;
-DrawZFitSplineInput = {xData, yData, min(xDerivativeSpline(1), xData(1)), max(xDerivativeSpline(end), xData(end)), ppFitSpline};
-DecideIfDrawZ(DrawZFitSplineHandle, DrawZFitSplineInput, 'Figure', figr);
+DrawZFitSplineInput = {xData, yData, ...
+    min(xDerivativeSpline(1), xData(1)), ...
+    max(xDerivativeSpline(end), xData(end)), ppFitSpline};
+DecideIfDrawZ...
+    (DrawZFitSplineHandle, DrawZFitSplineInput, 'Figure', figr);
 
 end

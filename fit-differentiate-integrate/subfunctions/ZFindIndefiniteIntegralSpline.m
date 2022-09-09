@@ -3,7 +3,7 @@ function yIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData,
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.4.2022
+% Last changed: 9.9.2022
 % 
 %% Description
 % 
@@ -58,19 +58,27 @@ function yIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData,
 pars = inputParser;
 
 paramName = 'xIntegralSpline';
-errorMsg = '''xIntegralSpline'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xIntegralSpline'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, xIntegralSpline);
 
+[yIndefiniteIntegralSpline, ppFitSpline] = ...
+    ZFindIntegralSplineBasic(xData, yData, xIntegralSpline);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ZFindIntegralSplineBasic(xData, yData, xIntegralSpline);
+% The following block of code deals with plotting the estimated 
+% curve of the df/dX function and the area under it from 
+% "xIntegralSpline"(1) to "xIntegralSpline"(end) along with the 
+% data points. 
 
 DrawZIntegralSplineHandle = @DrawZIntegralSpline;
 ColorFace = [0, 0, 1];
-DrawZIntegralSplineInput = {xData, yData, xIntegralSpline(1), xIntegralSpline(end), ColorFace, ppFitSpline};
-DecideIfDrawZ(DrawZIntegralSplineHandle, DrawZIntegralSplineInput, varargin{:});
+DrawZIntegralSplineInput = {xData, yData, xIntegralSpline(1), ...
+    xIntegralSpline(end), ColorFace, ppFitSpline};
+DecideIfDrawZ(DrawZIntegralSplineHandle, ...
+    DrawZIntegralSplineInput, varargin{:});
 
 end
