@@ -1,9 +1,10 @@
-function DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, varargin)
+function DefiniteIntegral = ...
+    ZFindDefiniteIntegral(xData, yData, Limits, varargin)
 %% Numerical definite integration tool
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 9.9.2022
+% Last changed: 9.11.2022
 % 
 %% Description
 % 

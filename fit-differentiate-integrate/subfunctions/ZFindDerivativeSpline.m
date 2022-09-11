@@ -1,17 +1,18 @@
-function [yDerivativeSpline, varargout] = ZFindDerivativeSpline(xData, yData, xDerivativeSpline, varargin)
+function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
+    (xData, yData, xDerivativeSpline, varargin)
 %% Numerical spline-based differentiation tool with 
 %% visualization
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.9.2022
+% Last changed: 9.11.2022
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), this function returns 
-% the vector "yDerivative" of the estimated values of 
+% the vector "yDerivativeSpline" of the estimated values of 
 % f^("OrdDeriv")("xDerivativeSpline"), where f^("OrdDeriv") is the 
 % "OrdDeriv"-th order derivative of the f function and 
 % "xDerivativeSpline" is the input vector of values of the X 

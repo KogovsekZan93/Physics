@@ -1,9 +1,10 @@
-function yFitSpline = ZFindFitSpline(xData, yData, xFitSpline, varargin)
+function yFitSpline = ...
+    ZFindFitSpline(xData, yData, xFitSpline, varargin)
 %% Spline curve fitting tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.9.2022
+% Last changed: 9.11.2022
 % 
 %% Description
 % 
@@ -11,12 +12,12 @@ function yFitSpline = ZFindFitSpline(xData, yData, xFitSpline, varargin)
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), this function returns 
 % the vector "yFitSpline" of the estimated values of 
-% f("xFitSpline"), where "xFitSpline " is the input vector of values 
+% f("xFitSpline"), where "xFitSpline" is the input vector of values 
 % of the X variable. The estimation is based on the spline 
 % interpolation of the data points represented by the pairs 
-% ("xData"(i), "yData"(i)). The optional parameter "Figure" can be 
-% used to plot the estimated curve of the f function along with 
-% the data points. 
+% ("xData"(i), "yData"(i)). 
+% The optional parameter "Figure" can be used to plot the 
+% estimated curve of the f function along with the data points. 
 % 
 %% Variables
 % 

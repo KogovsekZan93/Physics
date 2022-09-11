@@ -1,20 +1,22 @@
-function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limits, varargin)
-%% Numerical spline-based definite integration tool
+function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
+    (xData, yData, Limits, varargin)
+%% Numerical spline-based definite integration tool  
+%% with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.9.2022
+% Last changed: 9.11.2022
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = (df/dX)(X), this function 
-% returns the estimation "DefiniteIntegral" of the definite integral 
-% f("Limits"(2)) - f("Limits"(1)), where "Limits" is the input vector 
-% of a pair of values of the X variable. The estimation is based 
-% on the spline interpolation of the data points represented by 
-% the pairs ("xData"(i), "yData"(i)). 
+% returns the estimation "DefiniteIntegralSpline" of the definite 
+% integral f("Limits"(2)) - f("Limits"(1)), where "Limits" is the input 
+% vector of a pair of values of the X variable. The estimation is 
+% based on the spline interpolation of the data points 
+% represented by the pairs ("xData"(i), "yData"(i)). 
 % The optional parameter "Figure" can be used to plot the 
 % estimated curve of the df/dX function and the area under it 
 % from min("Limits") to max("Limits"), which is colored based on 
@@ -56,7 +58,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, Limi
 % "Limits"(1) and the upper limit "Limits"(2). 
 
 
-% The “ColorFace” parameter, obtained in the following line, 
+% The "ColorFace" parameter, obtained in the following line, 
 % determines the color of the area under the estimated curve of 
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
