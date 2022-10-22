@@ -5,7 +5,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 9.11.2022
+% Last changed: 22.10.2022
 % 
 %% Description
 % 
@@ -25,8 +25,9 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 %% Variables
 % 
-% This function has the form of DefiniteIntegralSpline = ...
-% ZFindDefiniteIntegralSpline(xData, yData, Limits, varargin)
+% This function has the form of DefiniteIntegralPolyFit = ...
+% ZFindDefiniteIntegralPolyFit...
+% (xData, yData, Limits, PolyDegree, varargin)
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -38,10 +39,15 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % "Limits" is the vector of the pair of values of the independent 
 % variable X which represent the limits of integration of the df/dX 
-% function. Thus, the function ZFindDefiniteIntegralSpline is to 
+% function. Thus, the function ZFindDefiniteIntegralPolyFit is to 
 % estimate the value of f("Limits"(2)) - f("Limits"(1)). 
 % The "Limits" vector must be a column vector of two real 
 % numbers. 
+% 
+% “PolyDegree” is the degree of the regression polynomial of 
+% the data points represented by the pairs ("xData"(i), "yData"(i)), 
+% which is the estimation of the f function. The “PolyDegree” 
+% degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
 % "Figure" is the parameter the value of which is the index of the 
@@ -64,14 +70,19 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % not. 
 
 
-[LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits(Limits);
+[LimitsSorted, LimitOrder, ColorFace] = ...
+    SortIntegrationLimits(Limits);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ZFindIntegralPolyFitBasic(xData, yData, LimitsSorted, PolyDegree);
+[yIndefiniteIntegralSpline, ppFitSpline] = ...
+    ZFindIntegralPolyFitBasic...
+    (xData, yData, LimitsSorted, PolyDegree);
 
 DefiniteIntegralPolyFit = yIndefiniteIntegralSpline(2) * LimitOrder;
 
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
-DrawZIntegralPolyFitInput = {xData, yData, LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
-DecideIfDrawZ(DrawZIntegralPolyFitHandle, DrawZIntegralPolyFitInput, varargin{:});
+DrawZIntegralPolyFitInput = {xData, yData, ...
+    LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
+DecideIfDrawZ(DrawZIntegralPolyFitHandle, ...
+    DrawZIntegralPolyFitInput, varargin{:});
 
 end

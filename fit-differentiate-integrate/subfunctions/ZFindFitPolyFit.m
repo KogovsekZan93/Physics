@@ -5,7 +5,7 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 9.11.2022
+% Last changed: 22.10.2022
 % 
 %% Description
 % 
@@ -22,8 +22,9 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 %% Variables
 % 
-% This function has the form of yFitSpline = ...
-% ZFindFitSpline(xData, yData, xFitSpline, varargin)
+% This function has the form of [yFitPolyFit, varargout] = ...
+% ZFindFitPolyFit...
+% (xData, yData, xFitPolyFit, PolyDegree, varargin)
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -33,10 +34,15 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
 % 
-% "xFitSpline" is the vector of the values of the independent 
+% "xFitPolyFit" is the vector of the values of the independent 
 % variable X at which the value of the f function is to be 
-% estimated. The "xFitSpline" vector must be a column vector of 
-% real numbers. 
+% estimated. The "xFitPolyFit" vector must be a column vector 
+% of real numbers. 
+% 
+% “PolyDegree” is the degree of the regression polynomial of 
+% the data points represented by the pairs ("xData"(i), "yData"(i)), 
+% which is the estimation of the f function. The “PolyDegree” 
+% degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
 % "Figure" is the parameter the value of which is the index of the 
@@ -52,26 +58,31 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 pars = inputParser;
 
 paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xData'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitPolyFit';
-errorMsg = '''xFitPolyFit'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xFitPolyFit'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData, xFitPolyFit);
 
-[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFitBasic(xData, yData, xFitPolyFit, PolyDegree);
+[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFitBasic...
+    (xData, yData, xFitPolyFit, PolyDegree);
 
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;
-DrawZFitPolyFitInput = {xData, yData, min(xData(1), xFitPolyFit(1)), max(xData(end), xFitPolyFit(end)), pFitPolyFit};
-DecideIfDrawZ(DrawZFitPolyFitHandle, DrawZFitPolyFitInput, varargin{:});
+DrawZFitPolyFitInput = {xData, yData, ...
+    min(xData(1), xFitPolyFit(1)), ...
+    max(xData(end), xFitPolyFit(end)), pFitPolyFit};
+DecideIfDrawZ...
+    (DrawZFitPolyFitHandle, DrawZFitPolyFitInput, varargin{:});
 
 varargout = {pFitPolyFit};
 
 end
-

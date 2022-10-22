@@ -1,10 +1,11 @@
-function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit(xData, yData, xDerivativePolyFit, PolyDegree, varargin)
+function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit...
+    (xData, yData, xDerivativePolyFit, PolyDegree, varargin)
 %% Numerical polynomial regression-based differentiation 
 %% tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 9.11.2022
+% Last changed: 22.10.2022
 % 
 %% Description
 % 
@@ -26,9 +27,9 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit(xData, yData, 
 % 
 %% Variables
 % 
-% This function has the form of [yDerivativeSpline, varargout] = ...
-% ZFindDerivativeSpline...
-% (xData, yData, xDerivativeSpline, varargin)
+% This function has the form of [yDerivativePolyFit, varargout] ...
+% = ZFindDerivativePolyFit...
+% (xData, yData, xDerivativePolyFit, PolyDegree, varargin)
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -38,10 +39,15 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit(xData, yData, 
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
 % 
-% "xDerivativeSpline" is the vector of the values of the 
+% "xDerivativePolyFit" is the vector of the values of the 
 % independent variable X at which the value of the derivative of 
-% the f function is to be estimated. The "xDerivativeSpline" 
+% the f function is to be estimated. The "xDerivativePolyFit" 
 % vector must be a column vector of real numbers. 
+% 
+% “PolyDegree” is the degree of the regression polynomial of 
+% the data points represented by the pairs ("xData"(i), "yData"(i)), 
+% which is the estimation of the f function. The “PolyDegree” 
+% degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameters. The basic 
 % optional parameters are "OrdDeriv" and "Figure". 
@@ -72,7 +78,8 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xDerivativePolyFit';
-errorMsg = '''xDerivativePolyFit'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xDerivativePolyFit'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -96,12 +103,17 @@ parse(pars, xData, xDerivativePolyFit, varargin{:});
 ordDeriv = pars.Results.OrdDeriv;
 figr = pars.Results.Figure;
 
-
-[yDerivativePolyFit, pDerivativePolyFit, pFitPolyFit] = ZFindDerivativePolyFitBasic(xData, yData, xDerivativePolyFit, PolyDegree, 'OrdDeriv', ordDeriv);
+[yDerivativePolyFit, pDerivativePolyFit, pFitPolyFit] = ...
+    ZFindDerivativePolyFitBasic...
+    (xData, yData, xDerivativePolyFit, PolyDegree, ...
+    'OrdDeriv', ordDeriv);
 varargout = {pDerivativePolyFit};
 
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;
-DrawZFitPolyFitInput = {xData, yData, min(xData(1), xDerivativePolyFit(1)), max(xData(end), xDerivativePolyFit(end)), pFitPolyFit};
-DecideIfDrawZ(DrawZFitPolyFitHandle, DrawZFitPolyFitInput, 'Figure', figr);
+DrawZFitPolyFitInput = {xData, yData, ...
+    min(xData(1), xDerivativePolyFit(1)), ...
+    max(xData(end), xDerivativePolyFit(end)), pFitPolyFit};
+DecideIfDrawZ...
+    (DrawZFitPolyFitHandle, DrawZFitPolyFitInput, 'Figure', figr);
 
 end

@@ -6,7 +6,7 @@ function yIndefiniteIntegralPolyFit = ...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 9.11.2022
+% Last changed: 22.10.2022
 % 
 %% Description
 % 
@@ -26,24 +26,30 @@ function yIndefiniteIntegralPolyFit = ...
 % 
 %% Variables
 % 
-% This function has the form of yIndefiniteIntegralSpline = ...
-% ZFindIndefiniteIntegralSpline...
-% (xData, yData, xIntegralSpline, varargin)
+% This function has the form of yIndefiniteIntegralPolyFit = ...
+% ZFindIndefiniteIntegralPolyFit...
+% (xData, yData, xIntegralPolyFit, PolyDegree, varargin)
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
 % respectively, of an arbitrary function Y = (df/dX)(X) 
 % ("yData" = (df/dX) ("xData")). 
-% Both the “xData” vector and the “yData” vector must be 
+% Both the “xData” vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
 % 
-% "xIntegralSpline" is the vector of the values of the independent 
-% variable X at which the values of the vector 
-% f("xIntegralSpline") - f("xIntegralSpline"(1)) is to be estimated. 
-% The "xIntegralSpline" vector must be a column vector of real 
+% "xIntegralPolyFit" is the vector of the values of the 
+% independent variable X at which the values of the vector 
+% f("xIntegralPolyFit") - f("xIntegralPolyFit"(1)) is to be 
+% estimated. 
+% The "xIntegralPolyFit" vector must be a column vector of real 
 % numbers. The values of the "xIntegralSpline" vector must be 
 % in ascending order. 
+% 
+% “PolyDegree” is the degree of the regression polynomial of 
+% the data points represented by the pairs ("xData"(i), "yData"(i)), 
+% which is the estimation of the f function. The “PolyDegree” 
+% degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
 % "Figure" is the parameter the value of which is the index of the 
@@ -61,19 +67,23 @@ function yIndefiniteIntegralPolyFit = ...
 pars = inputParser;
 
 paramName = 'xIntegralPolyFit';
-errorMsg = '''xIntegralPolyFit'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xIntegralPolyFit'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, xIntegralPolyFit);
 
-
-[yIndefiniteIntegralPolyFit, pFitPolyFit] = ZFindIntegralPolyFitBasic(xData, yData, xIntegralPolyFit, PolyDegree);
+[yIndefiniteIntegralPolyFit, pFitPolyFit] = ...
+    ZFindIntegralPolyFitBasic...
+    (xData, yData, xIntegralPolyFit, PolyDegree);
 
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
 ColorFace = [0, 0, 1];
-DrawZIntegralPolyFitInput = {xData, yData, xIntegralPolyFit(1), xIntegralPolyFit(end), ColorFace, pFitPolyFit};
-DecideIfDrawZ(DrawZIntegralPolyFitHandle, DrawZIntegralPolyFitInput, varargin{:});
+DrawZIntegralPolyFitInput = {xData, yData, xIntegralPolyFit(1), ...
+    xIntegralPolyFit(end), ColorFace, pFitPolyFit};
+DecideIfDrawZ(DrawZIntegralPolyFitHandle, ...
+    DrawZIntegralPolyFitInput, varargin{:});
 
 end
