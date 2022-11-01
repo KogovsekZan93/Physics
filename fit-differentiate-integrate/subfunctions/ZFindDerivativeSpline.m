@@ -54,12 +54,12 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 %     value is "0", at which no figure is to be plotted. 
 % 
 % "yDerivativeSpline" is the column vector of the estimated 
-% values of f^("OrdDeriv")(" xDerivativeSpline"). 
+% values of f^("OrdDeriv")("xDerivativeSpline"). 
 % 
 % "varargout" represents the optional output parameter 
 % "ppDerivativeSpline", which is the piecewise polynomial which 
-% represents the function f^("OrdDeriv"). It can be evaluated by 
-% the MATLAB ppval function. The details of the 
+% is the estimation of the function f^("OrdDeriv"). It can be 
+% evaluated by the MATLAB ppval function. The details of the 
 % "ppDerivativeSpline" piecewise polynomial can be extracted 
 % by the MATLAB unmkpp function. 
 

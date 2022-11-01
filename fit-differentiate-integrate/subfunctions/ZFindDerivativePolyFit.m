@@ -59,15 +59,18 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit...
 %     parameter can be any nonnegative integer. The default 
 %     value is "0", at which no figure is to be plotted. 
 % 
-% "yDerivativeSpline" is the column vector of the estimated 
-% values of f^("OrdDeriv")(" xDerivativeSpline"). 
+% "yDerivativePolyFit" is the column vector of the estimated 
+% values of f^("OrdDeriv")("xDerivativePolyFit"). 
 % 
 % "varargout" represents the optional output parameter 
-% "ppDerivativeSpline", which is the piecewise polynomial which 
-% represents the function f^("OrdDeriv"). It can be evaluated by 
-% the MATLAB ppval function. The details of the 
-% "ppDerivativeSpline" piecewise polynomial can be extracted 
-% by the MATLAB unmkpp function. 
+% "pDerivativePolyFit", which is the vector of coefficients of the 
+% “OrdDeriv”-th derivative of the regression polynomial of the 
+% data points represented by the pairs ("xData"(i), "yData"(i)). 
+% "pFitPolyFit" is a row vector of the form of 
+% [a_("PolyDegree" - "OrdDeriv"), 
+% a_("PolyDegree" - "OrdDeriv" - 1), ..., a_(1), a_(0)]. It can be 
+% evaluated by the MATLAB polyval function. 
+
 
 pars = inputParser;
 

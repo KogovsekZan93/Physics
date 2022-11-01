@@ -60,7 +60,7 @@ function yIndefiniteIntegralPolyFit = ...
 % be any nonnegative integer. The default value is "0", at which 
 % no figure is to be plotted. 
 % 
-% "yIndefiniteIntegralSpline" is the column vector of the 
+% "yIndefiniteIntegralPolyFit" is the column vector of the 
 % estimated values of 
 % f("xIntegralSpline") - f("xIntegralSpline"(1)). 
 

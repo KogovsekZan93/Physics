@@ -45,7 +45,7 @@ function yFitSpline = ...
 % which no figure is to be plotted. 
 % 
 % "yFitSpline" is the column vector of the estimated values of 
-% f("xFit"). 
+% f("xFitSpline"). 
 
 
 pars = inputParser;

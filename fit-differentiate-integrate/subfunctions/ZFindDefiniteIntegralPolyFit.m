@@ -59,7 +59,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % "Figure" parameter can be any nonnegative integer. The 
 % default value is "0", at which no figure is to be plotted. 
 % 
-% "DefiniteIntegralSpline" is the estimated value of the integral 
+% "DefiniteIntegralPolyFit" is the estimated value of the integral 
 % of the df/dX function over the X variable with the lower limit 
 % "Limits"(1) and the upper limit "Limits"(2). 
 
