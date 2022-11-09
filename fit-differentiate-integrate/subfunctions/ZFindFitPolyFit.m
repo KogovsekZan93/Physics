@@ -5,7 +5,7 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 22.10.2022
+% Last changed: 11.9.2022
 % 
 %% Description
 % 
@@ -39,9 +39,9 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % estimated. The "xFitPolyFit" vector must be a column vector 
 % of real numbers. 
 % 
-% “PolyDegree” is the degree of the regression polynomial of 
+% "PolyDegree" is the degree of the regression polynomial of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)), 
-% which is the estimation of the f function. The “PolyDegree” 
+% which is the estimation of the f function. The "PolyDegree" 
 % degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
@@ -82,6 +82,9 @@ parse(pars, xData, xFitPolyFit);
 
 [yFitPolyFit, pFitPolyFit] = ZFindFitPolyFitBasic...
     (xData, yData, xFitPolyFit, PolyDegree);
+
+% The following block of code deals with plotting the estimated 
+% curve of the f function along with the data points. 
 
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;
 DrawZFitPolyFitInput = {xData, yData, ...

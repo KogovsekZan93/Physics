@@ -5,7 +5,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 22.10.2022
+% Last changed: 11.9.2022
 % 
 %% Description
 % 
@@ -33,7 +33,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % independent variable X and of the dependent variable Y, 
 % respectively, of an arbitrary function Y = (df/dX)(X) 
 % ("yData" = (df/dX) ("xData")). 
-% Both the “xData” vector and the "yData" vector must be 
+% Both the "xData" vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
 % 
@@ -44,9 +44,9 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % The "Limits" vector must be a column vector of two real 
 % numbers. 
 % 
-% “PolyDegree” is the degree of the regression polynomial of 
+% "PolyDegree" is the degree of the regression polynomial of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)), 
-% which is the estimation of the f function. The “PolyDegree” 
+% which is the estimation of the f function. The "PolyDegree" 
 % degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
@@ -73,15 +73,25 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 [LimitsSorted, LimitOrder, ColorFace] = ...
     SortIntegrationLimits(Limits);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ...
+[yIndefiniteIntegralPolyFit, ppFitPolyFit] = ...
     ZFindIntegralPolyFitBasic...
     (xData, yData, LimitsSorted, PolyDegree);
 
-DefiniteIntegralPolyFit = yIndefiniteIntegralSpline(2) * LimitOrder;
+% In the following line, the estimated definite integral 
+% "DefiniteIntegralPolyFit" is calculated by multiplying the 
+% "yIndefiniteIntegralPolyFit"(2) value by either "1" or "-1" based 
+% on the order of the limits on integration. 
+
+DefiniteIntegralPolyFit = ...
+    yIndefiniteIntegralPolyFit(2) * LimitOrder;
+
+% The following block of code deals with plotting the estimated 
+% curve of the df/dX function and the area under it from 
+% min("Limits") to max("Limits") along with the data points. 
 
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
 DrawZIntegralPolyFitInput = {xData, yData, ...
-    LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};
+    LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitPolyFit};
 DecideIfDrawZ(DrawZIntegralPolyFitHandle, ...
     DrawZIntegralPolyFitInput, varargin{:});
 

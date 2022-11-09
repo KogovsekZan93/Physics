@@ -6,7 +6,7 @@ function yIndefiniteIntegralPolyFit = ...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 22.10.2022
+% Last changed: 11.9.2022
 % 
 %% Description
 % 
@@ -34,7 +34,7 @@ function yIndefiniteIntegralPolyFit = ...
 % independent variable X and of the dependent variable Y, 
 % respectively, of an arbitrary function Y = (df/dX)(X) 
 % ("yData" = (df/dX) ("xData")). 
-% Both the “xData” vector and the "yData" vector must be 
+% Both the "xData" vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
 % 
@@ -46,9 +46,9 @@ function yIndefiniteIntegralPolyFit = ...
 % numbers. The values of the "xIntegralSpline" vector must be 
 % in ascending order. 
 % 
-% “PolyDegree” is the degree of the regression polynomial of 
+% "PolyDegree" is the degree of the regression polynomial of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)), 
-% which is the estimation of the f function. The “PolyDegree” 
+% which is the estimation of the f function. The "PolyDegree" 
 % degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
@@ -78,6 +78,11 @@ parse(pars, xIntegralPolyFit);
 [yIndefiniteIntegralPolyFit, pFitPolyFit] = ...
     ZFindIntegralPolyFitBasic...
     (xData, yData, xIntegralPolyFit, PolyDegree);
+
+% The following block of code deals with plotting the estimated 
+% curve of the df/dX function and the area under it from 
+% "xIntegralPolyFit"(1) to "xIntegralPolyFit"(end) along with the 
+% data points. 
 
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
 ColorFace = [0, 0, 1];

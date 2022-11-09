@@ -4,7 +4,7 @@ function yFitSpline = ...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.11.2022
+% Last changed: 11.1.2022
 % 
 %% Description
 % 
