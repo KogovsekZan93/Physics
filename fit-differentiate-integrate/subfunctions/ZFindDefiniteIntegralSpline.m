@@ -5,7 +5,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.11.2022
+% Last changed: 9.14.2022
 % 
 %% Description
 % 
@@ -39,9 +39,8 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % "Limits" is the vector of the pair of values of the independent 
 % variable X which represent the limits of integration of the df/dX 
 % function. Thus, the function ZFindDefiniteIntegralSpline is to 
-% estimate the value of f("Limits"(2)) - f("Limits"(1)). 
-% The "Limits" vector must be a column vector of two real 
-% numbers. 
+% estimate the value of f("Limits"(2)) - f("Limits"(1)). The "Limits" 
+% vector must be a column vector of two real numbers. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
 % "Figure" is the parameter the value of which is the index of the 

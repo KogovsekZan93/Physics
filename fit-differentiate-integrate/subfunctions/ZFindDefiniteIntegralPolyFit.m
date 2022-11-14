@@ -5,7 +5,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.9.2022
+% Last changed: 11.14.2022
 % 
 %% Description
 % 
@@ -40,9 +40,8 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % "Limits" is the vector of the pair of values of the independent 
 % variable X which represent the limits of integration of the df/dX 
 % function. Thus, the function ZFindDefiniteIntegralPolyFit is to 
-% estimate the value of f("Limits"(2)) - f("Limits"(1)). 
-% The "Limits" vector must be a column vector of two real 
-% numbers. 
+% estimate the value of f("Limits"(2)) - f("Limits"(1)). The "Limits" 
+% vector must be a column vector of two real numbers. 
 % 
 % "PolyDegree" is the degree of the regression polynomial of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)), 
@@ -68,7 +67,6 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % determines the color of the area under the estimated curve of 
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
-
 
 [LimitsSorted, LimitOrder, ColorFace] = ...
     SortIntegrationLimits(Limits);

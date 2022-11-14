@@ -6,7 +6,7 @@ function yIndefiniteIntegralPolyFit = ...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.9.2022
+% Last changed: 11.14.2022
 % 
 %% Description
 % 
@@ -43,7 +43,7 @@ function yIndefiniteIntegralPolyFit = ...
 % f("xIntegralPolyFit") - f("xIntegralPolyFit"(1)) is to be 
 % estimated. 
 % The "xIntegralPolyFit" vector must be a column vector of real 
-% numbers. The values of the "xIntegralSpline" vector must be 
+% numbers. The values of the "xIntegralPolyFit" vector must be 
 % in ascending order. 
 % 
 % "PolyDegree" is the degree of the regression polynomial of 
@@ -55,14 +55,15 @@ function yIndefiniteIntegralPolyFit = ...
 % "Figure" is the parameter the value of which is the index of the 
 % figure on which the data points along with the estimation of the 
 % df/dX function is to be plotted. Also, the area under the 
-% estimated df/dX function curve is filled from min("xIntegral"(1)) 
-% to max("xIntegral"(2)). The value of the "Figure" parameter can 
-% be any nonnegative integer. The default value is "0", at which 
-% no figure is to be plotted. 
+% estimated df/dX function curve is filled from 
+% min("xIntegralPolyFit"(1)) to max("xIntegralPolyFit"(2)). The 
+% value of the "Figure" parameter can be any nonnegative 
+% integer. The default value is "0", at which no figure is to be 
+% plotted. 
 % 
 % "yIndefiniteIntegralPolyFit" is the column vector of the 
 % estimated values of 
-% f("xIntegralSpline") - f("xIntegralSpline"(1)). 
+% f("xIntegralPolyFit") - f("xIntegralPolyFit"(1)). 
 
 pars = inputParser;
 

@@ -4,7 +4,7 @@ function DefiniteIntegral = ...
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 9.11.2022
+% Last changed: 11.14.2022
 % 
 %% Description
 % 
@@ -40,9 +40,8 @@ function DefiniteIntegral = ...
 % "Limits" is the vector of the pair of values of the independent 
 % variable X which represent the limits of integration of the df/dX 
 % function. Thus, the function ZFindDefiniteIntegral is to 
-% estimate the value of f("Limits"(2)) - f("Limits"(1)). 
-% The "Limits" vector must be a column vector of two real 
-% numbers. 
+% estimate the value of f("Limits"(2)) - f("Limits"(1)). The "Limits" 
+% vector must be a column vector of two real numbers. 
 % 
 % "varargin" represents the additional input parameters. The 
 % basic optional parameters are "Type" and "Figure". 
