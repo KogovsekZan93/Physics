@@ -52,10 +52,10 @@ function yIndefiniteIntegralPolyFit = ...
 % degree must be a nonnegative integer. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
-% "Figure" is the parameter the value of which is the index of the 
-% figure on which the data points along with the estimation of the 
-% df/dX function is to be plotted. Also, the area under the 
-% estimated df/dX function curve is filled from 
+% "Figure" is the name of the parameter the value of which is the 
+% index of the figure on which the data points along with the 
+% estimation of the df/dX function is to be plotted. Also, the area 
+% under the estimated df/dX function curve is filled from 
 % min("xIntegralPolyFit"(1)) to max("xIntegralPolyFit"(2)). The 
 % value of the "Figure" parameter can be any nonnegative 
 % integer. The default value is "0", at which no figure is to be 

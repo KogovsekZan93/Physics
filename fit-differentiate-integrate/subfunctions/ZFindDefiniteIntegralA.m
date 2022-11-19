@@ -42,15 +42,26 @@ function DefiniteIntegralA = ...
 % estimate the value of f("Limits"(2)) - f("Limits"(1)). The "Limits" 
 % vector must be a column vector of two real numbers. 
 % 
-% "varargin" represents the optional input parameter "Figure". 
-% "Figure" is the parameter the value of which is the index of the 
-% figure on which the data points along with the estimation of the 
-% df/dX function is to be plotted. Also, the area under the 
-% estimated df/dX function curve is filled from min("Limits") to 
-% max("Limits"). The color of the area is red if 
-% "Limits"(1) > "Limits"(2) and blue if not. The value of the 
-% "Figure" parameter can be any nonnegative integer. The 
-% default value is "0", at which no figure is to be plotted. 
+% "varargin" represents the optional input parameters 
+% "PseudoAccuracy", "Mode", and "Figure". 
+%     "PseudoAccuracy" is the name of the parameter the value 
+%     of which is the order of the regression polynomials from 
+%     which the piecewise regression polynomial which 
+%     represents the df/dX function is composed. It must be a 
+%     nonnegative integer. The default value is "0". 
+%     "Mode" is the name of the parameter the value of which 
+%     represents the principle behind the definition of the 
+%     boundaries of the piecewise regression polynomial which 
+%     represents the df/dX function. It must be one of the three 
+%     integers: "0", "1", "2". The default value is "0". 
+%     "Figure" is the name of the parameter the value of which is 
+%     the index of the figure on which the data points along with 
+%     the estimation of the df/dX function is to be plotted. Also, 
+%     the area under the estimated df/dX function curve is filled 
+%     from min("Limits") to max("Limits"). The color of the area is 
+%     red if "Limits"(1) > "Limits"(2) and blue if not. The value of 
+%     the "Figure" parameter can be any nonnegative integer. The 
+%     default value is "0", at which no figure is to be plotted. 
 % 
 % "DefiniteIntegralA" is the estimated value of the integral 
 % of the df/dX function over the X variable with the lower limit 

@@ -43,15 +43,16 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % the f function is to be estimated. The "xDerivativeSpline" 
 % vector must be a column vector of real numbers. 
 % 
-% "varargin" represents the optional input parameters. The basic 
+% "varargin" represents the optional input parameters. The 
 % optional parameters are "OrdDeriv" and "Figure". 
-%     "OrdDeriv" is the parameter the value of which is the 
-%     derivative order. The default value is "1". 
-%     "Figure" is the parameter the value of which is the index of 
-%     the figure on which the data points along with the estimation 
-%     of the f function is to be plotted. The value of the "Figure" 
-%     parameter can be any nonnegative integer. The default 
-%     value is "0", at which no figure is to be plotted. 
+%     "OrdDeriv" is the name of the parameter the value of which 
+%     is the derivative order. It must be a natural number. The 
+%     default value is "1". 
+%     "Figure" is the name of the parameter the value of which is 
+%     the index of the figure on which the data points along with 
+%     the estimation of the f function is to be plotted. The value of 
+%     the "Figure" parameter can be any nonnegative integer. The 
+%     default value is "0", at which no figure is to be plotted. 
 % 
 % "yDerivativeSpline" is the column vector of the estimated 
 % values of f^("OrdDeriv")("xDerivativeSpline"). 

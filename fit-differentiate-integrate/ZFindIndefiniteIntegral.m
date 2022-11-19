@@ -45,18 +45,18 @@ function yIndefiniteIntegral = ...
 % 
 % "varargin" represents the additional input parameters. The 
 % basic optional parameters are "Type" and "Figure". 
-%     "Type" is the parameter which determines the mathematical 
-%     method with which the df/dX function is estimated. The 
-%     value of the "Type" parameter can either be "'A'", "'Spline'", 
-%     or "'PolyFit'". The default value is "'A'". The value of the 
-%     "Type" parameter determines the set of the additional 
-%     required or optional input parameters. 
-%     "Figure" is the parameter the value of which is the index of 
-%     the figure on which the data points along with the estimation 
-%     of the df/dX function is to be plotted. Also, the area under 
-%     the estimated df/dX function curve is filled from 
-%     min("xIntegral"(1)) to max("xIntegral"(2)). The value of the 
-%     "Figure" parameter can be any nonnegative integer. The 
+%     "Type" is the name of the parameter the value of which 
+%     determines the mathematical method with which the df/dX 
+%     function is estimated. The value of the "Type" parameter 
+%     can either be "'A'", "'Spline'", or "'PolyFit'". The default value 
+%     is "'A'". The value of the "Type" parameter determines the 
+%     set of the additional required or optional input parameters. 
+%     "Figure" is the name of the parameter the value of which is 
+%     the index of the figure on which the data points along with 
+%     the estimation of the df/dX function is to be plotted. Also, 
+%     the area under the estimated df/dX function curve is filled 
+%     from min("xIntegral"(1)) to max("xIntegral"(2)). The value of 
+%     the "Figure" parameter can be any nonnegative integer. The 
 %     default value is "0", at which no figure is to be plotted. 
 % 
 % "yIndefiniteIntegral" is the column vector of the estimated 

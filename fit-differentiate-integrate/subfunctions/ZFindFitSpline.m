@@ -38,11 +38,11 @@ function yFitSpline = ...
 % real numbers. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
-% "Figure" is the parameter the value of which is the index of the 
-% figure on which the data points along with the estimation of the 
-% f function is to be plotted. The value of the "Figure" parameter 
-% can be any nonnegative integer. The default value is "0", at 
-% which no figure is to be plotted. 
+% "Figure" is the name of the parameter the value of which is the 
+% index of the figure on which the data points along with the 
+% estimation of the f function is to be plotted. The value of the 
+% "Figure" parameter can be any nonnegative integer. The 
+% default value is "0", at which no figure is to be plotted. 
 % 
 % "yFitSpline" is the column vector of the estimated values of 
 % f("xFitSpline"). 

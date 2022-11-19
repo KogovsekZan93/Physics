@@ -37,12 +37,23 @@ function [yFitA, varargout] = ...
 % The "xFitA" vector must be a column vector of real numbers. 
 % The values of the "xFitA" vector must be in ascending order. 
 % 
-% "varargin" represents the optional input parameter "Figure". 
-% "Figure" is the parameter the value of which is the index of the 
-% figure on which the data points along with the estimation of the 
-% f function is to be plotted. The value of the "Figure" parameter 
-% can be any nonnegative integer. The default value is "0", at 
-% which no figure is to be plotted. 
+% "varargin" represents the optional input parameters 
+% "PseudoAccuracy", "Mode", and "Figure". 
+%     "PseudoAccuracy" is the name of the parameter the value 
+%     of which is the order of the regression polynomials from 
+%     which the piecewise regression polynomial which 
+%     represents the f function is composed. It must be a 
+%     nonnegative integer. The default value is "0". 
+%     "Mode" is the name of the parameter the value of which 
+%     represents the principle behind the definition of the 
+%     boundaries of the piecewise regression polynomial which 
+%     represents the f function. It must be one of the three 
+%     integers: "0", "1", "2". The default value is "0". 
+%     "Figure" is the name of the parameter the value of which is 
+%     the index of the figure on which the data points along with 
+%     the estimation of the f function is to be plotted. The value of 
+%     the "Figure" parameter can be any nonnegative integer. The 
+%     default value is "0", at which no figure is to be plotted. 
 % 
 % "yFitA" is the column vector of the estimated values of 
 % f("xFitA"). 
