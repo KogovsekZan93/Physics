@@ -1,10 +1,10 @@
-function yIndefiniteIntegral = ...
-    ZFindIndefiniteIntegral(xData, yData, xIntegral, varargin)
+function yIndefiniteIntegral = ZFindIndefiniteIntegral...
+    (xData, yData, xIntegral, varargin)
 %% Numerical indefinite integration tool
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 9.11.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 

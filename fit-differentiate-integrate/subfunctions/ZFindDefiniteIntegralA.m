@@ -1,11 +1,11 @@
-function DefiniteIntegralA = ...
-    ZFindDefiniteIntegralA(xData, yData, Limits, varargin)
+function DefiniteIntegralA = ZFindDefiniteIntegralA...
+    (xData, yData, Limits, varargin)
 %% Numerical piecewise regression polynomial-based 
 %% definite integration tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -63,8 +63,8 @@ function DefiniteIntegralA = ...
 %     the "Figure" parameter can be any nonnegative integer. The 
 %     default value is "0", at which no figure is to be plotted. 
 % 
-% "DefiniteIntegralA" is the estimated value of the integral 
-% of the df/dX function over the X variable with the lower limit 
+% "DefiniteIntegralA" is the estimated value of the integral of the 
+% df/dX function over the X variable with the lower limit 
 % "Limits"(1) and the upper limit "Limits"(2). 
 
 
@@ -81,6 +81,11 @@ function DefiniteIntegralA = ...
 
 [yIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic...
     (xData, yData, LimitsSorted, NonFigureParameters{:});
+
+% In the following line, the estimated definite integral 
+% "DefiniteIntegralA" is calculated by multiplying the 
+% "yIntegralA"(2) value by either "1" or "-1" based on the order 
+% of the limits on integration. 
 
 DefiniteIntegralA = yIntegralA(2) * LimitOrder;
 

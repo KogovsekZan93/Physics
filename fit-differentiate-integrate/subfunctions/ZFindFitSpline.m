@@ -1,10 +1,10 @@
-function yFitSpline = ...
-    ZFindFitSpline(xData, yData, xFitSpline, varargin)
+function yFitSpline = ZFindFitSpline...
+    (xData, yData, xFitSpline, varargin)
 %% Spline curve fitting tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 11.1.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 

@@ -5,7 +5,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -62,18 +62,18 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
 
-[LimitsSorted, LimitOrder, ColorFace] = ...
-    SortIntegrationLimits(Limits);
+[LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits...
+    (Limits);
 
-[yIndefiniteIntegralSpline, ppFitSpline] = ...
-    ZFindIntegralSplineBasic(xData, yData, LimitsSorted);
+[yIntegralSpline, ppFitSpline] = ZFindIntegralSplineBasic...
+    (xData, yData, LimitsSorted);
 
 % In the following line, the estimated definite integral 
 % "DefiniteIntegralSpline" is calculated by multiplying the 
-% "yIndefiniteIntegralSpline"(2) value by either "1" or "-1" based 
-% on the order of the limits on integration. 
+% "yIntegralSpline"(2) value by either "1" or "-1" based on the 
+% order of the limits on integration. 
 
-DefiniteIntegralSpline = yIndefiniteIntegralSpline(2) * LimitOrder;
+DefiniteIntegralSpline = yIntegralSpline(2) * LimitOrder;
 
 % The following block of code deals with plotting the estimated 
 % curve of the df/dX function and the area under it from 

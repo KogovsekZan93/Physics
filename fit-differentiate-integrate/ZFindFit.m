@@ -3,7 +3,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
-% Last changed: 8.23.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 

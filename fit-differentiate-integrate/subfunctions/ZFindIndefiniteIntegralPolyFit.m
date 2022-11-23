@@ -6,7 +6,7 @@ function yIndefiniteIntegralPolyFit = ...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 

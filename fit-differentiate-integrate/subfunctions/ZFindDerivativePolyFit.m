@@ -5,7 +5,7 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.9.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -76,7 +76,8 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit...
 pars = inputParser;
 
 paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xData'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);

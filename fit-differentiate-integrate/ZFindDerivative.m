@@ -1,10 +1,10 @@
-function [yDerivative, varargout] = ...
-    ZFindDerivative(xData, yData, xDerivative, varargin)
+function [yDerivative, varargout] = ZFindDerivative...
+    (xData, yData, xDerivative, varargin)
 %% Numerical differentiation tool
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
-% Last changed: 8.23.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 

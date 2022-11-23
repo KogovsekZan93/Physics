@@ -1,11 +1,11 @@
-function yIndefiniteIntegralA = ...
-    ZFindIndefiniteIntegralA(xData, yData, xIntegralA, varargin)
+function yIndefiniteIntegralA = ZFindIndefiniteIntegralA...
+    (xData, yData, xIntegralA, varargin)
 %% Numerical piecewise regression polynomial-based 
 %% indefinite integration tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -71,9 +71,8 @@ function yIndefiniteIntegralA = ...
 %     of the "Figure" parameter can be any nonnegative integer. 
 %     The default value is "0", at which no figure is to be plotted. 
 % 
-% "yIndefiniteIntegralA" is the column vector of the 
-% estimated values of 
-% f("xIntegralSpline") - f("xIntegralSpline"(1)). 
+% "yIndefiniteIntegralA" is the column vector of the estimated 
+% values of f("xIntegralA") - f("xIntegralA"(1)). 
 
 
 pars = inputParser;
@@ -89,8 +88,13 @@ parse(pars, xIntegralA);
 
 [FigureParameter, NonFigureParameters] = ...
     SeparateAdditionalParameter(varargin, 'Figure');
+
 [yIndefiniteIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic...
     (xData, yData, xIntegralA, NonFigureParameters{:});
+
+% The following block of code deals with plotting the estimated 
+% curve of the df/dX function and the area under it from 
+% "xIntegralA"(1) to "xIntegralA"(end) along with the data points. 
 
 DrawZIntegralAHandle = @DrawZIntegralA;
 ColorFace = [0, 0, 1];

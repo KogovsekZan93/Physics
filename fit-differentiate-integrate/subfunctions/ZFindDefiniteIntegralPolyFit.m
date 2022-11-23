@@ -5,7 +5,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -68,20 +68,18 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
 
-[LimitsSorted, LimitOrder, ColorFace] = ...
-    SortIntegrationLimits(Limits);
+[LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits...
+    (Limits);
 
-[yIndefiniteIntegralPolyFit, ppFitPolyFit] = ...
-    ZFindIntegralPolyFitBasic...
+[yIntegralPolyFit, ppFitPolyFit] = ZFindIntegralPolyFitBasic...
     (xData, yData, LimitsSorted, PolyDegree);
 
 % In the following line, the estimated definite integral 
 % "DefiniteIntegralPolyFit" is calculated by multiplying the 
-% "yIndefiniteIntegralPolyFit"(2) value by either "1" or "-1" based 
-% on the order of the limits on integration. 
+% "yIntegralPolyFit"(2) value by either "1" or "-1" based on the 
+% order of the limits on integration. 
 
-DefiniteIntegralPolyFit = ...
-    yIndefiniteIntegralPolyFit(2) * LimitOrder;
+DefiniteIntegralPolyFit = yIntegralPolyFit(2) * LimitOrder;
 
 % The following block of code deals with plotting the estimated 
 % curve of the df/dX function and the area under it from 

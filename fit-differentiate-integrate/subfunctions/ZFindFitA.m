@@ -1,11 +1,11 @@
-function [yFitA, varargout] = ...
-    ZFindFitA(xData, yData, xFitA, varargin)
+function [yFitA, varargout] = ZFindFitA...
+    (xData, yData, xFitA, varargin)
 %% Piecewise regression polynomial-based curve fitting 
 %% tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -58,12 +58,22 @@ function [yFitA, varargout] = ...
 % "yFitA" is the column vector of the estimated values of 
 % f("xFitA"). 
 % 
-% "varargout" represents the optional output parameter 
-% "pFitA", which is the vector of coefficients of the 
-% regression polynomial of the data points represented by the 
-% pairs ("xData"(i), "yData"(i)). "pFitA" is a row vector of the 
-% form of [a_("PolyDegree"), a_("PolyDegree" - 1), ..., a_(1), 
-% a_(0)]. It can be evaluated by the MATLAB polyval function. 
+% "varargout" represents the optional output parameters 
+% "Ipoints" and "Smatrix". 
+%     "Ipoints" is a column vector of boundaries between the 
+%     regression polynomials of the piecewise regression 
+%     polynomial which is the estimation of the f function. Any two 
+%     consecutive values of the "Ipoints"(i : i + 1) vector are the 
+%     boundaries of i-th regression polynomial. 
+%     "Smatrix" is the matrix of rows of indices. Each row 
+%     "Smatrix"(i, :) contains the indeces k of the data points 
+%     ("xData"(k), "yData"(k)) which were used to construct the i-th 
+%     regressional polynomial of the piecewise regression 
+%     polynomial which is the estimation of the f function. 
+%     The piecewise polynomial which is used to estimate the f 
+%     function can be evaluated by using the parameters "Ipoints" 
+%     and "Smatrix" as the input of the EvaluateIpointsSmatrixFit 
+%     function. 
 
 
 pars = inputParser;
@@ -88,6 +98,9 @@ parse(pars, xData, xFitA);
 
 [yFitA, Ipoints, Smatrix] = ZFindFitABasic...
     (xData, yData, xFitA, vararginBasic{:});
+
+% The following block of code deals with plotting the estimated 
+% curve of the f function along with the data points. 
 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, min(xData(1), xFitA(1)), ...

@@ -1,11 +1,11 @@
-function yDerivativeA = ...
-    ZFindDerivativeA(xData, yData, xDerivativeA, varargin)
+function yDerivativeA = ZFindDerivativeA...
+    (xData, yData, xDerivativeA, varargin)
 %% Numerical piecewise regression polynomial-based 
 %% differentiation tool with visualization
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.14.2022
+% Last changed: 11.23.2022
 % 
 %% Description
 % 
@@ -66,17 +66,8 @@ function yDerivativeA = ...
 %     the "Figure" parameter can be any nonnegative integer. The 
 %     default value is "0", at which no figure is to be plotted. 
 % 
-% "yDerivativeA" is the column vector of the estimated 
-% values of f^("OrdDeriv")("xDerivativeA"). 
-% 
-% "varargout" represents the optional output parameter 
-% "pDerivativeA", which is the vector of coefficients of the 
-% "OrdDeriv"-th derivative of the regression polynomial of the 
-% data points represented by the pairs ("xData"(i), "yData"(i)). 
-% "pFitA" is a row vector of the form of 
-% [a_("PolyDegree" - "OrdDeriv"), 
-% a_("PolyDegree" - "OrdDeriv" - 1), ..., a_(1), a_(0)]. It can be 
-% evaluated by the MATLAB polyval function. 
+% "yDerivativeA" is the column vector of the estimated values of 
+% f^("OrdDeriv")("xDerivativeA"). 
 
 
 [FigureParameter, NonFigureParameters] = ...
@@ -102,6 +93,9 @@ parse(pars, xData, xDerivativeA);
 
 [yDerivativeA, Ipoints, Smatrix] = ZFindDerivativeABasic...
     (xData, yData, xDerivativeA, NonFigureParameters{:});
+
+% The following block of code deals with plotting the estimated 
+% curve of the f function along with the data points. 
 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, ...
