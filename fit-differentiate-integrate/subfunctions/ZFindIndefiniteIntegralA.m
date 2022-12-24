@@ -5,7 +5,7 @@ function yIndefiniteIntegralA = ZFindIndefiniteIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -95,7 +95,6 @@ parse(pars, xIntegralA);
 % The following block of code deals with plotting the estimated 
 % curve of the df/dX function and the area under it from 
 % "xIntegralA"(1) to "xIntegralA"(end) along with the data points. 
-
 DrawZIntegralAHandle = @DrawZIntegralA;
 ColorFace = [0, 0, 1];
 DrawZIntegralAInput = ...

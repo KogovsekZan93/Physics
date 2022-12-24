@@ -5,7 +5,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -61,7 +61,6 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % determines the color of the area under the estimated curve of 
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
-
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits...
     (Limits);
 
@@ -72,13 +71,11 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % "DefiniteIntegralSpline" is calculated by multiplying the 
 % "yIntegralSpline"(2) value by either "1" or "-1" based on the 
 % order of the limits on integration. 
-
 DefiniteIntegralSpline = yIntegralSpline(2) * LimitOrder;
 
 % The following block of code deals with plotting the estimated 
 % curve of the df/dX function and the area under it from 
 % min("Limits") to max("Limits") along with the data points. 
-
 DrawZIntegralSplineHandle = @DrawZIntegralSpline;
 DrawZIntegralSplineInput = {xData, yData, ...
     LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitSpline};

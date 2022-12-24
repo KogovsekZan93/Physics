@@ -4,7 +4,7 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -83,7 +83,6 @@ type = pars.Results.Type;
 % In the following if/else statement, the input parameters are 
 % passed to appropriate functions based on the value of the 
 % "Type" parameter. 
-
 if strcmp(type, 'A')
     yIndefiniteIntegral = ZFindIndefiniteIntegralA...
         (xData, yData, xIntegral, TypeDeletedList{:});

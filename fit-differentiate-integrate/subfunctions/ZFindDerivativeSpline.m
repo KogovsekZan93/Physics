@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 11.1.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -107,7 +107,6 @@ varargout = {ppDerivativeSpline};
 
 % The following block of code deals with plotting the estimated 
 % curve of the f function along with the data points. 
-
 DrawZFitSplineHandle = @DrawZFitSpline;
 DrawZFitSplineInput = {xData, yData, ...
     min(xDerivativeSpline(1), xData(1)), ...

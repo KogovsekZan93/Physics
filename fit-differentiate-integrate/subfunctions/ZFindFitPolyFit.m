@@ -5,7 +5,7 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.9.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -85,7 +85,6 @@ parse(pars, xData, xFitPolyFit);
 
 % The following block of code deals with plotting the estimated 
 % curve of the f function along with the data points. 
-
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;
 DrawZFitPolyFitInput = {xData, yData, ...
     min(xData(1), xFitPolyFit(1)), ...

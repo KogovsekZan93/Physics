@@ -6,7 +6,7 @@ function yIndefiniteIntegralPolyFit = ...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -65,6 +65,7 @@ function yIndefiniteIntegralPolyFit = ...
 % estimated values of 
 % f("xIntegralPolyFit") - f("xIntegralPolyFit"(1)). 
 
+
 pars = inputParser;
 
 paramName = 'xIntegralPolyFit';
@@ -84,7 +85,6 @@ parse(pars, xIntegralPolyFit);
 % curve of the df/dX function and the area under it from 
 % "xIntegralPolyFit"(1) to "xIntegralPolyFit"(end) along with the 
 % data points. 
-
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
 ColorFace = [0, 0, 1];
 DrawZIntegralPolyFitInput = {xData, yData, xIntegralPolyFit(1), ...

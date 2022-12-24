@@ -4,7 +4,7 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 11.26.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -78,28 +78,51 @@ pp = spline(xData, yData);
 [breaks, coefs, ~, ~, ~] = unmkpp(pp);
 ppFitSpline = mkpp(breaks, coefs);
 coefsLength = length(coefs);
+
+% In the following line, the coefficeints of an integral of each 
+% polynomial of the piecewise polynomial which represents the 
+% spline function S, which represent the function df/dX, are 
+% calculated. "coefsInteg" is the matrix of ordered rows of 
+% coefficients of these integrated polynomials. 
 coefsInteg = ...
     [times(coefs, repmat([1/4, 1/3, 1/2, 1], coefsLength, 1)), ...
     zeros(coefsLength,1)];
 
+% In the following block of code, the boundaries of the 
+% integrated polynomials p_i are defined as a horizontal vector 
+% of consecutive borders. 
 breaksReal = breaks;
 breaksReal(1) = - inf; 
 breaksReal(end) = inf;
 
-j = 2;
-a = 1;
-
 xIntegralSplineLength = length(xIntegralSpline);
 yIntegralSpline = zeros(xIntegralSplineLength, 1);
 
+% The following while loop is used to find p_("j" - 1), which is the 
+% first integrated polynomial p_i which is to be used to evaluate 
+% the "yIntegralSpline" vector. 
+j = 2;
 while breaksReal(j) <= xIntegralSpline(1)
     j = j +1;
 end
 
+% In the following line, the piecewise polynomial P is defined as 
+% a MATLAB object. The piecewise polynomial P is constructed 
+% of the integrated polynomials p_i from p_("j" - 1) onwards with 
+% the boundaries which are represented by the vector of 
+% consecutive boundaries "breaksReal"("j" - 1, :). The "breaks" 
+% vector is used for its definition in the actual function because 
+% the MATLAB function mkpp does not return proper values if 
+% there are infinities in the required mkpp parameter "breaks". 
 ppIntegralSpline = mkpp...
     ([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
 
+% The parameter summa will be used to track the value of the 
+% estimation of the definite integral of the df/dX function from 
+% "xIntegralSpline"(1) to both boundaries of the piecewise 
+% polynomial P and values of "xIntegralSpline". 
 Summa = 0;
+a = 1;
 
 for b = 2 : xIntegralSplineLength
     if xIntegralSpline(b) >= breaksReal(j)

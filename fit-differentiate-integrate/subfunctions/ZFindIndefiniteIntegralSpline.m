@@ -6,7 +6,7 @@ function yIndefiniteIntegralSpline = ...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 9.11.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -77,7 +77,6 @@ parse(pars, xIntegralSpline);
 % curve of the df/dX function and the area under it from 
 % "xIntegralSpline"(1) to "xIntegralSpline"(end) along with the 
 % data points. 
-
 DrawZIntegralSplineHandle = @DrawZIntegralSpline;
 ColorFace = [0, 0, 1];
 DrawZIntegralSplineInput = {xData, yData, xIntegralSpline(1), ...

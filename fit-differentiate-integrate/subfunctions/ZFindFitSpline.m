@@ -4,7 +4,7 @@ function yFitSpline = ZFindFitSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -74,7 +74,6 @@ yFitSpline = ppval(ppFitSpline, xFitSpline);
 
 % The following block of code deals with plotting the estimated 
 % curve of the f function along with the data points. 
-
 DrawZFitSplineHandle = @DrawZFitSpline;
 DrawZFitSplineInput = {xData, yData, ...
     min(xFitSpline(1), xData(1)), ...

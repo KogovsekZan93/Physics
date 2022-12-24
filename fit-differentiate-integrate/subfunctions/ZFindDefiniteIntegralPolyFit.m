@@ -5,7 +5,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -67,7 +67,6 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % determines the color of the area under the estimated curve of 
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
-
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits...
     (Limits);
 
@@ -78,13 +77,11 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % "DefiniteIntegralPolyFit" is calculated by multiplying the 
 % "yIntegralPolyFit"(2) value by either "1" or "-1" based on the 
 % order of the limits on integration. 
-
 DefiniteIntegralPolyFit = yIntegralPolyFit(2) * LimitOrder;
 
 % The following block of code deals with plotting the estimated 
 % curve of the df/dX function and the area under it from 
 % min("Limits") to max("Limits") along with the data points. 
-
 DrawZIntegralPolyFitHandle = @DrawZIntegralPolyFit;
 DrawZIntegralPolyFitInput = {xData, yData, ...
     LimitsSorted(1), LimitsSorted(2), ColorFace, ppFitPolyFit};

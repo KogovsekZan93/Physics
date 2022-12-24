@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -101,7 +101,6 @@ parse(pars, xData, xFitA);
 
 % The following block of code deals with plotting the estimated 
 % curve of the f function along with the data points. 
-
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, min(xData(1), xFitA(1)), ...
     max(xData(end), xFitA(end)), Ipoints, Smatrix};

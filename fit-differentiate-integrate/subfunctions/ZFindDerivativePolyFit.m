@@ -5,7 +5,7 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -116,7 +116,6 @@ varargout = {pDerivativePolyFit};
 
 % The following block of code deals with plotting the estimated 
 % curve of the f function along with the data points. 
-
 DrawZFitPolyFitHandle = @DrawZFitPolyFit;
 DrawZFitPolyFitInput = {xData, yData, ...
     min(xData(1), xDerivativePolyFit(1)), ...

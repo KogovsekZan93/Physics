@@ -5,7 +5,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.23.2022
+% Last changed: 12.24.2022
 % 
 %% Description
 % 
@@ -72,7 +72,6 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % determines the color of the area under the estimated curve of 
 % the df/dX function: red if "Limits"(1) > "Limits"(2) and blue if 
 % not. 
-
 [LimitsSorted, LimitOrder, ColorFace] = SortIntegrationLimits...
     (Limits);
 
@@ -86,7 +85,6 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % "DefiniteIntegralA" is calculated by multiplying the 
 % "yIntegralA"(2) value by either "1" or "-1" based on the order 
 % of the limits on integration. 
-
 DefiniteIntegralA = yIntegralA(2) * LimitOrder;
 
 DrawZIntegralAHandle = @DrawZIntegralA;
