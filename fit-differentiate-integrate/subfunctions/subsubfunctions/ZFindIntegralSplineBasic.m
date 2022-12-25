@@ -4,7 +4,7 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 12.24.2022
+% Last changed: 12.25.2022
 % 
 %% Description
 % 
@@ -98,32 +98,34 @@ breaksReal(end) = inf;
 xIntegralSplineLength = length(xIntegralSpline);
 yIntegralSpline = zeros(xIntegralSplineLength, 1);
 
-% The following while loop is used to find p_("j" - 1), which is the 
-% first integrated polynomial p_i which is to be used to evaluate 
-% the "yIntegralSpline" vector. 
+% The following while loop is used to find the index "j" - 1 of the 
+% integrated polynomial p_("j" - 1) within the boundaries of which 
+% xIntegralSpline(1) is contained. 
 j = 2;
 while breaksReal(j) <= xIntegralSpline(1)
     j = j +1;
 end
 
-% In the following line, the piecewise polynomial P is defined as 
-% a MATLAB object. The piecewise polynomial P is constructed 
-% of the integrated polynomials p_i from p_("j" - 1) onwards with 
-% the boundaries which are represented by the vector of 
-% consecutive boundaries "breaksReal"("j" - 1, :). The "breaks" 
-% vector is used for its definition in the actual function because 
-% the MATLAB function mkpp does not return proper values if 
-% there are infinities in the required mkpp parameter "breaks". 
-ppIntegralSpline = mkpp...
-    ([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
-
-% The parameter summa will be used to track the value of the 
+% The parameter "summa" will be used to track the value of the 
 % estimation of the definite integral of the df/dX function from 
-% "xIntegralSpline"(1) to both boundaries of the piecewise 
-% polynomial P and values of "xIntegralSpline". 
+% "xIntegralSpline"(1) to both boundaries of the integrated 
+% polynomials p_i and values of "xIntegralSpline". 
 Summa = 0;
 a = 1;
 
+% For each relevant integrated polynomial p_("j" - 1), the 
+% integrated polynomial is constructed by using the MATLAB 
+% mkpp function, and appropriate boundaries and coefficients. 
+% Then, whenever in the for loop, the value "xIntegralSpline"("b") 
+% exceeds the right boundary of the relevant integrated 
+% polynomial p_("j" - 1), the "yIntegralSpline" vector is evaluated 
+% for the values of the "xIntegralSpline" vector within the domain 
+% of the relevant integrated polynomial. Also, the "Summa" 
+% parameter is increased appropriately to account for the 
+% estimated definite integral of the df/dX function from the value 
+% "xIntegralSpline"("b" - 1) to the value "xIntegralSpline"("b"). 
+ppIntegralSpline = mkpp...
+    ([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
 for b = 2 : xIntegralSplineLength
     if xIntegralSpline(b) >= breaksReal(j)
         yIntegralSpline(a : b - 1) = Summa + ...
@@ -133,6 +135,12 @@ for b = 2 : xIntegralSplineLength
             ppval(ppIntegralSpline, breaks(j)) - ...
             ppval(ppIntegralSpline, xIntegralSpline(b - 1));
         j = j + 1;
+        % In the following while loop, the "Summa" parameter is 
+        % increased appropriately by the estimated integral of the 
+        % df/dX over the domains of the integrated polynomials p_i 
+        % between "xIntegralSpline"("b" - 1) to 
+        % "xIntegralSpline"("b") in which there is no value of the 
+        % “IntegralSpline" vector. 
         while breaksReal(j) <= xIntegralSpline(b)
             ppIntegralSpline = mkpp...
                 ([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
@@ -141,15 +149,23 @@ for b = 2 : xIntegralSplineLength
             j = j +1;
         end
         a = b;
+        % In the following two lines, the next relevant integrated 
+        % polynomial p_i is constructed and "Summa" parameter is 
+        % appropriately increased by the estimated definite integral 
+        % of the df/dX function from the left boundary of the 
+        % relevant polynomial p_i to the value "xIntegralSpline"("b"). 
         ppIntegralSpline = mkpp...
             ([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));
+        Summa = Summa + ppval(ppIntegralSpline, ...
+            xIntegralSpline(b)) - ppval(ppIntegralSpline, breaks(j - 1));
     end
 end
-
+% In the final relevant polynomial p_("j"-1), the "yIntegralSpline" 
+% vector is evaluated from "xIntegralSpline"("a") to 
+% "xIntegralSpline"(end). 
 yIntegralSpline(a : end) = Summa + ppval...
     (ppIntegralSpline, xIntegralSpline(a : end)) - ppval...
-    (ppIntegralSpline, max(breaks(j - 1), ...
-    xIntegralSpline(max(a - 1, 1))));
+    (ppIntegralSpline, xIntegralSpline(a));
 
 varargout = {ppFitSpline};
 
