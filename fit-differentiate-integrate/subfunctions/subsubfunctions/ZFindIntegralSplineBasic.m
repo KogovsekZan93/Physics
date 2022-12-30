@@ -4,7 +4,7 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 12.25.2022
+% Last changed: 12.30.2022
 % 
 %% Description
 % 
@@ -74,9 +74,8 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData, yData, xIntegralSpline);
 
-pp = spline(xData, yData);
-[breaks, coefs, ~, ~, ~] = unmkpp(pp);
-ppFitSpline = mkpp(breaks, coefs);
+ppFitSpline = spline(xData, yData);
+[breaks, coefs, ~, ~, ~] = unmkpp(ppFitSpline);
 coefsLength = length(coefs);
 
 % In the following line, the coefficeints of an integral of each 
@@ -136,11 +135,11 @@ for b = 2 : xIntegralSplineLength
             ppval(ppIntegralSpline, xIntegralSpline(b - 1));
         j = j + 1;
         % In the following while loop, the "Summa" parameter is 
-        % increased appropriately by the estimated integral of the 
-        % df/dX over the domains of the integrated polynomials p_i 
-        % between "xIntegralSpline"("b" - 1) to 
+        % increased appropriately by the estimated definite integral 
+        % of the df/dX over the domains of the integrated 
+        % polynomials p_i between "xIntegralSpline"("b" - 1) to 
         % "xIntegralSpline"("b") in which there is no value of the 
-        % “IntegralSpline" vector. 
+        % "IntegralSpline" vector. 
         while breaksReal(j) <= xIntegralSpline(b)
             ppIntegralSpline = mkpp...
                 ([breaks(j - 1); breaks(j)], coefsInteg(j - 1, :));

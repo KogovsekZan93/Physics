@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 11.26.2022
+% Last changed: 12.30.2022
 % 
 %% Description
 % 
@@ -98,12 +98,16 @@ parse(pars, xData, yData, xDerivativeSpline, varargin{:});
 
 ordDeriv = pars.Results.OrdDeriv;
 
-pp = spline(xData, yData);
-[breaks, coefs, ~, ~, ~] = unmkpp(pp);
-ppFitSpline = mkpp(breaks, coefs);
+ppFitSpline = spline(xData, yData);
+[breaks, coefs, ~, ~, ~] = unmkpp(ppFitSpline);
 
+% In the following block of code, the coefficients of the 
+% differentiated polynomials of the piecewise polynomial which 
+% is the estimated f^("OrdDeriv") function are calculated. The 
+% differentiated polynomials are appropriate derivatives of the 
+% polynomials of which the cubic spline which interpolates the 
+% data point is constructed. 
 coefsDeriv = coefs;
-
 if ordDeriv < 4
     for i = 1 : ordDeriv
         ordPoly = length(coefsDeriv(1, :)) - 1;
@@ -114,9 +118,16 @@ else
      coefsDeriv = zeros(length(coefsDeriv(:,1)),1);
 end
 
+% In the following line, the piecewise polynomial which 
+% represents the f^("OrdDeriv") function is constructed using the 
+% MATLAB mkpp function. 
 ppDerivativeSpline = mkpp(breaks, coefsDeriv);
+
 varargout = {ppDerivativeSpline, ppFitSpline};
 
+% Finally, the piecewise polynomial which is the estimation of the 
+% f^("OrdDeriv") is evaluated for the values of the 
+% "xDerivativeSpline" vector of the X variable. 
 yDerivativeSpline = ppval(ppDerivativeSpline, xDerivativeSpline);
 
 end
