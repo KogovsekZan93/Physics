@@ -5,7 +5,7 @@ function DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 12.24.2022
+% Last changed: 1.1.2023
 % 
 %% Description
 % 

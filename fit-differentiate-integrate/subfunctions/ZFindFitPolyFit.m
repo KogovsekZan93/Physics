@@ -5,7 +5,7 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 12.24.2022
+% Last changed: 1.1.2023
 % 
 %% Description
 % 
@@ -56,10 +56,12 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % "varargout" represents the optional output parameter 
 % "pFitPolyFit", which is the vector of coefficients of the 
-% regression polynomial of the data points represented by the 
-% pairs ("xData"(i), "yData"(i)). "pFitPolyFit" is a row vector of the 
-% form of [a_("PolyDegree"), a_("PolyDegree" - 1), ..., a_(1), 
-% a_(0)]. It can be evaluated by the MATLAB polyval function. 
+% "PolyDegree"-th degree regression polynomial of the data 
+% points represented by the pairs ("xData"(i), "yData"(i)). 
+% "pFitPolyFit" is a column vector of the form of 
+% [a_"PolyDegree"; a_("PolyDegree" - 1); ...; a_1; a_0]. The 
+% regression polynomial can be evaluated by the MATLAB 
+% polyval function. 
 
 
 pars = inputParser;

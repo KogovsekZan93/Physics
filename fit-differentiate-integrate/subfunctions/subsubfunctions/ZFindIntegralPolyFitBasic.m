@@ -2,11 +2,11 @@ function [yIntegralPolyFit, varargout] = ...
     ZFindIntegralPolyFitBasic...
     (xData, yData, xIntegralPolyFit, PolyDegree)
 %% Numerical polynomial regression-based indefinite 
-%% integration tool with visualization
+%% integration tool
 % 
 % Author: Žan Kogovšek
 % Date: 12.30.2022
-% Last changed: 12.30.2022
+% Last changed: 1.1.2023
 % 
 %% Description
 % 
@@ -50,10 +50,14 @@ function [yIntegralPolyFit, varargout] = ...
 % "yIntegralPolyFit" is the column vector of the estimated values 
 % of f("xIntegralPolyFit") - f("xIntegralPolyFit"(1)). 
 % 
-% "pFitPolyFit", which is the “PolyDegree”-th degree regression 
-% polynomial of the data points which are represented by the 
-% pairs ("xData"(i), "yData"(i)). It can be evaluated by the 
-% MATLAB polyval function. 
+% "varargout" represents the optional output parameter 
+% "pFitPolyFit", which is the vector of coefficients of the 
+% "PolyDegree"-th degree regression polynomial of the data 
+% points represented by the pairs ("xData"(i), "yData"(i)). 
+% "pFitPolyFit" is a column vector of the form of 
+% [a_"PolyDegree"; a_("PolyDegree" - 1); ...; a_1; a_0]. The 
+% regression polynomial can be evaluated by the MATLAB 
+% polyval function. 
 
 
 pars = inputParser;
@@ -87,6 +91,11 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData, yData, xIntegralPolyFit, PolyDegree);
 
+% In the following two lines, in the first line, the regression 
+% polynomial coefficients of the data points which are 
+% represented by the pairs ("xData"(i). "yData"(i)) are calculated. 
+% In the second line, the coefficients of a polynomial which is 
+% the integral of the regression polynomial are calculated. 
 pFitPolyFit = (polyfit(xData, yData, PolyDegree))';
 pIntegralPolyFit = CalculateIntegralPolynomialCoefficients...
     (pFitPolyFit);

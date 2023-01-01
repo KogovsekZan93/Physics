@@ -4,7 +4,7 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 12.30.2022
+% Last changed: 1.1.2023
 % 
 %% Description
 % 
