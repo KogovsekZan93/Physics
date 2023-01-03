@@ -1,85 +1,84 @@
-function [yIntegralA, varargout] = ZFindIntegralABasic(xData, yData, xIntegralA, varargin)
-%% Generalized numerical integration
+function [yIntegralA, varargout] = ZFindIntegralABasic...
+    (xData, yData, xIntegralA, varargin)
+%% Numerical piecewise regression polynomial-based 
+%% indefinite integration tool
 % 
 % Author: Žan Kogovšek
-% Date: 20.2.2021
+% Date: 1.3.2023
+% Last changed: 1.3.2023
 % 
 %% Description
 % 
-% Given the values x(i) of the independent variable X and the 
-% values y(i) of the dependent variable Y of an arbitrary function 
-% Y = f(X), this function returns the value of the integral of the f 
-% function with the upper and lower limits of integration xmin and 
-% xmax respectively. The integration is performed with a 
-% pseudo-order of accuracy Psacc, i.e. the integration is 
-% accurate if the f function is a polynomial of the degree of 
-% Psacc or less. The integration can either be visualized in the 
-% figure figure(figr) if figr is a natural number or not if figr is "0". 
+% Given the input vector "xData" of the independent variable X 
+% and the input vector "yData" of the values of the dependent 
+% variable Y of an arbitrary function Y = (df/dX)(X), this function 
+% returns the vector "yIntegralA" of the estimated values of 
+% f("xIntegralA") - f("xIntegralA"(1)), where "xIntegralA" is the 
+% input vector of values of the X variable. The estimation is 
+% based on a piecewise regression polynomial of the data 
+% points represented by the pairs ("xData"(i), "yData"(i)). 
 % 
 %% Variables
 % 
-% This function has the form of 
+% This function has the form of [yIntegralA, varargout] = 
+% ZFindIntegralABasic(xData, yData, xIntegralA, varargin)
 % 
-% yIntegralA = ZIntegralA_Revised(xData, yData, 'XIntegralA', ...
-%     xIntegralA, 'PseudoAccuracy', psacc, 'Figure', figr, 'Mode', mode)
+% "xData" and "yData" are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = (df/dX)(X) 
+% ("yData" = (df/dX) ("xData")). 
+% Both the "xData" vector and the "yData" vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the "xData" vector must be in ascending order. 
 % 
-% xData and yData are the vectors of the aforementioned values 
-% xData(i) and yData(i), respectively, of the independent variable 
-% X and of the dependent variable Y, respectively, of an arbitrary 
-% function Y = f(X) (yData(i) = f(xData(i)). xData and yData both 
-% have to be column vectors of real numbers of equal length. 
-% xData vector does not have to be sorted (i.e. it is not required 
-% that xData(i) > xData(j) for every i > j). 
+% "xIntegralA" is the vector of the values of the independent 
+% variable X at which the values of the vector 
+% f("xIntegralA") - f("xIntegralA"(1)) is to be estimated. 
+% The "xIntegralA" vector must be a column vector of real 
+% numbers. The values of the "xIntegralA" vector must be in 
+% ascending order. 
 % 
-% xmin is the lower limit of integration and xmax is the upper limit 
-% of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval. 
+% "varargin" represents the optional input parameter "Figure". 
+% "Figure" is the parameter the value of which is the index of the 
+% figure on which the data points along with the estimation of the 
+% df/dX function is to be plotted. Also, the area under the 
+% estimated df/dX function curve is filled from 
+% min("xIntegralA"(1)) to max("xIntegralA"(2)). The value of the 
+% "Figure" parameter can be any nonnegative integer. The 
+% default value is "0", at which no figure is to be plotted. 
+
+% "varargin" represents the optional input parameters 
+% "PseudoAccuracy" and "Mode". 
+%     "PseudoAccuracy" is the name of the parameter the value 
+%     of which is the order of the regression polynomials from 
+%     which the piecewise regression polynomial which 
+%     represents the df/dX function is composed. It must be a 
+%     nonnegative integer. The default value is "0". 
+%     "Mode" is the name of the parameter the value of which 
+%     represents the principle behind the definition of the 
+%     boundaries of the piecewise regression polynomial which 
+%     represents the df/dX function. It must be one of the three 
+%     integers: "0", "1", "2". The default value is "0". 
 % 
-% Psacc is the pseudo-order of accuracy of the integration, i.e. 
-% the integration is accurate if the f function is a polynomial of 
-% the degree of Psacc or less. It has to be an integer contained 
-% in the interval [0, length(x) – 1]. 
+% "yIntegralA" is the column vector of the estimated values of 
+% f("xIntegralA") - f("xIntegralA"(1)). 
 % 
-% mode is the selected mode of integration. 
-%       If mode == 0, the basic mode of integration will be 
-%       performed (see “Pseudo-order of accuracy integration 
-%       principle” for further details). 
-%       If mode == 1, an augmented mode of the basic mode of 
-%       integration will be performed. In this mode, the limits of I(k) 
-%       intervals (see “Pseudo-order of accuracy integration 
-%       principle” for further details) are augmented so that 
-%       Lagrange polynomial extrapolation is averted for every I(k) 
-%       possible. 
-%       If mode == 2, an augmented mode of the basic mode of 
-%       integration will be performed. In this mode, the limits of I(k) 
-%       intervals (see “Pseudo-order of accuracy integration 
-%       principle” for further details) are augmented so that not 
-%       more than 1 + half of x(i) values of the S(k) set are higher 
-%       or lower than the limits of I(k) for every I(k) interval 
-%       possible. 
-% 
-% figr is the index of the figure in which the integration will be 
-% visualized. It has to be a nonzero integer. If figr == 0, the 
-% integration will not be visualized. 
-% 
-% ZIntegA is the output of the ZIntegralA function and it is the 
-% numerical integral of the f function with the limits of integration 
-% xmin and xmax with the pseudo-order of accuracy Psacc. 
-% 
-%% Pseudo-order of accuracy integration principle
-% 
-% This function uses the GetPointsZIntegralA0 function to divide 
-% the X axis into several intervals I(k). In every I(k) interval, there 
-% is a set S(k) of Psacc + 1 x(i) values. For each point P in the 
-% interval I(k), the x(i) values of S(k) are the closest Psacc + 1 
-% x(i) values to the P point. In each I(k) interval, the f function is 
-% approximated by the Lagrange polynomial p(k) which is based 
-% on {(x(i), y(i)) | x(i) is in S(k)}. This approximation of the function 
-% f is then integrated with the limits of integration xmin and xmax. 
-% With the GetPointsZIntegralA1 function and the 
-% GetPointsZIntegralA2 function, the limits of I(k) intervals are 
-% further augmented. See the description of the two functions 
-% for further details. 
+% "varargout" represents the optional output parameters 
+% "Ipoints" and "Smatrix". 
+%     "Ipoints" is a column vector of boundaries between the 
+%     regression polynomials of the piecewise regression 
+%     polynomial which is the estimation of the f function. Any two 
+%     consecutive values of the "Ipoints"(i : i + 1) vector are the 
+%     boundaries of i-th regression polynomial. 
+%     "Smatrix" is the matrix of rows of indices. Each row 
+%     "Smatrix"(i, :) contains the indeces k of the data points 
+%     ("xData"(k), "yData"(k)) which were used to construct the i-th 
+%     regressional polynomial of the piecewise regression 
+%     polynomial which is the estimation of the f function. 
+%     The piecewise polynomial which is used to estimate the f 
+%     function can be evaluated by using the parameters "Ipoints" 
+%     and "Smatrix" as the input of the EvaluateIpointsSmatrixFit 
+%     function. 
 
 
 pars = inputParser;
@@ -102,10 +101,8 @@ mode = pars.Results.Mode;
 
 
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, psacc + 1, mode);
-varargout{1} = Ipoints;
-varargout{2} = Smatrix;
+varargout = {Ipoints, Smatrix};
 
 yIntegralA = EvaluateIpointsSmatrixIntegral(xData, yData, xIntegralA, Ipoints, Smatrix);
-
 
 end
