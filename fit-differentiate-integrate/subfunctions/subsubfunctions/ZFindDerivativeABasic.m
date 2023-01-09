@@ -5,7 +5,7 @@ function [yDerivativeA, varargout] = ZFindDerivativeABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 1.3.2023
+% Last changed: 1.9.2023
 % 
 %% Description
 % 
@@ -122,10 +122,15 @@ if nA > length(xData)
         '''Accuracy + OrdDeriv'' must be equal to or lower than ''length(xData)''.');
 end
 
-
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode);
 varargout = {Ipoints, Smatrix};
 
+% In the following line, the EvaluateIpointsSmatrixDerivative 
+% function is used to estimate the values of the 
+% f^("OrdDeriv")("xDerivativeA") vector by calculating the 
+% derivative of the piecewise regression polynomial represented 
+% by the variables "Ipoints" and "Smatrix" for the values of the 
+% "xDerivativeA" vector. 
 yDerivativeA = EvaluateIpointsSmatrixDerivative...
     (xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix);
 

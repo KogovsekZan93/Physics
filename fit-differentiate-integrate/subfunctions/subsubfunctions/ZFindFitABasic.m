@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 1.3.2023
+% Last changed: 1.9.2023
 % 
 %% Description
 % 

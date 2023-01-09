@@ -5,7 +5,7 @@ function [yIntegralA, varargout] = ZFindIntegralABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 1.3.2023
+% Last changed: 1.9.2023
 % 
 %% Description
 % 
@@ -85,7 +85,8 @@ pars = inputParser;
 
 paramName = 'PseudoAccuracy';
 defaultVal = 0;
-errorMsg = '''PseudoAccuracy'' must be a whole number, lower than ''length(xData)''.';
+errorMsg = ...
+    '''PseudoAccuracy'' must be a whole number, lower than ''length(xData)''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ... 
     x >= 0 && mod(x,1) == 0 && x < length(xData), errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);
@@ -99,10 +100,17 @@ parse(pars, varargin{:});
 psacc = pars.Results.PseudoAccuracy;
 mode = pars.Results.Mode;
 
-
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, psacc + 1, mode);
 varargout = {Ipoints, Smatrix};
 
-yIntegralA = EvaluateIpointsSmatrixIntegral(xData, yData, xIntegralA, Ipoints, Smatrix);
+% In the following line, the EvaluateIpointsSmatrixIntegral 
+% function is used to estimate the values of the 
+% f("xIntegralA") - f("xIntegralA"(1)) vector by calculating the 
+% definite integral of the piecewise regression polynomial 
+% represented by the variables "Ipoints" and "Smatrix" from 
+% "xIntegralA"(1) to each value of "xIntegralA". 
+
+yIntegralA = EvaluateIpointsSmatrixIntegral...
+    (xData, yData, xIntegralA, Ipoints, Smatrix);
 
 end
