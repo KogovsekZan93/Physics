@@ -108,7 +108,7 @@ varargout = {Ipoints, Smatrix};
 % f("xIntegralA") - f("xIntegralA"(1)) vector by calculating the 
 % definite integral of the piecewise regression polynomial 
 % represented by the variables "Ipoints" and "Smatrix" from 
-% "xIntegralA"(1) to each value of "xIntegralA". 
+% "xIntegralA"(1) to the each value of the "xIntegralA" vector. 
 
 yIntegralA = EvaluateIpointsSmatrixIntegral...
     (xData, yData, xIntegralA, Ipoints, Smatrix);

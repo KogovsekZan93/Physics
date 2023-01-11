@@ -4,7 +4,7 @@ function DefiniteIntegral = ZFindDefiniteIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 12.24.2022
+% Last changed: 1.11.2023
 % 
 %% Description
 % 
@@ -67,7 +67,7 @@ function DefiniteIntegral = ZFindDefiniteIntegral...
 
 [TypeList, TypeDeletedList] = SeparateAdditionalParameter...
     (varargin, 'Type');   % Separation of the "Type" parameter from 
-                                    % the other additional input parameters. 
+                                    % the other optional input parameters. 
 
 pars = inputParser;
 

@@ -3,7 +3,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
-% Last changed: 12.24.2022
+% Last changed: 1.11.2023
 % 
 %% Description
 % 
@@ -60,7 +60,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 
 [TypeList, TypeDeletedList] = SeparateAdditionalParameter...
     (varargin, 'Type');   % Separation of the "Type" parameter from 
-                                    % the other additional input parameters. 
+                                    % the other optional input parameters. 
 
 pars = inputParser;
 
