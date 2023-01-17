@@ -7,23 +7,22 @@ function [AdditionalParameterIsolatedList, ...
 % 
 % Author: Žan Kogovšek
 % Date: 1.11.2023
-% Last changed: 1.11.2023
+% Last changed: 1.17.2023
 % 
 %% Description
 % 
 % Given a cell array of optional parameters 
 % "OptionalParameterList" and the name 
-% "AdditionalParameterName" of one of the optional parameters 
-% (from here on called "the additional parameter") in the cell 
-% array "OptionalParameterList", this function returns two cell 
-% arrays: the "AdditionalParameterIsolatedList" cell array 
-% containing the name "AdditionalParameterName" followed by 
+% "'AdditionalParameterName'" of one of the optional 
+% parameters (from here on called "the additional parameter") in 
+% the cell array "OptionalParameterList", this function returns two 
+% cell arrays: the "AdditionalParameterIsolatedList" cell array 
+% containing the name "'AdditionalParameterName'" followed by 
 % the additional parameter itself, and the 
 % "AdditionalParameterDeletedList" cell array which is the same 
 % as the "OptionalParameterList" cell array, only that it lacks 
-% both the name "AdditionalParameterName" and the additional 
+% both the name "'AdditionalParameterName'" and the additional 
 % parameter. 
-% 
 % 
 %% Variables
 % 
@@ -33,30 +32,41 @@ function [AdditionalParameterIsolatedList, ...
 % SeparateAdditionalParameter...
 % (OptionalParameterList, AdditionalParameterName)
 % 
-% "Limits" must be a column vector of two real numbers. It is 
-% supposed to be the vector of the limits of integration with the 
-% value "Limits"(1) the lower limit and the value "Limits"(2) the 
-% upper limit of integration. 
+% "OptionalParameterList" is a row cell array of optional 
+% parameters. It is supposed to have the form of a series of 
+% strings which are the names of the optional parameters, each 
+% of which is followed by the actual optional parameters (i.e. 
+% {"'OptionalParameter1'", "optionalParameter1", 
+% "'OptionalParameter2'", "optionalParameter2", ..., 
+% "'AdditionalParameterName'", "additionalParameter", 
+% ...}). In principle, it only has to be either an empty cell array or a 
+% row cell array. 
 % 
-% "LimitsSorted" is a column vector of two real numbers with the 
-% same values as the "Limits" vector, only in ascending order. 
+% "'AdditionalParameterName'" is the name of the additional 
+% parameter. It must be a string. 
 % 
-% "LimitOrder" is a scalar with the value of 1 if 
-% "Limits" = "LimitsSorted" and -1 if "Limits" != "LimitsSorted". 
+% "AdditionalParameterIsolatedList" is a cell array. If the name 
+% "'AdditionalParameterName'" is not contained in the 
+% "OptionalParameterList" cell array, it is an empty cell array. If 
+% the name "'AdditionalParameterName'" is contained in the 
+% "OptionalParameterList" cell array, it is a row cell array with two 
+% elements. The first is the name "'AdditionalParameterName'" 
+% of the additional parameter and the second is the additional 
+% parameter "additionalParameter" itself. 
 % 
-% The "ColorFace" parameter is a row vector of three real 
-% numbers which represents the RGB triplet which is to be used 
-% to set the color of the area under the curve plotted by the 
-% DrawZIntegral… functions. It is blue if "LimitOrder" == 1 and 
-% red if "LimitOrder" == -1. 
+% "AdditionalParameterDeletedList" is the same row cell array 
+% as "OptionalParameterList" only that it lacks the elements the 
+% name "'AdditionalParameterName'" of the additional 
+% parameter and the additional parameter "additionalParameter" 
+% itself. 
 
 
 pars = inputParser;
-
 paramName = 'OptionalParameterList';
-errorMsg = '''OptionalParameterList'' must be a cell array.';
+errorMsg = '''OptionalParameterList'' must be a row cell array.';
 validationFcn = @(x)assert...
-    (iscell(OptionalParameterList), errorMsg);
+    (iscell(OptionalParameterList) && ...
+    size(OptionalParameterList, 1) < 2, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'AdditionalParameterName';
@@ -72,6 +82,12 @@ parse(pars, OptionalParameterList, AdditionalParameterName);
 AdditionalParameterIndex = find...
     (strcmp(OptionalParameterList, AdditionalParameterName));
 
+% In the following block of code, the 
+% "AdditionalParameterDeletedList" is created firstly by being 
+% identical to the cell array "OptionalParameterList", after which 
+% both the name "'AdditionalParameterName'" and the additional 
+% parameter "additionalParameter" are deleted from the 
+% "AdditionalParameterDeletedList" cell array. 
 AdditionalParameterDeletedList = OptionalParameterList;
 AdditionalParameterDeletedList...
     (AdditionalParameterIndex : AdditionalParameterIndex + 1) ...
