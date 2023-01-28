@@ -4,7 +4,7 @@ function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 % 
 % Author: Žan Kogovšek
 % Date: 1.24.2023
-% Last changed: 1.25.2023
+% Last changed: 1.28.2023
 % 
 %% Description
 % 
@@ -42,55 +42,43 @@ function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 % variable of which is "xData"("Smatrix"(i, :)), i.e. they are the 
 % values of the "xData" indexed by the i-th row of the "Smatrix" 
 % matrix. 
-%      If "mode" == 0, each two adjacent values "Ipoints"(i) and 
-%      "Ipoints"(i + 1) of the "Ipoints" vector are such that for every 
-%      value x of the independent variable X in the interval 
-%      ("Ipoints"(i), "Ipoints"(i + 1)), the values of 
-%      "xData"("Smatrix"(i, :)) vector are the closest "nA" values of 
-%      the "xData" vector to the x value. 
-%      If "mode" == 1, the values of the "Ipoints" vector are the 
-%      same as with "mode" == 0 with two corrections for 
-%      "Ipoints"(i) values other than "Ipoints"(1) and "Ipoints"(end) 
-%      (which are "-Inf" and "Inf" respectively). 
-%      The first correction is: if with "mode" == 0 all values of the 
-%      "xData" ("Smatrix"(i, :)) vector are lower than the "Ipoints"(i) 
-%      value, the "Ipoints"(i) value with "mode" == 1 is 
-%      "Ipoints"(i) == "xData" ("Smatrix"(i, end)). 
-%      The second correction is: if with "mode" == 0 all values of 
-%      the "xData"("Smatrix"(i, :)) vector are higher than the 
-%      "Ipoints"(i + 1) value, the "Ipoints"(i + 1) value with 
-%      "mode" == 1 is "Ipoints"(i + 1) == "xData" ("Smatrix"(i, 1)). 
-%      If "mode" == 2, the values of the "Ipoints" vector are the 
-%      same as with "mode" == 0 with two corrections for 
-%      "Ipoints"(i) values other than "Ipoints"(1) and "Ipoints"(end) 
-%      (which are "-Inf" and "Inf" respectively). 
-%     The first correction is: if more than bottom(("nA" + 1) / 2) 
-%     values of the "xData"("Smatrix"(i, :)) vector are lower than 
-%     the "Ipoints"(i) value with "mode" == 0, the "Ipoints"(i) value 
-%     with "mode" == 2 is 
-%     "Ipoints"(i) == "xData"("Smatrix"(i, floor(("nA" + 1) / 2))). 
-%     The second correction is: if more than bottom(("nA" + 1) / 2) 
-%     values of the "xData"("Smatrix"(i, :)) vector are higher than 
-%     the "Ipoints"(i + 1) value with "mode" == 0, the 
-%     "Ipoints"(i + 1) value with "mode" == 2 is "Ipoints"(i + 1) == 
-%     "xData"("Smatrix"(i, end + 1 - floor(("nA" + 1) / 2))). 
+%     If "mode" == 0, each two adjacent values "Ipoints"(i) and 
+%     "Ipoints"(i + 1) of the "Ipoints" vector are such that for every 
+%     value x of the independent variable X in the interval 
+%     ("Ipoints"(i), "Ipoints"(i + 1)), the values of 
+%     "xData"("Smatrix"(i, :)) vector are the closest "nA" values of 
+%     the "xData" vector to the x value. 
+%     If "mode" == 1, the values of the "Ipoints" vector are the 
+%     same as with "mode" == 0 with two corrections for 
+%     "Ipoints"(i) values other than "Ipoints"(1) and "Ipoints"(end) 
+%     (which are "-Inf" and "Inf" respectively). 
+%     The first correction is: if with "mode" == 0 all values of the 
+%     "xData" ("Smatrix"(i, :)) vector are lower than the "Ipoints"(i) 
+%     value, the "Ipoints"(i) value with "mode" == 1 is 
+%     "Ipoints"(i) == "xData" ("Smatrix"(i, end)). 
+%     The second correction is: if with "mode" == 0 all values of 
+%     the "xData"("Smatrix"(i, :)) vector are higher than the 
+%     "Ipoints"(i + 1) value, the "Ipoints"(i + 1) value with 
+%     "mode" == 1 is "Ipoints"(i + 1) == "xData" ("Smatrix"(i, 1)). 
+%     If "mode" == 2, the values of the "Ipoints" vector are the 
+%     same as with "mode" == 0 with two corrections for 
+%     "Ipoints"(i) values other than "Ipoints"(1) and "Ipoints"(end) 
+%     (which are "-Inf" and "Inf" respectively). 
+%     The first correction is: if "Ipoints"(i) value with "mode" == 0 
+%     is lower than "xData"("Smatrix"(i, ceil(("nA" - 1) / 2))), the 
+%     "Ipoints"(i) value with "mode" == 2 is 
+%     "Ipoints"(i) == "xData"("Smatrix"(i, ceil(("nA" - 1) / 2))). 
+%     The second correction is: if "Ipoints"(i + 1) value with 
+%     "mode" == 0 is higher than 
+%     "xData"("Smatrix"(i, "nA" - ceil(("nA" - 1) / 2) + 1)), the 
+%     "Ipoints"(i + 1) value with "mode" == 2 is 
+%     "Ipoints"(i + 1) == 
+%     "xData"("Smatrix"(i, "nA" - ceil(("nA" - 1) / 2) + 1)). 
 % 
-% Smatrix
-% 
-%     "Ipoints" is a column vector of boundaries between the 
-%     regression polynomials of the piecewise regression 
-%     polynomial which is the estimation of the f function. Any two 
-%     consecutive values of the "Ipoints"(i : i + 1) vector are the 
-%     boundaries of i-th regression polynomial. 
-%     "Smatrix" is the matrix of rows of indices. Each row 
-%     "Smatrix"(i, :) contains the indeces k of the data points 
-%     ("xData"(k), "yData"(k)) which were used to construct the i-th 
-%     regressional polynomial of the piecewise regression 
-%     polynomial which is the estimation of the f function. 
-%     The piecewise polynomial which is used to estimate the f 
-%     function can be evaluated by using the parameters "Ipoints" 
-%     and "Smatrix" as the input of the EvaluateIpointsSmatrixFit 
-%     function. 
+% Smatrix is a matrix of "nA" columns and 
+% "xDataLength" - "nA" + 1 rows. Each row i contains "nA" 
+% consecutive indices of the "xData" vector 
+% [i, i + 1, ..., i + "nA" - 2, i + "nA" - 1]. 
 
 
 pars = inputParser;
@@ -119,6 +107,9 @@ parse(pars, xData, nA, mode);
 
 xDataLength = length(xData);
 
+% In the following block of code, the "Ipoints" vector is 
+% determined for the value of the "mode" parameter 
+% "mode" == 0. 
 Ipoints = zeros(xDataLength - nA + 2, 1);
 Ipoints(1) = - inf;
 Ipoints(2 : xDataLength - nA + 1) = ...
@@ -126,32 +117,51 @@ Ipoints(2 : xDataLength - nA + 1) = ...
     xData(nA + 1 : xDataLength)) / 2;
 Ipoints(xDataLength - nA + 2) = inf;
 
+% In the following block of code, the "Smatrix" matrix is 
+% determined. 
 Smatrix = zeros(xDataLength - nA + 1, nA);
+indices_from_zero_to_nA_minus_1 =  (0 : nA - 1);
 for i = 1 : xDataLength - nA + 1
-    Smatrix(i, 1 : nA) = (1 : nA) + i - 1;
+    Smatrix(i, 1 : nA) = indices_from_zero_to_nA_minus_1 + i;
 end
 
-if mode == 1 && nA > 1
-    for i = 1 : xDataLength - nA
-        if Ipoints(i + 1) > xData(Smatrix(i, end))
-            Ipoints(i + 1) = xData(Smatrix(i, end));
-        end
-    end
-    for i = 2 : xDataLength - nA + 1
-        if Ipoints(i, 1) < xData(Smatrix(i, 1))
-            Ipoints(i) = xData(Smatrix(i, 1));
-        end
-    end
-else
-    if mode == 2 && nA > 1
-        for i = 1 : xDataLength - nA
-            if Ipoints(i + 1) > xData(Smatrix(i, floor((nA + 3) / 2)))
-                Ipoints(i + 1) = xData(Smatrix(i, floor((nA + 3) / 2)));
+% In the following block of code, "Ipoints" is adjusted 
+% appropriately if "mode" == 1 or if "mode" == 2. If "nA" == 1, 
+% the "Ipoints" vector is the same regardless of the value of the 
+% "mode" parameter. 
+if nA > 1
+    if mode == 1
+%     Each of the following two four loops deals with each of the 
+%     two corrections of the "Ipoints" vector described in the 
+%     "Ipoints" vector output parameter description for 
+%     "mode" == 1. 
+        for i = 2 : xDataLength - nA + 1
+            if Ipoints(i, 1) < xData(Smatrix(i, 1))
+                Ipoints(i) = xData(Smatrix(i, 1));
             end
         end
-        for i = 2 : xDataLength - nA + 1
-            if Ipoints(i) < xData(Smatrix(i, ceil((nA - 1) / 2)))
-                Ipoints(i) = xData(Smatrix(i, ceil((nA - 1) / 2)));
+        for i = 1 : xDataLength - nA
+            if Ipoints(i + 1) > xData(Smatrix(i, end))
+                Ipoints(i + 1) = xData(Smatrix(i, end));
+            end
+        end
+    else
+        if mode == 2
+%         Each of the following two four loops deals with each of 
+%         the two corrections of the "Ipoints" vector described in 
+%         the "Ipoints" vector output parameter description for 
+%         "mode" == 2. 
+            OutOfBoundIndex = ceil((nA - 1) / 2);
+            for i = 2 : xDataLength - nA + 1
+                if Ipoints(i) < xData(Smatrix(i, OutOfBoundIndex))
+                    Ipoints(i) = xData(Smatrix(i, OutOfBoundIndex));
+                end
+            end
+            OutOfBoundIndex = nA - OutOfBoundIndex + 1;
+            for i = 1 : xDataLength - nA
+                if Ipoints(i + 1) > xData(Smatrix(i, OutOfBoundIndex))
+                    Ipoints(i + 1) = xData(Smatrix(i, OutOfBoundIndex));
+                end
             end
         end
     end
