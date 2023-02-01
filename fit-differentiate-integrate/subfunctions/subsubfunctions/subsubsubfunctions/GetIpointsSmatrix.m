@@ -4,7 +4,7 @@ function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 % 
 % Author: Žan Kogovšek
 % Date: 1.24.2023
-% Last changed: 1.28.2023
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -42,38 +42,40 @@ function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 % variable of which is "xData"("Smatrix"(i, :)), i.e. they are the 
 % values of the "xData" indexed by the i-th row of the "Smatrix" 
 % matrix. 
-%     If "mode" == 0, each two adjacent values "Ipoints"(i) and 
+%    -If "mode" == 0, each two adjacent values "Ipoints"(i) and 
 %     "Ipoints"(i + 1) of the "Ipoints" vector are such that for every 
 %     value x of the independent variable X in the interval 
 %     ("Ipoints"(i), "Ipoints"(i + 1)), the values of 
 %     "xData"("Smatrix"(i, :)) vector are the closest "nA" values of 
 %     the "xData" vector to the x value. 
-%     If "mode" == 1, the values of the "Ipoints" vector are the 
+%    -If "mode" == 1, the values of the "Ipoints" vector are the 
 %     same as with "mode" == 0 with two corrections for 
 %     "Ipoints"(i) values other than "Ipoints"(1) and "Ipoints"(end) 
 %     (which are "-Inf" and "Inf" respectively). 
-%     The first correction is: if with "mode" == 0 all values of the 
-%     "xData" ("Smatrix"(i, :)) vector are lower than the "Ipoints"(i) 
-%     value, the "Ipoints"(i) value with "mode" == 1 is 
-%     "Ipoints"(i) == "xData" ("Smatrix"(i, end)). 
-%     The second correction is: if with "mode" == 0 all values of 
-%     the "xData"("Smatrix"(i, :)) vector are higher than the 
-%     "Ipoints"(i + 1) value, the "Ipoints"(i + 1) value with 
-%     "mode" == 1 is "Ipoints"(i + 1) == "xData" ("Smatrix"(i, 1)). 
-%     If "mode" == 2, the values of the "Ipoints" vector are the 
+%         -The first correction is: if with "mode" == 0 all values of 
+%          the "xData" ("Smatrix"(i, :)) vector are lower than the 
+%          "Ipoints"(i) value, the "Ipoints"(i) value with "mode" == 1 
+%          is "Ipoints"(i) == "xData" ("Smatrix"(i, end)). 
+%         -The second correction is: if with "mode" == 0 all values 
+%          of the "xData"("Smatrix"(i, :)) vector are higher than the 
+%          "Ipoints"(i + 1) value, the "Ipoints"(i + 1) value with 
+%          "mode" == 1 is 
+%          "Ipoints"(i + 1) == "xData" ("Smatrix"(i, 1)). 
+%    -If "mode" == 2, the values of the "Ipoints" vector are the 
 %     same as with "mode" == 0 with two corrections for 
 %     "Ipoints"(i) values other than "Ipoints"(1) and "Ipoints"(end) 
 %     (which are "-Inf" and "Inf" respectively). 
-%     The first correction is: if "Ipoints"(i) value with "mode" == 0 
-%     is lower than "xData"("Smatrix"(i, ceil(("nA" - 1) / 2))), the 
-%     "Ipoints"(i) value with "mode" == 2 is 
-%     "Ipoints"(i) == "xData"("Smatrix"(i, ceil(("nA" - 1) / 2))). 
-%     The second correction is: if "Ipoints"(i + 1) value with 
-%     "mode" == 0 is higher than 
-%     "xData"("Smatrix"(i, "nA" - ceil(("nA" - 1) / 2) + 1)), the 
-%     "Ipoints"(i + 1) value with "mode" == 2 is 
-%     "Ipoints"(i + 1) == 
-%     "xData"("Smatrix"(i, "nA" - ceil(("nA" - 1) / 2) + 1)). 
+%         -The first correction is: if "Ipoints"(i) value with 
+%          "mode" == 0 is lower than 
+%          "xData"("Smatrix"(i, ceil(("nA" - 1) / 2))), the "Ipoints"(i) 
+%          value with "mode" == 2 is 
+%          "Ipoints"(i) == "xData"("Smatrix"(i, ceil(("nA" - 1) / 2))). 
+%         -The second correction is: if "Ipoints"(i + 1) value with 
+%          "mode" == 0 is higher than 
+%          "xData"("Smatrix"(i, "nA" - ceil(("nA" - 1) / 2) + 1)), the 
+%          "Ipoints"(i + 1) value with "mode" == 2 is 
+%          "Ipoints"(i + 1) == 
+%          "xData"("Smatrix"(i, "nA" - ceil(("nA" - 1) / 2) + 1)). 
 % 
 % Smatrix is a matrix of "nA" columns and 
 % "xDataLength" - "nA" + 1 rows. Each row i contains "nA" 

@@ -5,7 +5,7 @@ function [yIntegralA, varargout] = ZFindIntegralABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 1.9.2023
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -49,12 +49,12 @@ function [yIntegralA, varargout] = ZFindIntegralABasic...
 
 % "varargin" represents the optional input parameters 
 % "PseudoAccuracy" and "Mode". 
-%     "PseudoAccuracy" is the name of the parameter the value 
+%    -"PseudoAccuracy" is the name of the parameter the value 
 %     of which is the order of the regression polynomials from 
 %     which the piecewise regression polynomial which 
 %     represents the df/dX function is composed. It must be a 
 %     nonnegative integer. The default value is "0". 
-%     "Mode" is the name of the parameter the value of which 
+%    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
 %     boundaries of the piecewise regression polynomial which 
 %     represents the df/dX function. It must be one of the three 

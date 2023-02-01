@@ -5,7 +5,7 @@ function yDerivativeA = ZFindDerivativeA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 12.24.2022
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -47,20 +47,20 @@ function yDerivativeA = ZFindDerivativeA...
 % 
 % "varargin" represents the optional input parameters 
 % "OrdDeriv", "Accuracy", "Mode", and "Figure". 
-%     "OrdDeriv" is the parameter the value of which is the 
+%    -"OrdDeriv" is the parameter the value of which is the 
 %     derivative order. It must be a natural number. The default 
 %     value is "1". 
-%     "Accuracy" is the name of the parameter the value of which 
+%    -"Accuracy" is the name of the parameter the value of which 
 %     is the order of the regression polynomials from which the 
 %     piecewise regression polynomial which represents the f 
 %     function is composed. It must be a nonnegative integer. 
 %     The default value is "0". 
-%     "Mode" is the name of the parameter the value of which 
+%    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
 %     boundaries of the piecewise regression polynomial which 
 %     represents the f function. It must be one of the three 
 %     integers: "0", "1", "2". The default value is "0". 
-%     "Figure" is the name of the parameter the value of which is 
+%    -"Figure" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the f function is to be plotted. The value of 
 %     the "Figure" parameter can be any nonnegative integer. The 

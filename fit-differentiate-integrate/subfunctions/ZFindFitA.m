@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 12.24.2022
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -39,17 +39,17 @@ function [yFitA, varargout] = ZFindFitA...
 % 
 % "varargin" represents the optional input parameters 
 % "PseudoAccuracy", "Mode", and "Figure". 
-%     "PseudoAccuracy" is the name of the parameter the value 
+%    -"PseudoAccuracy" is the name of the parameter the value 
 %     of which is the order of the regression polynomials from 
 %     which the piecewise regression polynomial which 
 %     represents the f function is composed. It must be a 
 %     nonnegative integer. The default value is "0". 
-%     "Mode" is the name of the parameter the value of which 
+%    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
 %     boundaries of the piecewise regression polynomial which 
 %     represents the f function. It must be one of the three 
 %     integers: "0", "1", "2". The default value is "0". 
-%     "Figure" is the name of the parameter the value of which is 
+%    -"Figure" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the f function is to be plotted. The value of 
 %     the "Figure" parameter can be any nonnegative integer. The 
@@ -60,12 +60,12 @@ function [yFitA, varargout] = ZFindFitA...
 % 
 % "varargout" represents the optional output parameters 
 % "Ipoints" and "Smatrix". 
-%     "Ipoints" is a column vector of boundaries between the 
+%    -"Ipoints" is a column vector of boundaries between the 
 %     regression polynomials of the piecewise regression 
 %     polynomial which is the estimation of the f function. Any two 
 %     consecutive values of the "Ipoints"(i : i + 1) vector are the 
 %     boundaries of i-th regression polynomial. 
-%     "Smatrix" is the matrix of rows of indices. Each row 
+%    -"Smatrix" is the matrix of rows of indices. Each row 
 %     "Smatrix"(i, :) contains the indeces k of the data points 
 %     ("xData"(k), "yData"(k)) which were used to construct the i-th 
 %     regressional polynomial of the piecewise regression 

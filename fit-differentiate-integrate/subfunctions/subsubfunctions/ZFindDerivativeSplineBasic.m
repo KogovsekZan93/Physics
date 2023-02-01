@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 12.30.2022
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -51,15 +51,15 @@ function [yDerivativeSpline, varargout] = ...
 % 
 % "varargout" represents the optional output parameters 
 % "ppDerivativeSpline" and "ppFitSpline".
-%     "ppDerivativeSpline" is the piecewise polynomial which is 
+%    -"ppDerivativeSpline" is the piecewise polynomial which is 
 %     the estimation of the function f^("OrdDeriv"). It can be 
 %     evaluated by the MATLAB ppval function. The details of the 
-%     "ppDerivativeSpline" piecewise polynomial can be 
+%    -"ppDerivativeSpline" piecewise polynomial can be 
 %     extracted by the MATLAB unmkpp function. 
-%     "ppFitSpline" is the cubic spline of the data points 
+%    -"ppFitSpline" is the cubic spline of the data points 
 %     represented by the pairs ("xData"(i), "yData"(i)) which is the 
 %     estimation of the f function. It can be evaluated by the 
-%     MATLAB ppval function. The details of the " ppFitSpline" 
+%     MATLAB ppval function. The details of the "ppFitSpline" 
 %     piecewise polynomial can be extracted by the MATLAB 
 %     unmkpp function. 
 

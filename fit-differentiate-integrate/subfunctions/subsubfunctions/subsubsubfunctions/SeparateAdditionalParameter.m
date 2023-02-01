@@ -2,12 +2,12 @@ function [AdditionalParameterIsolatedList, ...
     AdditionalParameterDeletedList] = ...
     SeparateAdditionalParameter...
     (OptionalParameterList, AdditionalParameterName)
-%% Tool for separating an additional optional parameter ...
+%% Tool for separating an additional optional parameter 
 %% from the rest
 % 
 % Author: Žan Kogovšek
 % Date: 1.11.2023
-% Last changed: 1.17.2023
+% Last changed: 2.1.2023
 % 
 %% Description
 % 

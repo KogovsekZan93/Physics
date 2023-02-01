@@ -4,7 +4,7 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 1.11.2023
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -45,13 +45,13 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 % 
 % "varargin" represents the additional input parameters. The 
 % basic optional parameters are "Type" and "Figure". 
-%     "Type" is the name of the parameter the value of which 
+%    -"Type" is the name of the parameter the value of which 
 %     determines the mathematical method with which the df/dX 
 %     function is estimated. The value of the "Type" parameter 
 %     can either be "'A'", "'Spline'", or "'PolyFit'". The default value 
 %     is "'A'". The value of the "Type" parameter determines the 
 %     set of the additional required or optional input parameters. 
-%     "Figure" is the name of the parameter the value of which is 
+%    -"Figure" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the df/dX function is to be plotted. Also, 
 %     the area under the estimated df/dX function curve is filled 

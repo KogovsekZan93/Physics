@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 12.24.2022
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -45,10 +45,10 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % 
 % "varargin" represents the optional input parameters. The 
 % optional parameters are "OrdDeriv" and "Figure". 
-%     "OrdDeriv" is the name of the parameter the value of which 
+%    -"OrdDeriv" is the name of the parameter the value of which 
 %     is the derivative order. It must be a natural number. The 
 %     default value is "1". 
-%     "Figure" is the name of the parameter the value of which is 
+%    -"Figure" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the f function is to be plotted. The value of 
 %     the "Figure" parameter can be any nonnegative integer. The 

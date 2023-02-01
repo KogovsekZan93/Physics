@@ -6,7 +6,7 @@ function [yDerivativePolyFit, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 1.1.2023
-% Last changed: 1.1.2023
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -58,7 +58,7 @@ function [yDerivativePolyFit, varargout] = ...
 % 
 % "varargout" represents the optional output parameters. The 
 % optional parameters are "pDerivativePolyFit" and "pFitPolyFit". 
-%     "pDerivativePolyFit" is the vector of coefficients of the 
+%    -"pDerivativePolyFit" is the vector of coefficients of the 
 %     polynomial which is the "OrdDeriv"-th derivative of the 
 %     "PolyDegree"-th degree regression polynomial of the data 
 %     points represented by the pairs ("xData"(i), "yData"(i)). 
@@ -67,7 +67,7 @@ function [yDerivativePolyFit, varargout] = ...
 %     a_("PolyDegree" - "OrdDeriv" - 1); ..., a_1; a_0]. The 
 %     differentiated regression polynomial can be evaluated by 
 %     the MATLAB polyval function. 
-%     "pFitPolyFit" is the vector of coefficients of the 
+%    -"pFitPolyFit" is the vector of coefficients of the 
 %     "PolyDegree"-th degree regression polynomial of the data 
 %     points represented by the pairs ("xData"(i), "yData"(i)). 
 %     "pFitPolyFit" is a column vector of the form of 

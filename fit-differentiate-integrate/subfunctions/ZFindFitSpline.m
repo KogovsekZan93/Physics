@@ -4,7 +4,7 @@ function yFitSpline = ZFindFitSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 12.24.2022
+% Last changed: 2.1.2023
 % 
 %% Description
 % 

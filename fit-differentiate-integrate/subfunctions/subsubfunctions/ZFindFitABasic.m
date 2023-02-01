@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 1.9.2023
+% Last changed: 2.1.2023
 % 
 %% Description
 % 
@@ -37,12 +37,12 @@ function [yFitA, varargout] = ZFindFitABasic...
 % 
 % "varargin" represents the optional input parameters 
 % "PseudoAccuracy" and "Mode". 
-%     "PseudoAccuracy" is the name of the parameter the value 
+%    -"PseudoAccuracy" is the name of the parameter the value 
 %     of which is the order of the regression polynomials from 
 %     which the piecewise regression polynomial which 
 %     represents the f function is composed. It must be a 
 %     nonnegative integer. The default value is "0". 
-%     "Mode" is the name of the parameter the value of which 
+%    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
 %     boundaries of the piecewise regression polynomial which 
 %     represents the f function. It must be one of the three 
@@ -53,12 +53,12 @@ function [yFitA, varargout] = ZFindFitABasic...
 % 
 % "varargout" represents the optional output parameters 
 % "Ipoints" and "Smatrix". 
-%     "Ipoints" is a column vector of boundaries between the 
+%    -"Ipoints" is a column vector of boundaries between the 
 %     regression polynomials of the piecewise regression 
 %     polynomial which is the estimation of the f function. Any two 
 %     consecutive values of the "Ipoints"(i : i + 1) vector are the 
 %     boundaries of i-th regression polynomial. 
-%     "Smatrix" is the matrix of rows of indices. Each row 
+%    -"Smatrix" is the matrix of rows of indices. Each row 
 %     "Smatrix"(i, :) contains the indeces k of the data points 
 %     ("xData"(k), "yData"(k)) which were used to construct the i-th 
 %     regressional polynomial of the piecewise regression 
