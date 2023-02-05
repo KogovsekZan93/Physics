@@ -5,7 +5,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 2.1.2023
+% Last changed: 2.5.2023
 % 
 %% Description
 % 
@@ -31,7 +31,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
 % respectively, of an arbitrary function Y = (df/dX)(X) 
-% ("yData" = (df/dX) ("xData")). 
+% ("yData" = (df/dX)("xData")). 
 % Both the "xData" vector and the "yData" vector must be 
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
