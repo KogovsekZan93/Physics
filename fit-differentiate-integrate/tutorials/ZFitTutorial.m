@@ -270,9 +270,9 @@ clearvars -except xData yData xMissing yMissingPolyFit; clc;
 % points along with the measured data points were plotted 
 % manually. 
 % With ZFitFunction, the function which is calculated to estimate 
-% the missing data points as well as the measured (input) data 
-% points can easily be visualized by specifying the number of 
-% the figure in which the plot is to be performed. This can be 
+% the missing data points as well as the measured (i.e. input) 
+% data points can easily be visualized by specifying the number 
+% of the figure in which the plot is to be performed. This can be 
 % done by changing the optional "Figure" parameter from its 
 % default value of "0" to a desired natural number. 
 % Run the following block of code to visualize the data points 

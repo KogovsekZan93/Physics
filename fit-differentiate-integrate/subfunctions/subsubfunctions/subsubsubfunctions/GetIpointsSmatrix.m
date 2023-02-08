@@ -4,7 +4,7 @@ function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 % 
 % Author: Žan Kogovšek
 % Date: 1.24.2023
-% Last changed: 2.1.2023
+% Last changed: 2.8.2023
 % 
 %% Description
 % 
@@ -36,8 +36,8 @@ function [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode)
 % "Ipoints" is a column vector of values of the X variable. Each 
 % two consecutive values of the "Ipoints" vector "Ipoints"(i) and 
 % "Ipoints"(i + 1) represent the two boundaries of the i-th 
-% regression polynomial of which consists the piecewise 
-% polynomial used by the the ZFind...A . The i-th regression 
+% interpolation polynomial of which consists the piecewise 
+% polynomial used by the the ZFind...A . The i-th interpolation 
 % polynomial is based on the data points, the independent 
 % variable of which is "xData"("Smatrix"(i, :)), i.e. they are the 
 % values of the "xData" indexed by the i-th row of the "Smatrix" 

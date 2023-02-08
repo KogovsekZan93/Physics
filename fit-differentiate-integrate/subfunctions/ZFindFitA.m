@@ -1,6 +1,6 @@
 function [yFitA, varargout] = ZFindFitA...
     (xData, yData, xFitA, varargin)
-%% Piecewise regression polynomial-based curve fitting 
+%% Piecewise interpolation polynomial-based curve fitting 
 %% tool with visualization
 % 
 % Author: Žan Kogovšek
@@ -14,7 +14,7 @@ function [yFitA, varargout] = ZFindFitA...
 % variable Y of an arbitrary function Y = f(X), this function returns 
 % the vector "yFitA" of the estimated values of f("xFitA"), where 
 % "xFitA" is the input vector of values of the X variable. The 
-% estimation is based on a piecewise regression polynomial of 
+% estimation is based on a piecewise interpolation polynomial of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)). 
 % The optional parameter "Figure" can be used to plot the 
 % estimated curve of the f function along with the data points. 
@@ -40,13 +40,13 @@ function [yFitA, varargout] = ZFindFitA...
 % "varargin" represents the optional input parameters 
 % "PseudoAccuracy", "Mode", and "Figure". 
 %    -"PseudoAccuracy" is the name of the parameter the value 
-%     of which is the order of the regression polynomials from 
-%     which the piecewise regression polynomial which 
+%     of which is the order of the interpolation polynomials from 
+%     which the piecewise interpolation polynomial which 
 %     represents the f function is composed. It must be a 
 %     nonnegative integer. The default value is "0". 
 %    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
-%     boundaries of the piecewise regression polynomial which 
+%     boundaries of the piecewise interpolation polynomial which 
 %     represents the f function. It must be one of the three 
 %     integers: "0", "1", "2". The default value is "0". 
 %    -"Figure" is the name of the parameter the value of which is 
@@ -61,14 +61,15 @@ function [yFitA, varargout] = ZFindFitA...
 % "varargout" represents the optional output parameters 
 % "Ipoints" and "Smatrix". 
 %    -"Ipoints" is a column vector of boundaries between the 
-%     regression polynomials of the piecewise regression 
+%     interpolation polynomials of the piecewise interpolation 
 %     polynomial which is the estimation of the f function. Any two 
-%     consecutive values of the "Ipoints"(i : i + 1) vector are the 
-%     boundaries of i-th regression polynomial. 
+%     consecutive values of the "Ipoints" vector "Ipoints"(i) and 
+%     "Ipoints"(i + 1) are the boundaries of i-th interpolation 
+%     polynomial. 
 %    -"Smatrix" is the matrix of rows of indices. Each row 
 %     "Smatrix"(i, :) contains the indeces k of the data points 
 %     ("xData"(k), "yData"(k)) which were used to construct the i-th 
-%     regressional polynomial of the piecewise regression 
+%     interpolation polynomial of the piecewise interpolation 
 %     polynomial which is the estimation of the f function. 
 %     The piecewise polynomial which is used to estimate the f 
 %     function can be evaluated by using the parameters "Ipoints" 

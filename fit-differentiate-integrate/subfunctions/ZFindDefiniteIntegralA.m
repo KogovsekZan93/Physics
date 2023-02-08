@@ -1,6 +1,6 @@
 function DefiniteIntegralA = ZFindDefiniteIntegralA...
     (xData, yData, Limits, varargin)
-%% Numerical piecewise regression polynomial-based 
+%% Numerical piecewise interpolation polynomial-based 
 %% definite integration tool with visualization
 % 
 % Author: Žan Kogovšek
@@ -15,7 +15,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % returns the estimation "DefiniteIntegralA" of the definite 
 % integral f("Limits"(2)) - f("Limits"(1)), where "Limits" is the input 
 % vector of a pair of values of the X variable. The estimation is 
-% based on a piecewise regression polynomial of the data 
+% based on a piecewise interpolation polynomial of the data 
 % points represented by the pairs ("xData"(i), "yData"(i)). 
 % The optional parameter "Figure" can be used to plot the 
 % estimated curve of the df/dX function and the area under it 
@@ -45,13 +45,13 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % "varargin" represents the optional input parameters 
 % "PseudoAccuracy", "Mode", and "Figure". 
 %    -"PseudoAccuracy" is the name of the parameter the value 
-%     of which is the order of the regression polynomials from 
-%     which the piecewise regression polynomial which 
+%     of which is the order of the interpolation polynomials from 
+%     which the piecewise interpolation polynomial which 
 %     represents the df/dX function is composed. It must be a 
 %     nonnegative integer. The default value is "0". 
 %    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
-%     boundaries of the piecewise regression polynomial which 
+%     boundaries of the piecewise interpolation polynomial which 
 %     represents the df/dX function. It must be one of the three 
 %     integers: "0", "1", "2". The default value is "0". 
 %    -"Figure" is the name of the parameter the value of which is 

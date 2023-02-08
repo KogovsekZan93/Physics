@@ -1,6 +1,6 @@
 function yDerivativeA = ZFindDerivativeA...
     (xData, yData, xDerivativeA, varargin)
-%% Numerical piecewise regression polynomial-based 
+%% Numerical piecewise interpolation polynomial-based 
 %% differentiation tool with visualization
 % 
 % Author: Žan Kogovšek
@@ -16,7 +16,7 @@ function yDerivativeA = ZFindDerivativeA...
 % f^("OrdDeriv")("xDerivativeA"), where f^("OrdDeriv") is the 
 % "OrdDeriv"-th order derivative of the f function and 
 % "xDerivativeA" is the input vector of values of the X variable. 
-% The estimation is based on a piecewise regression 
+% The estimation is based on a piecewise interpolation 
 % polynomial of the data points represented by the pairs 
 % ("xData"(i), "yData"(i)). 
 % The optional parameter "OrdDeriv" can be used to set the 
@@ -51,13 +51,13 @@ function yDerivativeA = ZFindDerivativeA...
 %     derivative order. It must be a natural number. The default 
 %     value is "1". 
 %    -"Accuracy" is the name of the parameter the value of which 
-%     is the order of the regression polynomials from which the 
-%     piecewise regression polynomial which represents the f 
+%     is the order of the interpolation polynomials from which the 
+%     piecewise interpolation polynomial which represents the f 
 %     function is composed. It must be a nonnegative integer. 
 %     The default value is "0". 
 %    -"Mode" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
-%     boundaries of the piecewise regression polynomial which 
+%     boundaries of the piecewise interpolation polynomial which 
 %     represents the f function. It must be one of the three 
 %     integers: "0", "1", "2". The default value is "0". 
 %    -"Figure" is the name of the parameter the value of which is 
