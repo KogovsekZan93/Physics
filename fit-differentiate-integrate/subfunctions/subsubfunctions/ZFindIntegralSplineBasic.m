@@ -4,7 +4,7 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 2.5.2023
+% Last changed: 2.13.2023
 % 
 %% Description
 % 
@@ -99,7 +99,7 @@ yIntegralSpline = zeros(xIntegralSplineLength, 1);
 
 % The following while loop is used to find the index "j" - 1 of the 
 % integrated polynomial p_("j" - 1) within the boundaries of which 
-% xIntegralSpline(1) is contained. 
+% the "xIntegralSpline"(1) value is contained. 
 j = 2;
 while breaksReal(j) <= xIntegralSpline(1)
     j = j +1;
@@ -107,8 +107,9 @@ end
 
 % The parameter "summa" will be used to track the value of the 
 % estimation of the definite integral of the df/dX function from 
-% "xIntegralSpline"(1) to both boundaries of the integrated 
-% polynomials p_i and values of "xIntegralSpline". 
+% the "xIntegralSpline"(1) value to both boundaries of the 
+% integrated polynomials p_i and values of the "xIntegralSpline" 
+% vector. 
 Summa = 0;
 a = 1;
 

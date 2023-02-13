@@ -6,7 +6,7 @@ function yIntegralA = EvaluateIpointsSmatrixIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 2.8.2023
-% Last changed: 2.8.2023
+% Last changed: 2.13.2023
 % 
 %% Description
 % 
@@ -61,7 +61,10 @@ function yIntegralA = EvaluateIpointsSmatrixIntegral...
 % 
 % "yIntegralA" is the column vector of the values 
 % fA("xIntegralA") - fA("xIntegralA"(1)), where fA is an indefinite 
-% integral of the dfA/dX function. 
+% integral of the dfA/dX function. In other words, each value 
+% "yIntegralA"(i) is the value of the definite integral over the 
+% independent variable X of the dfA/dX function from the value 
+% "xData"(1) to " xData"(i). 
 
 
 pars = inputParser;
@@ -104,21 +107,30 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData, yData, xIntegralA, Ipoints, Smatrix);
 
-j = 2;
-a = 1;
-
 xIntegralALength = length(xIntegralA);
 yIntegralA = zeros(xIntegralALength, 1);
 
+% In the following block of code, the index of the upper 
+% boundary "j" of the interval ("Ipoints"("j" - 1), "Ipoints"("j")) in 
+% which the value lowest value of the "xData" vector (i.e. the 
+% "xData"(1) value) is found. This is how the first relevant interval 
+% ("Ipoints"("j" - 1), "Ipoints"("j")) and polynomial p_("j" - 1) is 
+% determined so no further consideration is required for intervals 
+% ("Ipoints"(J - 1), "Ipoints"(J)) and corresponding polynomials 
+% p_(J - 1) for J < "j". 
+j = 2;
 while Ipoints(j) <= xIntegralA(1)
     j = j +1;
 end
 
+% In the following line, the coefficients of the polynomial which is 
+% the integral of the polynomial p_("j" - 1) are determined. 
 pIntegralA = GetIntegralPolynomialCoefficients...
     (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
 
-Summa = 0;
 
+Summa = 0;
+a = 1;
 for b = 2 : xIntegralALength
     if xIntegralA(b) >= Ipoints(j)
         yIntegralA(a : b - 1) = Summa + ...
@@ -138,12 +150,13 @@ for b = 2 : xIntegralALength
         a = b;
         pIntegralA = GetIntegralPolynomialCoefficients...
             (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
+        Summa = Summa + polyval(pIntegralA, xIntegralA(a)) - ...
+            polyval(pIntegralA, Ipoints(j - 1));
     end
 end
 
 yIntegralA(a : end) = Summa + ...
     polyval(pIntegralA, xIntegralA(a : end)) - ...
-    polyval...
-    (pIntegralA, max(Ipoints(j - 1), xIntegralA(max(a - 1, 1))));
+    polyval(pIntegralA, xIntegralA(a));
 
 end
