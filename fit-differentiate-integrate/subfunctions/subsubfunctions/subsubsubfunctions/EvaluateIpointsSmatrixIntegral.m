@@ -6,7 +6,7 @@ function yIntegralA = EvaluateIpointsSmatrixIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 2.8.2023
-% Last changed: 2.13.2023
+% Last changed: 2.14.2023
 % 
 %% Description
 % 
@@ -123,14 +123,28 @@ while Ipoints(j) <= xIntegralA(1)
     j = j +1;
 end
 
-% In the following line, the coefficients of the polynomial which is 
-% the integral of the polynomial p_("j" - 1) are determined. 
-pIntegralA = GetIntegralPolynomialCoefficients...
-    (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
-
-
+% The parameter "Summa" will be used to track the value of the 
+% definite integral of the dfA/dX function from the "xIntegralA"(1) 
+% value to both boundaries of the interpolation polynomials p_i 
+% and values of the "xIntegralA" vector. 
 Summa = 0;
 a = 1;
+
+% For each relevant interpolation polynomial p_("j" - 1), the 
+% coefficients vector "pIntegralA" of the polynomial 
+% pIntA_("j" - 1), which is an indefinite integral of the interpolation 
+% polynomial p_("j" - 1), are obtained using the 
+% GetIntegralPolynomialCoefficients function. 
+% Then, whenever in the for loop, the value "xIntegralA"("b") 
+% exceeds the right boundary of the relevant polynomial 
+% pIntA_("j" - 1), the "yIntegralA" vector is evaluated for the 
+% values of the "xIntegralA" vector within the domain of the 
+% relevant pIntA_("j" - 1) polynomial. Also, the "Summa" 
+% parameter is increased appropriately at that time to account 
+% for the definite integral of the dfA/dX function from the value 
+% "xIntegralA"("b" - 1) to the value "xIntegralA"("b"). 
+pIntegralA = GetIntegralPolynomialCoefficients...
+    (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
 for b = 2 : xIntegralALength
     if xIntegralA(b) >= Ipoints(j)
         yIntegralA(a : b - 1) = Summa + ...
@@ -140,6 +154,12 @@ for b = 2 : xIntegralALength
             polyval(pIntegralA, Ipoints(j)) - ...
             polyval(pIntegralA, xIntegralA(b - 1));
         j = j + 1;
+        % In the following while loop, the "Summa" parameter is 
+        % increased appropriately by the estimated definite integral 
+        % of the dfA/dX over the domains of the interpolation 
+        % polynomials p_i between "xIntegralA"("b" - 1) to 
+        % "xIntegralA"("b") in which there is no value of the 
+        % "yIntegralA" vector. 
         while Ipoints(j) <= xIntegralA(b)
             pIntegralA = GetIntegralPolynomialCoefficients...
                 (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
@@ -148,13 +168,21 @@ for b = 2 : xIntegralALength
             j = j +1;
         end
         a = b;
+        % In the following two lines, the next relevant polynomial 
+        % pIntA_("j" - 1) is constructed and the "Summa" parameter 
+        % is appropriately increased by the definite integral of the 
+        % dfA/dX function from the left boundary of the relevant 
+        % polynomial p_("j" - 1) (i.e. the "Ipoints"("j" - 1) value) to the 
+        % "xIntegralA"("b") value. 
         pIntegralA = GetIntegralPolynomialCoefficients...
             (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
         Summa = Summa + polyval(pIntegralA, xIntegralA(a)) - ...
             polyval(pIntegralA, Ipoints(j - 1));
     end
 end
-
+% With the final relevant polynomial pIntA_("j" - 1), the 
+% "yIntegralA" vector is evaluated from the "xIntegralA"("a") 
+% value to the "xIntegralA"(end) value. 
 yIntegralA(a : end) = Summa + ...
     polyval(pIntegralA, xIntegralA(a : end)) - ...
     polyval(pIntegralA, xIntegralA(a));
