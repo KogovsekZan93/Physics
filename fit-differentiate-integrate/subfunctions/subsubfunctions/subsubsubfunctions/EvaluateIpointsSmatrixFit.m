@@ -5,7 +5,7 @@ function yFitA = EvaluateIpointsSmatrixFit...
 % 
 % Author: Žan Kogovšek
 % Date: 2.27.2023
-% Last changed: 2.27.2023
+% Last changed: 2.28.2023
 % 
 %% Description
 % 
@@ -101,19 +101,37 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData, yData, xFitA, Ipoints, Smatrix);
 
-j = 2;
-a = 1;
-
 xFitALength = length(xFitA);
 yFitA = zeros(xFitALength, 1);
 
+% In the following block of code, the index "j" of the interpolation 
+% polynomial p_"j" which defines the fA function over the interval 
+% from "Ipoints"("j" - 1) to "Ipoints"("j") in which the value 
+% "xFitA"(1) is contained is found. This way, uselessly 
+% calculating the coefficients of the interpolation polynomials 
+% p_J for J < "j" is avoided. 
+j = 2;
 while Ipoints(j) <= xFitA(1)
     j = j +1;
 end
 
+% For each relevant interval of the X variable from 
+% "Ipoints"("j" - 1) to "Ipoints"("j"), firstly the coefficients vector 
+% "p" of the interpolation polynomial p_("j" - 1) of the data points 
+% ("xData"("Smatrix"("j" - 1, :)), "yData"("Smatrix"("j" - 1, :))) is 
+% calculated by using the GetFitPolynomialCoefficients function. 
+% Then, whenever in the for loop the value "xFitA"("b") exceeds 
+% the right boundary of the relevant interval (i.e. "Ipoints"("j")), 
+% the "yFitA" vector is evaluated for the values of the "xFitA" 
+% vector within the relevant interval. 
+% Afterwards, the next interval in which the values of the "xFitA" 
+% vector are contained is found and the process repeats until 
+% the last interval in which the values of the "xFitA" vector is 
+% contained is found after which the last values of the "yFitA" 
+% vector are calculated outside of the for loop. 
 p = GetFitPolynomialCoefficients...
     (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
-
+a = 1;
 for b = 2 : xFitALength
     if xFitA(b) >= Ipoints(j)
         yFitA(a : b - 1) = polyval(p, xFitA(a : b - 1));
@@ -126,7 +144,6 @@ for b = 2 : xFitALength
             (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)));
     end
 end
-
 yFitA(a : end) = polyval(p, xFitA(a : end));
 
 end
