@@ -6,7 +6,7 @@ function yIntegralA = EvaluateIpointsSmatrixIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 2.8.2023
-% Last changed: 2.14.2023
+% Last changed: 3.8.2023
 % 
 %% Description
 % 
@@ -21,8 +21,8 @@ function yIntegralA = EvaluateIpointsSmatrixIntegral...
 % data points which are represented by the pairs 
 % ("xData"("Smatrix"(i, :)), "yData"("Smatrix"(i, :))) which are 
 % defined from "Ipoints"(i) to "Ipoints"(i + 1). "Smatrix" is an input 
-% matrix of indices and Ipoints is an input vector of values of the 
-% X variable. 
+% matrix of indices and "Ipoints" is an input vector of values of 
+% the X variable. 
 % 
 %% Variables
 % 

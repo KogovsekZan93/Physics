@@ -1,11 +1,11 @@
 function yFitA = EvaluateIpointsSmatrixFit...
     (xData, yData, xFitA, Ipoints, Smatrix)
-%% Tool for evaluating the piecewise interpolation 
+%% Tool for evaluating a piecewise interpolation 
 %% polynomial
 % 
 % Author: Žan Kogovšek
 % Date: 2.27.2023
-% Last changed: 2.28.2023
+% Last changed: 3.8.2023
 % 
 %% Description
 % 
@@ -13,10 +13,10 @@ function yFitA = EvaluateIpointsSmatrixFit...
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), this function returns 
 % the vector "yFitA", which is the vector of values fA("xFitA") 
-% where fA is the the "Ipoints" vector- and the "Smatrix" matrix-
-% defined piecewise interpolation polynomial of the data points 
-% represented by the pairs ("xData"(i), "yData"(i)), and "xFitA" is 
-% the input vector of values of the X variable. 
+% where fA is the input "Ipoints" vector- and the input "Smatrix" 
+% matrix-defined piecewise interpolation polynomial of the data 
+% points represented by the pairs ("xData"(i), "yData"(i)), and 
+% "xFitA" is the input vector of values of the X variable. 
 % 
 %% Variables
 % 
