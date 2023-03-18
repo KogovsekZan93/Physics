@@ -5,7 +5,7 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % 
 % Author: Žan Kogovšek
 % Date: 3.8.2023
-% Last changed: 3.14.2023
+% Last changed: 3.18.2023
 % 
 %% Description
 % 
@@ -14,7 +14,7 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % "yData" of the values of the dependent variable Y of an 
 % arbitrary function Y = f(X), this function returns the vector 
 % "yDerivativeA" of the values of 
-% fA^("ordDeriv")("xDerivativeA"), where fA^("OrdDeriv") is the 
+% fA^("ordDeriv")("xDerivativeA"), where fA^("ordDeriv") is the 
 % "ordDeriv"-th order derivative of the fA function and 
 % "xDerivativeA" is the input vector of values of the X variable. 
 % The fA function itself is the input "Ipoints" vector- and the 
@@ -37,8 +37,8 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % values of the "xData" vector must be in ascending order. 
 % 
 % "xDerivativeA" is the vector of the values of the independent 
-% variable X at which the value of the fA^("OrdDeriv") is to be 
-% calculated. The fA^("OrdDeriv") function is the "OrdDeriv"-th 
+% variable X at which the value of the fA^("ordDeriv") is to be 
+% calculated. The fA^("ordDeriv") function is the "OrdDeriv"-th 
 % derivative of the piecewise interpolation polynomial fA of the 
 % data points represented by the pairs ("xData"(i), "yData"(i)) and 
 % is defined by the input variables the "Ipoints" vector and the 
@@ -46,19 +46,19 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % consists is the interpolation polynomial of the points 
 % ("xData"("Smatrix"(i, :)), "yData"("Smatrix"(i, :))) and is defined 
 % over the interval from "Ipoints"(i) to "Ipoints"(i + 1). 
-% If a value "xDerivativeA"(j) of the "xDerivativeA" vector is the 
+% If a value "xDerivativeA"(k) of the "xDerivativeA" vector is the 
 % same as one of the boundaries defined by the values of the 
-% "Ipoints" vector (i.e. "xDerivativeA"(j) == "Ipoints"(i)) , the 
-% corrsesponding value "yDerivative"(j) of the "yDerivative" 
+% "Ipoints" vector (i.e. "xDerivativeA"(k) == "Ipoints"(i)) , the 
+% corrsesponding value "yDerivative"(k) of the "yDerivative" 
 % vector will be that of the derivative of the polynomial p_i for the 
-% "xDerivativeA"(j) value (in other words, the polynomial p_i on 
+% "xDerivativeA"(k) value (in other words, the polynomial p_i on 
 % the right-side of the boundary is used for the calculation of 
-% "yDerivativeA"(j) value). 
+% "yDerivativeA"(k) value). 
 % The "xDerivativeA" vector must be a column vector of real 
 % numbers. The values of the "xDerivativeA" vector must be in 
 % ascending order. 
 % 
-% "OrdDeriv" is the the value of the derivative order. It must be a 
+% "ordDeriv" is the the value of the derivative order. It must be a 
 % natural number. 
 % 
 % "Ipoints" is a column vector of boundaries between the 
@@ -135,18 +135,22 @@ end
 
 % For each relevant interval of the X variable from 
 % "Ipoints"("j" - 1) to "Ipoints"("j"), firstly the coefficients vector 
-% "p" of the interpolation polynomial p_("j" - 1) of the data points 
+% "pDerivativeA" of the polynomial which is the "ordDeriv"-th 
+% derivative of the  interpolation polynomial p_("j" - 1) of the data 
+% points 
 % ("xData"("Smatrix"("j" - 1, :)), "yData"("Smatrix"("j" - 1, :))) is 
-% calculated by using the GetFitPolynomialCoefficients function. 
-% Then, whenever in the for loop the value "xFitA"("b") exceeds 
-% the right boundary of the relevant interval (i.e. "Ipoints"("j")), 
-% the "yFitA" vector is evaluated for the values of the "xFitA" 
-% vector within the relevant interval. 
-% Afterwards, the next interval in which the values of the "xFitA" 
-% vector are contained is found and the process repeats until 
-% the last interval in which the values of the "xFitA" vector is 
-% contained is found after which the last values of the "yFitA" 
-% vector are calculated outside of the for loop. 
+% calculated by using the GetDerivativePolynomialCoefficients 
+% function. 
+% Then, whenever in the for loop the value "xDerivativeA"("b") 
+% exceeds the right boundary of the relevant interval (i.e. 
+% "Ipoints"("j")), the "yDerivativeA" vector is evaluated for the 
+% values of the "xDerivativeA" vector within the relevant interval. 
+% Afterwards, the next interval in which the values of the 
+% "xDerivativeA" vector are contained is found and the process 
+% is repeated until the last interval in which the values of the 
+% "xDerivativeA" vector is contained is found after which the last 
+% values of the "yDerivativeA" vector are calculated outside of 
+% the for loop. 
 pDerivativeA = GetDerivativePolynomialCoefficients...
     (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)), ordDeriv);
 a = 1;

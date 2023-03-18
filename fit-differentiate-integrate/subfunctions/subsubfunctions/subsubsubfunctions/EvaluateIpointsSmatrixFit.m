@@ -5,7 +5,7 @@ function yFitA = EvaluateIpointsSmatrixFit...
 % 
 % Author: Žan Kogovšek
 % Date: 2.27.2023
-% Last changed: 3.8.2023
+% Last changed: 3.18.2023
 % 
 %% Description
 % 
@@ -125,8 +125,8 @@ end
 % the "yFitA" vector is evaluated for the values of the "xFitA" 
 % vector within the relevant interval. 
 % Afterwards, the next interval in which the values of the "xFitA" 
-% vector are contained is found and the process repeats until 
-% the last interval in which the values of the "xFitA" vector is 
+% vector are contained is found and the process is repeated 
+% until the last interval in which the values of the "xFitA" vector is 
 % contained is found after which the last values of the "yFitA" 
 % vector are calculated outside of the for loop. 
 p = GetFitPolynomialCoefficients...
