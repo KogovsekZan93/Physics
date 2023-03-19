@@ -6,7 +6,7 @@ function DrawZIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 3.18.2023
-% Last changed: 3.18.2023
+% Last changed: 3.19.2023
 % 
 %% Description
 % 
@@ -21,7 +21,7 @@ function DrawZIntegralSpline...
 % function plots the data points, the spline curve of the data 
 % points and the area under the spline curve from 
 % "xIntegralSplineMin" to "xIntegralSplineMax", the color of the 
-% area being defined by the RGB triplet of numbers in the 
+% area being defined by the RGB triplet of numbers of the 
 % "ColorFace" vector. 
 % 
 %% Variables
@@ -52,22 +52,17 @@ function DrawZIntegralSpline...
 % pairs ("xData"(i), "yData"(i)). The "xIntegralSplineMax" value 
 % must be greater than the "xIntegralSplineMin" value. 
 % 
-% "Ipoints" is a column vector of boundaries between the 
-% interpolation polynomials of the piecewise interpolation 
-% polynomial fA. Any two consecutive values of the "Ipoints" 
-% vector "Ipoints"(i) and "Ipoints"(i + 1) are the boundaries of i-th 
-% interpolation polynomial. It must be a sorted column vector of 
-% numbers. 
+% "ColoFace" is the horizontal vector of three real numbers 
+% which represents the RGB triplet which is to be used to set the 
+% color of the area under the interpolating spline curve of the 
+% data points represented by the pairs ("xData"(i), "yData"(i)) 
+% from the value "xIntegralSplineMin" to the 
+% "xIntegralSplineMax" value. The three real numbers must be 
+% values of the [0, 1] interval. 
 % 
-% "Smatrix" is the matrix of rows of indices. Each row 
-% "Smatrix"(i, :) contains the indeces k of the data points 
-% ("xData"(k), "yData"(k)) which were used to construct the i-th 
-% interpolation polynomial p_i of the piecewise interpolation
-% polynomial fA. It must be a matrix of natural numbers the 
-% hight of which is length("Ipoints") - 1. 
-% 
-% "yFitA" is the column vector of the calculated values of 
-% fA("xFitA"). 
+% "ppFitSpline" is the piecewise polynomial structure of the 
+% spline polynomial fSpline of the data points represented by 
+% the pairs ("xData"(i), "yData"(i)). 
 
 
 pars = inputParser;
@@ -119,12 +114,21 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, figr, xData, yData, xIntegralSplineMin, ...
     xIntegralSplineMax, ColorFace, ppFitSpline);
 
+% The parameter "N" is set to be "N" = 1000 and represents the 
+% number of points for both the interpolating spline curve and 
+% the area under the interpolating spline curve. With this setting, 
+% the number of points is typically sufficient to create a 
+% convincing illusion of the plotted curve of the function fA being 
+% smooth (as the actual fA function is, in fact, a smooth 
+% function). 
 N = 1000;
 
 figure(figr)
 clf;
 hold on;
 
+% In the following block of code, the area under the interpolating 
+% spline curve is plotted. 
 XFitSpline = (linspace...
     (xIntegralSplineMin, xIntegralSplineMax, N))';
 YFitSpline = ppval(ppFitSpline, XFitSpline);
@@ -132,11 +136,16 @@ h = area(XFitSpline, YFitSpline);
 h.FaceColor = ColorFace;
 h.FaceAlpha = 0.3;
 
-xFitSpline = (linspace(min(min(xData), xIntegralSplineMin), ...
-    max(max(xData), xIntegralSplineMax), N))';
+% In the following block of code, the interpolating spline curve of 
+% the data points represented by the pairs ("xData"(i), "yData"(i)) 
+% is plotted. 
+xFitSpline = (linspace(min(xData(1), xIntegralSplineMin), ...
+    max(xData(end), xIntegralSplineMax), N))';
 yFitSpline = ppval(ppFitSpline, xFitSpline);
 plot(xFitSpline, yFitSpline, 'r', 'LineWidth', 1.2);
 
+% Lastly, in the following line, the data points themselves are 
+% plotted. 
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 
 set(gca, 'FontSize', 14);
