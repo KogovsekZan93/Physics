@@ -1,54 +1,68 @@
-function DrawZIntegralA(figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorFace, Ipoints, Smatrix)
-%% Visualization of numerical integration with ZIntegralA
+function DrawZIntegralA...
+    (figr, xData, yData, xIntegralAMin, xIntegralAMax, ...
+    ColorFace, Ipoints, Smatrix)
+%% Tool for plotting the data points, the piecewise 
+%% interpolation polynomial curve, and the area under the 
+%% curve over an interval
 % 
 % Author: Žan Kogovšek
-% Date: 20.2.2021
+% Date: 3.24.2023
+% Last changed: 3.24.2023
 % 
 %% Description
 % 
-% Using this function, the visualization of the numerical 
-% integration with ZIntegralA is plotted in the figure figure(figr). 
-% The input values x(i) of the independent variable X and the 
-% values y(i) of the dependent variable Y of an arbitrary function 
-% Y = f(X) are plotted as blue circles (i.e. (x(i),y(i)) points), the 
-% approximation of the f function is plotted as a red line and the 
-% integral is plotted as the semi-transparent area under the red 
-% curve. The semi-transparent area is blue if the original upper 
-% limit of integration has a higher value than the original lower 
-% limit of integration, and is red if that is not the case. 
-%
+% Given the input vector "xData" of the independent variable X 
+% and the input vector "yData" of the values of the dependent 
+% variable Y of an arbitrary function Y = f(X), as well as the vector 
+% "Ipoints" and the matrix "Smatrix", both of which define the 
+% fA piecewise interpolation polynomial of the data points 
+% represented by the pairs ("xData"(i), "yData"(i)), the values of 
+% the X variable the "xIntegralAMin" value and the 
+% "xIntegralAMax" value, the natural number "figr", and the 
+% vector "ColorFace", this function plots the data points, the 
+% piecewise interpolation polynomial curve of the data points 
+% and the area under the piecewise interpolation polynomial 
+% curve from "xIntegralAMin" to "xIntegralAMax", the color of the 
+% area being defined by the RGB triplet of numbers of the 
+% "ColorFace" vector. 
+% 
 %% Variables
 % 
-% This function has the form of 
-% DrawZIntegA(x, y, Ipoints, Smatrix, xmin, xmax, figr)
+% This function has the form of DrawZIntegralA
+% (figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorFace, ...
+% Ipoints, Smatrix)
 % 
-% x and y are the vectors of the aforementioned values x(i) and 
-% y(i), respectively, of the independent variable X and of the 
-% dependent variable Y, respectively, of an arbitrary function 
-% Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors 
-% of real numbers of equal length. x vector has to be sorted (i.e. 
-% it is required that x(i) > x(j) for every i > j). 
+% "figr" is the parameter the value of which is the index of the 
+% figure on which the data points, the piecewise interpolation 
+% polynomial curve, and the area under the curve described in 
+% the Description section is to be plotted. The value of the "figr" 
+% parameter must be a natural number. 
 % 
-% Ipoints is a column vector and Smatrix is a matrix. For each 
-% interval [Ipoints(k), Ipoints(k+1)], the plotted approximation of 
-% the f function will be the Lagrange polynomial which is based 
-% on the set {(x(i), y(i)) | i is in Smatrix(k, :)}. 
+% "xData" and "yData" are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = f(X) 
+% ("yData" = f("xData")). 
+% Both the "xData" vector and the "yData" vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the "xData" vector must be in ascending order. 
 % 
-% xmin is the lower limit of integration and xmax is the upper limit 
-% of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval. 
+% The "xIntegralAMin" parameter and the "xIntegralAMax" 
+% parameter are two values of the X variable and are the lower 
+% and the upper boundary, respectively, of the area to be plotted 
+% using this function under the piecewise interpolation 
+% polynomial curve of the data points represented by the pairs 
+% ("xData"(i), "yData"(i)). The "xIntegralAMax" value must be 
+% greater than the "xIntegralAMin" value. 
 % 
-% LimitOrder is the indicator of whether the original input 
-% xmax < xmin or not, and has the value “-1” in the former case 
-% and the value “1” in the latter case. 
+% "ColoFace" is the horizontal vector of three real numbers 
+% which represents the RGB triplet which is to be used to set the 
+% color of the area under the piecewise interpolation polynomial 
+% curve of the data points represented by the pairs 
+% ("xData"(i), "yData"(i)) from the value "xIntegralAMin" to the 
+% "xIntegralAMax" value. The three real numbers must be values 
+% of the [0, 1] interval. 
 % 
-% figr is the index of the figure in which the integration will be 
-% visualized. It has to be a nonzero integer. 
- 
-
-%     N represents the number of points with which each section 
-%     of the approximation of the function and the integral will be 
-%     plotted. 
+% Ipoints, Smatrix
 
 
 pars = inputParser;
@@ -60,48 +74,56 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xData'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'yData';
-errorMsg = '''yData'' must be a column vector of numbers which has the same length as ''xData''';
+errorMsg = ...
+    '''yData'' must be a column vector of numbers which has the same length as ''xData''';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
     length(xData) == length(yData), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xIntegralAMin';
 errorMsg = '''xIntegralAMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = @(x)assert...
+    (isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xIntegralAMax';
-errorMsg = '''xIntegralAMax'' must be a number which is greater than ''xIntegralAMin''.';
+errorMsg = ...
+    '''xIntegralAMax'' must be a number which is greater than ''xIntegralAMin''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xIntegralAMax > xIntegralAMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'ColorFace';
-errorMsg = '''ColorFace'' must be a row vector of three numbers.';
+errorMsg = ...
+    '''ColorFace'' must be a row vector of three numbers.';
 validationFcn = @(x)assert(isnumeric(x) && isrow(x) && ... 
     length(x) == 3, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'Ipoints';
-errorMsg = '''Ipoints'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''Ipoints'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'Smatrix';
-errorMsg = '''Smatrix'' must be a matrix of natural numbers the hight of which is ''length(Ipoints) - 1''';
+errorMsg = ...
+    '''Smatrix'' must be a matrix of natural numbers the hight of which is ''length(Ipoints) - 1''';
 validationFcn = @(x)assert(isnumeric(x) && ismatrix(x) && ... 
     size(x, 1) == length(Ipoints) - 1 && ...
     any(any((mod(x,1) == 0))) && any(any(x > 0)), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorFace, Ipoints, Smatrix);
+parse(pars, figr, xData, yData, xIntegralAMin, xIntegralAMax, ...
+    ColorFace, Ipoints, Smatrix);
 
 
 figure(figr)

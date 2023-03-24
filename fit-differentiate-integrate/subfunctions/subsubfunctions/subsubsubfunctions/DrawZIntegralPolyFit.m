@@ -7,23 +7,23 @@ function DrawZIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 3.19.2023
-% Last changed: 3.19.2023
+% Last changed: 3.24.2023
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
 % and the input vector "yData" of the values of the dependent 
-% variable Y of an arbitrary function Y = f(X), as well as the 
-% piecewise polynomial structure "ppFitSpline" of the spline 
-% polynomial fSpline of the data points represented by the pairs 
+% variable Y of an arbitrary function Y = f(X), as well as the vector 
+% "pFitPolyFit" of the coefficients of the regression polynomial 
+% fPolyFit of the data points represented by the pairs 
 % ("xData"(i), "yData"(i)), the values of the X variable the 
-% "xIntegralSplineMin" value and the "xIntegralSplineMax" value, 
-% the natural number "figr", and the vector "ColorFace", this 
-% function plots the data points, the spline curve of the data 
-% points and the area under the spline curve from 
-% "xIntegralSplineMin" to "xIntegralSplineMax", the color of the 
-% area being defined by the RGB triplet of numbers of the 
-% "ColorFace" vector. 
+% "xIntegralPolyFitMin" value and the "xIntegralPolyFitMax" 
+% value, the natural number "figr", and the vector "ColorFace", 
+% this function plots the data points, the regression polynomial 
+% curve of the data points and the area under the regression 
+% polynomial curve from "xIntegralPolyFitMin" to 
+% "xIntegralPolyFitMax", the color of the area being defined by 
+% the RGB triplet of numbers of the "ColorFace" vector. 
 % 
 %% Variables
 % 
@@ -32,10 +32,10 @@ function DrawZIntegralPolyFit...
 % ColorFace, pFitPolyFit)
 % 
 % "figr" is the parameter the value of which is the index of the 
-% figure on which the data points, the spline curve, and the area 
-% under the curve described in the Description section is to be 
-% plotted. The value of the "figr" parameter must be a natural 
-% number. 
+% figure on which the data points, the regression polynomial 
+% curve, and the area under the curve described in the 
+% Description section is to be plotted. The value of the "figr" 
+% parameter must be a natural number. 
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -45,25 +45,31 @@ function DrawZIntegralPolyFit...
 % column vectors of equal length and of real numbers. The 
 % values of the "xData" vector must be in ascending order. 
 % 
-% The "xIntegralSplineMin" parameter and the 
-% "xIntegralSplineMax" parameter are two values of the X 
+% The "xIntegralPolyFitMin" parameter and the 
+% "xIntegralPolyFitMax" parameter are two values of the X 
 % variable and are the lower and the upper boundary, 
 % respectively, of the area to be plotted using this function under 
-% the cubic spline curve of the data points represented by the 
-% pairs ("xData"(i), "yData"(i)). The "xIntegralSplineMax" value 
-% must be greater than the "xIntegralSplineMin" value. 
+% the regression polynomial curve of the data points 
+% represented by the pairs ("xData"(i), "yData"(i)). The 
+% "xIntegralPolyFitMax" value must be greater than the 
+% "xIntegralPolyFitMin" value. 
 % 
 % "ColoFace" is the horizontal vector of three real numbers 
 % which represents the RGB triplet which is to be used to set the 
-% color of the area under the interpolating spline curve of the 
+% color of the area under the regression polynomial curve of the 
 % data points represented by the pairs ("xData"(i), "yData"(i)) 
-% from the value "xIntegralSplineMin" to the 
-% "xIntegralSplineMax" value. The three real numbers must be 
+% from the value "xIntegralPolyFitMin" to the 
+% "xIntegralPolyFitMax" value. The three real numbers must be 
 % values of the [0, 1] interval. 
 % 
-% "ppFitSpline" is the piecewise polynomial structure of the 
-% spline polynomial fSpline of the data points represented by 
-% the pairs ("xData"(i), "yData"(i)). 
+% pFitPolyFit is the vertical vector of the coefficients of the 
+% regression polynomial fPolyFit of the data points represented 
+% by the pairs ("xData"(i), "yData"(i)). The regression polynomial 
+% fPolyFit has the form fPolyFit(X) = "a_n" * (X^n) + 
+% "a_(n - 1)" * (X^(n - 1)) + ... + "a_1" * X + "a_0" and the 
+% "pFitPolyFit" vector must have the form 
+% ["a_n"; "a_(n - 1)"; ...; "a_1"; "a_0"]. 
+
 
 pars = inputParser;
 
