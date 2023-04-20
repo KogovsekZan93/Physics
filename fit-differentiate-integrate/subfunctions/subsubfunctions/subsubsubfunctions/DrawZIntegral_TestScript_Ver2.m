@@ -24,7 +24,9 @@ nA = 3;
 mode = 2;
 ppFitSpline = spline(xData, yData);
 [Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode);
+PolyDegree = 7;
+pFitPolyFit = (polyfit(xData, yData, PolyDegree))';
 figure(figr);clf;
-DrawZIntegralSpline...
+DrawZIntegralPolyFit...
     (figr, xData, yData, xIntegralMin, xIntegralMax, ...
-    ColorFace, ppFitSpline)
+    ColorFace, pFitPolyFit)

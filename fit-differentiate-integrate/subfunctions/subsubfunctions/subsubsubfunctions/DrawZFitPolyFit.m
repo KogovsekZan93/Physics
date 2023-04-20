@@ -41,16 +41,15 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, figr, xData, yData, xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit);
 
 
-N = 1000;
+N = power(10, 4);
 
-figure(figr)
-clf;
-hold on;
+figure(figr);
+
 
 xFitPolyFit = (linspace(xFitPolyFitMin, xFitPolyFitMax, N))';
 yFitPolyFit = polyval(pFitPolyFit, xFitPolyFit);
 plot(xFitPolyFit, yFitPolyFit, 'r', 'LineWidth', 1.2);
-
+hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 
 set(gca, 'FontSize', 14);

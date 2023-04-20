@@ -48,17 +48,16 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, figr, xData, yData, xFitAMin, xFitAMax, Ipoints, Smatrix);
 
 
-figure(figr)
-clf;
-hold on;
+figure(figr);
 
-N = 1000;
+
+N = power(10, 4);
 
 xFitA = (linspace(xFitAMin, xFitAMax, N))';
 yFitA = EvaluateIpointsSmatrixFit(xData, yData, xFitA, Ipoints, Smatrix);
 plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);
 
-plot(xFitA, yFitA, 'r', 'LineWidth', 1.2);
+hold on;
 
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 

@@ -40,16 +40,15 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, figr, xData, yData, xFitSplineMin, xFitSplineMax, ppFitSpline);
 
 
-N = 1000;
+N = power(10, 4);
 
-figure(figr)
-clf;
-hold on;
+figure(figr);
+
 
 xFitSpline = (linspace(xFitSplineMin, xFitSplineMax, N))';
 yFitSpline = ppval(ppFitSpline, xFitSpline);
 plot(xFitSpline, yFitSpline, 'r', 'LineWidth', 1.2);
-
+hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 
 set(gca, 'FontSize', 14);

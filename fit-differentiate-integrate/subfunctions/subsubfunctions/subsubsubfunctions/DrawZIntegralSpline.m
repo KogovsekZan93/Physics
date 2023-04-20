@@ -6,7 +6,7 @@ function DrawZIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 3.18.2023
-% Last changed: 3.19.2023
+% Last changed: 4.20.2023
 % 
 %% Description
 % 
@@ -80,76 +80,34 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'yData';
-errorMsg = ...
-    '''yData'' must be a column vector of numbers which has the same length as ''xData''';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
-    length(xData) == length(yData), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'xIntegralMin';
-errorMsg = '''xIntegralMin'' must be a number.';
+paramName = 'xIntegralSplineMin';
+errorMsg = '''xIntegralSplineMin'' must be a number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'xIntegralMax';
+paramName = 'xIntegralSplineMax';
 errorMsg = ...
-    '''xIntegralMax'' must be a number which is greater than ''xIntegralMin''.';
+    '''xIntegralSplineMax'' must be a number which is greater than ''xIntegralSplineMin''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xIntegralSplineMax > xIntegralSplineMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'ColorFace';
-errorMsg = ...
-    '''ColorFace'' must be a row vector of three numbers.';
-validationFcn = @(x)assert(isnumeric(x) && isrow(x) && ... 
-    length(x) == 3, errorMsg);
-addRequired(pars, paramName, validationFcn);
+parse(pars, figr, xData, xIntegralSplineMin, xIntegralSplineMax);
 
-paramName = 'ppFitSpline';
-errorMsg = '''ppFitSpline'' must be a structure array.';
-validationFcn = @(x)assert(isstruct(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-parse(pars, figr, xData, yData, xIntegralSplineMin, ...
-    xIntegralSplineMax, ColorFace, ppFitSpline);
-
-% The parameter "N" is set to be "N" = 1000 and represents the 
-% number of points for both the interpolating spline curve and 
-% the area under the interpolating spline curve. With this setting, 
-% the number of points is typically sufficient to create a 
-% convincing illusion of the plotted curve of the function fA being 
-% smooth (as the actual fA function is, in fact, a smooth 
-% function). 
-N = 1000;
-
-figure(figr)
-clf;
-hold on;
+figure(figr);
 
 % In the following block of code, the area under the interpolating 
 % spline curve is plotted. 
-XFitSpline = (linspace...
-    (xIntegralSplineMin, xIntegralSplineMax, N))';
-YFitSpline = ppval(ppFitSpline, XFitSpline);
-h = area(XFitSpline, YFitSpline);
-h.FaceColor = ColorFace;
-h.FaceAlpha = 0.3;
+DrawZAreaSpline(xIntegralSplineMin, xIntegralSplineMax, ...
+    ColorFace, ppFitSpline)
+
+hold on;
 
 % In the following block of code, the interpolating spline curve of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)) 
-% is plotted. 
-xFitSpline = (linspace(min(xData(1), xIntegralSplineMin), ...
-    max(xData(end), xIntegralSplineMax), N))';
-yFitSpline = ppval(ppFitSpline, xFitSpline);
-plot(xFitSpline, yFitSpline, 'r', 'LineWidth', 1.2);
-
-% Lastly, in the following line, the data points themselves are 
-% plotted. 
-plot(xData, yData, 'bo', 'MarkerSize', 10);
-
-set(gca, 'FontSize', 14);
-grid on;
-hold off;
+% as well as the data points themselves are plotted. 
+DrawZFitSpline(figr, xData, yData, ...
+    min(xData(1), xIntegralSplineMin), ...
+    max(xData(end), xIntegralSplineMax), ppFitSpline)
 
 end

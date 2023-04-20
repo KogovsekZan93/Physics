@@ -7,7 +7,7 @@ function DrawZIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 3.19.2023
-% Last changed: 3.24.2023
+% Last changed: 20.4.2023
 % 
 %% Description
 % 
@@ -86,13 +86,6 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'yData';
-errorMsg = ...
-    '''yData'' must be a column vector of numbers which has the same length as ''xData''';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
-    length(xData) == length(yData), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
 paramName = 'xIntegralPolyFitMin';
 errorMsg = '''xIntegralPolyFitMin'' must be a number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
@@ -105,55 +98,24 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xIntegralPolyFitMax > xIntegralPolyFitMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'ColorFace';
-errorMsg = ...
-    '''ColorFace'' must be a row vector of three numbers.';
-validationFcn = @(x)assert(isnumeric(x) && isrow(x) && ... 
-    length(x) == 3, errorMsg);
-addRequired(pars, paramName, validationFcn);
+parse(pars, figr, xData, xIntegralPolyFitMin, xIntegralPolyFitMax);
 
-paramName = 'pFitPolyFit';
-errorMsg = '''pFitPolyFit'' must be a column vector of numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), ...
-    errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-parse(pars, figr, xData, yData, xIntegralPolyFitMin, ...
-    xIntegralPolyFitMax, ColorFace, pFitPolyFit);
-
-% The parameter "N" is set to be "N" = 1000 and represents the 
-% number of points for both the regression polynomial curve and 
-% the area under the regression polynomial curve. With this 
-% setting, the number of points is typically sufficient to create a 
-% convincing illusion of the plotted curve of the function fPolyFit 
-% being smooth (as the actual fPolyFit function is, in fact, a 
-% smooth function). 
-N = 1000;
-
-figure(figr)
-clf;
-hold on;
+figure(figr);
 
 % In the following block of code, the area under the regression 
 % polynomial curve is plotted. 
-XFitPolyFit = (linspace...
-    (xIntegralPolyFitMin, xIntegralPolyFitMax, N))';
-YFitPolyFit = polyval(pFitPolyFit, XFitPolyFit);
-h = area(XFitPolyFit, YFitPolyFit);
-h.FaceColor = ColorFace;
-h.FaceAlpha = 0.3;
+DrawZAreaPolyFit(xIntegralPolyFitMin, xIntegralPolyFitMax, ...
+    ColorFace, pFitPolyFit)
+
+hold on;
 
 % In the following block of code, the regression polynomial 
 % curve of the data points represented by the pairs 
-% ("xData"(i), "yData"(i)) is plotted. 
-xFitPolyFit = (linspace(min(xData(1), xIntegralPolyFitMin), ...
-    max(xData(end), xIntegralPolyFitMax), N))';
-yFitPolyFit = polyval(pFitPolyFit, xFitPolyFit);
-plot(xFitPolyFit, yFitPolyFit, 'r', 'LineWidth', 1.2);
-
-% Lastly, in the following line, the data points themselves are 
-% plotted. 
-plot(xData, yData, 'bo', 'MarkerSize', 10);
+% ("xData"(i), "yData"(i)) as well as the data points themselves 
+% are plotted. 
+DrawZFitPolyFit(figr, xData, yData, ...
+    min(xData(1), xIntegralPolyFitMin), ...
+    max(xData(end), xIntegralPolyFitMax), pFitPolyFit)
 
 set(gca, 'FontSize', 14);
 grid on;
