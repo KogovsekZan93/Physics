@@ -7,7 +7,7 @@ function DrawZIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 3.19.2023
-% Last changed: 20.4.2023
+% Last changed: 4.22.2023
 % 
 %% Description
 % 
@@ -20,7 +20,7 @@ function DrawZIntegralPolyFit...
 % "xIntegralPolyFitMin" value and the "xIntegralPolyFitMax" 
 % value, the natural number "figr", and the vector "ColorFace", 
 % this function plots the data points, the regression polynomial 
-% curve of the data points and the area under the regression 
+% curve of the data points, and the area under the regression 
 % polynomial curve from "xIntegralPolyFitMin" to 
 % "xIntegralPolyFitMax", the color of the area being defined by 
 % the RGB triplet of numbers of the "ColorFace" vector. 
@@ -54,7 +54,7 @@ function DrawZIntegralPolyFit...
 % "xIntegralPolyFitMax" value must be greater than the 
 % "xIntegralPolyFitMin" value. 
 % 
-% "ColoFace" is the horizontal vector of three real numbers 
+% "ColorFace" is the horizontal vector of three real numbers 
 % which represents the RGB triplet which is to be used to set the 
 % color of the area under the regression polynomial curve of the 
 % data points represented by the pairs ("xData"(i), "yData"(i)) 
@@ -116,9 +116,5 @@ hold on;
 DrawZFitPolyFit(figr, xData, yData, ...
     min(xData(1), xIntegralPolyFitMin), ...
     max(xData(end), xIntegralPolyFitMax), pFitPolyFit)
-
-set(gca, 'FontSize', 14);
-grid on;
-hold off;
 
 end

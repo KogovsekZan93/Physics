@@ -7,7 +7,7 @@ function DrawZIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 3.24.2023
-% Last changed: 20.4.2023
+% Last changed: 4.22.2023
 % 
 %% Description
 % 
@@ -20,7 +20,7 @@ function DrawZIntegralA...
 % the X variable the "xIntegralAMin" value and the 
 % "xIntegralAMax" value, the natural number "figr", and the 
 % vector "ColorFace", this function plots the data points, the 
-% piecewise interpolation polynomial curve of the data points 
+% piecewise interpolation polynomial curve of the data points, 
 % and the area under the piecewise interpolation polynomial 
 % curve from "xIntegralAMin" to "xIntegralAMax", the color of the 
 % area being defined by the RGB triplet of numbers of the 
@@ -54,7 +54,7 @@ function DrawZIntegralA...
 % ("xData"(i), "yData"(i)). The "xIntegralAMax" value must be 
 % greater than the "xIntegralAMin" value. 
 % 
-% "ColoFace" is the horizontal vector of three real numbers 
+% "ColorFace" is the horizontal vector of three real numbers 
 % which represents the RGB triplet which is to be used to set the 
 % color of the area under the piecewise interpolation polynomial 
 % curve of the data points represented by the pairs 
@@ -62,7 +62,19 @@ function DrawZIntegralA...
 % "xIntegralAMax" value. The three real numbers must be values 
 % of the [0, 1] interval. 
 % 
-% Ipoints, Smatrix
+% "Ipoints" is a column vector of boundaries between the 
+% interpolation polynomials of the piecewise interpolation 
+% polynomial fA. Any two consecutive values of the "Ipoints" 
+% vector "Ipoints"(i) and "Ipoints"(i + 1) are the boundaries of i-th 
+% interpolation polynomial. It must be a sorted column vector of 
+% numbers. 
+% 
+% "Smatrix" is the matrix of rows of indices. Each row 
+% "Smatrix"(i, :) contains the indeces k of the data points 
+% ("xData"(k), "yData"(k)) which were used to construct the i-th 
+% interpolation polynomial p_i of the piecewise interpolation 
+% polynomial fA. It must be a matrix of natural numbers the 
+% hight of which is length("Ipoints") - 1. 
 
 
 pars = inputParser;
@@ -95,26 +107,19 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, figr, xData, xIntegralAMin, xIntegralAMax);
 
-% The parameter "N" is set to be "N" = 1000 and represents the 
-% number of points for both the regression polynomial curve and 
-% the area under the regression polynomial curve. With this 
-% setting, the number of points is typically sufficient to create a 
-% convincing illusion of the plotted curve of the function fPolyFit 
-% being smooth (as the actual fPolyFit function is, in fact, a 
-% smooth function). 
-
 figure(figr)
 
-% In the following block of code, the area under the regression 
-% polynomial curve is plotted. 
+% In the following block of code, the area under the piecewise 
+% interpolation polynomial curve is plotted. 
 DrawZAreaA(xData, yData, xIntegralAMin, xIntegralAMax, ...
     ColorFace, Ipoints, Smatrix)
 
 hold on;
 
-% In the following block of code, the regression polynomial 
-% curve of the data points represented by the pairs 
-% ("xData"(i), "yData"(i)) is plotted. 
+% In the following block of code, the piecewise interpolation 
+% polynomial curve of the data points represented by the pairs 
+% ("xData"(i), "yData"(i)) as well as the data points themselves 
+% are plotted. 
 DrawZFitA(figr, xData, yData, min(xData(1), xIntegralAMin), ...
     max(xData(end), xIntegralAMax), Ipoints, Smatrix)
 

@@ -2,11 +2,12 @@ function DrawZIntegralSpline...
     (figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ...
     ColorFace, ppFitSpline)
 %% Tool for plotting the data points, the interpolating 
-%% spline, and the area under the curve over an interval
+%% spline curve, and the area under the curve over an 
+%% interval
 % 
 % Author: Žan Kogovšek
 % Date: 3.18.2023
-% Last changed: 4.20.2023
+% Last changed: 4.22.2023
 % 
 %% Description
 % 
@@ -19,7 +20,7 @@ function DrawZIntegralSpline...
 % "xIntegralSplineMin" value and the "xIntegralSplineMax" value, 
 % the natural number "figr", and the vector "ColorFace", this 
 % function plots the data points, the spline curve of the data 
-% points and the area under the spline curve from 
+% points, and the area under the spline curve from 
 % "xIntegralSplineMin" to "xIntegralSplineMax", the color of the 
 % area being defined by the RGB triplet of numbers of the 
 % "ColorFace" vector. 
@@ -52,7 +53,7 @@ function DrawZIntegralSpline...
 % pairs ("xData"(i), "yData"(i)). The "xIntegralSplineMax" value 
 % must be greater than the "xIntegralSplineMin" value. 
 % 
-% "ColoFace" is the horizontal vector of three real numbers 
+% "ColorFace" is the horizontal vector of three real numbers 
 % which represents the RGB triplet which is to be used to set the 
 % color of the area under the interpolating spline curve of the 
 % data points represented by the pairs ("xData"(i), "yData"(i)) 

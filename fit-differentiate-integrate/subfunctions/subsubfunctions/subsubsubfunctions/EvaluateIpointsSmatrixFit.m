@@ -5,7 +5,7 @@ function yFitA = EvaluateIpointsSmatrixFit...
 % 
 % Author: Žan Kogovšek
 % Date: 2.27.2023
-% Last changed: 3.18.2023
+% Last changed: 4.22.2023
 % 
 %% Description
 % 
@@ -54,7 +54,7 @@ function yFitA = EvaluateIpointsSmatrixFit...
 % "Smatrix" is the matrix of rows of indices. Each row 
 % "Smatrix"(i, :) contains the indeces k of the data points 
 % ("xData"(k), "yData"(k)) which were used to construct the i-th 
-% interpolation polynomial p_i of the piecewise interpolation
+% interpolation polynomial p_i of the piecewise interpolation 
 % polynomial fA. It must be a matrix of natural numbers the 
 % hight of which is length("Ipoints") - 1. 
 % 

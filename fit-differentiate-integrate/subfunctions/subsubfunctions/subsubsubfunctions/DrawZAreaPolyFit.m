@@ -32,6 +32,14 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xAreaPolyFitMin, xAreaPolyFitMax, ColorFace, ...
     pFitPolyFit);
 
+% The parameter "N" is set to be "N" = 1000 and represents the 
+% number of points for both the regression polynomial curve and 
+% the area under the regression polynomial curve. With this 
+% setting, the number of points is typically sufficient to create a 
+% convincing illusion of the plotted curve of the function fPolyFit 
+% being smooth (as the actual fPolyFit function is, in fact, a 
+% smooth function). 
+
 N = power(10, 4);
 
 XFitPolyFit = (linspace(xAreaPolyFitMin, xAreaPolyFitMax, N))';
