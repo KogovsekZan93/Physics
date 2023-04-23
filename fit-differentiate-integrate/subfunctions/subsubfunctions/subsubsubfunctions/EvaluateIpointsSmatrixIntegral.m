@@ -57,7 +57,7 @@ function yIntegralA = EvaluateIpointsSmatrixIntegral...
 % ("xData"(k), "yData"(k)) which were used to construct the i-th 
 % interpolation polynomial p_i of the piecewise interpolation 
 % polynomial fA/dX. It must be a matrix of natural numbers the 
-% hight of which is length("Ipoints") - 1. 
+% height of which is length("Ipoints") - 1. 
 % 
 % "yIntegralA" is the column vector of the values 
 % fA("xIntegralA") - fA("xIntegralA"(1)), where fA is an indefinite 

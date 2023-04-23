@@ -43,10 +43,9 @@ N = power(10, 4);
 
 XFitSpline = (linspace(xAreaSplineMin, xAreaSplineMax, N))';
 YFitSpline = ppval(ppFitSpline, XFitSpline);
+
 h = area(XFitSpline, YFitSpline);
 h.FaceColor = ColorFace;
 h.FaceAlpha = 0.3;
-
-
 
 end

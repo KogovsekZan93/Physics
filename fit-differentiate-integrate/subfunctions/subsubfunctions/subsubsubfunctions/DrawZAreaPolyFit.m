@@ -39,11 +39,11 @@ parse(pars, xAreaPolyFitMin, xAreaPolyFitMax, ColorFace, ...
 % convincing illusion of the plotted curve of the function fPolyFit 
 % being smooth (as the actual fPolyFit function is, in fact, a 
 % smooth function). 
-
 N = power(10, 4);
 
 XFitPolyFit = (linspace(xAreaPolyFitMin, xAreaPolyFitMax, N))';
 YFitPolyFit = polyval(pFitPolyFit, XFitPolyFit);
+
 h = area(XFitPolyFit, YFitPolyFit);
 h.FaceColor = ColorFace;
 h.FaceAlpha = 0.3;

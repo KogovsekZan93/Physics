@@ -7,7 +7,7 @@ function DrawZIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 3.24.2023
-% Last changed: 4.22.2023
+% Last changed: 4.23.2023
 % 
 %% Description
 % 
@@ -74,7 +74,7 @@ function DrawZIntegralA...
 % ("xData"(k), "yData"(k)) which were used to construct the i-th 
 % interpolation polynomial p_i of the piecewise interpolation 
 % polynomial fA. It must be a matrix of natural numbers the 
-% hight of which is length("Ipoints") - 1. 
+% height of which is length("Ipoints") - 1. 
 
 
 pars = inputParser;

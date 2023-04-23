@@ -10,7 +10,8 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'yData';
-errorMsg = '''yData'' must be a column vector of numbers which has the same length as ''xData''';
+errorMsg = ...
+    '''yData'' must be a column vector of numbers which has the same length as ''xData''';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
     length(xData) == length(yData), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -58,6 +59,7 @@ XFitA = (linspace...
     (xAreaAMin, xAreaAMax, N))';
 YFitA = EvaluateIpointsSmatrixFit...
     (xData, yData, XFitA, Ipoints, Smatrix);
+
 h = area(XFitA, YFitA);
 h.FaceColor = ColorFace;
 h.FaceAlpha = 0.3;

@@ -4,8 +4,8 @@ function DrawZFitPolyFit...
 %% polynomial curve
 % 
 % Author: Žan Kogovšek
-% Date: 22.4.2023
-% Last changed: 4.22.2023
+% Date: 4.22.2023
+% Last changed: 4.23.2023
 % 
 %% Description
 % 
@@ -18,12 +18,42 @@ function DrawZFitPolyFit...
 % function plots the data points and the regression polynomial 
 % curve of the data points from the input value of the X variable 
 % "xFitPolyFitMin" to the input value of the X variable 
-% "xFitSplineMax". 
+% "xFitPolyFitMax". 
 % 
 %% Variables
 % 
 % This function has the form of DrawZFitPolyFit...
 % (figr, xData, yData, xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit)
+% 
+% "figr" is the parameter the value of which is the index of the 
+% figure on which the data points and the regression polynomial 
+% curve described in the Description section is to be plotted. 
+% The value of the "figr" parameter must be a natural number. 
+% 
+% "xData" and "yData" are the vectors of the values of the 
+% independent variable X and of the dependent variable Y, 
+% respectively, of an arbitrary function Y = f(X) 
+% ("yData" = f("xData")). 
+% Both the "xData" vector and the "yData" vector must be 
+% column vectors of equal length and of real numbers. The 
+% values of the "xData" vector must be in ascending order. 
+% 
+% The "xFitPolyFitMin" parameter and the "xFitPolyFitMax" 
+% parameter are two values of the X variable and are the lower 
+% and the upper boundary, respectively, of the interval over 
+% which the regression polynomial of the data points 
+% represented by the pairs ("xData"(i), "yData"(i)) is to be 
+% plotted. The "xFitPolyFitMax" value must be greater than the 
+% "xFitPolyFitMin" value. 
+% 
+% pFitPolyFit is the vertical vector of the coefficients of the 
+% regression polynomial fPolyFit of the data points represented 
+% by the pairs ("xData"(i), "yData"(i)). The regression polynomial 
+% fPolyFit has the form fPolyFit(X) = "a_n" * (X^n) + 
+% "a_(n - 1)" * (X^(n - 1)) + ... + "a_1" * X + "a_0" and the 
+% "pFitPolyFit" vector must have the form 
+% ["a_n"; "a_(n - 1)"; ...; "a_1"; "a_0"]. 
+
 
 pars = inputParser;
 
@@ -48,13 +78,13 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) &&  ...
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitPolyFitMin';
-errorMsg = '''xFitSplineMin'' must be a number.';
+errorMsg = '''xFitPolyFitMin'' must be a number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitPolyFitMax';
 errorMsg = ...
-    '''xFitSplineMax'' must be a number which is greater than ''xFitSplineMin''.';
+    '''xFitPolyFitMax'' must be a number which is greater than ''xFitPolyFitMin''.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xFitPolyFitMax > xFitPolyFitMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -68,6 +98,12 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, figr, xData, yData, xFitPolyFitMin, xFitPolyFitMax, ...
     pFitPolyFit);
 
+% The parameter "N" is set to be "N" = 10 000 and represents 
+% the number of points for the regression polynomial curve plot. 
+% With this setting, the number of points is typically sufficient to 
+% create a convincing illusion of the plotted curve of the function 
+% fPolyFit being smooth (as the actual fPolyFit function is, in 
+% fact, a smooth function). 
 N = power(10, 4);
 
 xFitPolyFit = (linspace(xFitPolyFitMin, xFitPolyFitMax, N))';
