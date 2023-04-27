@@ -69,7 +69,6 @@ parse(pars, DrawZFunctionHandle, varargin{:});
 
 figr = pars.Results.Figure;
 
-
 if figr ~= 0
     figure(figr); clf;
     DrawZFunctionHandle(figr, DrawZInput{:});

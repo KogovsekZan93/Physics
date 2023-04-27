@@ -5,15 +5,15 @@ function DrawZFitA...
 % 
 % Author: Žan Kogovšek
 % Date: 4.22.2023
-% Last changed: 4.23.2023
+% Last changed: 4.27.2023
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), as well as the vector 
-% "Ipoints" and the matrix "Smatrix", both of which define the 
-% fA piecewise interpolation polynomial of the data points 
+% "Ipoints" and the matrix "Smatrix", both of which define the fA 
+% piecewise interpolation polynomial of the data points 
 % represented by the pairs ("xData"(i), "yData"(i)), and the natural 
 % number "figr", this function plots the data points and the 
 % piecewise interpolation polynomial curve of the data points 

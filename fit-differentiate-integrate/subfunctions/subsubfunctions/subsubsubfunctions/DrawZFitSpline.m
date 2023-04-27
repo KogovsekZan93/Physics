@@ -5,19 +5,20 @@ function DrawZFitSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 4.22.2023
-% Last changed: 4.23.2023
+% Last changed: 4.27.2023
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), the piecewise 
-% polynomial structure "ppFitSpline" of the spline polynomial 
-% fSpline of the data points represented by the pairs 
-% ("xData"(i), "yData"(i)), and the natural number "figr", this 
-% function plots the data points and the spline curve of the data 
-% points from the input value of the X variable "xFitSplineMin" to 
-% the input value of the X variable "xFitSplineMax". 
+% polynomial structure "ppFitSpline" of the interpolating cubic 
+% spline polynomial fSpline of the data points represented by 
+% the pairs ("xData"(i), "yData"(i)), and the natural number "figr", 
+% this function plots the data points and the spline curve of the 
+% data points from the input value of the X variable 
+% "xFitSplineMin" to the input value of the X variable 
+% "xFitSplineMax". 
 % 
 %% Variables
 % 
@@ -46,8 +47,8 @@ function DrawZFitSpline...
 % value. 
 % 
 % "ppFitSpline" is the piecewise polynomial structure of the 
-% spline polynomial fSpline of the data points represented by 
-% the pairs ("xData"(i), "yData"(i)). 
+% interpolating cubic spline polynomial fSpline of the data points 
+% represented by the pairs ("xData"(i), "yData"(i)). 
 
 
 pars = inputParser;

@@ -11,7 +11,6 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, p);
 
-
 pIntegral = [p./(length(p) : -1 : 1)'; 0];
 
 end

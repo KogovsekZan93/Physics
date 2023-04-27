@@ -1,4 +1,5 @@
-function pDerivative = CalculateDerivativePolynomialCoefficients(p, ordDeriv)
+function pDerivative = ...
+    CalculateDerivativePolynomialCoefficients(p, ordDeriv)
 
 
 pars = inputParser;
@@ -17,12 +18,12 @@ addRequired(pars, paramName, validationFcn);
 
 parse(pars, p, ordDeriv);
 
-
 pLength = length(p);
 pDerivative = zeros(pLength - ordDeriv, 1);
 
 for i = 1 : pLength - ordDeriv
-    pDerivative(i) = p(i) * factorial(pLength - i) / factorial(pLength - i - ordDeriv);
+    pDerivative(i) = ...
+        p(i) * factorial(pLength - i) / factorial(pLength - i - ordDeriv);
 end
 
 end

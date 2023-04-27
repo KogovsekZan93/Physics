@@ -7,15 +7,15 @@ function DrawZIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 3.24.2023
-% Last changed: 4.23.2023
+% Last changed: 4.27.2023
 % 
 %% Description
 % 
 % Given the input vector "xData" of the independent variable X 
 % and the input vector "yData" of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), as well as the vector 
-% "Ipoints" and the matrix "Smatrix", both of which define the 
-% fA piecewise interpolation polynomial of the data points 
+% "Ipoints" and the matrix "Smatrix", both of which define the fA 
+% piecewise interpolation polynomial of the data points 
 % represented by the pairs ("xData"(i), "yData"(i)), the values of 
 % the X variable the "xIntegralAMin" value and the 
 % "xIntegralAMax" value, the natural number "figr", and the 

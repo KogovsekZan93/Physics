@@ -4,7 +4,7 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 2.14.2023
+% Last changed: 4.27.2023
 % 
 %% Description
 % 
@@ -41,12 +41,12 @@ function [yIntegralSpline, varargout] = ZFindIntegralSplineBasic...
 % of f("xIntegralSpline") - f("xIntegralSpline"(1)). 
 % 
 % "varargout" represents the optional output parameter 
-% "ppFitSpline", which is the cubic spline of the data points 
-% represented by the pairs ("xData"(i), "yData"(i)) which is the 
-% estimation of the function df/dX. It can be evaluated by the 
-% MATLAB ppval function. The details of the " ppFitSpline" 
-% piecewise polynomial can be extracted by the MATLAB 
-% unmkpp function. 
+% "ppFitSpline", which is the interpolating cubic spline of the 
+% data points represented by the pairs ("xData"(i), "yData"(i)) 
+% which is the estimation of the function df/dX. It can be 
+% evaluated by the MATLAB ppval function. The details of the 
+% "ppFitSpline" piecewise polynomial can be extracted by the 
+% MATLAB unmkpp function. 
 
 
 pars = inputParser;
