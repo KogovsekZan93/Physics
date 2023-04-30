@@ -7,7 +7,7 @@ function DrawZIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 3.18.2023
-% Last changed: 4.27.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -83,7 +83,8 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'xIntegralSplineMin';
 errorMsg = '''xIntegralSplineMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = ...
+    @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xIntegralSplineMax';

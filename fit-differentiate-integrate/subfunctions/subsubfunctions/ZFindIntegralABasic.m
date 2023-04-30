@@ -5,7 +5,7 @@ function [yIntegralA, varargout] = ZFindIntegralABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 2.8.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -39,14 +39,14 @@ function [yIntegralA, varargout] = ZFindIntegralABasic...
 % order. 
 % 
 % "varargin" represents the optional input parameter "Figure". 
-% "Figure" is the parameter the value of which is the index of the 
-% figure on which the data points along with the estimation of the 
-% df/dX function is to be plotted. Also, the area under the 
-% estimated df/dX function curve is filled from 
+% "Figure" is the name of the parameter the value of which is the 
+% index of the figure on which the data points along with the 
+% estimation of the df/dX function is to be plotted. Also, the area 
+% under the estimated df/dX function curve is filled from 
 % min("xIntegralA"(1)) to max("xIntegralA"(2)). The value of the 
 % "Figure" parameter can be any nonnegative integer. The 
 % default value is "0", at which no figure is to be plotted. 
-
+% 
 % "varargin" represents the optional input parameters 
 % "PseudoAccuracy" and "Mode". 
 %    -"PseudoAccuracy" is the name of the parameter the value 

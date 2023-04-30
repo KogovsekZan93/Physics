@@ -7,7 +7,7 @@ function DrawZIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 3.19.2023
-% Last changed: 4.22.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -62,7 +62,7 @@ function DrawZIntegralPolyFit...
 % "xIntegralPolyFitMax" value. The three real numbers must be 
 % values of the [0, 1] interval. 
 % 
-% pFitPolyFit is the vertical vector of the coefficients of the 
+% "pFitPolyFit" is the vertical vector of the coefficients of the 
 % regression polynomial fPolyFit of the data points represented 
 % by the pairs ("xData"(i), "yData"(i)). The regression polynomial 
 % fPolyFit has the form fPolyFit(X) = "a_n" * (X^n) + 
@@ -88,7 +88,8 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'xIntegralPolyFitMin';
 errorMsg = '''xIntegralPolyFitMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = ...
+    @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xIntegralPolyFitMax';

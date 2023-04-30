@@ -1,54 +1,53 @@
-function DecideIfDrawZ(DrawZFunctionHandle, DrawZInput, varargin)
-%% Visualization of numerical integration with ZIntegralA
+function DecideIfDrawZ...
+    (DrawZFunctionHandle, DrawZInput, varargin)
+%% Tool for deciding whether or not to perform a 
+%% DrawZFit... or a DrawZIntegral... function call
 % 
 % Author: Žan Kogovšek
-% Date: 20.2.2021
+% Date: 4.30.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
-% Using this function, the visualization of the numerical 
-% integration with ZIntegralA is plotted in the figure figure(figr). 
-% The input values x(i) of the independent variable X and the 
-% values y(i) of the dependent variable Y of an arbitrary function 
-% Y = f(X) are plotted as blue circles (i.e. (x(i),y(i)) points), the 
-% approximation of the f function is plotted as a red line and the 
-% integral is plotted as the semi-transparent area under the red 
-% curve. The semi-transparent area is blue if the original upper 
-% limit of integration has a higher value than the original lower 
-% limit of integration, and is red if that is not the case. 
-%
+% Given a DrawZFit... or a DrawZIntegral... function handle 
+% "DrawZFunctionHandle" and the cell array "DrawZInput" of 
+% input parameters for the DrawZFit... or the DrawZIntegral... 
+% function, this function either is a null function or the function 
+% call "DrawZFunctionHandle"("figr", "DrawZInput"{:}) is 
+% performed, depending on the value of the "figr" parameter, 
+% where "figr" is the value of the optional input parameter 
+% "Figure", the default value of which is 0. If "figr" == 0, the 
+% function call will not be performed (thus, this function 
+% effectively becomes a null function). If the "figr" parameter is a 
+% natural number, the function call will be performed. 
+% 
 %% Variables
 % 
-% This function has the form of 
-% DrawZIntegA(x, y, Ipoints, Smatrix, xmin, xmax, figr)
+% This function has the form of DecideIfDrawZ...
+% (DrawZFunctionHandle, DrawZInput, varargin)
 % 
-% x and y are the vectors of the aforementioned values x(i) and 
-% y(i), respectively, of the independent variable X and of the 
-% dependent variable Y, respectively, of an arbitrary function 
-% Y = f(X) (y(i) = f(x(i)). x and y both have to be column vectors 
-% of real numbers of equal length. x vector has to be sorted (i.e. 
-% it is required that x(i) > x(j) for every i > j). 
+% "DrawZFunctionHandle" is the function handle for either one of 
+% the three DrawZFit... functions or one of the three 
+% DrawZIntegral... functions 
 % 
-% Ipoints is a column vector and Smatrix is a matrix. For each 
-% interval [Ipoints(k), Ipoints(k+1)], the plotted approximation of 
-% the f function will be the Lagrange polynomial which is based 
-% on the set {(x(i), y(i)) | i is in Smatrix(k, :)}. 
+% "DrawZInput" is the horizontal cell array of all input parameters 
+% of the function the handle of which is the 
+% "DrawZFunctionHandle" function handle except the "Figure" 
+% parameter. The input parameters of the "DrawZInput" 
+% cell array must be in appropriate order for the function the 
+% handle of which is the "DrawZFunctionHandle" function 
+% handle. 
 % 
-% xmin is the lower limit of integration and xmax is the upper limit 
-% of integration. The limits do not have to be contained in the 
-% [min(x), max(x)] interval. 
-% 
-% LimitOrder is the indicator of whether the original input 
-% xmax < xmin or not, and has the value “-1” in the former case 
-% and the value “1” in the latter case. 
-% 
-% figr is the index of the figure in which the integration will be 
-% visualized. It has to be a nonzero integer. 
- 
-
-%     N represents the number of points with which each section 
-%     of the approximation of the function and the integral will be 
-%     plotted. 
+% "varargin" represents the optional input parameter "Figure". 
+% "Figure" is the name of the parameter the value of which is the 
+% "figr" parameter. If "figr" == 0, this function is effectively a null 
+% function (this is the default value). If the "figr" parameter is a 
+% natural number, it will be the first parameter of the function the 
+% handle of which is the "DrawZFunctionHandle" function 
+% handle, which is then followed by the input parameters of the 
+% "DrawZInput" horizontal cell array when the call of the function 
+% via the "DrawZFunctionHandle" function handle is performed 
+% by this function. 
 
 
 pars = inputParser;

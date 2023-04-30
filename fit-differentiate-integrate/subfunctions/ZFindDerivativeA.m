@@ -5,7 +5,7 @@ function yDerivativeA = ZFindDerivativeA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 2.1.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -47,9 +47,9 @@ function yDerivativeA = ZFindDerivativeA...
 % 
 % "varargin" represents the optional input parameters 
 % "OrdDeriv", "Accuracy", "Mode", and "Figure". 
-%    -"OrdDeriv" is the parameter the value of which is the 
-%     derivative order. It must be a natural number. The default 
-%     value is "1". 
+%    -"OrdDeriv" is the name of the parameter the value of which 
+%     is the derivative order. It must be a natural number. The 
+%     default value is "1". 
 %    -"Accuracy" is the name of the parameter the value of which 
 %     is the order of the interpolation polynomials from which the 
 %     piecewise interpolation polynomial which represents the f 

@@ -5,7 +5,7 @@ function DrawZFitPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 4.22.2023
-% Last changed: 4.23.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -46,7 +46,7 @@ function DrawZFitPolyFit...
 % plotted. The "xFitPolyFitMax" value must be greater than the 
 % "xFitPolyFitMin" value. 
 % 
-% pFitPolyFit is the vertical vector of the coefficients of the 
+% "pFitPolyFit" is the vertical vector of the coefficients of the 
 % regression polynomial fPolyFit of the data points represented 
 % by the pairs ("xData"(i), "yData"(i)). The regression polynomial 
 % fPolyFit has the form fPolyFit(X) = "a_n" * (X^n) + 
@@ -79,7 +79,8 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitPolyFitMin';
 errorMsg = '''xFitPolyFitMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = ...
+    @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitPolyFitMax';

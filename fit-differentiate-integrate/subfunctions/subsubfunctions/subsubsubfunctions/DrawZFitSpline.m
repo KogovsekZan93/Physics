@@ -5,7 +5,7 @@ function DrawZFitSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 4.22.2023
-% Last changed: 4.27.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -75,7 +75,8 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitSplineMin';
 errorMsg = '''xFitSplineMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = ...
+    @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xFitSplineMax';

@@ -5,7 +5,7 @@ function DrawZAreaPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 4.27.2023
-% Last changed: 4.27.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -37,7 +37,7 @@ function DrawZAreaPolyFit...
 % "xAreaPolyFitMax" value. The three real numbers must be 
 % values of the [0, 1] interval. 
 % 
-% pFitPolyFit is the vertical vector of the coefficients of the 
+% "pFitPolyFit" is the vertical vector of the coefficients of the 
 % regression polynomial fPolyFit. The regression polynomial 
 % fPolyFit has the form fPolyFit(X) = "a_n" * (X^n) + 
 % "a_(n - 1)" * (X^(n - 1)) + ... + "a_1" * X + "a_0" and the 
@@ -49,7 +49,8 @@ pars = inputParser;
 
 paramName = 'xAreaPolyFitMin';
 errorMsg = '''xAreaPolyFitMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = ...
+    @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xAreaPolyFitMax';

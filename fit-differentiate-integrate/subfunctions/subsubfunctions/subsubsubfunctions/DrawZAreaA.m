@@ -5,7 +5,7 @@ function DrawZAreaA(xData, yData, xAreaAMin, xAreaAMax, ...
 % 
 % Author: Žan Kogovšek
 % Date: 4.27.2023
-% Last changed: 4.27.2023
+% Last changed: 4.30.2023
 % 
 %% Description
 % 
@@ -69,7 +69,8 @@ function DrawZAreaA(xData, yData, xAreaAMin, xAreaAMax, ...
 pars = inputParser;
 
 paramName = 'xData';
-errorMsg = '''xData'' must be a sorted column vector of numbers.';
+errorMsg = ...
+    '''xData'' must be a sorted column vector of numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ... 
     issorted(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -83,7 +84,8 @@ addRequired(pars, paramName, validationFcn);
 
 paramName = 'xAreaAMin';
 errorMsg = '''xAreaAMin'' must be a number.';
-validationFcn = @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
+validationFcn = ...
+    @(x)assert(isnumeric(x) && isscalar(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'xAreaAMax';
