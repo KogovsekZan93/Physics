@@ -1,6 +1,6 @@
 % Supposedly one measures the variable x which is a function of 
 % the variable y. This gives us two corresponding vectors of 
-% measurements: xData for the x variable and yData for the y 
+% measurements: "xData" for the x variable and "yData" for the y 
 % variable. 
 % To plot the measured data points, run the following block of 
 % code. 
@@ -75,7 +75,7 @@ xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
 close all;
 psacc = 1;
 yMissing1 = ZFindFit(xData, yData, xMissing, ...
-    'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
+    'PseudoAccuracy', psacc);   % PseudoAccuracy paramater 
                                                     % set to 1. 
 figure(1); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
@@ -86,7 +86,7 @@ set(gca, 'FontSize', 14); grid on; hold off;
 title('"PseudoAccuracy" == "1"');
 psacc = 2;
 yMissing2 = ZFindFit(xData, yData, xMissing, ...
-    'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
+    'PseudoAccuracy', psacc);   % PseudoAccuracy paramater 
                                                     % set to 2. 
 figure(2); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
@@ -97,7 +97,7 @@ set(gca, 'FontSize', 14); grid on; hold off;
 title('"PseudoAccuracy" == "2"');
 psacc = 3;
 yMissing3 = ZFindFit(xData, yData, xMissing, ...
-    'PseudoAccuracy', psacc);   % Pseudo Accuracy paramater 
+    'PseudoAccuracy', psacc);   % PseudoAccuracy paramater 
                                                     % set to 3. 
 figure(3); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
@@ -205,14 +205,14 @@ xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
               % the y variable was not measured. 
 close all;
 yMissingSpline = ZFindFit(xData, yData, xMissing, ...
-    'Type', 'Spline');   % Setting the Type parameter to Spline. 
+    'Type', 'Spline');   % Setting the Type parameter to 'Spline'. 
 figure(1); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
 plot(xMissing, yMissingSpline, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('"Type" == "Spline"');
+title('"Type" == "''Spline''"');
 clearvars -except xData yData xMissing yMissingSpline; clc;
 
 
@@ -230,7 +230,7 @@ clearvars -except xData yData xMissing yMissingSpline; clc;
 % As can be seen by running the block of code on Page 1, the 
 % function y(x) appears to have four local extremes. Perhaps an 
 % appropriate choice for the order of the regression polynomial 
-% would thus be five. 
+% could thus be five. 
 % Run the following block of code to estimate the missing 
 % values of the y variable for the example given in this tutorial 
 % using the "'PolyFit'" setting of the "Type" parameter. The 
@@ -249,7 +249,7 @@ close all;
 PolyDegree = 5;   % Setting the degree of the regression 
                                % polynomial. 
 yMissingPolyFit = ZFindFit(xData, yData, xMissing, ...
-    'Type', 'PolyFit', ...   % Setting the Type parameter to PolyFit. 
+    'Type', 'PolyFit', ...   % Setting the Type parameter to 'PolyFit'. 
     PolyDegree);
 figure(1); hold on;
 plot(xData, yData, 'bo', 'MarkerSize', 10);
@@ -257,7 +257,7 @@ plot(xMissing, yMissingPolyFit, 'ro', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
-title('"Type" == "PolyFit"');
+title('"Type" == "''PolyFit''"');
 clearvars -except xData yData xMissing yMissingPolyFit; clc;
 
 
@@ -271,10 +271,10 @@ clearvars -except xData yData xMissing yMissingPolyFit; clc;
 % manually. 
 % With ZFitFunction, the function which is calculated to estimate 
 % the missing data points as well as the measured (i.e. input) 
-% data points can easily be visualized by specifying the number 
-% of the figure in which the plot is to be performed. This can be 
-% done by changing the optional "Figure" parameter from its 
-% default value of "0" to a desired natural number. 
+% data points can easily be visualized by specifying the index of 
+% the Figure window in which the plot is to be performed. This 
+% can be done by changing the optional "Figure" parameter from 
+% its default value of "0" to a desired natural number. 
 % Run the following block of code to visualize the data points 
 % along an example of the ZFitTutorial function calculated curve 
 % used for the missing data estimation for the example 
@@ -289,8 +289,7 @@ xMissing = [-5; -4; -3; -2; -1; 2; 4; 6; 7; 9; 10; 11; 12; 13; 14; 15; ...
     70];   % The missing integer values of the x variable at which 
               % the y variable was not measured. 
 close all;
-psacc = 3;   % Pseudo Accuracy paramater 
-                     % set to 3. 
+psacc = 3;   % PseudoAccuracy paramater set to 3. 
 mode = 2;   % Mode paramater set to 2. 
 figr = 4;
 yMissing = ZFindFit(xData, yData, xMissing, ...

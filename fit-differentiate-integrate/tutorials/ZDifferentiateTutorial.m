@@ -3,7 +3,7 @@
 % represented by the value of the x coordinate. The value of the 
 % x coordinate is measured each second in the 8 second 
 % interval. This gives us two corresponding vectors of 
-% measurements: T for time and X for the x coordinate.
+% measurements: "T" for time and "X" for the x coordinate. 
 % Let us plot the measurements. Run the following block of 
 % code. 
 
@@ -99,10 +99,11 @@ clearvars; clc;
 % ZFindDerivative function to find an estimation of the a(t) 
 % function. The order of differentiation can be specified using 
 % the optional parameter "OrdDeriv", the default value of which 
-% is "OrdDeriv == 1". 
+% is "OrdDeriv" == 1. 
 % The actual acceleration function a(t) is a(t) = -sin(t) if time t is 
 % expressed in seconds and the acceleration a in the x 
-% coordinate is expressed in m / (s^2). 
+% coordinate is expressed in meters per seconds squared 
+% (m / (s^2)). 
 % Run the following to block to compare the actual acceleration 
 % function a(t) to the estimated values of a(t) in the specified 
 % time points. 
@@ -145,7 +146,7 @@ clearvars; clc;
 % N is the sum of the desired order of accuracy and the order of 
 % differentiation. The order of accuracy is represented by the 
 % optional parameter "Accuracy", the default value of which is 
-% "Accuracy == 2". 
+% "Accuracy" == 2. 
 % With the following block of code, you can vary the value of the 
 % "Accuracy" parameter and see how this changes the 
 % estimated values of the acceleration function considered in 
@@ -161,7 +162,9 @@ xData = T; yData = X;
 xDerivative = (-1 : 0.5 : 9)';   % Time points at which a(t) is to be 
                                                % evaluated. 
 ordDeriv = 2;   % Order of differentiation. 
-acc = 2;   % Accuracy. 
+acc = 2;   % Accuracy. Set the value of this parameter to a 
+                 % different natural number to see its effect on the a(t) 
+                 % estimation
 yDerivative = ZFindDerivative(xData, yData, ...
     xDerivative, 'OrdDeriv', ordDeriv, ...
     'Accuracy', acc);   % a(t) estimation. 
@@ -185,7 +188,7 @@ clearvars; clc;
 % intervals over which the polynomials are defined. The latter 
 % two aspects differ among each of three predefined principles, 
 % also called "modes". They are represented by the optional 
-% parameter "Mode", the default value of which is "Mode == 1" 
+% parameter "Mode", the default value of which is "Mode" == 1 
 % but can also be set to either "0" or "2". To understand the 
 % three modes in detail, documentation and the code of the 
 % functions and their subfunctions should be referred to. 
@@ -195,7 +198,7 @@ clearvars; clc;
 % By running the following block of code, the difference 
 % between the three modes can be appreciated in the attempt to 
 % differentiate a function for which the data points are highly 
-% unequally spaced along the abscissa. 
+% unequally spaced along the abscissa coordinate. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45];    % Highly unequally 
                                                                   % spaced abscissa data 
@@ -221,7 +224,8 @@ plot(xDerivative, yDerivative1, 'r:', 'LineWidth', 1.5);
 plot(xDerivative, yDerivative2, 'g--', 'LineWidth', 1.5);
 legend('Actual', 'Estimated if "Mode == 0"', ...
     'Estimated if "Mode == 1"', 'Estimated if "Mode == 2"');
-xlabel('x'); ylabel('y_D_e_r_i_v_a_t_i_v_e'); set(gca, 'FontSize', 14); grid on;
+xlabel('x'); ylabel('y_D_e_r_i_v_a_t_i_v_e');
+set(gca, 'FontSize', 14); grid on;
 clearvars; clc;
 
 
@@ -231,14 +235,13 @@ clearvars; clc;
 
 % Alternatively, the assumed differentiable function which is 
 % associated with the data can be the cubic spline of the data 
-% points. This can be done by altering the optional "Type" 
-% parameter to "'Spline'".
-% The default "Type" parameter, which has been used until this 
-% point in the tutorial, is "'A'". Note that due to spline being fully 
-% defined by a specific set of data points, there are no optional 
-% parameters "Accuracy" and "Mode" with the "Type" 
-% parameter set to "'Spline'". 
-% Keep in mind that as the spline is a piecewise cubic 
+% points. This can be done by setting the optional "Type" 
+% parameter to "'Spline'". 
+% The default setting of the "Type" parameter is "'A'". Note that 
+% due to a cubic spline being fully defined by a specific set of 
+% data points, there are no optional parameters "Accuracy" and 
+% "Mode" with the "Type" parameter set to "'Spline'". 
+% Keep in mind that because the spline is a piecewise cubic 
 % polynomial, the order of differentiation above 3 will produce 
 % the value 0 for all inquired abscissa points. 
 % Run the following block of code to see how the spline 
@@ -331,9 +334,9 @@ clearvars; clc;
 
 % At times it may be important to visualize the function which is 
 % differentiated to calculate the numerical derivative. In such 
-% cases, the optional "Figure" parameter can be set to the figure 
-% index in which the function is to be visualized. Setting the 
-% "Figure" parameter to "0" results in no visualization. 
+% cases, the optional "Figure" parameter can be set as the index 
+% of the Figure window in which the function is to be visualized. 
+% Setting the "Figure" parameter to "0" results in no visualization. 
 % Run the following block of code to visualize the data points 
 % along with the functions which were differentiated for each of 
 % the numerical derivatives calculated on the previous page. 
