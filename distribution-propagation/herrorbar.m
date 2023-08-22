@@ -39,12 +39,12 @@ function hh = herrorbar(x, y, l, u, symbol)
 %   decided to take ownership so that others could benefit from finding it
 %   on the MATLAB Central File Exchange.
 
-if min(size(x))==1,
+if min(size(x))==1
     npt = length(x);
     x = x(:);
     y = y(:);
-    if nargin > 2,
-        if ~isstr(l),
+    if nargin > 2
+        if ~isstr(l)
             l = l(:);
         end
         if nargin > 3
@@ -54,7 +54,7 @@ if min(size(x))==1,
         end
     end
 else
-    [npt,n] = size(x);
+    [npt, ~] = size(x);
 end
 
 if nargin == 3
@@ -66,13 +66,13 @@ if nargin == 3
         l = y;
         u = y;
         y = x;
-        [m,n] = size(y);
-        x(:) = (1:npt)'*ones(1,n);;
+        [~,n] = size(y);
+        x(:) = (1:npt)'*ones(1,n);
     end
 end
 
 if nargin == 4
-    if isstr(u),
+    if isstr(u)
         symbol = u;
         u = l;
     else
@@ -84,19 +84,19 @@ if nargin == 2
     l = y;
     u = y;
     y = x;
-    [m,n] = size(y);
-    x(:) = (1:npt)'*ones(1,n);;
+    [~,n] = size(y);
+    x(:) = (1:npt)'*ones(1,n);
     symbol = '-';
 end
 
 u = abs(u);
 l = abs(l);
 
-if isstr(x) | isstr(y) | isstr(u) | isstr(l)
+if isstr(x) || isstr(y) || isstr(u) || isstr(l)
     error('Arguments must be numeric.')
 end
 
-if ~isequal(size(x),size(y)) | ~isequal(size(x),size(l)) | ~isequal(size(x),size(u)),
+if ~isequal(size(x),size(y)) || ~isequal(size(x),size(l)) || ~isequal(size(x),size(u))
     error('The sizes of X, Y, L and U must be the same.');
 end
 

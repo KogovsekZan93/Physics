@@ -1,6 +1,6 @@
 function frepresent = ComposedVariable(VARIABLES,f,n)
 %VARIABLES je cell data v obliki VARIABLES={{[avgx;delx],ux}, 
-%{[avgy;dely],uy}, [z1;z2;z3;...], {[avgh;delh],uh}, ...}
+%{[avgy;dely],uy}, [z1;z2;z3;...], {[avgh;delh],uh}, {m_vec, P_m}}
 %Ce je element VARIABLES vektor, se po njem nakljucno vzorci.
 %Ce je element VARIABLES celica, je ta oblike {[avgx,delx],ux} in se 
 %vzorci bodisi:
