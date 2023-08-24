@@ -6,8 +6,8 @@ function [slope, intercept] = ...
 length_xData=length(xData);
 
 A=[xData, ones(length_xData, 1)];
-parameters=A \ yData;
-slope = parameters(1);
-intercept = parameters(2);
+coefficients=A \ yData;
+slope = coefficients(1);
+intercept = coefficients(2);
 
 end

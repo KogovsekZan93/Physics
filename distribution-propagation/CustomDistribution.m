@@ -1,4 +1,6 @@
-function D = CustomDistribution(f,nn,Nmax,interval)
+function DitributionWeighedValues = CustomDistribution...
+(handle_DitributionFunction, IntervalLimits, ...
+N_ValuesInInterval, N_MaxRep)
 %CUSTOMDISTRIBUTION vrne vektor vrednosti D = [x1;...;x1;x2;...;xnn;...;xnn],
 %kjer je stevilo ponovitev vsake vrednosti xi sorazmerno z gostoto verjetnostne 
 %porazdelitve f za vzorcenje vrednosti xi.
@@ -11,7 +13,7 @@ function D = CustomDistribution(f,nn,Nmax,interval)
 %nn je stevilo tock, v katerih bo izracunana gosta verjetnostne porazdelitve f.
 
 %Nmax je stevilo ponovitev vrednosti xi v D z najvecjo verjetnostno gostoto. Iz 
-%tega torej sledi length(D)<=nn*Nmax.
+%tega torej sledi length(D)<=N_values * Nmax.
 
 %interval je dvokomponentni vektor interval=[a;b] z zgornjo b in spodnjo a mejo,
 %v kateri bo gostota verjetnostne porazdelitve f izracunana. f mora biti v tem 
@@ -24,23 +26,25 @@ function D = CustomDistribution(f,nn,Nmax,interval)
 %vzorcila po verjetnostni gostoti f.
 
 
-x=(linspace(interval(1),interval(2),nn))';
-y=zeros(nn,1);
+x = (linspace...
+    (IntervalLimits(1), IntervalLimits(2), N_ValuesInInterval))';
 
-for i=1:nn
-    y(i)=f(x(i));
+y = zeros(N_values, 1);
+for i=1 : N_values
+    y(i) = handle_DitributionFunction(x(i));
+end
+y = y * N_MaxRep / max(y);
+y = round(y);
+
+length_DitributionWeighedValues = sum(y);
+DitributionWeighedValues = ...
+    zeros(length_DitributionWeighedValues, 1);
+
+RunningIndex = 1;
+for i=1 : N_ValuesInInterval
+    DitributionWeighedValues...
+        (RunningIndex : RunningIndex + y(i) - 1) = x(i);
+    RunningIndex = RunningIndex + y(i);
 end
 
-y=y*Nmax/max(y);
-y=round(y);
-NN=sum(y);
-D=zeros(NN,1);
-summa=1;
-
-for i=1:nn
-    D(summa:summa+y(i)-1)=x(i);
-    summa=summa+y(i);
 end
-
-end
-
