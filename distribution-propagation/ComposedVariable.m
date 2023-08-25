@@ -1,10 +1,11 @@
-function frepresent = ComposedVariable(VARIABLES,f,n)
+function avg_sigma_f = ComposedVariable...
+    (InputVariablesDistributionInfo, handle_f, N_Rnd)
 %VARIABLES je cell data v obliki VARIABLES={{[avgx;delx],ux}, 
 %{[avgy;dely],uy}, [z1;z2;z3;...], {[avgh;delh],uh}, {m_vec, P_m}}
 %Ce je element VARIABLES vektor, se po njem nakljucno vzorci.
 %Ce je element VARIABLES celica, je ta oblike {[avgx,delx],ux} in se 
 %vzorci bodisi:
-
+% isa(h, 'function_handle')
 %z enakomerno porazdelitvijo, ce ux=1, na intervalu 
 %[avgx-delx,avgx+delx]
 
@@ -31,56 +32,82 @@ function frepresent = ComposedVariable(VARIABLES,f,n)
 %   ...       ...
 %                   ]
 
-values=GetRndValues(VARIABLES,n);
+pars = inputParser;
 
-l=(length(f([values(:,1)]))-1)/2;
+paramName = 'handle_f';
+errorMsg = '''handle_f'' must be a function handle.';
+validationFcn = @(x)assert(isa(x, 'function_handle'), errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-F=zeros(n,l);
+paramName = 'N_Rnd';
+errorMsg = '''N_Rnd'' must be a natural number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    mod(x,1) == 0 && x > 0, errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-h=1;
-r=n;
-while n>=h
+parse(pars, handle_f, N_Rnd);
 
-    for i=1:r
-        ff=f(values(:,i));
-        if ff(end)~=0
-            F(h,:)=(ff(1:l))';
-            h=h+1;
+GeneratedInputVariables = GetRndValues...
+    (InputVariablesDistributionInfo, N_Rnd);
+length_OutputVariables = ...
+    (length(handle_f([GeneratedInputVariables(:, 1)])) - 1) / 2;
+
+OutputVariablesMatrix = zeros(N_Rnd, length_OutputVariables);
+
+ColumnIndex_OutputVariablesMatrix = 1;
+NumberofRemainingColumns_OutputVariablesMatrix = N_Rnd;
+while N_Rnd >= ColumnIndex_OutputVariablesMatrix
+    
+    for i = 1 : NumberofRemainingColumns_OutputVariablesMatrix
+        OutputVariablesVector = ...
+            handle_f(GeneratedInputVariables(:, i));
+        if OutputVariablesVector(end) ~= 0
+            OutputVariablesMatrix...
+                (ColumnIndex_OutputVariablesMatrix, :) = ...
+                (OutputVariablesVector(1 : length_OutputVariables))';
+            ColumnIndex_OutputVariablesMatrix = ...
+                ColumnIndex_OutputVariablesMatrix + 1;
         end
     end
+    NumberofRemainingColumns_OutputVariablesMatrix = ...
+        N_Rnd - (ColumnIndex_OutputVariablesMatrix - 1);
     
-    r=n-h+1;
-    if r~=0
-        values=GetRndValues(VARIABLES,r);
+    if NumberofRemainingColumns_OutputVariablesMatrix ~= 0
+        GeneratedInputVariables = GetRndValues...
+            (InputVariablesDistributionInfo, ...
+            NumberofRemainingColumns_OutputVariablesMatrix);
     end
     
 end
     
 
-frepresent=[l,2];
+avg_sigma_f = [length_OutputVariables, 2];
 
-for j=1:l
-    frepresent(j,:)=[mean(F(:,j)),std(F(:,j))];
+for j = 1 : length_OutputVariables
+    avg_sigma_f(j, :) = [mean(OutputVariablesMatrix(:, j)), ...
+        std(OutputVariablesMatrix(:, j))];
 end
 
 
-for j=1:l
-    if ff(l+j)==1
-        figure(j);
+for j = 1 : length_OutputVariables
+    if OutputVariablesVector(j + length_OutputVariables) ~= 0
+        figure(OutputVariablesVector(j + length_OutputVariables));
         clf;
-        histogram(F(:,j),'Normalization','pdf');
         hold on;
         
-        mu = frepresent(j,1);
-        sigma = frepresent(j,2);
-        N=power(10,3);
-        x=linspace(mu-3*sigma,mu+3*sigma,N);
-        plot(x,normpdf(x,mu,sigma),'r');
-        hold off;
+        histogram(OutputVariablesMatrix(:, j), 'Normalization', 'pdf');
+        
+        avg_f = avg_sigma_f(j, 1);
+        sigma_f = avg_sigma_f(j, 2);
+        length_x = power(10,3);
+        x = linspace...
+            (avg_f - 3 * sigma_f, avg_f + 3 * sigma_f, length_x);
+        plot(x, normpdf(x, avg_f, sigma_f), 'r');
+        
+        xlim([avg_f - 3 * sigma_f, avg_f + 3 * sigma_f]);
         grid on;
-        xlim([mu-3*sigma mu+3*sigma]);
+        hold off;
     end
 end
 
 end
-

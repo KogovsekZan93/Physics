@@ -1,28 +1,56 @@
-function RndValues = GetRndValues(Variables, N_Rnd)
+function RndValues = GetRndValues...
+    (VariablesDistributionInfo, N_Rnd)
 
-length_Variables = length(Variables);
+pars = inputParser;
+
+paramName = 'VariablesDistributionInfo';
+errorMsg = '''VariablesDistributionInfo'' must be a horizontal cell.';
+Size_VariablesDistributionInfo = size(VariablesDistributionInfo);
+validationFcn = @(x)assert(iscell(x) && ...
+    Size_VariablesDistributionInfo(1) == 1 && ...
+    length(Size_VariablesDistributionInfo) <= 2, errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+paramName = 'N_Rnd';
+errorMsg = '''N_Rnd'' must be a natural number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    mod(x,1) == 0 && x > 0, errorMsg);
+addRequired(pars, paramName, validationFcn);
+
+parse(pars, VariablesDistributionInfo, N_Rnd);
+
+length_Variables = length(VariablesDistributionInfo);
 RndValues = num2cell(zeros(length_Variables, 1));
 
 for i = 1 : length_Variables
-    if iscell(Variables{i}) == 0
-        RndValues{i} = (datasample(Variables{i}, N_Rnd))';
+    if iscell(VariablesDistributionInfo{i}) == 0
+        RndValues{i} = ...
+            (datasample(VariablesDistributionInfo{i}, N_Rnd))';
     else
-        if ismatrix(Variables{i}{2}) && ~isvector(Variables{i}{2})
-            RndValues{i} = ...
-                (mvnrnd(Variables{i}{1}, Variables{i}{2}, N_Rnd))';
+        if ismatrix(VariablesDistributionInfo{i}{2}) && ...
+                ~isvector(VariablesDistributionInfo{i}{2})
+            RndValues{i} = (mvnrnd(VariablesDistributionInfo{i}{1}, ...
+                VariablesDistributionInfo{i}{2}, N_Rnd))';
         else
-            if Variables{i}{2} == 1
-                RndValues{i} = 2 * Variables{i}{1}(2) * ...
-                    (rand(1, N_Rnd) - (1 / 2)) + Variables{i}{1}(1);
+            if VariablesDistributionInfo{i}{2} == 1
+                RndValues{i} = 2 * VariablesDistributionInfo{i}{1}(2) * ...
+                    (rand(1, N_Rnd) - (1 / 2)) + ...
+                    VariablesDistributionInfo{i}{1}(1);
             else
-                if Variables{i}{2} == 2
+                if VariablesDistributionInfo{i}{2} == 2
                     RndValues{i} = normrnd...
-                        (Variables{i}{1}(1), Variables{i}{1}(2), [1, N_Rnd]);
+                        (VariablesDistributionInfo{i}{1}(1), ...
+                        VariablesDistributionInfo{i}{1}(2), [1, N_Rnd]);
                 else
-                    if Variables{i}{2} == 3
-                        variance_Variable = Variables{i}{1}(2) * sqrt(12) / 2;
+                    if VariablesDistributionInfo{i}{2} == 3
+                        variance_Variable = ...
+                            VariablesDistributionInfo{i}{1}(2) * sqrt(12) / 2;
                         RndValues{i} = 2 * variance_Variable * ...
-                            (rand(1, N_Rnd) - (1 / 2)) + Variables{i}{1}(1);
+                            (rand(1, N_Rnd) - (1 / 2)) + ...
+                            VariablesDistributionInfo{i}{1}(1);
+                    else
+                        error...
+                            ('''VariablesDistributionInfo''{%d} does not satisfy proper form.', i)
                     end
                 end
             end
