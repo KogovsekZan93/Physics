@@ -1,6 +1,6 @@
 function DrawSimpleLinearRegressionGraph...
-    (figr, x_Data, y_Data, slope, intercept, ...
-    sigma_x_Data, sigma_y_Data, sigma_slope, sigma_intercept)
+    (figr, x_Data, y_Data, Slope, Intercept, ...
+    sigma_x_Data, sigma_y_Data, CovarMat_SlopeIntercept)
 
 
 N = power(10, 4);
@@ -9,9 +9,11 @@ figure(figr);
 hold on;
 
 x_Plot =(linspace(min(x_Data), max(x_Data), N))';
-y_Plot_Avg = x_Plot * slope + intercept;
-sigma_y_Plot = sqrt(power(x_Plot * sigma_slope, 2) + ...
-    power(sigma_intercept, 2));
+y_Plot_Avg = x_Plot * Slope + Intercept;
+sigma_y_Plot = sqrt(...
+    power(x_Plot, 2) * CovarMat_SlopeIntercept(1, 1) + ...
+    CovarMat_SlopeIntercept(2, 2) + ...
+    2 * x_Plot * CovarMat_SlopeIntercept(1, 2));
 y_Plot_top = y_Plot_Avg + sigma_y_Plot;
 y_Plot_bottom = y_Plot_Avg - sigma_y_Plot;
 

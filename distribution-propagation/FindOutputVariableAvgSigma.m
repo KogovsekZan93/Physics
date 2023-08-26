@@ -1,0 +1,16 @@
+function avg_sigma_f = FindOutputVariableAvgSigma...
+    (InputVariablesDistributionInfo, handle_f, N_Rnd)
+
+[OutputVariablesMatrix, figureVector] = ...
+    GetOutputVariablesMatrix...
+    (InputVariablesDistributionInfo, handle_f, N_Rnd);
+
+avg_sigma_f = ...
+    [(mean(OutputVariablesMatrix))', (std(OutputVariablesMatrix))'];
+
+avg_f = avg_sigma_f(:, 1);
+sigma_f = avg_sigma_f(:, 2);
+DrawOutputVariableDistribution...
+    (OutputVariablesMatrix, figureVector, avg_f, sigma_f);
+
+end
