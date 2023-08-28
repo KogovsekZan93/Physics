@@ -13,9 +13,10 @@ k=avg_f(1);
 delk=CovarMatrix(1,1);
 n=avg_f(2);
 deln=CovarMatrix(2,2);
-sqrt(diag(CovarMatrix))
+% sqrt(diag(CovarMatrix))
 
 figr=3;
 figure(figr);
 clf;
+
 DrawSimpleLinearRegressionGraph(figr,x,y,k,n,delx,diag(R), CovarMatrix)

@@ -47,7 +47,7 @@ pars = inputParser;
 paramName = 'Limits';
 errorMsg = '''Limits'' must be a column vector of two numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) ...
-    && length(Limits) == 2, errorMsg);
+    && length(x) == 2, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, Limits);

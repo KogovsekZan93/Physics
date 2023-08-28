@@ -1,37 +1,43 @@
 function DitributionWeighedValues = CustomDistribution...
-(handle_DitributionFunction, IntervalLimits, ...
+(handle_DistributionFunction, IntervalLimits, ...
 N_ValuesInInterval, N_MaxRep)
-%CUSTOMDISTRIBUTION vrne vektor vrednosti D = [x1;...;x1;x2;...;xnn;...;xnn],
-%kjer je stevilo ponovitev vsake vrednosti xi sorazmerno z gostoto verjetnostne 
-%porazdelitve f za vzorcenje vrednosti xi.
 
+pars = inputParser;
 
-%f je gostota verjetnoste porazdelitve za vrednosti x in je handle funkcije, ki 
-%sprejme vrednost x (skalar) in vrne skalar, katerega vrednost je sorazmerna 
-%gostoti verjetnostne porazdelitve za vzorèenje vrednosti x. 
+paramName = 'handle_DistributionFunction';
+errorMsg = ...
+    '''handle_DistributionFunction'' must be a function handle.';
+validationFcn = @(x)assert(isa(x, 'function_handle'), errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-%nn je stevilo tock, v katerih bo izracunana gosta verjetnostne porazdelitve f.
+paramName = 'IntervalLimits';
+errorMsg = ...
+    '''IntervalLimits'' must be a sorted column vector of two numbers.';
+validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) ...
+    && length(x) == 2 && x(2) > x(1), errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-%Nmax je stevilo ponovitev vrednosti xi v D z najvecjo verjetnostno gostoto. Iz 
-%tega torej sledi length(D)<=N_values * Nmax.
+paramName = 'N_ValuesInInterval';
+errorMsg = '''N_ValuesInInterval'' must be a natural number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    mod(x,1) == 0 && x > 0, errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-%interval je dvokomponentni vektor interval=[a;b] z zgornjo b in spodnjo a mejo,
-%v kateri bo gostota verjetnostne porazdelitve f izracunana. f mora biti v tem 
-%intervalu povsod koncna in nenegativna. 
+paramName = 'N_MaxRep';
+errorMsg = '''N_MaxRep'' must be a natural number.';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    mod(x,1) == 0 && x > 0, errorMsg);
+addRequired(pars, paramName, validationFcn);
 
-
-%Vektor D je lahko vstavljen direktno v spremenljivko VARIABLES kot na primer
-%VARIABLES = {{[avgx;delx],ux}, {[avgy;dely],uy}, D, {[avgh;delh],uh}, ...}, kar
-%pomeni, da se bo pri uporabi funckije ComposedVariable spremenljivka x 
-%vzorcila po verjetnostni gostoti f.
-
+parse(pars, handle_DistributionFunction, IntervalLimits, ...
+N_ValuesInInterval, N_MaxRep);
 
 x = (linspace...
     (IntervalLimits(1), IntervalLimits(2), N_ValuesInInterval))';
 
-y = zeros(N_values, 1);
-for i=1 : N_values
-    y(i) = handle_DitributionFunction(x(i));
+y = zeros(N_ValuesInInterval, 1);
+for i=1 : N_ValuesInInterval
+    y(i) = handle_DistributionFunction(x(i));
 end
 y = y * N_MaxRep / max(y);
 y = round(y);
