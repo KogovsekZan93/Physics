@@ -94,7 +94,11 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 paramName = 'Mode';
 defaultVal = 1;
-addParameter(pars, paramName, defaultVal);
+errorMsg = ...
+    '''PseudoAccuracy'' must be a nonnegative integer which is lower than length(xData).';
+validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
+    x >= 0 && mod(x,1) == 0 && x < length(xData), errorMsg);
+addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, varargin{:});
 

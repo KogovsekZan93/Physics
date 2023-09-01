@@ -108,7 +108,7 @@ paramName = 'Mode';
 defaultVal = 1;
 errorMsg = '''Mode'' must be either ''0'', ''1'', or ''2''.';
 validationFcn = @(x)assert(x == 0 || x == 1 || x == 2, errorMsg);
-addParameter(pars, paramName, defaultVal, validationFcn)
+addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, xData, varargin{:});
 
