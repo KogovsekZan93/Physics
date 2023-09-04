@@ -81,9 +81,9 @@ hold on;
 Area_Plot = fill...
     ([x_Plot', fliplr(x_Plot')], [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
-errorbar(xData, yData,sigma_yData, 'ro');
+errorbar(xData, yData, sigma_yData, 'ro');
 GetHorizontalErrorbar...
-    (xData, yData,sigma_xData,sigma_xData, 'ro');
+    (xData, yData, sigma_xData, sigma_xData, 'ro');
 plot(x_Plot, y_Plot_Avg, 'k-', 'LineWidth', 1.5)
 
 grid on;
