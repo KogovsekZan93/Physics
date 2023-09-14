@@ -1,9 +1,9 @@
 function [avg_f, CovarMat_f] = FindOutputVariableAvgCovarMat...
-    (InputVariablesDistributionInfo, handle_f, N_Rnd)
+    (InputVariablesDistributionInfo, handle_F, N_Rnd)
 
 [OutputVariablesMatrix, figureVector] = ...
     GetOutputVariablesMatrix...
-    (InputVariablesDistributionInfo, handle_f, N_Rnd);
+    (InputVariablesDistributionInfo, handle_F, N_Rnd);
 
 avg_f = (mean(OutputVariablesMatrix))';
 CovarMat_f = cov(OutputVariablesMatrix);
