@@ -5,7 +5,7 @@ function avg_std_f = FindOutputVariableAvgStd...
 % 
 % Author: Žan Kogovšek
 % Date: 9.14.2024
-% Last changed: 9.17.2024
+% Last changed: 9.20.2024
 % 
 %% Description
 % 
@@ -127,8 +127,8 @@ function avg_std_f = FindOutputVariableAvgStd...
     GetOutputVariablesMatrix...
     (InputVariablesDistributionInfo, handle_F, N_Rnd);
 
-avg_std_f = ...
-    [(mean(OutputVariablesMatrix))', (std(OutputVariablesMatrix))'];
+avg_std_f = [mean(OutputVariablesMatrix, 2), ...
+    std(OutputVariablesMatrix, 0, 2)];
 
 avg_f = avg_std_f(:, 1);
 std_f = avg_std_f(:, 2);

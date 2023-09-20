@@ -5,7 +5,7 @@ function [avg_f, CovarMat_f] = FindOutputVariableAvgCovarMat...
 % 
 % Author: Žan Kogovšek
 % Date: 9.17.2024
-% Last changed: 9.17.2024
+% Last changed: 9.20.2024
 % 
 %% Description
 % 
@@ -127,8 +127,8 @@ function [avg_f, CovarMat_f] = FindOutputVariableAvgCovarMat...
     GetOutputVariablesMatrix...
     (InputVariablesDistributionInfo, handle_F, N_Rnd);
 
-avg_f = (mean(OutputVariablesMatrix))';
-CovarMat_f = cov(OutputVariablesMatrix);
+avg_f = mean(OutputVariablesMatrix, 2);
+CovarMat_f = cov(OutputVariablesMatrix');
 sigma_f = sqrt(diag(CovarMat_f));
 
 % In the following line, for the output variables j for which the 

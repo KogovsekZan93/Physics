@@ -23,7 +23,7 @@ GeneratedInputVariables = GetRndValues...
 length_OutputVariables = ...
     (length(handle_f([GeneratedInputVariables(:, 1)])) - 1) / 2;
 
-OutputVariablesMatrix = zeros(N_Rnd, length_OutputVariables);
+OutputVariablesMatrix = zeros(length_OutputVariables, N_Rnd);
 
 ColumnIndex_OutputVariablesMatrix = 1;
 NumberofRemainingColumns_OutputVariablesMatrix = N_Rnd;
@@ -34,8 +34,8 @@ while N_Rnd >= ColumnIndex_OutputVariablesMatrix
             handle_f(GeneratedInputVariables(:, i));
         if OutputVariablesVector(end) ~= 0
             OutputVariablesMatrix...
-                (ColumnIndex_OutputVariablesMatrix, :) = ...
-                (OutputVariablesVector(1 : length_OutputVariables))';
+                (:, ColumnIndex_OutputVariablesMatrix) = ...
+                OutputVariablesVector(1 : length_OutputVariables);
             ColumnIndex_OutputVariablesMatrix = ...
                 ColumnIndex_OutputVariablesMatrix + 1;
         end
