@@ -5,14 +5,14 @@ function avg_std_f = FindOutputVariableAvgStd...
 % 
 % Author: Žan Kogovšek
 % Date: 9.14.2024
-% Last changed: 9.20.2024
+% Last changed: 9.24.2024
 % 
 %% Description
 % 
 % Given the input cell array "InputVariablesDistributionInfo", 
 % which contains information about the distribution of the input 
 % variables of the f function, the input function handle "handle_F" 
-% of the F function, which contain the f function, and the input 
+% of the F function, which contains the f function, and the input 
 % integer "N_Rnd", this function returns the matrix "avg_ std _f", 
 % where the "avg_std_f"(j, 1) value is the average of the j-th 
 % output variable of the f function and the "avg_std_f"(j, 2) value 
@@ -100,7 +100,7 @@ function avg_std_f = FindOutputVariableAvgStd...
 %         vec_f vector are valid. The values of the vec_f vector will 
 %         only used in the calculation of the average and the 
 %         standard deviation of the output variables of the f function 
-%         is they are valid. If not, a new vector is randomly 
+%         if they are valid. If not, a new vector is randomly 
 %         generated in place of the invalid one. 
 % 
 % "N_Rnd" is the number of valid output vectors vec_f of the f 
