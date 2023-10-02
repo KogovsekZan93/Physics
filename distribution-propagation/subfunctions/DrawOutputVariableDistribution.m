@@ -4,8 +4,8 @@ function DrawOutputVariableDistribution...
 %% function output variables
 % 
 % Author: Žan Kogovšek
-% Date: 9.17.2024
-% Last changed: 9.20.2024
+% Date: 9.17.2023
+% Last changed: 10.2.2023
 % 
 %% Description
 % 

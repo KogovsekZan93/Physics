@@ -4,8 +4,8 @@ function RndValues = GetRndValues...
 %% variables with prescribed distributions
 % 
 % Author: Žan Kogovšek
-% Date: 9.27.2024
-% Last changed: 9.27.2024
+% Date: 9.27.2023
+% Last changed: 10.2.2023
 % 
 %% Description
 % 
