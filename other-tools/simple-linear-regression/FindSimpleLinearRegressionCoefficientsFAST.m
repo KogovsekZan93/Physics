@@ -6,13 +6,13 @@ function [slope, intercept] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 10.2.2023
-% Last changed: 10.2.2023
+% Last changed: 10.5.2023
 % 
 %% Description
 % 
-% Given the input column vectors "xData" of the values 
-% "xData"(i)  of the independent variable X and the column 
-% vector "yData" of values "yData"(i)  of the dependent variable 
+% Given the input column vectors "xData" of the values "xData"(i) 
+% of the independent variable X and the column vector "yData" 
+% of values "yData"(i) of the dependent variable 
 % Y = f(X) = X * a + b, this function returns the estimated values 
 % for a ("slope") and b ("intercept") using simple linear 
 % regression of the data pairs ("xData"(i), "yData"(i)) without 

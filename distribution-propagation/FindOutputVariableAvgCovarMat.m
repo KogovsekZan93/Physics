@@ -5,7 +5,7 @@ function [avg_f, CovarMat_f] = FindOutputVariableAvgCovarMat...
 % 
 % Author: Žan Kogovšek
 % Date: 9.17.2023
-% Last changed: 10.2.2023
+% Last changed: 10.5.2023
 % 
 %% Description
 % 
@@ -132,7 +132,7 @@ function [avg_f, CovarMat_f] = FindOutputVariableAvgCovarMat...
 
 avg_f = mean(OutputVariablesMatrix, 2);
 CovarMat_f = cov(OutputVariablesMatrix');
-sigma_f = sqrt(diag(CovarMat_f));
+std_f = sqrt(diag(CovarMat_f));
 
 % In the following line, for the output variables j for which the 
 % value F(length_f + j) is a natural number, the distribution of 
@@ -140,6 +140,6 @@ sigma_f = sqrt(diag(CovarMat_f));
 % with the same mean and standard deviation as the distribution 
 % of the j-th output variable are plotted. 
 DrawOutputVariableDistribution...
-    (OutputVariablesMatrix, figureVector, avg_f, sigma_f);
+    (OutputVariablesMatrix, figureVector, avg_f, std_f);
 
 end
