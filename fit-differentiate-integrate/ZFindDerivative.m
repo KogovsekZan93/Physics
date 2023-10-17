@@ -4,7 +4,7 @@ function [yDerivative, varargout] = ZFindDerivative...
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
-% Last changed: 2.1.2023
+% Last changed: 10.17.2023
 % 
 %% Description
 % 
@@ -83,17 +83,17 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, TypeList{:});
 
-type = pars.Results.Type;
+Type = pars.Results.Type;
 
 % In the following if/else statement, the input parameters are 
 % passed to appropriate functions based on the value of the 
 % "Type" parameter. 
-if strcmp(type, 'A')
+if strcmp(Type, 'A')
     yDerivative = ZFindDerivativeA...
         (xData, yData, xDerivative, TypeDeletedList{:});
     varargout = {};
 else
-    if strcmp(type, 'Spline')
+    if strcmp(Type, 'Spline')
         [yDerivative, ppDerivativeSpline] = ZFindDerivativeSpline...
             (xData, yData, xDerivative, TypeDeletedList{:});
         varargout = {ppDerivativeSpline};

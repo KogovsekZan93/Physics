@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 2.1.2023
+% Last changed: 10.17.2023
 % 
 %% Description
 % 
@@ -97,12 +97,12 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, xData, xDerivativeSpline, varargin{:});
 
-ordDeriv = pars.Results.OrdDeriv;
-figr = pars.Results.Figure;
+OrdDeriv = pars.Results.OrdDeriv;
+Figure = pars.Results.Figure;
 
 [yDerivativeSpline, ppDerivativeSpline, ppFitSpline] = ...
     ZFindDerivativeSplineBasic...
-    (xData, yData, xDerivativeSpline, 'OrdDeriv', ordDeriv);
+    (xData, yData, xDerivativeSpline, 'OrdDeriv', OrdDeriv);
 varargout = {ppDerivativeSpline};
 
 % The following block of code deals with plotting the estimated 
@@ -112,6 +112,6 @@ DrawZFitSplineInput = {xData, yData, ...
     min(xDerivativeSpline(1), xData(1)), ...
     max(xDerivativeSpline(end), xData(end)), ppFitSpline};
 DecideIfDrawZ...
-    (DrawZFitSplineHandle, DrawZFitSplineInput, 'Figure', figr);
+    (DrawZFitSplineHandle, DrawZFitSplineInput, 'Figure', Figure);
 
 end

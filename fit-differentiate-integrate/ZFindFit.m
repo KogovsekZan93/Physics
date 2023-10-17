@@ -3,7 +3,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
-% Last changed: 2.1.2023
+% Last changed: 10.17.2023
 % 
 %% Description
 % 
@@ -73,17 +73,17 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, TypeList{:});
 
-type = pars.Results.Type;
+Type = pars.Results.Type;
 
 % In the following if/else statement, the input parameters are 
 % passed to appropriate functions based on the value of the 
 % "Type" parameter. 
-if strcmp(type, 'A')
+if strcmp(Type, 'A')
     [yFit, Ipoints, Smatrix] = ZFindFitA...
         (xData, yData, xFit, TypeDeletedList{:});
     varargout = {Ipoints, Smatrix};
 else
-    if strcmp(type, 'Spline')
+    if strcmp(Type, 'Spline')
         yFit = ZFindFitSpline(xData, yData, xFit, TypeDeletedList{:});
     else
         [yFit, pFitPolyFit] = ZFindFitPolyFit...

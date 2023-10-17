@@ -5,7 +5,7 @@ function [yDerivativePolyFit, varargout] = ZFindDerivativePolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 2.1.2023
+% Last changed: 17.10.2023
 % 
 %% Description
 % 
@@ -107,13 +107,13 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, xData, xDerivativePolyFit, varargin{:});
 
-ordDeriv = pars.Results.OrdDeriv;
-figr = pars.Results.Figure;
+OrdDeriv = pars.Results.OrdDeriv;
+Figure = pars.Results.Figure;
 
 [yDerivativePolyFit, pDerivativePolyFit, pFitPolyFit] = ...
     ZFindDerivativePolyFitBasic...
     (xData, yData, xDerivativePolyFit, PolyDegree, ...
-    'OrdDeriv', ordDeriv);
+    'OrdDeriv', OrdDeriv);
 varargout = {pDerivativePolyFit};
 
 % The following block of code deals with plotting the estimated 
@@ -122,7 +122,7 @@ DrawZFitPolyFitHandle = @DrawZFitPolyFit;
 DrawZFitPolyFitInput = {xData, yData, ...
     min(xData(1), xDerivativePolyFit(1)), ...
     max(xData(end), xDerivativePolyFit(end)), pFitPolyFit};
-DecideIfDrawZ...
-    (DrawZFitPolyFitHandle, DrawZFitPolyFitInput, 'Figure', figr);
+DecideIfDrawZ(DrawZFitPolyFitHandle, DrawZFitPolyFitInput, ...
+    'Figure', Figure);
 
 end
