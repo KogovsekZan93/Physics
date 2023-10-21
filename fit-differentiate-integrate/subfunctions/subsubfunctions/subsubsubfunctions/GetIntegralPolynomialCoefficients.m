@@ -6,7 +6,7 @@ function pIntegralA = GetIntegralPolynomialCoefficients...
 % 
 % Author: Žan Kogovšek
 % Date: 2.1.2023
-% Last changed: 2.5.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -52,7 +52,6 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, xData);
-
 
 pIntegralA = CalculateIntegralPolynomialCoefficients...
     (GetFitPolynomialCoefficients(xData, yData));

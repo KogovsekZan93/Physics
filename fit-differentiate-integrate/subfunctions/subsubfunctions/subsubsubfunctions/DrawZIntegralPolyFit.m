@@ -1,5 +1,5 @@
-function DrawZIntegralPolyFit...
-    (figr, xData, yData, xIntegralPolyFitMin, xIntegralPolyFitMax, ...
+function DrawZIntegralPolyFit(Figure, xData, yData, ...
+    xIntegralPolyFitMin, xIntegralPolyFitMax, ...
     ColorFace, pFitPolyFit)
 %% Tool for plotting the data points, the regression
 %% polynomial curve, and the area under the curve over 
@@ -7,7 +7,7 @@ function DrawZIntegralPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 3.19.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -18,23 +18,23 @@ function DrawZIntegralPolyFit...
 % fPolyFit of the data points represented by the pairs 
 % ("xData"(i), "yData"(i)), the values of the X variable the 
 % "xIntegralPolyFitMin" value and the "xIntegralPolyFitMax" 
-% value, the natural number "figr", and the vector "ColorFace", 
-% this function plots the data points, the regression polynomial 
-% curve of the data points, and the area under the regression 
-% polynomial curve from "xIntegralPolyFitMin" to 
+% value, the natural number "Figure", and the vector 
+% "ColorFace", this function plots the data points, the regression 
+% polynomial curve of the data points, and the area under the 
+% regression polynomial curve from "xIntegralPolyFitMin" to 
 % "xIntegralPolyFitMax", the color of the area being defined by 
 % the RGB triplet of numbers of the "ColorFace" vector. 
 % 
 %% Variables
 % 
 % This function has the form of DrawZIntegralPolyFit...
-% (figr, xData, yData, xIntegralPolyFitMin, xIntegralPolyFitMax, ...
-% ColorFace, pFitPolyFit)
+% (Figure, xData, yData, xIntegralPolyFitMin, ...
+% xIntegralPolyFitMax, ColorFace, pFitPolyFit)
 % 
-% "figr" is the parameter the value of which is the index of the 
+% "Figure" is the parameter the value of which is the index of the 
 % figure on which the data points, the regression polynomial 
 % curve, and the area under the curve described in the 
-% Description section is to be plotted. The value of the "figr" 
+% Description section is to be plotted. The value of the "Figure" 
 % parameter must be a natural number. 
 % 
 % "xData" and "yData" are the vectors of the values of the 
@@ -73,8 +73,8 @@ function DrawZIntegralPolyFit...
 
 pars = inputParser;
 
-paramName = 'figr';
-errorMsg = '''figr'' must be a natural number.';
+paramName = 'Figure';
+errorMsg = '''Figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -99,9 +99,10 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xIntegralPolyFitMax > xIntegralPolyFitMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, xIntegralPolyFitMin, xIntegralPolyFitMax);
+parse...
+    (pars, Figure, xData, xIntegralPolyFitMin, xIntegralPolyFitMax);
 
-figure(figr);
+figure(Figure);
 
 % In the following block of code, the area under the regression 
 % polynomial curve is plotted. 
@@ -114,7 +115,7 @@ hold on;
 % curve of the data points represented by the pairs 
 % ("xData"(i), "yData"(i)) as well as the data points themselves 
 % are plotted. 
-DrawZFitPolyFit(figr, xData, yData, ...
+DrawZFitPolyFit(Figure, xData, yData, ...
     min(xData(1), xIntegralPolyFitMin), ...
     max(xData(end), xIntegralPolyFitMax), pFitPolyFit)
 

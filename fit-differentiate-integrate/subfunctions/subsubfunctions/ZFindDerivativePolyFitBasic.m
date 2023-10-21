@@ -6,7 +6,7 @@ function [yDerivativePolyFit, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 1.1.2023
-% Last changed: 2.1.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -114,7 +114,7 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 parse(pars, xData, yData, xDerivativePolyFit, PolyDegree, ...
     varargin{:});
 
-ordDeriv = pars.Results.OrdDeriv;
+OrdDeriv = pars.Results.OrdDeriv;
 
 % In the following two lines, in the first line, the regression 
 % polynomial coefficients of the data points which are 
@@ -124,7 +124,7 @@ ordDeriv = pars.Results.OrdDeriv;
 pFitPolyFit = (polyfit(xData, yData, PolyDegree))';
 pDerivativePolyFit = ...
     CalculateDerivativePolynomialCoefficients...
-    (pFitPolyFit, ordDeriv);
+    (pFitPolyFit, OrdDeriv);
 
 yDerivativePolyFit = polyval...
     (pDerivativePolyFit, xDerivativePolyFit);

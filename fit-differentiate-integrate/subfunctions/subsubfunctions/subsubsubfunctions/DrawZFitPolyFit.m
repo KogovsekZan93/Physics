@@ -1,11 +1,11 @@
-function DrawZFitPolyFit...
-    (figr, xData, yData, xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit)
+function DrawZFitPolyFit(Figure, xData, yData, ...
+    xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit)
 %% Tool for plotting the data points and the regression
 %% polynomial curve
 % 
 % Author: Žan Kogovšek
 % Date: 4.22.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -14,7 +14,7 @@ function DrawZFitPolyFit...
 % variable Y of an arbitrary function Y = f(X), the vector 
 % "pFitPolyFit" of the coefficients of the regression polynomial 
 % fPolyFit of the data points represented by the pairs 
-% ("xData"(i), "yData"(i)), and the natural number "figr, this 
+% ("xData"(i), "yData"(i)), and the natural number "Figure", this 
 % function plots the data points and the regression polynomial 
 % curve of the data points from the input value of the X variable 
 % "xFitPolyFitMin" to the input value of the X variable 
@@ -22,13 +22,13 @@ function DrawZFitPolyFit...
 % 
 %% Variables
 % 
-% This function has the form of DrawZFitPolyFit...
-% (figr, xData, yData, xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit)
+% This function has the form of DrawZFitPolyFit(Figure, ...
+% xData, yData, xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit)
 % 
-% "figr" is the parameter the value of which is the index of the 
+% "Figure" is the parameter the value of which is the index of the 
 % figure on which the data points and the regression polynomial 
 % curve described in the Description section is to be plotted. 
-% The value of the "figr" parameter must be a natural number. 
+% The value of the "Figure" parameter must be a natural number. 
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -57,8 +57,8 @@ function DrawZFitPolyFit...
 
 pars = inputParser;
 
-paramName = 'figr';
-errorMsg = '''figr'' must be a natural number.';
+paramName = 'Figure';
+errorMsg = '''Figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -96,8 +96,8 @@ validationFcn = @(x)assert(isnumeric(x) && iscolumn(x), ...
     errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, yData, xFitPolyFitMin, xFitPolyFitMax, ...
-    pFitPolyFit);
+parse(pars, Figure, xData, yData, ...
+    xFitPolyFitMin, xFitPolyFitMax, pFitPolyFit);
 
 % The parameter "N" is set to be "N" = 10 000 and represents 
 % the number of points for the regression polynomial curve plot. 
@@ -110,7 +110,7 @@ N = power(10, 4);
 xFitPolyFit = (linspace(xFitPolyFitMin, xFitPolyFitMax, N))';
 yFitPolyFit = polyval(pFitPolyFit, xFitPolyFit);
 
-figure(figr);
+figure(Figure);
 
 plot(xFitPolyFit, yFitPolyFit, 'r', 'LineWidth', 1.2);
 hold on;

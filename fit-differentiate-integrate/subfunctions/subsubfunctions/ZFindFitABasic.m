@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 2.8.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -95,10 +95,11 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, xData, varargin{:});
 
-psacc = pars.Results.PseudoAccuracy;
-mode = pars.Results.Mode;
+PseudoAccuracy = pars.Results.PseudoAccuracy;
+Mode = pars.Results.Mode;
 
-[Ipoints, Smatrix] = GetIpointsSmatrix(xData, psacc + 1, mode);
+[Ipoints, Smatrix] = GetIpointsSmatrix...
+    (xData, PseudoAccuracy + 1, Mode);
 
 yFitA = EvaluateIpointsSmatrixFit...
     (xData, yData, xFitA, Ipoints, Smatrix);

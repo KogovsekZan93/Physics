@@ -3,7 +3,7 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 % Author: Žan Kogovšek
 % Date: 8.10.2022
-% Last changed: 10.17.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -38,35 +38,36 @@ function [yFit, varargout] = ZFindFit(xData, yData, xFit, varargin)
 % 
 % "varargin" represents the additional input parameters. The 
 % basic optional parameters are "Type" and "Figure". 
-%    -"Type" is the name of the parameter the value of which 
+%    -"'Type'" is the name of the parameter the value of which 
 %     determines the mathematical method with which the f 
 %     function is estimated. The value of the "Type" parameter 
 %     can either be "'A'", "'Spline'", or "'PolyFit'". The default value 
 %     is "'A'". The value of the "Type" parameter determines the 
 %     set of the optional output parameters and additional 
 %     required or optional input parameters. 
-%    -"Figure" is the name of the parameter the value of which is 
+%    -"'Figure'" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the f function is to be plotted. The value of 
-%     the "Figure" parameter can be any nonnegative integer. The 
-%     default value is "0", at which no figure is to be plotted. 
+%     the "'Figure'" parameter can be any nonnegative integer. 
+%     The default value is 0, at which no figure is to be plotted. 
 % 
 % "yFit" is the column vector of the estimated values of f("xFit"). 
 % 
 % "varargout" represents the optional output parameters. The 
 % set of the optional parameters depends on the value of the 
-% "Type" optional input parameter. 
+% "'Type'" optional input parameter. 
 
 
 [TypeList, TypeDeletedList] = SeparateAdditionalParameter...
-    (varargin, 'Type');   % Separation of the "Type" parameter from 
-                                    % the other optional input parameters. 
+    (varargin, 'Type');   % Separation of the "'Type'" parameter 
+                                    % from the other optional input parameters. 
 
 pars = inputParser;
 
 paramName = 'Type';
 defaultVal = 'A';
-errorMsg = '''Type'' must be either "A", "Spline", or "PolyFit".';
+errorMsg = ...
+    '"''Type''" must be either "''A''", "''Spline''", or "''PolyFit''".';
 validationFcn = @(x)assert(strcmp(x, 'A') || strcmp(x, 'Spline') ...
     || strcmp(x, 'PolyFit') , errorMsg);
 addParameter(pars, paramName, defaultVal, validationFcn);

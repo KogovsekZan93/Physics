@@ -1,5 +1,5 @@
-function DrawZIntegralSpline...
-    (figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ...
+function DrawZIntegralSpline(Figure, xData, yData, ...
+    xIntegralSplineMin, xIntegralSplineMax, ...
     ColorFace, ppFitSpline)
 %% Tool for plotting the data points, the interpolating 
 %% spline curve, and the area under the curve over an 
@@ -7,7 +7,7 @@ function DrawZIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 3.18.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -18,8 +18,8 @@ function DrawZIntegralSpline...
 % interpolating cubic spline polynomial fSpline of the data points 
 % represented by the pairs ("xData"(i), "yData"(i)), the values of 
 % the X variable the "xIntegralSplineMin" value and the 
-% "xIntegralSplineMax" value, the natural number "figr", and the 
-% vector "ColorFace", this function plots the data points, the 
+% "xIntegralSplineMax" value, the natural number "Figure", and 
+% the vector "ColorFace", this function plots the data points, the 
 % spline curve of the data points, and the area under the spline 
 % curve from "xIntegralSplineMin" to "xIntegralSplineMax", the 
 % color of the area being defined by the RGB triplet of numbers 
@@ -28,13 +28,13 @@ function DrawZIntegralSpline...
 %% Variables
 % 
 % This function has the form of DrawZIntegralSpline...
-% (figr, xData, yData, xIntegralSplineMin, xIntegralSplineMax, ...
-% ColorFace, ppFitSpline)
+% (Figure, xData, yData, xIntegralSplineMin, ...
+% xIntegralSplineMax, ColorFace, ppFitSpline)
 % 
-% "figr" is the parameter the value of which is the index of the 
+% "Figure" is the parameter the value of which is the index of the 
 % figure on which the data points, the spline curve, and the area 
 % under the curve described in the Description section is to be 
-% plotted. The value of the "figr" parameter must be a natural 
+% plotted. The value of the "Figure" parameter must be a natural 
 % number. 
 % 
 % "xData" and "yData" are the vectors of the values of the 
@@ -68,8 +68,8 @@ function DrawZIntegralSpline...
 
 pars = inputParser;
 
-paramName = 'figr';
-errorMsg = '''figr'' must be a natural number.';
+paramName = 'Figure';
+errorMsg = '''Figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -94,9 +94,10 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xIntegralSplineMax > xIntegralSplineMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, xIntegralSplineMin, xIntegralSplineMax);
+parse...
+    (pars, Figure, xData, xIntegralSplineMin, xIntegralSplineMax);
 
-figure(figr);
+figure(Figure);
 
 % In the following block of code, the area under the interpolating 
 % spline curve is plotted. 
@@ -108,7 +109,7 @@ hold on;
 % In the following block of code, the interpolating spline curve of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)) 
 % as well as the data points themselves are plotted. 
-DrawZFitSpline(figr, xData, yData, ...
+DrawZFitSpline(Figure, xData, yData, ...
     min(xData(1), xIntegralSplineMin), ...
     max(xData(end), xIntegralSplineMax), ppFitSpline)
 

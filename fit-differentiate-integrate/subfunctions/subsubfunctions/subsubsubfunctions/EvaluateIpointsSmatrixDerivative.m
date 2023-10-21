@@ -1,21 +1,21 @@
 function yDerivativeA = EvaluateIpointsSmatrixDerivative...
-    (xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix)
+    (xData, yData, xDerivativeA, OrdDeriv, Ipoints, Smatrix)
 %% Tool for evaluating the derivative of a piecewise 
 %% interpolation polynomial
 % 
 % Author: Žan Kogovšek
 % Date: 3.8.2023
-% Last changed: 3.18.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
-% Given the input "ordDeriv" parameter, and the input vector 
+% Given the input "OrdDeriv" parameter, and the input vector 
 % "xData" of the independent variable X and the input vector 
 % "yData" of the values of the dependent variable Y of an 
 % arbitrary function Y = f(X), this function returns the vector 
 % "yDerivativeA" of the values of 
-% fA^("ordDeriv")("xDerivativeA"), where fA^("ordDeriv") is the 
-% "ordDeriv"-th order derivative of the fA function and 
+% fA^("OrdDeriv")("xDerivativeA"), where fA^("OrdDeriv") is the 
+% "OrdDeriv"-th order derivative of the fA function and 
 % "xDerivativeA" is the input vector of values of the X variable. 
 % The fA function itself is the input "Ipoints" vector- and the 
 % input "Smatrix" matrix-defined piecewise interpolation 
@@ -26,7 +26,7 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % 
 % This function has the form of yDerivativeA = ...
 % EvaluateIpointsSmatrixDerivative...
-% (xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix)
+% (xData, yData, xDerivativeA, OrdDeriv, Ipoints, Smatrix)
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -37,8 +37,8 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % values of the "xData" vector must be in ascending order. 
 % 
 % "xDerivativeA" is the vector of the values of the independent 
-% variable X at which the value of the fA^("ordDeriv") is to be 
-% calculated. The fA^("ordDeriv") function is the "OrdDeriv"-th 
+% variable X at which the value of the fA^("OrdDeriv") is to be 
+% calculated. The fA^("OrdDeriv") function is the "OrdDeriv"-th 
 % derivative of the piecewise interpolation polynomial fA of the 
 % data points represented by the pairs ("xData"(i), "yData"(i)) and 
 % is defined by the input variables the "Ipoints" vector and the 
@@ -58,7 +58,7 @@ function yDerivativeA = EvaluateIpointsSmatrixDerivative...
 % numbers. The values of the "xDerivativeA" vector must be in 
 % ascending order. 
 % 
-% "ordDeriv" is the the value of the derivative order. It must be a 
+% "OrdDeriv" is the the value of the derivative order. It must be a 
 % natural number. 
 % 
 % "Ipoints" is a column vector of boundaries between the 
@@ -135,7 +135,7 @@ end
 
 % For each relevant interval of the X variable from 
 % "Ipoints"("j" - 1) to "Ipoints"("j"), firstly the coefficients vector 
-% "pDerivativeA" of the polynomial which is the "ordDeriv"-th 
+% "pDerivativeA" of the polynomial which is the "OrdDeriv"-th 
 % derivative of the  interpolation polynomial p_("j" - 1) of the data 
 % points 
 % ("xData"("Smatrix"("j" - 1, :)), "yData"("Smatrix"("j" - 1, :))) is 
@@ -152,7 +152,7 @@ end
 % values of the "yDerivativeA" vector are calculated outside of 
 % the for loop. 
 pDerivativeA = GetDerivativePolynomialCoefficients...
-    (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)), ordDeriv);
+    (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)), OrdDeriv);
 a = 1;
 for b = 2 : xDerivativeALength
     if xDerivativeA(b) >= Ipoints(j)
@@ -164,7 +164,7 @@ for b = 2 : xDerivativeALength
         end
         a = b;
         pDerivativeA = GetDerivativePolynomialCoefficients...
-            (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)), ordDeriv);
+            (xData(Smatrix(j - 1, :)), yData(Smatrix(j - 1, :)), OrdDeriv);
     end
 end
 yDerivativeA(a : end) = polyval...

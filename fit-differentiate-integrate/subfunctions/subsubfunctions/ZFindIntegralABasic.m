@@ -5,7 +5,7 @@ function [yIntegralA, varargout] = ZFindIntegralABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -102,10 +102,11 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, varargin{:});
 
-psacc = pars.Results.PseudoAccuracy;
-mode = pars.Results.Mode;
+PseudoAccuracy = pars.Results.PseudoAccuracy;
+Mode = pars.Results.Mode;
 
-[Ipoints, Smatrix] = GetIpointsSmatrix(xData, psacc + 1, mode);
+[Ipoints, Smatrix] = GetIpointsSmatrix...
+    (xData, PseudoAccuracy + 1, Mode);
 varargout = {Ipoints, Smatrix};
 
 % In the following line, the EvaluateIpointsSmatrixIntegral 

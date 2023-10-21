@@ -1,5 +1,5 @@
 function DrawZIntegralA...
-    (figr, xData, yData, xIntegralAMin, xIntegralAMax, ...
+    (Figure, xData, yData, xIntegralAMin, xIntegralAMax, ...
     ColorFace, Ipoints, Smatrix)
 %% Tool for plotting the data points, the piecewise 
 %% interpolation polynomial curve, and the area under the 
@@ -7,7 +7,7 @@ function DrawZIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 3.24.2023
-% Last changed: 4.27.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -18,7 +18,7 @@ function DrawZIntegralA...
 % piecewise interpolation polynomial of the data points 
 % represented by the pairs ("xData"(i), "yData"(i)), the values of 
 % the X variable the "xIntegralAMin" value and the 
-% "xIntegralAMax" value, the natural number "figr", and the 
+% "xIntegralAMax" value, the natural number "Figure", and the 
 % vector "ColorFace", this function plots the data points, the 
 % piecewise interpolation polynomial curve of the data points, 
 % and the area under the piecewise interpolation polynomial 
@@ -29,14 +29,14 @@ function DrawZIntegralA...
 %% Variables
 % 
 % This function has the form of DrawZIntegralA
-% (figr, xData, yData, xIntegralAMin, xIntegralAMax, ColorFace, ...
-% Ipoints, Smatrix)
+% (Figure, xData, yData, xIntegralAMin, xIntegralAMax, ...
+% ColorFace, Ipoints, Smatrix)
 % 
-% "figr" is the parameter the value of which is the index of the 
+% "Figure" is the parameter the value of which is the index of the 
 % figure on which the data points, the piecewise interpolation 
 % polynomial curve, and the area under the curve described in 
-% the Description section is to be plotted. The value of the "figr" 
-% parameter must be a natural number. 
+% the Description section is to be plotted. The value of the 
+% "Figure" parameter must be a natural number. 
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -79,8 +79,8 @@ function DrawZIntegralA...
 
 pars = inputParser;
 
-paramName = 'figr';
-errorMsg = '''figr'' must be a natural number.';
+paramName = 'Figure';
+errorMsg = '''Figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -105,9 +105,9 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     xIntegralAMax > xIntegralAMin, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, xIntegralAMin, xIntegralAMax);
+parse(pars, Figure, xData, xIntegralAMin, xIntegralAMax);
 
-figure(figr)
+figure(Figure)
 
 % In the following block of code, the area under the piecewise 
 % interpolation polynomial curve is plotted. 
@@ -120,7 +120,7 @@ hold on;
 % polynomial curve of the data points represented by the pairs 
 % ("xData"(i), "yData"(i)) as well as the data points themselves 
 % are plotted. 
-DrawZFitA(figr, xData, yData, min(xData(1), xIntegralAMin), ...
+DrawZFitA(Figure, xData, yData, min(xData(1), xIntegralAMin), ...
     max(xData(end), xIntegralAMax), Ipoints, Smatrix)
 
 end

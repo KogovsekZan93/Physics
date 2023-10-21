@@ -5,7 +5,7 @@ function DecideIfDrawZ...
 % 
 % Author: Žan Kogovšek
 % Date: 4.30.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -13,13 +13,13 @@ function DecideIfDrawZ...
 % "DrawZFunctionHandle" and the cell array "DrawZInput" of 
 % input parameters for the DrawZFit... or the DrawZIntegral... 
 % function, this function either is a null function or the function 
-% call "DrawZFunctionHandle"("figr", "DrawZInput"{:}) is 
-% performed, depending on the value of the "figr" parameter, 
-% where "figr" is the value of the optional input parameter 
-% "Figure", the default value of which is 0. If "figr" == 0, the 
+% call "DrawZFunctionHandle"("Figure", "DrawZInput"{:}) is 
+% performed, depending on the value of the "Figure" parameter, 
+% where "Figure" is the value of the optional input parameter 
+% "Figure", the default value of which is 0. If "Figure" == 0, the 
 % function call will not be performed (thus, this function 
-% effectively becomes a null function). If the "figr" parameter is a 
-% natural number, the function call will be performed. 
+% effectively becomes a null function). If the "Figure" parameter 
+% is a natural number, the function call will be performed. 
 % 
 %% Variables
 % 
@@ -40,14 +40,14 @@ function DecideIfDrawZ...
 % 
 % "varargin" represents the optional input parameter "Figure". 
 % "Figure" is the name of the parameter the value of which is the 
-% "figr" parameter. If "figr" == 0, this function is effectively a null 
-% function (this is the default value). If the "figr" parameter is a 
-% natural number, it will be the first parameter of the function the 
-% handle of which is the "DrawZFunctionHandle" function 
-% handle, which is then followed by the input parameters of the 
-% "DrawZInput" horizontal cell array when the call of the function 
-% via the "DrawZFunctionHandle" function handle is performed 
-% by this function. 
+% "Figure" index. If "Figure" == 0, this function is effectively a 
+% null function (this is the default value). If the "Figure" 
+% parameter is a natural number, it will be the first parameter of 
+% the function the handle of which is the "DrawZFunctionHandle" 
+% function handle, which is then followed by the input 
+% parameters of the "DrawZInput" horizontal cell array when the 
+% call of the function via the "DrawZFunctionHandle" function 
+% handle is performed by this function. 
 
 
 pars = inputParser;
@@ -66,11 +66,11 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, DrawZFunctionHandle, varargin{:});
 
-figr = pars.Results.Figure;
+Figure = pars.Results.Figure;
 
-if figr ~= 0
-    figure(figr); clf;
-    DrawZFunctionHandle(figr, DrawZInput{:});
+if Figure ~= 0
+    figure(Figure); clf;
+    DrawZFunctionHandle(Figure, DrawZInput{:});
 end
 
 end

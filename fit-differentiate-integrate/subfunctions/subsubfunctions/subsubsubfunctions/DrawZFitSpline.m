@@ -1,11 +1,11 @@
-function DrawZFitSpline...
-    (figr, xData, yData, xFitSplineMin, xFitSplineMax, ppFitSpline)
+function DrawZFitSpline(Figure, xData, yData, ...
+    xFitSplineMin, xFitSplineMax, ppFitSpline)
 %% Tool for plotting the data points and the interpolating 
 %% spline curve
 % 
 % Author: Žan Kogovšek
 % Date: 4.22.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -14,21 +14,21 @@ function DrawZFitSpline...
 % variable Y of an arbitrary function Y = f(X), the piecewise 
 % polynomial structure "ppFitSpline" of the interpolating cubic 
 % spline polynomial fSpline of the data points represented by 
-% the pairs ("xData"(i), "yData"(i)), and the natural number "figr", 
-% this function plots the data points and the spline curve of the 
-% data points from the input value of the X variable 
+% the pairs ("xData"(i), "yData"(i)), and the natural number 
+% "Figure", this function plots the data points and the spline 
+% curve of the data points from the input value of the X variable 
 % "xFitSplineMin" to the input value of the X variable 
 % "xFitSplineMax". 
 % 
 %% Variables
 % 
-% This function has the form of DrawZFitSpline...
-% (figr, xData, yData, xFitSplineMin, xFitSplineMax, ppFitSpline)
+% This function has the form of DrawZFitSpline(Figure, ...
+% xData, yData, xFitSplineMin, xFitSplineMax, ppFitSpline)
 % 
-% "figr" is the parameter the value of which is the index of the 
+% "Figure" is the parameter the value of which is the index of the 
 % figure on which the data points and the spline curve described 
 % in the Description section is to be plotted. The value of the 
-% "figr" parameter must be a natural number. 
+% "Figure" parameter must be a natural number. 
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -53,8 +53,8 @@ function DrawZFitSpline...
 
 pars = inputParser;
 
-paramName = 'figr';
-errorMsg = '''figr'' must be a natural number.';
+paramName = 'Figure';
+errorMsg = '''Figure'' must be a natural number.';
 validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -91,7 +91,7 @@ errorMsg = '''ppFitSpline'' must be a structure array.';
 validationFcn = @(x)assert(isstruct(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, figr, xData, yData, xFitSplineMin, xFitSplineMax, ...
+parse(pars, Figure, xData, yData, xFitSplineMin, xFitSplineMax, ...
     ppFitSpline);
 
 % The parameter "N" is set to be "N" = 10 000 and represents 
@@ -105,7 +105,7 @@ N = power(10, 4);
 xFitSpline = (linspace(xFitSplineMin, xFitSplineMax, N))';
 yFitSpline = ppval(ppFitSpline, xFitSpline);
 
-figure(figr);
+figure(Figure);
 
 plot(xFitSpline, yFitSpline, 'r', 'LineWidth', 1.2);
 hold on;

@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 11.26.2022
-% Last changed: 4.27.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -96,7 +96,7 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, xData, yData, xDerivativeSpline, varargin{:});
 
-ordDeriv = pars.Results.OrdDeriv;
+OrdDeriv = pars.Results.OrdDeriv;
 
 ppFitSpline = spline(xData, yData);
 [breaks, coefs, ~, ~, ~] = unmkpp(ppFitSpline);
@@ -107,21 +107,21 @@ ppFitSpline = spline(xData, yData);
 % differentiated polynomials are appropriate derivatives of the 
 % polynomials of which the cubic spline which interpolates the 
 % data point is constructed. 
-coefsDeriv = coefs;
-if ordDeriv < 4
-    for i = 1 : ordDeriv
-        ordPoly = length(coefsDeriv(1, :)) - 1;
-        coefsDeriv = times(coefsDeriv(:, 1 : ordPoly), ...
-            repmat((ordPoly : -1 : 1), length(coefsDeriv(:,1)), 1));
+CoefsDeriv = coefs;
+if OrdDeriv < 4
+    for i = 1 : OrdDeriv
+        OrdPoly = length(CoefsDeriv(1, :)) - 1;
+        CoefsDeriv = times(CoefsDeriv(:, 1 : OrdPoly), ...
+            repmat((OrdPoly : -1 : 1), length(CoefsDeriv(:,1)), 1));
     end
 else
-     coefsDeriv = zeros(length(coefsDeriv(:,1)),1);
+     CoefsDeriv = zeros(length(CoefsDeriv(:,1)),1);
 end
 
 % In the following line, the piecewise polynomial which 
 % represents the f^("OrdDeriv") function is constructed using the 
 % MATLAB mkpp function. 
-ppDerivativeSpline = mkpp(breaks, coefsDeriv);
+ppDerivativeSpline = mkpp(breaks, CoefsDeriv);
 
 varargout = {ppDerivativeSpline, ppFitSpline};
 

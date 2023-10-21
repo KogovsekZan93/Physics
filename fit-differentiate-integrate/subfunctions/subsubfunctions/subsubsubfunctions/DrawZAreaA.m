@@ -5,7 +5,7 @@ function DrawZAreaA(xData, yData, xAreaAMin, xAreaAMax, ...
 % 
 % Author: Žan Kogovšek
 % Date: 4.27.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -126,7 +126,6 @@ parse(pars, xData, yData, xAreaAMin, xAreaAMax, ColorFace, ...
 % number of points is typically sufficient to create a convincing 
 % illusion of the plotted curve of the function fA being smooth 
 % over the intervals over which the fA function is, in fact, smooth. 
-
 N = power(10, 4);
 
 XFitA = (linspace...

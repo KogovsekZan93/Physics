@@ -1,12 +1,12 @@
 function pDerivativeA = GetDerivativePolynomialCoefficients...
-    (xData, yData, ordDeriv)
+    (xData, yData, OrdDeriv)
 %% Tool for obtaining the coefficients of the polynomial 
 %% which is the derivative of the interpolation polynomial 
 %% of the input data
 % 
 % Author: Žan Kogovšek
 % Date: 2.5.2023
-% Last changed: 2.5.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -15,14 +15,14 @@ function pDerivativeA = GetDerivativePolynomialCoefficients...
 % variable Y of an arbitrary function Y = f(X) 
 % ("yData" = f("xData")), this function returns the vector 
 % "pDerivativeA" of the coefficients of the polynomial which is 
-% the "ordDeriv"-th order derivative of the interpolation 
+% the "OrdDeriv"-th order derivative of the interpolation 
 % polynomial of the data points represented by the pairs 
 % ("xData"(i), "yData"(i)). 
 % 
 %% Variables
 % 
 % This function has the form of pDerivativeA = ...
-% GetDerivativePolynomialCoefficients(xData, yData, ordDeriv)
+% GetDerivativePolynomialCoefficients(xData, yData, OrdDeriv)
 % 
 % "xData" and "yData" are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
@@ -46,6 +46,6 @@ function pDerivativeA = GetDerivativePolynomialCoefficients...
 
 
 pDerivativeA = CalculateDerivativePolynomialCoefficients...
-    (GetFitPolynomialCoefficients(xData, yData), ordDeriv);
+    (GetFitPolynomialCoefficients(xData, yData), OrdDeriv);
 
 end

@@ -5,7 +5,7 @@ function [yDerivativeA, varargout] = ZFindDerivativeABasic...
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 4.30.2023
+% Last changed: 10.21.2023
 % 
 %% Description
 % 
@@ -112,18 +112,18 @@ addParameter(pars, paramName, defaultVal, validationFcn);
 
 parse(pars, xData, varargin{:});
 
-ordDeriv = pars.Results.OrdDeriv;
-acc = pars.Results.Accuracy;
-mode = pars.Results.Mode;
+OrdDeriv = pars.Results.OrdDeriv;
+Accuracy = pars.Results.Accuracy;
+Mode = pars.Results.Mode;
 
-nA = acc + ordDeriv;
+nA = Accuracy + OrdDeriv;
 
 if nA > length(xData)
     error(...
-        '''Accuracy + OrdDeriv'' must be equal to or lower than ''length(xData)''.');
+        '''Accuracy'' + ''OrdDeriv'' must be equal to or lower than ''length(xData)''.');
 end
 
-[Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, mode);
+[Ipoints, Smatrix] = GetIpointsSmatrix(xData, nA, Mode);
 varargout = {Ipoints, Smatrix};
 
 % In the following line, the EvaluateIpointsSmatrixDerivative 
@@ -133,6 +133,6 @@ varargout = {Ipoints, Smatrix};
 % represented by the variables "Ipoints" and "Smatrix" for the 
 % values of the "xDerivativeA" vector. 
 yDerivativeA = EvaluateIpointsSmatrixDerivative...
-    (xData, yData, xDerivativeA, ordDeriv, Ipoints, Smatrix);
+    (xData, yData, xDerivativeA, OrdDeriv, Ipoints, Smatrix);
 
 end
