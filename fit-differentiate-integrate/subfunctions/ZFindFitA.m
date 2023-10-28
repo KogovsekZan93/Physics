@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 2.1.2023
+% Last changed: 10.25.2023
 % 
 %% Description
 % 
@@ -16,7 +16,7 @@ function [yFitA, varargout] = ZFindFitA...
 % "xFitA" is the input vector of values of the X variable. The 
 % estimation is based on a piecewise interpolation polynomial of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)). 
-% The optional parameter "Figure" can be used to plot the 
+% The optional parameter "'Figure'" can be used to plot the 
 % estimated curve of the f function along with the data points. 
 % 
 %% Variables
@@ -38,22 +38,22 @@ function [yFitA, varargout] = ZFindFitA...
 % The values of the "xFitA" vector must be in ascending order. 
 % 
 % "varargin" represents the optional input parameters 
-% "PseudoAccuracy", "Mode", and "Figure". 
-%    -"PseudoAccuracy" is the name of the parameter the value 
+% "'PseudoAccuracy'", "'Mode'", and "'Figure'". 
+%    -"'PseudoAccuracy'" is the name of the parameter the value 
 %     of which is the order of the interpolation polynomials from 
 %     which the piecewise interpolation polynomial which 
 %     represents the f function is composed. It must be a 
-%     nonnegative integer. The default value is "0". 
-%    -"Mode" is the name of the parameter the value of which 
+%     nonnegative integer. The default value is 0. 
+%    -"'Mode'" is the name of the parameter the value of which 
 %     represents the principle behind the definition of the 
 %     boundaries of the piecewise interpolation polynomial which 
 %     represents the f function. It must be one of the three 
-%     integers: "0", "1", "2". The default value is "0". 
-%    -"Figure" is the name of the parameter the value of which is 
+%     integers: 0, 1, or 2. The default value is 0. 
+%    -"'Figure'" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the f function is to be plotted. The value of 
-%     the "Figure" parameter can be any nonnegative integer. The 
-%     default value is "0", at which no figure is to be plotted. 
+%     the "'Figure'" parameter can be any nonnegative integer. 
+%     The default value is 0, at which no figure is to be plotted. 
 % 
 % "yFitA" is the column vector of the estimated values of 
 % f("xFitA"). 

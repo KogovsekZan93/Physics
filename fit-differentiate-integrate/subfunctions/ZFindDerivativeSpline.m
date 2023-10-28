@@ -5,7 +5,7 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 10.17.2023
+% Last changed: 10.25.2023
 % 
 %% Description
 % 
@@ -18,10 +18,10 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % "xDerivativeSpline" is the input vector of values of the X 
 % variable. The estimation is based on the spline interpolation of 
 % the data points represented by the pairs ("xData"(i), "yData"(i)). 
-% The optional parameter "OrdDeriv" can be used to set the 
+% The optional parameter "'OrdDeriv'" can be used to set the 
 % order of differentiation, the default value of which is 
-% "OrdDeriv" == 1. 
-% The optional parameter "Figure" can be used to plot the 
+% "OrdDeriv" = 1. 
+% The optional parameter "'Figure'" can be used to plot the 
 % estimated curve of the f function along with the data points. 
 % 
 %% Variables
@@ -44,15 +44,15 @@ function [yDerivativeSpline, varargout] = ZFindDerivativeSpline...
 % vector must be a column vector of real numbers. 
 % 
 % "varargin" represents the optional input parameters. The 
-% optional parameters are "OrdDeriv" and "Figure". 
-%    -"OrdDeriv" is the name of the parameter the value of which 
+% optional parameters are "'OrdDeriv'" and "'Figure'". 
+%    -"'OrdDeriv'" is the name of the parameter the value of which 
 %     is the derivative order. It must be a natural number. The 
-%     default value is "1". 
-%    -"Figure" is the name of the parameter the value of which is 
+%     default value is 1. 
+%    -"'Figure'" is the name of the parameter the value of which is 
 %     the index of the figure on which the data points along with 
 %     the estimation of the f function is to be plotted. The value of 
-%     the "Figure" parameter can be any nonnegative integer. The 
-%     default value is "0", at which no figure is to be plotted. 
+%     the "'Figure'" parameter can be any nonnegative integer. 
+%     The default value is 0, at which no figure is to be plotted. 
 % 
 % "yDerivativeSpline" is the column vector of the estimated 
 % values of f^("OrdDeriv")("xDerivativeSpline"). 
