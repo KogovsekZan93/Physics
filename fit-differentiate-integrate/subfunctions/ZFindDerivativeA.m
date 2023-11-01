@@ -5,7 +5,7 @@ function yDerivativeA = ZFindDerivativeA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 10.28.2023
+% Last changed: 11.1.2023
 % 
 %% Description
 % 
@@ -94,7 +94,7 @@ parse(pars, xData, xDerivativeA);
     (xData, yData, xDerivativeA, NonFigureParameters{:});
 
 % The following block of code deals with plotting the estimated 
-% curve of the f function along with the data points. 
+% f function curve along with the data points. 
 DrawZFitAHandle = @DrawZFitA;
 DrawZFitAInput = {xData, yData, ...
     min(xDerivativeA(1), xData(1)), max(xDerivativeA(end), ...
