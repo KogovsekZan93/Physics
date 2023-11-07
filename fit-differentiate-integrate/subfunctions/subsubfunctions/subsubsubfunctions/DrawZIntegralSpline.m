@@ -7,23 +7,23 @@ function DrawZIntegralSpline(Figure, xData, yData, ...
 % 
 % Author: Žan Kogovšek
 % Date: 3.18.2023
-% Last changed: 10.21.2023
+% Last changed: 11.4.2023
 % 
 %% Description
 % 
-% Given the input vector "xData" of the independent variable X 
-% and the input vector "yData" of the values of the dependent 
+% Given the input vector 'xData' of the independent variable X 
+% and the input vector 'yData' of the values of the dependent 
 % variable Y of an arbitrary function Y = f(X), as well as the 
-% piecewise polynomial structure "ppFitSpline" of the 
+% piecewise polynomial structure 'ppFitSpline' of the 
 % interpolating cubic spline polynomial fSpline of the data points 
-% represented by the pairs ("xData"(i), "yData"(i)), the values of 
-% the X variable the "xIntegralSplineMin" value and the 
-% "xIntegralSplineMax" value, the natural number "Figure", and 
-% the vector "ColorFace", this function plots the data points, the 
+% represented by the pairs ('xData'(i), 'yData'(i)), the values of 
+% the X variable the 'xIntegralSplineMin' value and the 
+% 'xIntegralSplineMax' value, the natural number 'Figure', and 
+% the vector 'ColorFace', this function plots the data points, the 
 % spline curve of the data points, and the area under the spline 
-% curve from "xIntegralSplineMin" to "xIntegralSplineMax", the 
+% curve from 'xIntegralSplineMin' to 'xIntegralSplineMax', the 
 % color of the area being defined by the RGB triplet of numbers 
-% of the "ColorFace" vector. 
+% of the 'ColorFace' vector. 
 % 
 %% Variables
 % 
@@ -31,39 +31,39 @@ function DrawZIntegralSpline(Figure, xData, yData, ...
 % (Figure, xData, yData, xIntegralSplineMin, ...
 % xIntegralSplineMax, ColorFace, ppFitSpline)
 % 
-% "Figure" is the parameter the value of which is the index of the 
+% 'Figure' is the parameter the value of which is the index of the 
 % figure on which the data points, the spline curve, and the area 
 % under the curve described in the Description section is to be 
-% plotted. The value of the "Figure" parameter must be a natural 
+% plotted. The value of the 'Figure' parameter must be a natural 
 % number. 
 % 
-% "xData" and "yData" are the vectors of the values of the 
+% 'xData' and 'yData' are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
 % respectively, of an arbitrary function Y = f(X) 
-% ("yData" = f("xData")). 
-% Both the "xData" vector and the "yData" vector must be 
-% column vectors of equal length and of real numbers. The 
-% values of the "xData" vector must be in ascending order. 
+% ('yData' = f('xData')). 
+% Both the 'xData' vector and the 'yData' vector must be column 
+% vectors of equal length and of real numbers. The values of the 
+% 'xData' vector must be in ascending order. 
 % 
-% The "xIntegralSplineMin" parameter and the 
-% "xIntegralSplineMax" parameter are two values of the X 
+% The 'xIntegralSplineMin' parameter and the 
+% 'xIntegralSplineMax' parameter are two values of the X 
 % variable and are the lower and the upper boundary, 
 % respectively, of the area to be plotted using this function under 
 % the interpolating spline curve of the data points represented 
-% by the pairs ("xData"(i), "yData"(i)). The "xIntegralSplineMax" 
-% value must be greater than the "xIntegralSplineMin" value. 
+% by the pairs ('xData'(i), 'yData'(i)). The 'xIntegralSplineMax' 
+% value must be greater than the 'xIntegralSplineMin' value. 
 % 
-% "ColorFace" is the horizontal vector of three real numbers 
+% 'ColorFace' is the horizontal vector of three real numbers 
 % which represents the RGB triplet which is to be used to set the 
 % color of the area under the interpolating spline curve of the 
-% data points represented by the pairs ("xData"(i), "yData"(i)) 
-% from the value "xIntegralSplineMin" to the 
-% "xIntegralSplineMax" value. The three real numbers must be 
-% values of the [0, 1] interval. 
+% data points represented by the pairs ('xData'(i), 'yData'(i)) 
+% from the value 'xIntegralSplineMin' to the 'xIntegralSplineMax' 
+% value. The three real numbers must be values of the [0, 1] 
+% interval. 
 % 
-% "ppFitSpline" is the piecewise polynomial structure of the 
+% 'ppFitSpline' is the piecewise polynomial structure of the 
 % interpolating cubic spline polynomial fSpline of the data points 
-% represented by the pairs ("xData"(i), "yData"(i)). 
+% represented by the pairs ('xData'(i), 'yData'(i)). 
 
 
 pars = inputParser;
@@ -107,7 +107,7 @@ DrawZAreaSpline(xIntegralSplineMin, xIntegralSplineMax, ...
 hold on;
 
 % In the following block of code, the interpolating spline curve of 
-% the data points represented by the pairs ("xData"(i), "yData"(i)) 
+% the data points represented by the pairs ('xData'(i), 'yData'(i)) 
 % as well as the data points themselves are plotted. 
 DrawZFitSpline(Figure, xData, yData, ...
     min(xData(1), xIntegralSplineMin), ...
