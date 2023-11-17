@@ -1,7 +1,7 @@
 % Supposedly one measures a variable which is a function of 
 % time t, such as the velocity v in the x coordinate. The value of v 
 % is measured each second. This gives us two corresponding 
-% vectors of measurements: "T" for time and "V" for the velocity 
+% vectors of measurements: 'T' for time and 'V' for the velocity 
 % v. 
 % Let us plot the measurements. Run the following block of 
 % code. 
@@ -24,18 +24,17 @@ clearvars; clc;   % Clearing variables and workspace is done at
 
 
 % Supposedly one knows that the value of the x coordinate at 
-% t == 0 is x == 3 m and wants to find the value of the x 
-% coordinate at t === 8 s. In order to do that, one has to 
-% integrate the velocity function v(t) from t == 0 to t == 8 s. In this 
-% time interval, the velocity function as a whole is unknown as 
-% only the values in nine specific time points have been 
-% measured. In such cases, numerical integration can be 
-% performed to give an estimation of the actual value of the x 
-% coordinate at t == 0. 
+% t = 0 is x = 3 m and wants to find the value of the x coordinate 
+% at t = 8 s. In order to do that, one has to integrate the velocity 
+% function v(t) from t = 0 to t = 8 s. In this time interval, the 
+% velocity function v(t) as a whole is unknown as only the values 
+% in nine specific time points have been measured. In such 
+% cases, numerical integration can be performed to give an 
+% estimation of the actual value of the x coordinate at t = 0. 
 % The ZFindDefiniteIntegral function is a tool which can be used 
 % to do just that. 
 % Run the following block of code to numerically integrate the 
-% velocity function from t == 0 to t == 8. 
+% velocity function from t = 0 to t = 8. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
 V = [1.000000000000000; 1.909297426825682;
@@ -53,8 +52,8 @@ clearvars -except DefiniteIntegral; clc;
 DefiniteIntegral   %Display the calculated value in the command 
                              % window. 
 
-% To calculate the value of the x coordinate at t == 8 s, add 3 
-% (== x(t == 0) in meters) to the DefiniteIntegralA value. You can 
+% To calculate the value of the x coordinate at t = 8 s, add 3 
+% (= x(t == 0) in meters) to the DefiniteIntegralA value. You can 
 % do so by running the following block of code next. 
 
 clc;
@@ -71,9 +70,9 @@ x_at_t_equals_8_s
 % using the ZFindDefiniteIntegral function with its default 
 % settings, the function being integrated is estimated to be 
 % piecewise constant.
-% Let us visualize this by specifying the index of the Figure 
+% Let us visualize this by specifying the index of the figure 
 % window in which the measurements, the estimated function, 
-% and the area under the integrated curve is to be plotted in the 
+% and the area under the integrated curve are to be plotted in the 
 % optional parameters of the ZFindDefiniteIntegral function. 
 % Run the following block of code. 
 
@@ -87,9 +86,9 @@ xData = T; yData = V;
 xMin = 2.2;   % Lower limit of integration. 
 xMax = 11;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
-figr = 1;   % Index of the Figure window. 
+Figure = 1;   % Index of the figure window. 
 close all;
-ZFindDefiniteIntegral(xData, yData, Limits, 'Figure', figr);
+ZFindDefiniteIntegral(xData, yData, Limits, 'Figure', Figure);
 xlabel('t [s]'); ylabel('v [m / s]');
 clear all; clc;
 
@@ -100,12 +99,12 @@ clear all; clc;
 
 % Now, in some cases, a piecewise interpolation polynomial of a 
 % higher order may be more appropriate for the estimation of 
-% the v(t) function. In such cases, we can specify the so called 
-% "PseudoAccuracy" parameter as the optional parameter of 
-% the ZFindDefiniteIntegral function. The "PseudoAccuracy" 
-% parameter of the FindDefiniteIntegral function is the order of 
-% the piecewise interpolation polynomial with which the function 
-% is to be estimated. 
+% the v(t) function. In such cases, we can vary the setting of the 
+% optional parameter of the ZFindDefiniteIntegral function 
+% named ''PseudoAccuracy'' The 'PseudoAccuracy' parameter 
+% of the FindDefiniteIntegral function is the order of the 
+% piecewise interpolation polynomial with which the function is to 
+% be estimated. 
 % Let us try to estimate the v(t) function to be a piecewise cubic 
 % interpolation polynomial by running the following block of 
 % code. 
@@ -120,17 +119,17 @@ xData = T; yData = V;
 xMin = 0;   % Lower limit of integration. 
 xMax = 8;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 3;   % PseudoAccuracy parameter. 
-figr = 1;   % Index of the Figure window. 
+PseudoAccuracy = 3;   % 'PseudoAccuracy' parameter. 
+Figure = 1;   % Index of the figure window. 
 close all;
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, 'Figure', Figure);
 clearvars -except DefiniteIntegral; clc;
 xlabel('t [s]'); ylabel('v [m / s]');
-x_at_t_equals_8_s = DefiniteIntegral + 3   % Remember, the 
+x_at_t_equals_8_s = DefiniteIntegral + 3   % Remember that the 
                                                                         % value of the x 
                                                                         % coordinate at time 
-                                                                        % t == 0 is 3 m. 
+                                                                        % t = 0 is 3 m. 
 clearvars DefiniteIntegral;
 
 
@@ -143,16 +142,17 @@ clearvars DefiniteIntegral;
 % velocity in meters per second (m / s) is represented by the 
 % function v(t) = sin(2 * t) + 1 if time t is expressed in seconds. It 
 % is important to note that increasing the value of the 
-% "PseudoAccuracy" parameter may not result in a more 
+% 'PseudoAccuracy' parameter may not result in a more 
 % accurate estimation of the function being integrated even if the 
-% function is analytical. For example, if the "PseudoAccuracy" 
+% function is analytical. For example, if the 'PseudoAccuracy' 
 % parameter is increased to the maximum possible value of 
-% "PseudoAccuracy" == 9 - 1" ("9" is the size of the 
+% 'PseudoAccuracy' = 9 - 1 = 8 ('9' is the length of the 
 % velocity/time data vector), the estimated velocity function 
 % resembles the actual velocity function less. The estimated 
-% value of the x coordinate at t == 8 s is also less close to the 
-% actual value, which is about 11.98 m (it was estimated to be 
-% about 12.41 m with "PseudoAccuracy" == 3). 
+% value of about 10.71 m of the x coordinate at t = 8 s is also 
+% less close to the actual value, which is about 11.98 m (it was 
+% estimated to be about 12.41 m with 'PseudoAccuracy' = 3 on 
+% the previous page). 
 % Run the following block of code to see for yourself. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
@@ -165,11 +165,11 @@ xData = T; yData = V;
 xMin = 0;   % Lower limit of integration. 
 xMax = 8;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 9 - 1;   % PseudoAccuracy parameter. 
-figr = 1;   % Index of the Figure window. 
+PseudoAccuracy = 9 - 1;   % 'PseudoAccuracy' parameter. 
+Figure = 1;   % Index of the figure window. 
 close all;
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, 'Figure', Figure);
 TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
 hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
                                                                         % velocity function. 
@@ -184,21 +184,21 @@ clearvars DefiniteIntegral;
 
 
 % It is also possible to find the numerical indefinite integral 
-% "VIndefiniteIntegral" of the velocity function using the 
+% 'VIndefiniteIntegral' of the velocity function using the 
 % ZFindIndefiniteIntegral function by providing the vector of 
-% values "TIntegralA" at which the indefinite integral is to be 
+% values 'TIntegral' at which the indefinite integral is to be 
 % evaluated. 
-% At the first (i.e. lowest) value of the "TIntegral" vector, the 
-% value of "VIndefiniteIntegral" is zero by default. At t == 0, the 
-% value of the x coordinate is 3 m. Therefore, because 
-% "TIntegral"(1) == 0, to estimate the x coordinate at the time 
-% points of the "TIntegral" vector, the number 3 has to be added 
-% to the "VIndefiniteIntegral" vector for it to equal the vector X of 
-% the estimated values of the coordinate x at time points of 
-% "TIntegral" vector. 
+% At the first (i.e. lowest) value of the 'TIntegral' vector, the value 
+% of 'VIndefiniteIntegral' is zero by default. At t = 0, the value of 
+% the x coordinate is 3 m. Therefore, because 
+% 'VIndefiniteIntegral'(1) = 0, to estimate the x coordinate at the 
+% time points of the 'TIntegral' vector, the number 3 has to be 
+% added to the 'VIndefiniteIntegral' vector for it to equal the 
+% vector X_estimated of the estimated values of the coordinate 
+% x at time points of the 'TIntegral' vector. 
 % Run the following block of code to see the comparison 
 % between the actual and the estimated x(t) function for 
-% "PseudoAccuracy" == 3. 
+% 'PseudoAccuracy' = 3. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
 V = [1.000000000000000; 1.909297426825682;
@@ -209,16 +209,17 @@ V = [1.000000000000000; 1.909297426825682;
 TIntegral = (linspace(0, 8, 1000))';
 xData = T; yData = V; 
 xIntegral = TIntegral;
-psacc = 3;   % PseudoAccuracy parameter. 
+PseudoAccuracy = 3;   % 'PseudoAccuracy' parameter. 
 close all;
 VIndefiniteIntegral = ZFindIndefiniteIntegral(xData, yData, ...
-    xIntegral, 'PseudoAccuracy', psacc);
+    xIntegral, 'PseudoAccuracy', PseudoAccuracy);
 X_estimated = VIndefiniteIntegral + 3;
 figure(1); clf;
 plot(TIntegral, X_estimated, 'r', 'LineWidth', 1.2)   % Plot the 
                                                                                    % estimated 
                                                                                    % x(t) function. 
-TT = linspace(0, 8, 1000); XX_actual = -cos(2 * TT)/2 + TT + 3.5;
+TT = linspace(0, 8, 1000); 
+XX_actual = -cos(2 * TT) / 2 + TT + 3.5;
 hold on; plot(TT, XX_actual, 'k', 'LineWidth', 1.5);   % Plot the 
                                                                                      % actual x(t) 
                                                                                      % function. 
@@ -232,61 +233,66 @@ clearvars -except TIntegral XEstimated TT XX_actual; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% There is also the optional "Mode" parameter for both the 
-% ZFindDefiniteIntegral function and the ZFindIndefiniteIntegral 
-% function, with which modes from 0 to 2 can be chosen 
-% ("Mode" == 1 being the default). If the sampling points are 
-% reasonably equally spaced, the "Mode" parameter makes little 
-% to no difference. If the sampling points are highly unequally far 
-% apart, the three different "Mode" options give different 
-% answers to the question: "What are the appropriate abscissa 
-% coordinate points at which one piece of the piecewise 
-% interpolation polynomial function ends and the other begins?" 
+% There is also the optional parameter named 'Mode' for both 
+% the ZFindDefiniteIntegral function and the 
+% ZFindIndefiniteIntegral function, with which modes from 0 to 2 
+% can be chosen ('Mode' = 1 being the default). If the sampling 
+% points are reasonably equally spaced, the 'Mode' parameter 
+% makes little to no difference. If the sampling points are highly 
+% unequally far apart, the three different 'Mode' options give 
+% different answers to the question "What are the appropriate 
+% abscissa coordinate points at which one piece of the 
+% piecewise interpolation polynomial function ends and the other 
+% begins?" 
 % For details, the documentation of the GetIpointsSmatrix 
 % function should be read. In this tutorial, the impact of the 
-% "Mode" parameter can be seen by running one of the two 
+% 'Mode' parameter can be seen by running one of the two 
 % following blocks of code. The three figures generated show 
-% how the estimated y(x) function varies with the "Mode" 
+% how the estimated y(x) function varies with the 'Mode' 
 % parameter when sampling points of the x variable are highly 
 % unequally spaced. 
 
-mode = 0;   % Mode parameter.
+Mode = 0;   % 'Mode' parameter.
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45];
 yData = [10; 9; 8; 11; 13; 5; 4; 3; 2];
 xMin = 0;   % Lower integration limit. 
 xMax = 45;   % Upper integration limit. 
 Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 3;	% PseudoAccuracy parameter. 
-figr = 1;   % Index of the Figure window. 
+PseudoAccuracy = 3;	% PseudoAccuracy parameter. 
+Figure = 1;   % Index of the figure window. 
 close all;
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, ...
+    'Mode', Mode, 'Figure', Figure);
 xlabel('x'); ylabel('y');
 title(['Mode == 0, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-mode = 1; figr = 2;    % Changing Mode parameter to 1. 
+Mode = 1; Figure = 2;    % Changing 'Mode' parameter to 1. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, ...
+    'Mode', Mode, 'Figure', Figure);
 xlabel('x'); ylabel('y');
 title(['Mode == 1, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
-mode = 2; figr = 3;    % Changing Mode parameter to 2. 
+Mode = 2; Figure = 3;    % Changing 'Mode' parameter to 2. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, ...
+    'Mode', Mode, 'Figure', Figure);
 xlabel('x'); ylabel('y');
 title(['Mode == 2, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 clearvars; clc;
 
 
-mode = 0;   % Mode parameter. 
+Mode = 0;   % 'Mode' parameter. 
 xData = [-3; -2; 3; 4; 5; 8];
 yData = sin(xData);
 xMin = -2;   % Lower integration limit. 
 xMax = 4;	% Upper integration limit. 
 Limits = [xMin; xMax];   % Limits of integration. 
-psacc = 2;   % PseudoAccuracy parameter. 
-figr = 1;   % Index of the Figure window. 
+PseudoAccuracy = 2;   % 'PseudoAccuracy' parameter. 
+Figure = 1;   % Index of the figure window. 
 close all;
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, ...
+    'Mode', Mode, 'Figure', Figure);
 xlabel('x'); ylabel('y');
 title(['Mode == 0, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 xx = linspace(min(xData), max(xData), 1000); yy_actual = sin(xx);
@@ -294,16 +300,18 @@ hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);   % Plot the
                                                                                   % actual 
                                                                                   % function. 
 legend('', 'Estimated', '', 'Actual');
-mode = 1; figr = 2;    % Changing Mode parameter to 1. 
+Mode = 1; Figure = 2;    % Changing 'Mode' parameter to 1. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, ...
+    'Mode', Mode, 'Figure', Figure);
 xlabel('x'); ylabel('y'); legend('', 'Estimated', '', 'Actual');
 title(['Mode == 1, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);
 legend('', 'Estimated', '', 'Actual');
-mode = 2; figr = 3;    % Changing Mode parameter to 2. 
+Mode = 2; Figure = 3;    % Changing 'Mode' parameter to 2. 
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'PseudoAccuracy', psacc, 'Mode', mode, 'Figure', figr);
+    'PseudoAccuracy', PseudoAccuracy, ...
+    'Mode', Mode, 'Figure', Figure);
 xlabel('x'); ylabel('y'); legend('', 'Estimated', '', 'Actual');
 title(['Mode == 2, DefiniteIntegral = ', num2str(DefiniteIntegral)]);
 hold on; plot(xx, yy_actual, 'k', 'LineWidth', 1.5);
@@ -320,25 +328,25 @@ Actual_value   %Display the actual value of the definite integral.
 % Alternatively, the definite or the indefinite numerical integral 
 % can be found by estimating the function being integrated to be 
 % the cubic spline of the data points. This can be done by 
-% altering the optional "Type" parameter to "'Spline'" of either 
-% the ZDefiniteIntegral function or the ZIndefiniteIntegral 
-% function. 
-% The default "Type" parameter, which has been used until this 
-% point in the tutorial, is "'A'". Note that due to spline being fully 
-% defined by a specific set of data points, there are no optional 
-% parameters "PseudoAccuracy" and "Mode" with the "Type" 
-% parameter set to "'Spline'". 
+% altering the optional parameter named ''Type'' of either the 
+% ZDefiniteIntegral function or the ZIndefiniteIntegral function to 
+% ''Spline''. 
+% The default value of the 'Type' parameter, which has been 
+% used up to this point in the tutorial, is ''A''. Note that due to 
+% splines being fully defined by a specific set of data points, 
+% there are no optional parameters 'PseudoAccuracy' and 
+% 'Mode' with the 'Type' parameter set to ''Spline''. 
 % The following two blocks of code refer to the previous 
-% problem of velocity being measured each second from t == 0 
-% to t == 8 s. 
+% problem of velocity being measured each second from t = 0 
+% to t = 8 s. 
 % Run the first block of code to estimate the value of the x 
-% coordinate at t == 8 s by using definite numerical integration 
+% coordinate at t = 8 s by using definite numerical integration 
 % with cubic spline interpolation. Just as a reminder, the actual 
-% value of the x coordinate at t == 8 s is about 11.98 m. 
+% value of the x coordinate at t = 8 s is about 11.98 m. 
 % Run the second block of code to estimate the x(t) function for 
 % the time interval [0, 8 s] by using indefinite integration with 
 % cubic spline interpolation and compare it to the actual x(t) 
-% function.
+% function. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
 V = [1.000000000000000; 1.909297426825682;
@@ -350,10 +358,10 @@ xData = T; yData = V;
 xMin = 0;   % Lower limit of integration. 
 xMax = 8;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
-figr = 1;   % Index of the Figure window. 
+Figure = 1;   % Index of the figure window. 
 close all;
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'Type', 'Spline', 'Figure', figr);
+    'Type', 'Spline', 'Figure', Figure);
 TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
 hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
                                                                          % velocity function. 
@@ -396,28 +404,28 @@ clearvars; clc;
 
 % Another alternative is to find either the definite integral or the 
 % indefinite integral by integrating the regression polynomial of 
-% the data points. This can be done by altering the optional 
-% "Type" parameter to "'PolyFit'" of either the ZDefiniteIntegral 
+% the data points. This can be done by setting the optional 
+% 'Type' parameter to ''PolyFit'' of either the ZDefiniteIntegral 
 % function or the ZIndefiniteIntegral function. With this setting of 
-% the "Type" parameter, the "PolyDegree" required parameter 
+% the 'Type' parameter, the 'PolyDegree' required parameter 
 % must be set to specify the degree of the regression 
-% polynomial. As with the "'Spline'" setting of the "Type" 
+% polynomial. As with the ''Spline'' setting of the 'Type' 
 % parameter, there are no optional parameters 
-% "PseudoAccuracy" and "Mode". 
-% As in the previous page, the following two blocks of code refer 
-% to the previous problem of velocity being measured each 
-% second from t == 0 to t == 8 s. 
+% 'PseudoAccuracy' and 'Mode'. 
+% As in the previous page, the following two blocks of code 
+% refer to the previous problem of velocity being measured 
+% each second from t = 0 to t = 8 s. 
 % Run the first block of code to estimate the value of the x 
-% coordinate at t == 8 s using the "'PolyFit'" setting of the "Type" 
+% coordinate at t = 8 s using the ''PolyFit'' setting of the 'Type' 
 % parameter of the ZDefiniteIntegral function. Just as a 
-% reminder, the actual value of the x coordinate at t == 8 s is 
+% reminder, the actual value of the x coordinate at t = 8 s is 
 % about 11.98 m. 
 % Run the second block of code to estimate the x(t) function for 
-% the time interval [0, 8 s] by using the "PolyFit" setting of the 
-% "Type" parameter of the ZIndefiniteIntegral function and 
+% the time interval [0, 8 s] by using the ''PolyFit'' setting of the 
+% 'Type' parameter of the ZIndefiniteIntegral function and 
 % compare it to the actual x(t) function. 
-% The "PolyDegree" parameter in both cases is set to 
-% "PolyDegree" == 6. 
+% The 'PolyDegree' parameter in both cases is set to 
+% 'PolyDegree' = 6. 
 
 T = [0; 1; 2; 3; 4; 5; 6; 7; 8];
 V = [1.000000000000000; 1.909297426825682;
@@ -430,10 +438,10 @@ xMin = 0;   % Lower limit of integration.
 xMax = 8;   % Upper limit of integration. 
 Limits = [xMin; xMax];   % Limits of integration. 
 PolyDegree = 6;   % Degree of the regression polynomial. 
-figr = 1;   % Index of the Figure window. 
+Figure = 1;   % Index of the figure window. 
 close all;
 DefiniteIntegral = ZFindDefiniteIntegral(xData, yData, Limits, ...
-    'Type', 'PolyFit', PolyDegree, 'Figure', figr);
+    'Type', 'PolyFit', PolyDegree, 'Figure', Figure);
 TT = linspace(min(T), max(T), 1000); VV = sin(2 * TT) + 1;
 hold on; plot(TT, VV, 'k', 'LineWidth', 1.5);   % Plot the actual 
                                                                          % velocity function. 

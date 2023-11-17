@@ -12,17 +12,17 @@ LimitsOutOfBoundsLeft = [-2; 37];
 LimitsOutOfBounds = [-4; 54];
 LimitsOutOfBoundsReversed = [54; -4];
 
-accuracyLow = 2;
-accuracyMedium = 3;
-accuracyHigh = 4;
+AccuracyLow = 2;
+AccuracyMedium = 3;
+AccuracyHigh = 4;
 
-mode0 = 0;
-mode1 = 1;
-mode2 = 2;
+Mode0 = 0;
+Mode1 = 1;
+Mode2 = 2;
 
-figr1 = 1;
-figr4 = 4;
-figr22 = 22;
+Figure1 = 1;
+Figure4 = 4;
+Figure22 = 22;
 
 DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsWithinBounds);
 DefiniteIntegralAStandard = 299;
@@ -35,28 +35,28 @@ if abs(DefiniteIntegralA - DefiniteIntegralAStandard) > power(10, -12)
 end
 clear DefiniteIntegralA DefiniteIntegralAStandard;
 
-DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsRight, 'PseudoAccuracy', accuracyLow);
+DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsRight, 'PseudoAccuracy', AccuracyLow);
 DefiniteIntegralAStandard = 4.026682382574147 * power(10, 2);
 if abs(DefiniteIntegralA - DefiniteIntegralAStandard) > power(10, -12)
-    fprintf('There is a problem with ZFindDefiniteIntegralA: \nDefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsRight, ''PseudoAccuracy'', accuracyMedium)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegralA: \nDefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsRight, ''PseudoAccuracy'', AccuracyMedium)\n');
 end
-DefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsRight, 'Type', 'A', 'PseudoAccuracy', accuracyLow);
+DefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsRight, 'Type', 'A', 'PseudoAccuracy', AccuracyLow);
 if abs(DefiniteIntegralA - DefiniteIntegralAStandard) > power(10, -12)
-    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsRight, ''Type'', ''A'', ''PseudoAccuracy'', accuracyLow)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsRight, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyLow)\n');
 end
 clear DefiniteIntegralA DefiniteIntegralAStandard;
 
-DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsLeft, 'PseudoAccuracy', accuracyHigh, 'Mode', mode0, 'Figure', figr1);
+DefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsLeft, 'PseudoAccuracy', AccuracyHigh, 'Mode', Mode0, 'Figure', Figure1);
 DefiniteIntegralAStandard = -1.707300734025471 * power(10, 3);
 if abs(DefiniteIntegralA - DefiniteIntegralAStandard) > power(10, -12)
-    fprintf('There is a problem with ZFindDefiniteIntegralA: \nDefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsLeft, ''PseudoAccuracy'', accuracyHigh, ''Mode'', mode0, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegralA: \nDefiniteIntegralA = ZFindDefiniteIntegralA(xData, yData, LimitsOutOfBoundsLeft, ''PseudoAccuracy'', AccuracyHigh, ''Mode'', Mode0, ''Figure'', Figure1)\n');
 end
-DefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsLeft, 'Type', 'A', 'PseudoAccuracy', accuracyHigh, 'Mode', mode0, 'Figure', figr1);
+DefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsLeft, 'Type', 'A', 'PseudoAccuracy', AccuracyHigh, 'Mode', Mode0, 'Figure', Figure1);
 if abs(DefiniteIntegralA - DefiniteIntegralAStandard) > power(10, -12)
-    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsLeft, ''Type'', ''A'', ''PseudoAccuracy'', accuracyHigh, ''Mode'', mode0, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralA = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsLeft, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyHigh, ''Mode'', Mode0, ''Figure'', Figure1)\n');
 end
 clear DefiniteIntegralA DefiniteIntegralAStandard;
-close(figr1);
+close(Figure1);
 
 
 % ZFindDefiniteIntegralPolyFit
@@ -64,32 +64,32 @@ close(figr1);
 PolyDegree4 = 4;
 PolyDegree5 = 5;
 
-DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, LimitsOutOfBoundsReversed, PolyDegree5, 'Figure', figr1);
+DefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, LimitsOutOfBoundsReversed, PolyDegree5, 'Figure', Figure1);
 DefiniteIntegralPolyFitStandard = -523.5190226628359;
 if abs(DefiniteIntegralPolyFit - DefiniteIntegralPolyFitStandard) > power(10, -13)
-    fprintf('There is a problem with ZFindDefiniteIntegralPolyFit: \nDefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, LimitsOutOfBoundsReversed, PolyDegree5, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegralPolyFit: \nDefiniteIntegralPolyFit = ZFindDefiniteIntegralPolyFit(xData, yData, LimitsOutOfBoundsReversed, PolyDegree5, ''Figure'', Figure1)\n');
 end
-DefiniteIntegralPolyFit = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsReversed, 'Type', 'PolyFit', PolyDegree5, 'Figure', figr1);
+DefiniteIntegralPolyFit = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsReversed, 'Type', 'PolyFit', PolyDegree5, 'Figure', Figure1);
 if abs(DefiniteIntegralPolyFit - DefiniteIntegralPolyFitStandard) > power(10, -13)
-    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralPolyFit = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsReversed, ''Type'', ''PolyFit'', PolyDegree5, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralPolyFit = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBoundsReversed, ''Type'', ''PolyFit'', PolyDegree5, ''Figure'', Figure1)\n');
 end
 clear DefiniteIntegralPolyFit DefiniteIntegralPolyFitStandard;
-close(figr1);
+close(Figure1);
 
 
 % ZFindDefiniteIntegralSpline
 
-DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, LimitsOutOfBounds, 'Figure', figr1);
+DefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, LimitsOutOfBounds, 'Figure', Figure1);
 DefiniteIntegralSplineStandard = 4.318972246149160 * power(10, 2);
 if abs(DefiniteIntegralSpline - DefiniteIntegralSplineStandard) > power(10, -12)
-    fprintf('There is a problem with ZFindDefiniteIntegralSpline: \nDefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, LimitsOutOfBounds, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegralSpline: \nDefiniteIntegralSpline = ZFindDefiniteIntegralSpline(xData, yData, LimitsOutOfBounds, ''Figure'', Figure1)\n');
 end
-DefiniteIntegralSpline = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBounds, 'Type', 'Spline', 'Figure', figr1);
+DefiniteIntegralSpline = ZFindDefiniteIntegral(xData, yData, LimitsOutOfBounds, 'Type', 'Spline', 'Figure', Figure1);
 if abs(DefiniteIntegralSpline - DefiniteIntegralSplineStandard) > power(10, -12)
-    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralSpline = ZFindDefiniteIntegral(xData, yData, ''Type'', ''Spline'', LimitsOutOfBounds, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDefiniteIntegral: \nDefiniteIntegralSpline = ZFindDefiniteIntegral(xData, yData, ''Type'', ''Spline'', LimitsOutOfBounds, ''Figure'', Figure1)\n');
 end
 clear DefiniteIntegralSpline DefiniteIntegralSplineStandard;
-close(figr1);
+close(Figure1);
 
 
 % ZFindDerivativeA
@@ -103,8 +103,8 @@ xDerivativeOutOfBoundsRight = (linspace(3.5, 46, 100))';
 xDerivativeOutOfBoundsLeft = (linspace(-1, 45, 100))';
 xDerivativeOutOfBounds = (linspace(-2, 47, 100))';
 
-ordDeriv2 = 2;
-ordDeriv4 = 4;
+OrdDeriv2 = 2;
+OrdDeriv4 = 4;
 
 yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBounds);
 yDerivativeAStandard =  [-1.833333333333333; -1.668350168350168; -1.503367003367003; -1.338383838383838; -1.173400673400673; -1.008417508417508; -0.843434343434343; -0.678451178451178; -0.513468013468014; -0.348484848484849; 0.449494949494949;  0.944444444444445; 1.439393939393939; 1.934343434343434; 1.190235690235690; 1.025252525252525; 0.860269360269360; 0.695286195286196; 0.530303030303030; 0.365319865319865; 0.200336700336700;  0.545080433969323; 0.513305898491083; 0.481531363012844; 0.449756827534605;  0.417982292056366; 0.386207756578127;  0.354433221099888; 0.322658685621648; 0.290884150143409;  0.259109614665170; 0.227335079186931; 0.195560543708692;  0.163786008230453;  0.132011472752213; 0.100236937273974; 0.068462401795735; 0.036687866317496; 0.004913330839257; -0.026861204638983; -0.058635740117222; -0.090410275595461; -0.122184811073700; -0.153959346551939; -0.185733882030178; -0.217508417508418; -0.249282952986657; -0.292961543919398; -0.299914857386122; -0.306868170852845; -0.313821484319569; -0.320774797786292; -0.327728111253015; -0.334681424719739; -0.341634738186462; -0.348588051653186; -0.355541365119909; -0.362494678586633; -0.369447992053356; -0.376401305520079; -0.383354618986803; -0.390307932453526; -0.397261245920250; -0.404214559386973; -0.411167872853697; -0.418121186320420; -0.425074499787144; -0.432027813253867; -0.438981126720590; -0.445934440187314; -0.452887753654037; -0.459841067120761; -0.466794380587484; -0.473747694054208; -0.480701007520931; -0.558585858585857; -0.525589225589224; -0.492592592592592; -0.459595959595959; -0.426599326599326; -0.393602693602694; -0.360606060606060; -0.327609427609428; -0.294612794612795; -0.261616161616162; -0.280976430976431; -0.264478114478114; -0.247979797979798; -0.231481481481481; -0.214983164983164; -0.198484848484848; -0.181986531986531; -0.165488215488214; -0.148989898989897; -0.132491582491581; -0.115993265993264; -0.099494949494948; -0.082996632996631; -0.066498316498314; -0.049999999999998];
@@ -117,85 +117,85 @@ if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
 end
 clear yDerivativeA yDerivativeAStandard;
 
-yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsRight, 'Accuracy', accuracyHigh, 'Mode', mode2, 'Figure', figr4);
+yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsRight, 'Accuracy', AccuracyHigh, 'Mode', Mode2, 'Figure', Figure4);
 yDerivativeAStandard = [1.051488095238096; 1.506395313884345; 1.884700178513947; 2.147975193360868; 1.612057738188002; 1.432489143403610; 1.165675906256149; 0.817171558288826; 0.392529631044849; -0.102696343932570; -0.662952835100229; 0.221273523347939; 0.131204722240096; 0.047610212226123; -0.029701093851490; -0.100920283150246; -0.166238442827654; -0.225846660041219; -0.279936021948450; -0.328697615706851; -0.372322528473931; -0.411001847407196; -0.444926659664152; -0.474288052402307; -0.499277112779167; -0.520084927952238; -0.536902585079028; -0.549921171317044; -0.559331773823792; -0.565325479756780; -0.568093376273512; -0.567826550531496; -0.564716089688240; -0.558953080901250; -0.550728611328031; -0.540233768126092; -0.527659638452940; -0.513197309466079; -0.497037868323019; -0.479372402181264; -0.460391998198324; -0.440287743531702; -0.443112156566217; -0.464194304246192; -0.484367179331610; -0.503604871915288; -0.521881472090045; -0.539171069948698; -0.555447755584066; -0.570685619088967; -0.584858750556217; -0.597941240078637; -0.609907177749042; -0.620730653660251; -0.630385757905084; -0.638846580576356; -0.646087211766886; -0.652081741569492; -0.656804260076993; -0.660228857382205; -0.662329623577947; -0.663080648757038; -0.662456023012294; -0.660429836436534; -0.656976179122576; -0.652069141163238; -0.645682812651337; -0.637791283679692; -0.628368644341121; -0.617388984728441; -0.604826394934471; -0.590654965052029; -0.574848785173932; -0.557381945392998; -0.554793542876631; -0.522092865758060; -0.489991562170877;  -0.458639883438602; -0.428188080884778; -0.398786405832926; -0.370585109606575; -0.343734443529248; -0.318384658924476; -0.294686007115786; -0.272788739426707; -0.252843107180771; -0.234999361701494; -0.219407754312414; -0.206218536337055; -0.195581959098943; -0.187648273921605; -0.182567732128568; -0.180490585043371; -0.181567083989526; -0.185947480290571; -0.193782025270032; -0.205220970251432; -0.220414566558306; -0.239513065514176; -0.262666718442572];
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsRight, ''Accuracy'', accuracyHigh, ''Mode'', mode2, ''Figure'', figr4)\n');
+    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsRight, ''Accuracy'', AccuracyHigh, ''Mode'', Mode2, ''Figure'', Figure4)\n');
 end
-yDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsRight, 'Type', 'A', 'Accuracy', accuracyHigh, 'Mode', mode2, 'Figure', figr4);
+yDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsRight, 'Type', 'A', 'Accuracy', AccuracyHigh, 'Mode', Mode2, 'Figure', Figure4);
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivative: \nyDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsRight, ''Type'', ''A'', ''Accuracy'', accuracyHigh, ''Mode'', mode2, ''Figure'', figr4)\n');
+    fprintf('There is a problem with ZFindDerivative: \nyDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsRight, ''Type'', ''A'', ''Accuracy'', AccuracyHigh, ''Mode'', Mode2, ''Figure'', Figure4)\n');
 end
 clear yDerivativeA yDerivativeAStandard;
-close(figr4);
+close(Figure4);
 
-yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, 'OrdDeriv', ordDeriv4, 'Accuracy', accuracyLow);
+yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, 'OrdDeriv', OrdDeriv4, 'Accuracy', AccuracyLow);
 yDerivativeAStandard = [-0.835143168378461; -0.798242964974990; -0.761342761571518; -0.724442558168047; -0.687542354764576; -0.650642151361104; -0.613741947957633; -0.576841744554162; -0.539941541150690; -0.503041337747219; -0.466141134343748; -0.429240930940277; -0.392340727536805; -0.355440524133334; -0.318540320729863; -0.281640117326391; -0.244739913922920; -0.207839710519449; -0.170939507115977; -0.134039303712506; -0.097139100309035; -0.060238896905563; -0.023338693502092; 0.013561509901379; 0.050461713304851; 0.087361916708322; 0.124262120111793; 0.161162323515264; 0.198062526918736; 0.234962730322207; 0.271862933725678; 0.308763137129150; 0.345663340532621; 0.382563543936092; 0.419463747339564; 0.456363950743035; 0.493264154146506; 0.530164357549977; 0.567064560953449; 0.603964764356920; 0.640864967760391; 0.677765171163863; -0.011644420191158; -0.016330289178638; -0.021016158166118; -0.025702027153599; -0.030387896141079; -0.001214997139045; -0.001042777144873; -0.000870557150701; -0.000698337156530; -0.000526117162358; -0.000353897168186; -0.000181677174014; 0.000580521744315; 0.000451196955029; 0.000321872165742; 0.000192547376455; 0.000063222587169; -0.000066102202118; -0.000195426991404; -0.000324751780691; -0.000454076569977; -0.000583401359264; -0.000712726148550; -0.000842050937837; -0.000971375727123; -0.001100700516410; -0.001230025305696; -0.001359350094983; -0.001488674884269; -0.001617999673556; -0.001747324462842; -0.001876649252129; -0.002005974041415; -0.002135298830702; -0.002264623619988; -0.002393948409275; -0.002523273198561; -0.002652597987848; -0.002781922777134; -0.002911247566421; -0.003040572355707; -0.003169897144994; -0.003299221934280; -0.003428546723567; -0.003557871512853; -0.003687196302140; -0.003816521091426; -0.003945845880713; -0.004075170669999; -0.004204495459286; -0.004333820248572; -0.004463145037859; -0.004592469827146; -0.004721794616432; -0.004851119405719; -0.004980444195005; -0.005109768984292; -0.005239093773578];
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, ''OrdDeriv'', ordDeriv4, ''Accuracy'', accuracyMedium)\n');
+    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, ''OrdDeriv'', OrdDeriv4, ''Accuracy'', AccuracyMedium)\n');
 end
-yDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, 'Type', 'A', 'OrdDeriv', ordDeriv4, 'Accuracy', accuracyLow);
+yDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, 'Type', 'A', 'OrdDeriv', OrdDeriv4, 'Accuracy', AccuracyLow);
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivative: \nyDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, ''Type'', ''A'', ''OrdDeriv'', ordDeriv4, ''Accuracy'', accuracyLow)\n');
+    fprintf('There is a problem with ZFindDerivative: \nyDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, ''Type'', ''A'', ''OrdDeriv'', OrdDeriv4, ''Accuracy'', AccuracyLow)\n');
 end
 clear yDerivativeA;
 
-yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, 'OrdDeriv', ordDeriv2, 'Mode', mode0);
+yDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, 'OrdDeriv', OrdDeriv2, 'Mode', Mode0);
 yDerivativeAStandard = [-0.600000000000004; -0.414141414141417; -0.228282828282831; -0.042424242424245; 0.143434343434342; 0.329292929292928; 0.515151515151515; 0.701010101010101; 0.886868686868687; 1.072727272727274; 1.258585858585860;  0.365079365079365;  0.099567099567099; -0.165945165945166; -0.431457431457432; -0.696969696969698; -0.962481962481963; -1.227994227994229; -1.493506493506494; -1.759018759018760; -2.024531024531025; -2.290043290043291; -2.555555555555557; -2.821067821067822; -3.086580086580088; -3.352092352092354; -3.617604617604619; -3.883116883116884; -4.148629148629151; -4.414141414141415; -4.679653679653681; -4.945165945165948; -5.210678210678212; -5.476190476190478; -5.741702741702744; -6.007215007215009; -6.272727272727275; -6.538239538239539; -6.803751803751807; -7.069264069264072; -7.334776334776336; -0.012460250654695; -0.000736531986532; 0.010987186681631; 0.022710905349794; 0.034434624017957; -0.043634541455423; -0.041450020640634; -0.039265499825845; -0.037080979011056; -0.034896458196267; -0.044087425983977; -0.040571423042687; -0.037055420101397; -0.033539417160106; -0.030023414218816; -0.026507411277526; -0.022991408336236; -0.019475405394945; -0.015959402453655; 0.171212121212159; 0.166565656565693; 0.161919191919227; 0.157272727272761; 0.152626262626295; 0.147979797979829; 0.143333333333363; 0.138686868686897; 0.134040404040431; 0.129393939393965; 0.124747474747499; 0.120101010101033; 0.115454545454567; 0.110808080808101; 0.106161616161635; 0.101515151515169; 0.096868686868703; 0.092222222222237; 0.087575757575771; 0.082929292929305; 0.078282828282839; 0.073636363636373; 0.068989898989907; 0.064343434343441; 0.059696969696975; 0.055050505050509; 0.050404040404043; 0.045757575757577; 0.041111111111111; 0.036464646464645; 0.031818181818179; 0.027171717171713; 0.022525252525247; 0.017878787878780; 0.013232323232314; 0.008585858585848;  0.003939393939382; -0.000707070707084; -0.005353535353550; -0.010000000000016];
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, ''OrdDeriv'', ordDeriv2, ''Mode'', mode0)\n');
+    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivativeA(xData, yData, xDerivativeOutOfBoundsLeft, ''OrdDeriv'', OrdDeriv2, ''Mode'', Mode0)\n');
 end
-yDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, 'Type', 'A', 'OrdDeriv', ordDeriv2, 'Mode', mode0);
+yDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, 'Type', 'A', 'OrdDeriv', OrdDeriv2, 'Mode', Mode0);
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivative: \nyDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, ''Type'', ''A'', ''OrdDeriv'', ordDeriv2, ''Mode'', mode0)\n');
+    fprintf('There is a problem with ZFindDerivative: \nyDerivativeA = ZFindDerivative(xData, yData, xDerivativeOutOfBoundsLeft, ''Type'', ''A'', ''OrdDeriv'', OrdDeriv2, ''Mode'', Mode0)\n');
 end
 clear yDerivativeA yDerivativeAStandard;
 
-yDerivativeA = ZFindDerivative(xDataEven, yDataEven, xDerivativeEvenOutOfBounds, 'Type', 'A', 'Accuracy', accuracyHigh, 'Mode', mode2, 'Figure', figr1);
+yDerivativeA = ZFindDerivative(xDataEven, yDataEven, xDerivativeEvenOutOfBounds, 'Type', 'A', 'Accuracy', AccuracyHigh, 'Mode', Mode2, 'Figure', Figure1);
 yDerivativeAStandard = [5.232142857142859; 2.399712454859890; 0.492110194653303; -0.628136275519195; -1.098499307699899; -1.056451253931103; -0.639464466255100; 0.014988703285816; 0.769435902649350; 1.486404779793209; 2.028422982675099; 1.610473728306546; 1.298573510778327; 0.789629347257257; 0.103508705767644; -0.739920945666197; 0.161196847288726; 0.032583232787847; -0.081417473124074; -0.181488874737762; -0.268314576343943; -0.342578182233344; -0.404963296696691; -0.456153524024711; -0.496832468508128; -0.527683734437671; -0.549390926104067; -0.562637647798039; -0.568107503810316; -0.566484098431622; -0.558451035952686; -0.544691920664234; -0.525890356856991; -0.502729948821682; -0.475894300849037; -0.446067017229781; -0.448403850827618; -0.479938188403602; -0.509298587461282; -0.536392356665706; -0.561126804681918; -0.583409240174964; -0.603146971809890; -0.620247308251741; -0.634617558165562; -0.646165030216399; -0.654797033069297; -0.660420875389302; -0.662943865841459; -0.662273313090815; -0.658316525802413; -0.650980812641301; -0.640173482272523; -0.625801843361124; -0.607773204572151; -0.585994874570648; -0.560374162021662; -0.542807465626971; -0.493357661522646; -0.445624092513418; -0.391639841864979; -0.352415513688015; -0.318832879911206; -0.290163442546238; -0.265678703604806; -0.244650165098577; -0.226349329039223; -0.210047697438455; -0.195016772307952; -0.180528055659394; -0.165853049504470; -0.150263255854860; -0.133030176722229; -0.113425314118295; -0.090720170054752; -0.064186246543251; -0.033095045595466; 0.003281930776893; 0.045673180562140; 0.094807201748594; 0.151412492324567; 0.216217550278380; 0.289950873598357; 0.373340960272813; 0.467116308290038; 0.572005415638380; 0.688736780306130; 0.818038900281607; 0.960640273553160; 1.117269398109052; 1.288654771937644; 1.475524893027220; 1.678608259366101; 1.898633368942626; 2.136328719745080; 2.392422809761797; 2.667644136981089; 2.962721199391247; 3.278382494980626; 3.615356521737532];
 if sum(abs(yDerivativeAStandard - yDerivativeA)) > power(10, -13)
-    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivative(xDataEven, yDataEven, xDerivativeEvenOutOfBounds, ''Type'', ''A'', ''Accuracy'', accuracyHigh, ''Mode'', mode2, ''Figure'', figr1)\n');
+    fprintf('There is a problem with ZFindDerivativeA: \nyDerivativeA = ZFindDerivative(xDataEven, yDataEven, xDerivativeEvenOutOfBounds, ''Type'', ''A'', ''Accuracy'', AccuracyHigh, ''Mode'', Mode2, ''Figure'', Figure1)\n');
 end
 clear yDerivativeA yDerivativeAStandard xDataEven yDataEven xDerivativeEvenOutOfBounds;
-close(figr1);
+close(Figure1);
 
 
 % ZFindDerivativePolyFit
 
-yDerivativePolyFit = ZFindDerivativePolyFit(xData, yData, xDerivativeOutOfBounds, PolyDegree4, 'OrdDeriv', ordDeriv2);
+yDerivativePolyFit = ZFindDerivativePolyFit(xData, yData, xDerivativeOutOfBounds, PolyDegree4, 'OrdDeriv', OrdDeriv2);
 yDerivativePolyFitStandard = [0.220384603598221; 0.206566498725612; 0.193058024015479; 0.179859179467824; 0.166969965082646; 0.154390380859945; 0.142120426799721; 0.130160102901975; 0.118509409166705; 0.107168345593912; 0.096136912183597; 0.085415108935758; 0.075002935850397; 0.064900392927513; 0.055107480167105; 0.045624197569175; 0.036450545133722; 0.027586522860746; 0.019032130750248; 0.010787368802226; 0.002852237016681; -0.004773264606386; -0.012089136066977; -0.019095377365090; -0.025791988500726; -0.032178969473886; -0.038256320284568; -0.044024040932773; -0.049482131418501; -0.054630591741751; -0.059469421902525; -0.063998621900822; -0.068218191736641; -0.072128131409984; -0.075728440920849; -0.079019120269237; -0.082000169455149; -0.084671588478583; -0.087033377339540; -0.089085536038020; -0.090828064574023; -0.092260962947548; -0.093384231158597; -0.094197869207169; -0.094701877093263; -0.094896254816880; -0.094781002378021; -0.094356119776684; -0.093621607012870; -0.092577464086579; -0.091223690997811; -0.089560287746566; -0.087587254332844; -0.085304590756644; -0.082712297017968; -0.079810373116814; -0.076598819053184; -0.073077634827076; -0.069246820438491; -0.065106375887429; -0.060656301173890; -0.055896596297874; -0.050827261259381; -0.045448296058411; -0.039759700694964; -0.033761475169039; -0.027453619480638; -0.020836133629759; -0.013909017616404; -0.006672271440571; 0.000874104897739; 0.008730111398526; 0.016895748061790; 0.025371014887531; 0.034155911875749; 0.043250439026445; 0.052654596339617; 0.062368383815267; 0.072391801453393; 0.082724849253997; 0.093367527217078; 0.104319835342636; 0.115581773630671; 0.127153342081183; 0.139034540694172; 0.151225369469638; 0.163725828407581; 0.176535917508002; 0.189655636770899; 0.203084986196274; 0.216823965784125; 0.230872575534454; 0.245230815447260; 0.259898685522543; 0.274876185760303; 0.290163316160540; 0.305760076723254; 0.321666467448445; 0.337882488336114; 0.354408139386259];
 if sum(abs(yDerivativePolyFitStandard - yDerivativePolyFit)) > power(10, -13)
-    fprintf('There is a problem with ZFindDerivativePolyFit: \nyDerivativePolyFit = ZFindDerivativePolyFit(xData, yData, xDerivativeOutOfBounds, PolyDegree4, ''OrdDeriv'', ordDeriv2)\n');
+    fprintf('There is a problem with ZFindDerivativePolyFit: \nyDerivativePolyFit = ZFindDerivativePolyFit(xData, yData, xDerivativeOutOfBounds, PolyDegree4, ''OrdDeriv'', OrdDeriv2)\n');
 end
-yDerivativePolyFit = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, 'Type', 'PolyFit', PolyDegree4, 'OrdDeriv', ordDeriv2);
+yDerivativePolyFit = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, 'Type', 'PolyFit', PolyDegree4, 'OrdDeriv', OrdDeriv2);
 if sum(abs(yDerivativePolyFitStandard - yDerivativePolyFit)) > power(10, -13)
-    fprintf('There is a problem with ZFindDerivative: \nyDerivativePolyFit = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, ''Type'', ''PolyFit'', PolyDegree4, ''OrdDeriv'', ordDeriv2)\n');
+    fprintf('There is a problem with ZFindDerivative: \nyDerivativePolyFit = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, ''Type'', ''PolyFit'', PolyDegree4, ''OrdDeriv'', OrdDeriv2)\n');
 end
 clear yDerivativePolyFit yDerivativePolyFitStandard
 
 
 % ZFindDerivativeSpline
 
-yDerivativeSpline = ZFindDerivativeSpline(xData, yData, xDerivativeOutOfBounds, 'Figure', figr22);
+yDerivativeSpline = ZFindDerivativeSpline(xData, yData, xDerivativeOutOfBounds, 'Figure', Figure22);
 yDerivativeSplineStandard = [2.371597130816784; 1.293539791379494;  0.414857197332064; -0.264450651325504; -0.744383754593213; -1.024942112471062; -1.106125724959051; -0.987934592057179; -0.670368713765448;-0.153428090083857; 0.562887278987595; 1.274203314836390; 1.680609502308522; 1.779466713322735; 1.570774947879028; 1.190456471927324; 0.868824013882766; 0.609653192243966; 0.412944007010922; 0.278696458183635; 0.206910545762105; 0.177969458690158; 0.150846848532763; 0.124252984122518; 0.098187865459423; 0.072651492543478; 0.047643865374684; 0.023164983953039; -0.000785151721455; -0.024206541648800; -0.047099185828994; -0.069463084262038; -0.091298236947933; -0.112604643886676; -0.133382305078270; -0.153631220522714; -0.173351390220008; -0.192542814170152; -0.211205492373145; -0.229339424828989; -0.246944611537682; -0.264021052499225; -0.280568747713619; -0.296587697180862; -0.312077900900955; -0.327039358873898; -0.341472071099690; -0.355376037578333; -0.368751258309826; -0.381597733294168; -0.393915462531361; -0.405704446021403; -0.416964683764295; -0.427696175760037; -0.437898922008630; -0.447572922510072; -0.456718177264363; -0.465334686271505; -0.473422449531497; -0.480981467044338; -0.488011738810030; -0.494513264828571; -0.500486045099963; -0.505930079624204; -0.510845368401295; -0.515231911431236; -0.519089708714027; -0.522418760249668; -0.525219066038158; -0.527490626079499; -0.529233440373689; -0.530447508920730; -0.531132831720620; -0.531289408773361; -0.530917240078951; -0.529721513519057; -0.520968638418674; -0.501855852347251; -0.472383155304788; -0.432840500322553; -0.392451293325164; -0.355625719918200; -0.322363780101661; -0.292665473875547; -0.266530801239857; -0.243959762194593; -0.224952356739752; -0.209508584875337; -0.197628446601347; -0.189311941917781; -0.184559070824640; -0.183369833321924; -0.185744229409632; -0.191682259087766; -0.201183922356324; -0.214249219215307; -0.230878149664715; -0.251070713704547; -0.274826911334804; -0.302146742555486];
 if sum(abs(yDerivativeSplineStandard - yDerivativeSpline)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivativeSpline: \nyDerivativeSpline = ZFindDerivativeSpline(xData, yData, xDerivativeOutOfBounds, ''Figure'', figr22)\n');
+    fprintf('There is a problem with ZFindDerivativeSpline: \nyDerivativeSpline = ZFindDerivativeSpline(xData, yData, xDerivativeOutOfBounds, ''Figure'', Figure22)\n');
 end
-yDerivativeSpline = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, 'Type', 'Spline', 'Figure', figr22);
+yDerivativeSpline = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, 'Type', 'Spline', 'Figure', Figure22);
 if sum(abs(yDerivativeSplineStandard - yDerivativeSpline)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivative: \nyDerivativeSpline = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, ''Type'', ''Spline'', ''Figure'', figr22)\n');
+    fprintf('There is a problem with ZFindDerivative: \nyDerivativeSpline = ZFindDerivative(xData, yData, xDerivativeOutOfBounds, ''Type'', ''Spline'', ''Figure'', Figure22)\n');
 end
 clear yDerivativeSpline yDerivativeSplineStandard;
-close(figr22);
+close(Figure22);
 
-[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivativeInBounds, 'OrdDeriv', ordDeriv2);
+[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivativeInBounds, 'OrdDeriv', OrdDeriv2);
 yDerivativeSplineStandard = [-0.821097558205516; -0.737394803047032; -0.653692047888547; -0.569989292730062; -0.486286537571577; -0.402583782413092; -0.318881027254608; -0.235178272096123; -0.151475516937638; -0.067772761779153; -0.055572702541392; -0.054864148005176; -0.054155593468959; -0.053447038932743; -0.052738484396527; -0.052029929860310; -0.051321375324094; -0.050612820787878; -0.049904266251661; -0.049195711715445; -0.048487157179229; -0.047778602643012; -0.047070048106796; -0.046361493570580; -0.045652939034363; -0.044944384498147; -0.044235829961931; -0.043527275425714; -0.042818720889498; -0.042110166353282; -0.041401611817065;  -0.040693057280849; -0.039984502744633; -0.039275948208416; -0.038567393672200; -0.037858839135984; -0.037150284599767; -0.036441730063551; -0.035733175527335; -0.035024620991118; -0.034316066454902; -0.033607511918686; -0.032898957382469; -0.032190402846253; -0.031481848310037; -0.030773293773820; -0.030064739237604; -0.029356184701388; -0.028647630165171; -0.027939075628955; -0.027230521092739; -0.026521966556522; -0.025813412020306; -0.025104857484090; -0.024396302947873; -0.023687748411657; -0.022979193875441; -0.022270639339224; -0.021562084803008; -0.020853530266792; -0.020144975730575; -0.019436421194359; -0.018727866658143; -0.018019312121926; -0.017310757585710; -0.016602203049494; -0.015893648513277; -0.015185093977061; -0.014476539440845; -0.013767984904628; -0.013059430368412; -0.012350875832195; -0.011642321295979; -0.010933766759763; -0.010225212223546; -0.009516657687330; -0.008808103151114; -0.008099548614897; -0.007390994078681; -0.006682439542465; -0.005973885006248; -0.005265330470032; -0.004556775933816; -0.003848221397599; -0.003139666861383; -0.002431112325167; -0.001722557788950; -0.001014003252734; -0.000305448716518; 0.000403105819699; 0.001111660355915; 0.001820214892131; 0.010636102682534; 0.024519073756803; 0.038402044831073; 0.052285015905342; 0.066167986979611; 0.080050958053881; 0.084174110095687; 0.079398603607893];
 if abs(ppval(ppDerivativeSpline, 7) - (-0.311154619086132)) > power(10, -14) || sum(abs(yDerivativeSplineStandard - yDerivativeSpline)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivativeSpline: \n[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivativeInBounds, ''OrdDeriv'', ordDeriv2)\n');
+    fprintf('There is a problem with ZFindDerivativeSpline: \n[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivativeSpline(xData, yData, xDerivativeInBounds, ''OrdDeriv'', OrdDeriv2)\n');
 end
-[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivative(xData, yData, xDerivativeInBounds, 'Type', 'Spline', 'OrdDeriv', ordDeriv2);
+[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivative(xData, yData, xDerivativeInBounds, 'Type', 'Spline', 'OrdDeriv', OrdDeriv2);
 if abs(ppval(ppDerivativeSpline, 7) - (-0.311154619086132)) > power(10, -14) || sum(abs(yDerivativeSplineStandard - yDerivativeSpline)) > power(10, -12)
-    fprintf('There is a problem with ZFindDerivative: \n[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivative(xData, yData, xDerivativeInBounds, ''Type'', ''Spline'', ''OrdDeriv'', ordDeriv2)\n');
+    fprintf('There is a problem with ZFindDerivative: \n[yDerivativeSpline, ppDerivativeSpline] = ZFindDerivative(xData, yData, xDerivativeInBounds, ''Type'', ''Spline'', ''OrdDeriv'', OrdDeriv2)\n');
 end
 clear yDerivativeSpline yDerivativeSplineStandard ppDerivativeSpline;
 
@@ -218,71 +218,71 @@ if sum(abs(yFitAStandard - yFitA)) > power(10, -14)
 end
 clear yFitA yFitAStandard
 
-[yFitA, Ipoints] = ZFindFitA(xData, yData, xFitOutOfBoundsRight, 'PseudoAccuracy', accuracyMedium, 'Mode', mode0, 'Figure', figr22);
+[yFitA, Ipoints] = ZFindFitA(xData, yData, xFitOutOfBoundsRight, 'PseudoAccuracy', AccuracyMedium, 'Mode', Mode0, 'Figure', Figure22);
 yFitAStandard = power(10, 2) * [0.134285714285714; 0.134339294725990; 0.131499088229014; 0.125296862101270; 0.115264383649242; 0.100933420179415; 0.081835738998273; 0.057503107412300; 0.027467292727980; -0.008739937748202; -0.051586816709763; -0.101541576850219; -0.159072450863084; -0.224647671441876; -0.298735471280109; -0.381804083071301; -0.474321739508966; -0.576756673286619; -0.689577117097779; -0.813251303635958; -0.948247465594676; -1.095033835667445; -1.254078646547783; -1.425850130929205; -1.610816521505227; -1.809446050969366; 0.058572624924869; 0.053479082027808; 0.048394246655724; 0.043338793666555; 0.130951372993652; 0.129268911380697; 0.127504937684280; 0.125663304321776; 0.123747863710561; 0.121762468268012; 0.132124785424300; 0.129557433975497; 0.126912245047367; 0.124195419135111; 0.121413156733926; 0.118571658339014; 0.115677124445571; 0.112735755548798; 0.109753752143894; 0.141555972952677; 0.134328293168747; 0.127421706676678; 0.120828019404335; 0.114539037279580; 0.108546566230278; 0.102842412184290; 0.097418381069482; 0.092266278813716; 0.087377911344857; 0.082745084590766; 0.078359604479309; 0.074213276938348; 0.070297907895746; 0.066605303279368; 0.063127269017077; 0.059855611036736; 0.056782135266209; 0.053898647633359; 0.051196954066049; 0.048668860492144; 0.046306172839507; 0.044100697036000; 0.042044239009487; 0.040128604687833; 0.038345599998900; 0.036687030870553; 0.035144703230654; 0.033710423007066; 0.032375996127654; 0.031133228520281; 0.029973926112810; 0.028889894833105; 0.027872940609029; 0.026914869368446; 0.026007487039219; 0.025142599549212; 0.024312012826287; 0.023507532798310; 0.022720965393142; 0.021944116538648; 0.021168792162691; 0.020386798193134; 0.019589940557842; 0.018770025184677; 0.017918858001503; 0.017028244936182; 0.016089991916580; 0.015095904870560; 0.014037789725983; 0.012907452410716; 0.011696698852619; 0.010397334979559; 0.009001166719396; 0.007499999999996];
 IpointsStandard = [-Inf; 4.000000000000000; 18.000000000000000; 20.000000000000000; 22.500000000000000; 26.500000000000000; Inf];
 if sum(abs(yFitAStandard - yFitA)) > power(10, -11) || sum(abs(IpointsStandard(2 : end - 1) - Ipoints(2 : end - 1))) > power(10, -14)
-        fprintf('There is a problem with ZFindFitA: \n[yFitA, Ipoints] = ZFindFitA(xData, yData, xFitOutOfBoundsRight, ''PseudoAccuracy'', accuracyMediumHigh, ''Mode'', mode0, ''Figure'', figr22)\n');
+        fprintf('There is a problem with ZFindFitA: \n[yFitA, Ipoints] = ZFindFitA(xData, yData, xFitOutOfBoundsRight, ''PseudoAccuracy'', AccuracyMediumHigh, ''Mode'', Mode0, ''Figure'', Figure22)\n');
 end
-[yFitA, Ipoints] = ZFindFit(xData, yData, xFitOutOfBoundsRight, 'Type', 'A', 'PseudoAccuracy', accuracyMedium, 'Mode', mode0, 'Figure', figr22);
+[yFitA, Ipoints] = ZFindFit(xData, yData, xFitOutOfBoundsRight, 'Type', 'A', 'PseudoAccuracy', AccuracyMedium, 'Mode', Mode0, 'Figure', Figure22);
 if sum(abs(yFitAStandard - yFitA)) > power(10, -11) || sum(abs(IpointsStandard(2 : end - 1) - Ipoints(2 : end - 1))) > power(10, -14)
-        fprintf('There is a problem with ZFindFit: \n[yFitA, Ipoints] = ZFindFit(xData, yData, xFitOutOfBoundsRight, ''Type'', ''A'', ''PseudoAccuracy'', accuracyMedium, ''Mode'', mode0, ''Figure'', figr22)\n');
+        fprintf('There is a problem with ZFindFit: \n[yFitA, Ipoints] = ZFindFit(xData, yData, xFitOutOfBoundsRight, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyMedium, ''Mode'', Mode0, ''Figure'', Figure22)\n');
 end
 clear yFitA yFitAStandard Ipoints IpointsStandard
-close(figr22);
+close(Figure22);
 
-yFitA = ZFindFitA(xData, yData, xFitOutOfBoundsLeft, 'PseudoAccuracy', accuracyHigh, 'Mode', mode2);
+yFitA = ZFindFitA(xData, yData, xFitOutOfBoundsLeft, 'PseudoAccuracy', AccuracyHigh, 'Mode', Mode2);
 yFitAStandard = power(10, 2) * [-4.911071428571430; -4.631500786024155; -4.363507596306452; -4.106776669015253; -3.860997036890471; -3.625861955814981; -3.401068904814626; -3.186319586058224; -2.981319924857555; -2.785780069667374; -2.599414392085400; -2.421941486852324; -2.253084171851807; -2.092569488110478; -1.940128699797932; -1.795497294226738; -1.658414981852430; -1.528625696273515; -1.405877594231464; -1.289923055610721; -1.180518683438698; -1.077425303885777; -0.980407966265305; -0.889235943033603; -0.803682729789959; -0.723526045276629; -0.648547831378840; -0.578534253124786; -0.513275698685633; -0.452566779375512; -0.396206329651526; -0.343997407113745; -0.295747292505212; -0.251267489711934; -0.210373725762890; -0.172885950830028; -0.138628338228263; -0.107429284415481; -0.079121408992537; -0.053541554703254; -0.030530787434425; -0.009934396215811; 0.008398106779858; 0.024612986236882; 0.038852283696591; 0.051253817557349; 0.061951183074548; 0.071073752360613; 0.078746674385000; 0.085090874974193; 0.090223056811711; 0.094255699438102; 0.097297059250944; 0.099451169504848; 0.100817840311454; 0.101492658639435; 0.101566988314493; 0.101127970019363; 0.100258521293809; 0.099037336534628; 0.097538886995645; 0.095833420787718; 0.093986962878737; 0.092061315093622; 0.090114056114321; 0.088198541479819; 0.086363903586126; 0.084655051686286; 0.083112671890375; 0.081773227165497; 0.080668957335789; 0.079827879082418; 0.079273785943583; 0.079026248314513; 0.079100613447468; 0.079508005451740; 0.080255325293651; 0.081345250796554; 0.082776236640833; 0.084542514363903; 0.086634092360211; 0.089036755881234; 0.091732067035479; 0.094697364788485; 0.097905764962823; 0.101326160238094; 0.104923220150928; 0.108657391094990; 0.111839611340664; 0.114617385325731; 0.117293400566633; 0.119842699523698; 0.122240934984763; 0.124464370065169; 0.126489878207767; 0.128294943182914; 0.129857659088473; 0.131156730349815; 0.132171471719818; 0.132881808278867];
 if sum(abs(yFitAStandard - yFitA)) > power(10, -11)
-        fprintf('There is a problem with ZFindFitA: \nyFitA = ZFindFitA(xData, yData, xFitOutOfBoundsLeft, ''PseudoAccuracy'', accuracyHigh, ''Mode'', mode2)\n');
+        fprintf('There is a problem with ZFindFitA: \nyFitA = ZFindFitA(xData, yData, xFitOutOfBoundsLeft, ''PseudoAccuracy'', AccuracyHigh, ''Mode'', Mode2)\n');
 end
-yFitA = ZFindFit(xData, yData, xFitOutOfBoundsLeft, 'Type', 'A', 'PseudoAccuracy', accuracyHigh, 'Mode', mode2);
+yFitA = ZFindFit(xData, yData, xFitOutOfBoundsLeft, 'Type', 'A', 'PseudoAccuracy', AccuracyHigh, 'Mode', Mode2);
 if sum(abs(yFitAStandard - yFitA)) > power(10, -11)
-        fprintf('There is a problem with ZFindFit: \nyFitA = ZFindFit(xData, yData, xFitOutOfBoundsLeft, ''Type'', ''A'', ''PseudoAccuracy'', accuracyHigh, ''Mode'', mode2)\n');
+        fprintf('There is a problem with ZFindFit: \nyFitA = ZFindFit(xData, yData, xFitOutOfBoundsLeft, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyHigh, ''Mode'', Mode2)\n');
 end
 clear yFitA yFitAStandard
 
-yFitA = ZFindFitA(xData, yData, xFitOutOfBounds, 'PseudoAccuracy', accuracyLow, 'Mode', mode1);
+yFitA = ZFindFitA(xData, yData, xFitOutOfBounds, 'PseudoAccuracy', AccuracyLow, 'Mode', Mode1);
 yFitAStandard = [14.999999999999998; 13.986649491548480; 13.051985171581130; 12.196007040097948; 11.418715097098936; 10.720109342584090; 10.100189776553412; 9.558956399006904; 9.096409209944564; 8.712548209366391; 8.407373397272387; 8.180884773662552; 7.929550045913683; 8.208059891847771; 8.722628303234364; 9.473255280073463; 10.727494473353060; 11.291630275822197; 11.777079889807164; 12.183843315307962; 12.511920552324593; 12.761311600857056; 12.932016460905350; 13.098690592166836; 13.362782210432041; 13.611719451655853; 13.845502315838267; 14.064130802979287; 14.267604913078912; 14.455924646137142; 14.629090002153973; 14.787100981129413; 14.929957583063459; 15.057659807956103; 15.170207655807356; 15.267601126617212; 15.349840220385673; 15.416924937112743; 15.468855276798411; 15.505631239442685; 15.527252825045565; 15.533720033607050; 15.525032865127137; 15.501191319605834; 15.462195397043132; 15.408045097439036; 15.338740420793545; 15.254281367106657; 15.154667936378374; 15.039900128608696; 10.341225508956459; 10.197022653095452; 10.049503521091431; 9.898668112944401; 9.744516428654359; 9.587048468221308; 9.426264231645245; 9.262163718926171; 9.094746930064087; 8.924013865058992; 8.749964523910885; 8.572598906619767; 8.391917013185637; 8.207918843608500; 8.020604397888349; 7.829973676025189; 7.636026678019017; 7.438763403869831; 7.238183853577636; 7.034288027142434; 6.827075924564218; 6.616547545842991; 6.402702890978752; 6.185541959971503; 5.965064752821243; 5.741271269527975; 5.514161510091694; 5.283735474512401; 5.049993162790097; 4.787949222868413; 4.532898003605069; 4.293584022038566; 4.070007278168895; 3.862167771996056; 3.670065503520050; 3.493700472740876; 3.333072679658535; 3.188182124273034; 3.059028806584358; 2.932570673060567; 2.802754820936634; 2.680807587661121; 2.566728973234021; 2.460518977655340; 2.362177600925079; 2.271704843043231; 2.189100704009796; 2.114365183824781; 2.047498282488185; 1.988500000000002];
 if sum(abs(yFitAStandard - yFitA)) > power(10, -14)
-        fprintf('There is a problem with ZFindFitA: \nyFitA = ZFindFitA(xData, yData, xFitOutOfBounds, ''PseudoAccuracy'', accuracyMedium, ''Mode'', mode1)\n');
+        fprintf('There is a problem with ZFindFitA: \nyFitA = ZFindFitA(xData, yData, xFitOutOfBounds, ''PseudoAccuracy'', AccuracyMedium, ''Mode'', Mode1)\n');
 end
-yFitA = ZFindFit(xData, yData, xFitOutOfBounds, 'Type', 'A', 'PseudoAccuracy', accuracyLow, 'Mode', mode1);
+yFitA = ZFindFit(xData, yData, xFitOutOfBounds, 'Type', 'A', 'PseudoAccuracy', AccuracyLow, 'Mode', Mode1);
 if sum(abs(yFitAStandard - yFitA)) > power(10, -14)
-        fprintf('There is a problem with ZFindFit: \nyFitA = ZFindFit(xData, yData, xFitOutOfBounds, ''Type'', ''A'', ''PseudoAccuracy'', accuracyLow, ''Mode'', mode1)\n');
+        fprintf('There is a problem with ZFindFit: \nyFitA = ZFindFit(xData, yData, xFitOutOfBounds, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyLow, ''Mode'', Mode1)\n');
 end
 clear yFitA yFitAStandard
 
 
 % ZFindFitPolyFit
 
-[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFit(xData, yData, xFitOutOfBoundsLeft, PolyDegree4, 'Figure', figr1);
+[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFit(xData, yData, xFitOutOfBoundsLeft, PolyDegree4, 'Figure', Figure1);
 yFitPolyFitStandard = [22.460686152409835; 21.921586433501261; 21.396643790609723; 20.885665729689023; 20.388460855639082; 19.904838872305923; 19.434610582481682; 18.977587887904612; 18.533583789259080; 18.102412386175558; 17.683888877230636; 17.277829559947008; 16.884051830793496; 16.502374185185015; 16.132616217482607; 15.774598620993419; 15.428143187970715; 15.093072809613867; 14.769211476068357; 14.456384276425783; 14.154417398723860; 13.863138129946403; 13.582374856023351; 13.311957061830748; 13.051715331190756; 12.801481346871640; 12.561087890587787; 12.330368842999691; 12.109159183713960; 11.897294991283310; 11.694613443206578; 11.500952815928706; 11.316152484840746; 11.140052924279871; 10.972495707529362; 10.813323506818607; 10.662380093323113; 10.519510337164498; 10.384560207410491; 10.257376772074931; 10.137808198117776; 10.025703751445088; 9.920913796909046; 9.823289798307940; 9.732684318386172; 9.648951018834257; 9.571944660288823; 9.501521102332607; 9.437537303494461; 9.379851321249348; 9.328322312018342; 9.282810531168634; 9.243177333013520; 9.209285170812416; 9.180997596770844; 9.158179262040440; 9.140695916718954; 9.128414409850246; 9.121202689424289; 9.118929802377169; 9.121465894591081; 9.128682210894338; 9.140451095061358; 9.156645989812679; 9.177141436814944; 9.201813076680914; 9.230537648969458; 9.263192992185557; 9.299658043780308; 9.339812840150918; 9.383538516640707; 9.430717307539105; 9.481232546081655; 9.534968664450016; 9.591811193771953; 9.651646764121347; 9.714363104518192; 9.779849042928591; 9.847994506264762; 9.918690520385033; 9.991829210093844; 10.067303799141751; 10.145008610225418; 10.224839064987624; 10.306691684017258; 10.390464086849322; 10.476054991964931; 10.563364216791312; 10.652292677701801; 10.742742390015852; 10.834616467999028; 10.927819124863003; 11.022255672765564; 11.117832522810613; 11.214457185048159; 11.312038268474327; 11.410485481031355; 11.509709629607592; 11.609622620037493; 11.710137457101636];
 pFitPolyFitStandard = [0.000052663564182; -0.004283858409776; 0.083225225800078; -0.020744112409029; 9.120228396712795];
 if sum(abs(yFitPolyFitStandard - yFitPolyFit)) > power(10, -13) || sum(abs(pFitPolyFitStandard - pFitPolyFit)) > power(10, -13)
-        fprintf('There is a problem with ZFindFitPolyFit: \n[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFit(xData, yData, xFitOutOfBoundsLeft, PolyDegree4, ''Figure'', figr1)\n');    
+        fprintf('There is a problem with ZFindFitPolyFit: \n[yFitPolyFit, pFitPolyFit] = ZFindFitPolyFit(xData, yData, xFitOutOfBoundsLeft, PolyDegree4, ''Figure'', Figure1)\n');    
 end
-[yFitPolyFit, pFitPolyFit] = ZFindFit(xData, yData, xFitOutOfBoundsLeft, 'Type', 'PolyFit', PolyDegree4, 'Figure', figr1);
+[yFitPolyFit, pFitPolyFit] = ZFindFit(xData, yData, xFitOutOfBoundsLeft, 'Type', 'PolyFit', PolyDegree4, 'Figure', Figure1);
 if sum(abs(yFitPolyFitStandard - yFitPolyFit)) > power(10, -13) || sum(abs(pFitPolyFitStandard - pFitPolyFit)) > power(10, -13)
-        fprintf('There is a problem with ZFindFit: \n[yFitPolyFit, pFitPolyFit] = ZFindFit(xData, yData, xFitOutOfBoundsLeft, ''Type'', ''PolyFit'', PolyDegree4, ''Figure'', figr1)\n');    
+        fprintf('There is a problem with ZFindFit: \n[yFitPolyFit, pFitPolyFit] = ZFindFit(xData, yData, xFitOutOfBoundsLeft, ''Type'', ''PolyFit'', PolyDegree4, ''Figure'', Figure1)\n');    
 end
 clear yFitPolyFit yFitPolyFitStandard pFitPolyFit pFitPolyFitStandard
-close(figr1);
+close(Figure1);
 
 
 % ZFindFitSpline
 
-yFitSpline = ZFindFitSpline(xData, yData, xFitOutOfBounds, 'Figure', figr4);
+yFitSpline = ZFindFitSpline(xData, yData, xFitOutOfBounds, 'Figure', Figure4);
 yFitSplineStandard = [5.233709889715858; 7.378437595816461; 8.862682197963494; 9.779785893495507; 10.223090879751057; 10.285939354068701; 10.061673513786987; 9.643635556244474; 9.125167678779714; 8.599612078731262; 8.160310953437673; 7.900606500237498; 7.913840916469295; 8.282457139228558; 8.954574840492523; 9.787892749277614; 10.638424237810733; 11.366586552938260; 11.919462316774892; 12.323378535702407; 12.607578163135363; 12.801304152488317; 12.933799457175830; 13.034082186740713; 13.119922631565574; 13.192837142034486; 13.253073263491148; 13.300878541279255; 13.336500520742511; 13.360186747224612; 13.372184766069257; 13.372742122620144; 13.362106362220974; 13.340525030215444; 13.308245671947255; 13.265515832760103; 13.212583057997689; 13.149694893003712; 13.077098883121870; 12.995042573695860; 12.903773510069385; 12.803539237586142; 12.694587301589829; 12.577165247424144; 12.451520620432788; 12.317900965959460; 12.176553829347858; 12.027726755941680; 11.871667291084625; 11.708622980120396; 11.538841368392685; 11.362570001245196; 11.180056424021624; 10.991548182065673; 10.797292820721037; 10.597537885331416; 10.392530921240512; 10.182519473792020; 9.967751088329639; 9.748473310197070; 9.524933684738013; 9.297379757296165; 9.066059073215220; 8.831219177838886; 8.593107616510856; 8.351971934574831; 8.108059677374509; 7.861618390253585; 7.612895618555767; 7.362138907624749; 7.109595802804228; 6.855513849437904; 6.600140592869477; 6.343723578442645; 6.086510351501106; 5.828748457388564; 5.570685441448711; 5.312568849025245; 5.054646225461872; 4.797540386251431; 4.544757583142488; 4.301140748392537; 4.071540129470864; 3.860476986821017; 3.668714658819786; 3.494623249881650; 3.336534357174600; 3.192779577866627; 3.061690509125716; 2.941598748119862; 2.830835892017054; 2.727733537985281; 2.630623283192532; 2.537836724806798; 2.447705459996069; 2.358561085928336; 2.268735199771585; 2.176559398693812; 2.080365279863002; 1.978484440447147];
 if sum(abs(yFitSplineStandard - yFitSpline)) > power(10, -14)
-        fprintf('There is a problem with ZFindFitSpline: \nyFitSpline = ZFindFitSpline(xData, yData, xFitOutOfBounds, ''Figure'', figr4)\n');
+        fprintf('There is a problem with ZFindFitSpline: \nyFitSpline = ZFindFitSpline(xData, yData, xFitOutOfBounds, ''Figure'', Figure4)\n');
 end
-yFitSpline = ZFindFit(xData, yData, xFitOutOfBounds, 'Type', 'Spline', 'Figure', figr4);
+yFitSpline = ZFindFit(xData, yData, xFitOutOfBounds, 'Type', 'Spline', 'Figure', Figure4);
 if sum(abs(yFitSplineStandard - yFitSpline)) > power(10, -14)
-        fprintf('There is a problem with ZFindFit: \nyFitSpline = ZFindFit(xData, yData, xFitOutOfBounds, ''Type'', ''Spline'', ''Figure'', figr4)\n');
+        fprintf('There is a problem with ZFindFit: \nyFitSpline = ZFindFit(xData, yData, xFitOutOfBounds, ''Type'', ''Spline'', ''Figure'', Figure4)\n');
 end
 clear yFitSpline yFitSplineStandard
-close(figr4);
+close(Figure4);
 
 
 % ZFindIndefiniteIntegralA
@@ -292,81 +292,81 @@ xIndefiniteIntegralOutOfBoundsRight = (linspace(2, 45.5, 100))';
 xIndefiniteIntegralOutOfBoundsLeft = (linspace(-4, 11, 100))';
 xIndefiniteIntegralOutOfBounds = (linspace(-5, 47, 100))';
 
-yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralInBounds, 'Figure', figr22);
+yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralInBounds, 'Figure', Figure22);
 yIndefiniteIntegralAStandard = power(10, 2) * [0; 0.029090909090909; 0.058181818181818; 0.087272727272727; 0.113434343434343; 0.139292929292929; 0.165151515151515; 0.191010101010101; 0.216868686868687; 0.242727272727273; 0.275555555555555; 0.311111111111111; 0.346666666666667; 0.382222222222222; 0.417777777777778; 0.453333333333333; 0.488888888888889; 0.524444444444444; 0.566363636363636; 0.608383838383838; 0.650404040404040; 0.692424242424242; 0.734444444444444; 0.776464646464647; 0.818484848484848; 0.860505050505050; 0.902525252525253; 0.944545454545454; 0.986565656565656; 1.028585858585858; 1.070606060606061; 1.112626262626263; 1.154646464646465; 1.196666666666666; 1.238686868686869; 1.280707070707070; 1.322727272727273; 1.364747474747475; 1.406767676767677; 1.448787878787879; 1.490808080808081; 1.532828282828283; 1.574848484848485; 1.616868686868687; 1.658888888888889; 1.700909090909091; 1.742929292929293; 1.784949494949495; 1.826969696969697; 1.868989898989899; 1.911010101010101; 1.953030303030303; 1.995050505050505; 2.037070707070707; 2.079090909090909; 2.121111111111111; 2.163131313131313; 2.205151515151515; 2.247171717171717; 2.289191919191919; 2.331212121212121; 2.373232323232323; 2.415252525252525; 2.457272727272727; 2.484343434343434; 2.500505050505050; 2.516666666666666; 2.532828282828282; 2.548989898989899; 2.565151515151515; 2.581313131313132; 2.597474747474747; 2.613636363636364; 2.629797979797979; 2.645959595959596; 2.662121212121213; 2.678282828282828; 2.694444444444445; 2.710606060606060; 2.726767676767677; 2.742929292929293; 2.759090909090909; 2.775252525252526; 2.791414141414141; 2.807575757575758; 2.823737373737373; 2.839898989898990; 2.856060606060606; 2.872222222222222; 2.888383838383838; 2.904545454545454; 2.920707070707071; 2.936868686868687; 2.953030303030303; 2.969191919191919; 2.985353535353535; 3.001515151515151; 3.017676767676767; 3.033838383838384; 3.050000000000000];
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralInBounds, ''Figure'', figr22)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralInBounds, ''Figure'', Figure22)\n');    
 end
-yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralInBounds, 'Type', 'A', 'Figure', figr22);
+yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralInBounds, 'Type', 'A', 'Figure', Figure22);
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralInBounds, ''Type'', ''A'', ''Figure'', figr22)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralInBounds, ''Type'', ''A'', ''Figure'', Figure22)\n');    
 end
 clear yIndefiniteIntegralA yIndefiniteIntegralAStandard
-close(figr22);
+close(Figure22);
 
-yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBounds, 'PseudoAccuracy', accuracyLow, 'Mode', mode2, 'Figure', figr4);
+yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBounds, 'PseudoAccuracy', AccuracyLow, 'Mode', Mode2, 'Figure', Figure4);
 yIndefiniteIntegralAStandard = power(10, 2) * [0; 0.101222567018574; 0.195111284711666; 0.282149193186842; 0.362819332551673; 0.437604742913725; 0.506988464380567; 0.571453537059768; 0.631483001058895; 0.687559896485516; 0.740167263447201; 0.789788142051516; 0.836905572406031; 0.882002594618314; 0.925562248795932; 0.967420126424947; 1.009924619026369; 1.054923270644753; 1.103865201602805; 1.159585718623274; 1.218777484368793; 1.280723507650735; 1.344940748361530; 1.410946166393612; 1.478256721639412; 1.546425195237112; 1.615858179631719; 1.686748472635755; 1.759003044302576; 1.832528864685539; 1.907232903838004; 1.983022131813325; 2.059803518664861; 2.137484034445968; 2.215970649210005; 2.295170333010328; 2.374990055900295; 2.455336787933262; 2.536117499162586; 2.617239159641627; 2.698608739423739; 2.780133208562282; 2.861719537110612; 2.943274695122084; 3.024705652650059; 3.105919379747892; 3.186822846468941; 3.267323022866564; 3.347326878994116; 3.426741384904955; 3.493481273046940; 3.547437965872068; 3.600566048450779; 3.652845162770880; 3.704254950820172; 3.754775054586460; 3.804385116057547; 3.853064777221237; 3.900793680065333; 3.947551466577638; 3.993317778745959; 4.038072258558096; 4.081794548001855; 4.124464289065038; 4.166061123735449; 4.206564694000893; 4.245954641849170; 4.284210609268089; 4.321312238245451; 4.357239170769057; 4.391971048826715; 4.425487514406227; 4.457768209495396; 4.488792776082025; 4.518540856153919; 4.546992091698882; 4.574126124704716; 4.599854688625049; 4.624104326222440; 4.646968939203711; 4.668545135590365; 4.688929523403930; 4.708218710665909; 4.726509305397816; 4.743897915621175; 4.760481149357487; 4.776347961632195; 4.791477668614842; 4.805889782360765; 4.819632606880719; 4.832754446185467; 4.845303604285758; 4.857328385192353; 4.868877092916008; 4.879998031467483; 4.890739504857530; 4.901149817096909; 4.911277272196372; 4.921170174166681; 4.930876827018591];
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBounds, ''PseudoAccuracy'', accuracyLow, ''Mode'', mode2, ''Figure'', figr4)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBounds, ''PseudoAccuracy'', AccuracyLow, ''Mode'', Mode2, ''Figure'', Figure4)\n');    
 end
-yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, 'Type', 'A', 'PseudoAccuracy', accuracyLow, 'Mode', mode2, 'Figure', figr4);
+yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, 'Type', 'A', 'PseudoAccuracy', AccuracyLow, 'Mode', Mode2, 'Figure', Figure4);
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, ''Type'', ''A'', ''PseudoAccuracy'', accuracyLow, ''Mode'', mode2, ''Figure'', figr4)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyLow, ''Mode'', Mode2, ''Figure'', Figure4)\n');    
 end
 clear yIndefiniteIntegralA yIndefiniteIntegralAStandard
-close(figr4);
+close(Figure4);
 
-yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, 'PseudoAccuracy', accuracyHigh, 'Mode', mode0);
+yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, 'PseudoAccuracy', AccuracyHigh, 'Mode', Mode0);
 yIndefiniteIntegralAStandard = power(10, 2) * [0; -0.024169408389683; -0.043893167591047; -0.059526802173629; -0.071408505619258; -0.079859528169738; -0.085184564674524; -0.087672142438410; -0.087595009069205; -0.085210520325416; -0.080761027963930; -0.074474267587694; -0.066563746493396; -0.057229131519149; -0.046656636892169; -0.035019412076457; -0.022477929620480; -0.009180373004854; 0.004736975509976; 0.019149347036055; 0.033943098210237; 0.049015323346504; 0.064273466588281; 0.079634934060762; 0.095026706023223; 0.110384949021340; 0.125654628039515; 0.140789118653186; 0.155749819181152; 0.170505762837889; 0.185033229885870; 0.199315359787881; 0.213341763359345; 0.227108134920635; 0.240615864449398; 0.253871649732869; 0.266887108520194; 0.279678390674745; 0.292265790326443; 0.304673358024073; 0.316928512887603; 0.329061654760506; 0.341105776362077; 0.353096075439750; 0.365069566921419; 0.377064695067756; 0.389120945624530; 0.401278457974927; 0.413577637291864; 0.426058766690316; 0.438761619379626; 0.451725070815830; 0.464986710853973; 0.478582455900429; 0.492546161065217; 0.506909232314325; 0.521700238622023; 0.536944524123187; 0.552663820265614; 0.568875857962342; 0.585593979743969; 0.602826751910972; 0.620577576686025; 0.638844304366319; 0.657618845475878; 0.676886782917882; 0.696626984126984; 0.716811213221626; 0.737403743156361; 0.758360967874171; 0.779631014458787; 0.801153355287005; 0.822858420181007; 0.844667208560678; 0.866490901595928; 0.888230474359004; 0.909776307976820; 0.931007801783264; 0.951792985471525; 0.971988131246406; 0.991437365976648; 1.009972283347245; 1.027411556011764; 1.043560547744665; 1.058210925593617; 1.071140272031822; 1.082111697110325; 1.090873450610341; 1.097158534195571; 1.100684313564520; 1.101152130602816; 1.098246915535531; 1.091636799079495; 1.080972724595620; 1.065888060241214; 1.045998211122307; 1.020900231445959; 0.990172436672588; 0.953374015668289; 0.910044642857142];
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, ''PseudoAccuracy'', accuracyHigh, ''Mode'', mode0)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, ''PseudoAccuracy'', AccuracyHigh, ''Mode'', Mode0)\n');    
 end
-yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, 'Type', 'A', 'PseudoAccuracy', accuracyHigh, 'Mode', mode0);
+yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, 'Type', 'A', 'PseudoAccuracy', AccuracyHigh, 'Mode', Mode0);
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegral = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, ''Type'', ''A'', ''PseudoAccuracy'', accuracyHigh, ''Mode'', mode0)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegral = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsLeft, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyHigh, ''Mode'', Mode0)\n');    
 end
 clear yIndefiniteIntegralA yIndefiniteIntegralAStandard
 
-yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsRight, 'PseudoAccuracy', accuracyLow, 'Mode', mode1);
+yIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsRight, 'PseudoAccuracy', AccuracyLow, 'Mode', Mode1);
 yIndefiniteIntegralAStandard = power(10, 2) * [0; 0.036180623189347; 0.071031237536059; 0.106455776776025; 0.143459955384886; 0.182892098208903; 0.226214729944069; 0.273783237177406; 0.323555438838956; 0.375248559979965; 0.428579825651680; 0.483266460905350; 0.539025690792220; 0.595574740363537; 0.652678733708773; 0.710708563288223; 0.769766350229270; 0.829797634171414; 0.890747954754153; 0.952562851616987; 1.015187864399415; 1.078568532740938; 1.142650396281054; 1.207378994659263; 1.272699867515064; 1.338558554487957; 1.404900595217441; 1.471671529343017; 1.538816896504182; 1.606282236340436; 1.674013088491279; 1.741954992596210; 1.810053488294730; 1.878254115226337; 1.946502413030530; 2.014743921346810; 2.082924179814675; 2.150988728073625; 2.218883105763160; 2.286552852522779; 2.353943507991980; 2.421000611810265; 2.487669703617132; 2.553896323052081; 2.604403311890008; 2.649504142493083; 2.694025525420751; 2.737955542954866; 2.781282277377278; 2.823993810969845; 2.866078226014416; 2.907523604792849; 2.948318029586993; 2.988449582678703; 3.027906346349832; 3.066676402882234; 3.104747834557762; 3.142108723658270; 3.178747152465611; 3.214651203261636; 3.249808958328202; 3.284208499947161; 3.317837910400363; 3.350685271969668; 3.382738666936923; 3.413986177583985; 3.444415886192707; 3.474015875044939; 3.502774226422539; 3.530679022607357; 3.557718345881248; 3.583880278526065; 3.609152902823662; 3.633524301055890; 3.656982555504604; 3.679515748451658; 3.701057556103129; 3.721556868170848; 3.741069393176029; 3.759651686108415; 3.777360301957755; 3.794251795713805; 3.810382722366311; 3.825809636905025; 3.840589094319697; 3.854777649600079; 3.868431857735924; 3.881594708310851; 3.894235880516531; 3.906372933244608; 3.918034143989954; 3.929247790247449; 3.940042149511966; 3.950445499278377; 3.960486117041561; 3.970192280296393; 3.979592266537746; 3.988714353260499; 3.997586817959526; 4.006237938129699];
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsRight, ''PseudoAccuracy'', accuracyMedium, ''Mode'', mode1)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegralA: \nyIndefiniteIntegralA = ZFindIndefiniteIntegralA(xData, yData, xIndefiniteIntegralOutOfBoundsRight, ''PseudoAccuracy'', AccuracyMedium, ''Mode'', Mode1)\n');    
 end
-yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBoundsRight, 'Type', 'A', 'PseudoAccuracy', accuracyLow, 'Mode', mode1);
+yIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBoundsRight, 'Type', 'A', 'PseudoAccuracy', AccuracyLow, 'Mode', Mode1);
 if sum(abs(yIndefiniteIntegralAStandard - yIndefiniteIntegralA)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBoundsRight, ''Type'', ''A'', ''PseudoAccuracy'', accuracyLow, ''Mode'', mode1)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralA = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBoundsRight, ''Type'', ''A'', ''PseudoAccuracy'', AccuracyLow, ''Mode'', Mode1)\n');    
 end
 clear yIndefiniteIntegralA yIndefiniteIntegralAStandard
 
 
 % ZFindIndefiniteIntegralPolyFit
 
-yIndefiniteIntegralPolyFit = ZFindIndefiniteIntegralPolyFit(xData, yData, xIndefiniteIntegralOutOfBounds, PolyDegree5, 'Figure', figr4);
+yIndefiniteIntegralPolyFit = ZFindIndefiniteIntegralPolyFit(xData, yData, xIndefiniteIntegralOutOfBounds, PolyDegree5, 'Figure', Figure4);
 yIndefiniteIntegralPolyFitStandard = power(10, 2) * [0; 0.137252348711457; 0.258343631062787; 0.365245449224565; 0.459792147927526; 0.543686216157750; 0.618503592319538; 0.685698872865988; 0.746610424397264; 0.802465399226565; 0.854384654413784; 0.903387574266867; 0.950396796310862; 0.996242840724674; 1.041668643245504; 1.087333991540995; 1.133819865049059; 1.181632678285419; 1.231208427618826; 1.282916741513990; 1.337064834242195; 1.393901363059612; 1.453620188853313; 1.516364040254974; 1.582228081222273; 1.651263382087995; 1.723480294076819; 1.798851727289809; 1.877316332156594; 1.958781584355253; 2.043126773199889; 2.130205893495898; 2.219850440862939; 2.311872110525593; 2.406065399571727; 2.502210112678540; 2.600073771306320; 2.699413926359885; 2.799980374317725; 2.901517276828844; 3.003765183777281; 3.106462959814347; 3.209349614358551; 3.312166035063208; 3.414656624751767; 3.516570841820814; 3.617664644110781; 3.717701836244351; 3.816455320432545; 3.913708250748536; 4.009255090869120; 4.102902575283903; 4.194470573972196; 4.283792860547571; 4.370717783870155; 4.455108843126576; 4.536845166377645; 4.615821892573703; 4.691950457037682; 4.765158780415852; 4.835391361096275; 4.902609271094931; 4.966790055409582; 5.027927534841271; 5.086031512283584; 5.141127382479550; 5.193255645246275; 5.242471322167259; 5.288843276752407; 5.332453438065715; 5.373395927820713; 5.411776090943530; 5.447709429603699; 5.481320440712664; 5.512741356889935; 5.542110790896999; 5.569572283538873; 5.595272755033400; 5.619360859848197; 5.641985245005337; 5.663292711853693; 5.683426281309021; 5.702523162561647; 5.720712625252020; 5.738113775113748; 5.754833233084528; 5.770962717884577; 5.786576532062951; 5.801728951511461; 5.816451518446263; 5.830750237857173; 5.844602677424676; 5.857954970904675; 5.870718724980898; 5.882767829584914; 5.893935171684052; 5.904009252536750; 5.912730708415880; 5.919788734799540; 5.924817414029649];
 if sum(abs(yIndefiniteIntegralPolyFitStandard - yIndefiniteIntegralPolyFit)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegralPolyFit: \nyIndefiniteIntegralPolyFit = ZFindIndefiniteIntegralPolyFit(xData, yData, xIndefiniteIntegralOutOfBounds, PolyDegree4, ''Figure'', figr4)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegralPolyFit: \nyIndefiniteIntegralPolyFit = ZFindIndefiniteIntegralPolyFit(xData, yData, xIndefiniteIntegralOutOfBounds, PolyDegree4, ''Figure'', Figure4)\n');    
 end
-yIndefiniteIntegralPolyFit = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, 'Type', 'PolyFit', PolyDegree5, 'Figure', figr4);
+yIndefiniteIntegralPolyFit = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, 'Type', 'PolyFit', PolyDegree5, 'Figure', Figure4);
 if sum(abs(yIndefiniteIntegralPolyFitStandard - yIndefiniteIntegralPolyFit)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralPolyFit = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, ''Type'', ''PolyFit'', PolyDegree5, ''Figure'', figr4)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralPolyFit = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, ''Type'', ''PolyFit'', PolyDegree5, ''Figure'', Figure4)\n');    
 end
 clear yIndefiniteIntegralPolyFit yIndefiniteIntegralPolyFitStandard
-close(figr4);
+close(Figure4);
 
 
 % ZFindIndefiniteIntegralSpline
 
-yIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData, xIndefiniteIntegralOutOfBounds, 'Figure', figr22);
+yIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData, xIndefiniteIntegralOutOfBounds, 'Figure', Figure22);
 yIndefiniteIntegralSplineStandard = power(10, 2) * [0; -0.048909498072548; -0.068102264345473; -0.063635442787348; -0.040946706379572; -0.004854257116368; 0.040443173995217; 0.091366326935312; 0.144955412671219; 0.198870113157420; 0.251389581335568; 0.301412441134495; 0.348456787470206; 0.392660186245884; 0.434779674351886; 0.476191759665745; 0.518869443233961; 0.564854094800499; 0.615381351326521; 0.670731460162602; 0.730270039769899; 0.792952500362009; 0.857872617427730; 0.924318238932744; 0.991771285424438; 1.059907718711966; 1.128578123501310; 1.197699778870215; 1.267194143661087; 1.336984319565578; 1.406995051124584; 1.477152725728248; 1.547385373615955; 1.617622667876338; 1.687795924447275; 1.757838102115887; 1.827683802518542; 1.897269270140851; 1.966532392317673; 2.035412699233109; 2.103851363920508; 2.171791202262461; 2.239176672990807; 2.305953877686628; 2.372070560780253; 2.437476109551254; 2.502121554128449; 2.565959567489902; 2.628944465462919; 2.691032206724056; 2.752180392799110; 2.812348268063125; 2.871496719740388; 2.929588277904434; 2.986587115478042; 3.042459048233234; 3.097171534791282; 3.150693676622696; 3.202996218047238; 3.254051546233910; 3.303833691200964; 3.352318325815891; 3.399482765795432; 3.445305969705570; 3.489768538961538; 3.532852717827806; 3.574542393418097; 3.614823095695376; 3.653681997471850; 3.691107914408974; 3.727091305017451; 3.761624270657225; 3.794700555537484; 3.826315546716666; 3.856466274102450; 3.885151410451760; 3.912371271370769; 3.938128467756890; 3.962439428412010; 3.985350517957871; 4.006940289252107; 4.027317387832441; 4.046599909028010; 4.064896416548994; 4.082304401651968; 4.098910283139905; 4.114789407362172; 4.130006048214531; 4.144613407139141; 4.158653613124557; 4.172157722705728; 4.185145719964001; 4.197626516527118; 4.209597951569215; 4.221046791810825; 4.231948731518878; 4.242268392506699; 4.251959324134007; 4.260964003306919; 4.269213834477945];
 if sum(abs(yIndefiniteIntegralSplineStandard - yIndefiniteIntegralSpline)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegralSpline: \nyIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData, xIndefiniteIntegralOutOfBounds, ''Figure'', figr22)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegralSpline: \nyIndefiniteIntegralSpline = ZFindIndefiniteIntegralSpline(xData, yData, xIndefiniteIntegralOutOfBounds, ''Figure'', Figure22)\n');    
 end
-yIndefiniteIntegralSpline = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, 'Type', 'Spline', 'Figure', figr22);
+yIndefiniteIntegralSpline = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, 'Type', 'Spline', 'Figure', Figure22);
 if sum(abs(yIndefiniteIntegralSplineStandard - yIndefiniteIntegralSpline)) > power(10, -11)
-        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralSpline = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, ''Type'', ''Spline'', ''Figure'', figr22)\n');    
+        fprintf('There is a problem with ZFindIndefiniteIntegral: \nyIndefiniteIntegralSpline = ZFindIndefiniteIntegral(xData, yData, xIndefiniteIntegralOutOfBounds, ''Type'', ''Spline'', ''Figure'', Figure22)\n');    
 end
 clear yIndefiniteIntegralSpline yIndefiniteIntegralSplineStandard
-close(figr22);
+close(Figure22);
 
 
-clear accuracyHigh accuracyLow accuracyMedium accuracyMediumHigh figr1 figr4 figr22 LimitsOutOfBounds LimitsOutOfBoundsLeft LimitsOutOfBoundsRight LimitsWithinBounds LimitsOutOfBoundsReversed mode0 mode1 mode2 ordDeriv2 ordDeriv4 xData xDerivativeInBounds xDerivativeOutOfBounds xDerivativeOutOfBoundsLeft xDerivativeOutOfBoundsRight xFitInBounds xFitOutOfBounds xFitOutOfBoundsLeft xFitOutOfBoundsRight xIndefiniteIntegralInBounds xIndefiniteIntegralOutOfBounds xIndefiniteIntegralOutOfBoundsLeft xIndefiniteIntegralOutOfBoundsRight yData PolyDegree5 PolyDegree4
+clear AccuracyHigh AccuracyLow AccuracyMedium AccuracyMediumHigh Figure1 Figure4 Figure22 LimitsOutOfBounds LimitsOutOfBoundsLeft LimitsOutOfBoundsRight LimitsWithinBounds LimitsOutOfBoundsReversed Mode0 Mode1 Mode2 OrdDeriv2 OrdDeriv4 xData xDerivativeInBounds xDerivativeOutOfBounds xDerivativeOutOfBoundsLeft xDerivativeOutOfBoundsRight xFitInBounds xFitOutOfBounds xFitOutOfBoundsLeft xFitOutOfBoundsRight xIndefiniteIntegralInBounds xIndefiniteIntegralOutOfBounds xIndefiniteIntegralOutOfBoundsLeft xIndefiniteIntegralOutOfBoundsRight yData PolyDegree5 PolyDegree4
