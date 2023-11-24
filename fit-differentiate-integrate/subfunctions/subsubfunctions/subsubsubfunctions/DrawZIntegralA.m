@@ -7,7 +7,7 @@ function DrawZIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 3.24.2023
-% Last changed: 11.4.2023
+% Last changed: 11.24.2023
 % 
 %% Description
 % 
@@ -33,10 +33,10 @@ function DrawZIntegralA...
 % ColorFace, Ipoints, Smatrix)
 % 
 % 'Figure' is the parameter the value of which is the index of the 
-% figure on which the data points, the piecewise interpolation 
-% polynomial curve, and the area under the curve described in 
-% the Description section is to be plotted. The value of the 
-% 'Figure' parameter must be a natural number. 
+% figure window on which the data points, the piecewise 
+% interpolation polynomial curve, and the area under the curve 
+% described in the Description section is to be plotted. The 
+% value of the 'Figure' parameter must be a natural number. 
 % 
 % 'xData' and 'yData' are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 

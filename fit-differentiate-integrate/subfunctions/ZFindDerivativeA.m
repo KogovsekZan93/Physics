@@ -5,7 +5,7 @@ function yDerivativeA = ZFindDerivativeA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.1.2023
+% Last changed: 11.24.2023
 % 
 %% Description
 % 
@@ -60,10 +60,11 @@ function yDerivativeA = ZFindDerivativeA...
 %     represents the f function. It must be one of the three 
 %     integers: 0, 1, or 2. The default value is 0. 
 %    -''Figure'' is the name of the parameter the value of which is 
-%     the index of the figure on which the data points along with 
-%     the estimated f function curve is to be plotted. The value of 
-%     the 'Figure' parameter can be any nonnegative integer. The 
-% default value is 0, at which no figure is to be plotted. 
+%     the index of the figure window on which the data points 
+%     along with the estimated f function curve is to be plotted. 
+%     The value of the 'Figure' parameter can be any nonnegative 
+%     integer. The default value is 0, at which no figure is to be 
+%     plotted. 
 % 
 % 'yDerivativeA' is the column vector of the estimated values of 
 % f^('OrdDeriv')('xDerivativeA'). 

@@ -280,7 +280,7 @@ clearvars -except xData yData xMissing yMissingPolyFit; clc;
 % Run the following block of code to visualize the data points 
 % along an example of the ZFitTutorial function calculated curve 
 % used for the missing data estimation for the example 
-% presented in this tutorial in Figure 4. 
+% presented in this tutorial in the figure window 4. 
 
 xData = [0; 1; 3; 5; 8; 35; 37; 40; 45; 56; 57; 60; 66; 68];
 yData = [10; 9; 8; 11; 13; 5; 4; 3; 2; 6; 11; 12; 2; 8];

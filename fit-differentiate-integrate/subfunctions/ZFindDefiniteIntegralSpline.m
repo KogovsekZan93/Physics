@@ -5,7 +5,7 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % 
 % Author: Žan Kogovšek
 % Date: 8.23.2022
-% Last changed: 10.28.2023
+% Last changed: 11.24.2023
 % 
 %% Description
 % 
@@ -44,10 +44,10 @@ function DefiniteIntegralSpline = ZFindDefiniteIntegralSpline...
 % 
 % 'varargin' represents the optional input parameter named 
 % ''Figure''. The value of the 'Figure' parameter is the index of 
-% the figure on which the data points along with the estimated 
-% df/dX function curve is to be plotted. Also, the area under the 
-% estimated df/dX function curve is filled from min('Limits') to 
-% max('Limits'). The color of the area is red if 
+% the figure window on which the data points along with the 
+% estimated df/dX function curve is to be plotted. Also, the area 
+% under the estimated df/dX function curve is filled from 
+% min('Limits') to max('Limits'). The color of the area is red if 
 % 'Limits'(1) > 'Limits'(2) and blue if not. The value of the 'Figure' 
 % parameter can be any nonnegative integer. The default value 
 % is 0, at which no figure is to be plotted. 

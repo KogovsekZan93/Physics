@@ -5,7 +5,7 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 10.28.2023
+% Last changed: 11.24.2023
 % 
 %% Description
 % 
@@ -55,13 +55,14 @@ function DefiniteIntegralA = ZFindDefiniteIntegralA...
 %     represents the df/dX function. It must be one of the three 
 %     integers: 0, 1, or 2. The default value is 0. 
 %    -''Figure'' is the name of the parameter the value of which is 
-%     the index of the figure on which the data points along with 
-%     the estimated df/dX function curve is to be plotted. Also, 
-%     the area under the estimated df/dX function curve is filled 
-%     from min('Limits') to max('Limits'). The color of the area is 
-%     red if 'Limits'(1) > 'Limits'(2) and blue if not. The value of the 
-%     'Figure' parameter can be any nonnegative integer. The 
-%     default value is 0, at which no figure is to be plotted. 
+%     the index of the figure window on which the data points 
+%     along with the estimated df/dX function curve is to be 
+%     plotted. Also, the area under the estimated df/dX function 
+%     curve is filled from min('Limits') to max('Limits'). The color 
+%     of the area is red if 'Limits'(1) > 'Limits'(2) and blue if not. 
+%     The value of the 'Figure' parameter can be any nonnegative 
+%     integer. The default value is 0, at which no figure is to be 
+%     plotted. 
 % 
 % 'DefiniteIntegralA' is the estimated value of the integral of the 
 % df/dX function over the X variable with the lower limit 'Limits'(1) 

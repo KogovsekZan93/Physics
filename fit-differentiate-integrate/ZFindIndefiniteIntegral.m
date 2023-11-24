@@ -4,7 +4,7 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 10.28.2023
+% Last changed: 11.24.2023
 % 
 %% Description
 % 
@@ -52,12 +52,13 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 %     ''A''. The value of the 'Type' parameter determines the set 
 %     of the additional required or optional input parameters. 
 %    -''Figure'' is the name of the parameter the value of which is 
-%     the index of the figure on which the data points along with 
-%     the estimation of the df/dX function is to be plotted. Also, 
-%     the area under the estimated df/dX function curve is filled 
-%     from min('xIntegral'(1)) to max('xIntegral'(2)). The value of 
-%     the 'Figure' parameter can be any nonnegative integer. The 
-%     default value is 0, at which no figure is to be plotted. 
+%     the index of the figure window on which the data points 
+%     along with the estimation of the df/dX function is to be 
+%     plotted. Also, the area under the estimated df/dX function 
+%     curve is filled from min('xIntegral'(1)) to max('xIntegral'(2)). 
+%     The value of the 'Figure' parameter can be any nonnegative 
+%     integer. The default value is 0, at which no figure is to be 
+%     plotted. 
 % 
 % 'yIndefiniteIntegral' is the column vector of the estimated 
 % values of f('xIntegral') - f('xIntegral'(1)). 

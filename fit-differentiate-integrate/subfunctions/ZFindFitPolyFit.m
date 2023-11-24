@@ -5,7 +5,7 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % Author: Žan Kogovšek
 % Date: 9.11.2022
-% Last changed: 11.1.2023
+% Last changed: 11.24.2023
 % 
 %% Description
 % 
@@ -46,10 +46,11 @@ function [yFitPolyFit, varargout] = ZFindFitPolyFit...
 % 
 % 'varargin' represents the optional input parameter named 
 % ''Figure''. ''Figure'' is the name of the parameter the value of 
-% which is the index of the figure on which the data points along 
-% with the estimation of the f function is to be plotted. The value 
-% of the 'Figure' parameter can be any nonnegative integer. The 
-% default value is 0, at which no figure is to be plotted. 
+% which is the index of the figure window on which the data 
+% points along with the estimation of the f function is to be 
+% plotted. The value of the 'Figure' parameter can be any 
+% nonnegative integer. The default value is 0, at which no figure 
+% is to be plotted. 
 % 
 % 'yFitPolyFit' is the column vector of the estimated values of 
 % f('xFitPolyFit'). 
