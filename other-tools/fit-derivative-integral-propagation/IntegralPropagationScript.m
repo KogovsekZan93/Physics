@@ -20,42 +20,42 @@ xIntegral2 = (linspace(-5, 70, 1000))';
 InputVariablesDistributionInfo = {{{xData, del_xData}, ux}, ...
 {{yData, del_yData}, uy}};
 
-psacc = 2;
-FH_FindIntegralPropagation1 = ...
+PseudoAccuracy = 2;
+FunctionHandle_FindIntegralPropagation1 = ...
     @(DataVector)FindIntegralPropagation...
-    (DataVector, xIntegral1, 'PseudoAccuracy', psacc);
-FH_FindIntegralPropagation2 = ...
+    (DataVector, xIntegral1, 'PseudoAccuracy', PseudoAccuracy);
+FunctionHandle_FindIntegralPropagation2 = ...
     @(DataVector)FindIntegralPropagation...
-    (DataVector, xIntegral2, 'PseudoAccuracy', psacc);
+    (DataVector, xIntegral2, 'PseudoAccuracy', PseudoAccuracy);
 
 N_Rnd = power(10, 3);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-avg_sigma_f1 = FindOutputVariableAvgSigma...
+Avg_Sigma_f1 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
-    FH_FindIntegralPropagation1, N_Rnd);
-avg_sigma_f2 = FindOutputVariableAvgSigma...
+    FunctionHandle_FindIntegralPropagation1, N_Rnd);
+Avg_Sigma_f2 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
-    FH_FindIntegralPropagation2, N_Rnd);
+    FunctionHandle_FindIntegralPropagation2, N_Rnd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(1); clf; hold on;
-errorbar(xIntegral1, avg_sigma_f1(:, 1), avg_sigma_f1(:, 2), ...
+errorbar(xIntegral1, Avg_Sigma_f1(:, 1), Avg_Sigma_f1(:, 2), ...
     'bo', 'MarkerSize', 10);
-xlabel('x'); ylabel('y');
+xlabel('x'); ylabel('yIntegral');
 set(gca, 'FontSize', 14); grid on; hold off;
 
 figure(2); clf; hold on;
-avg_y_Integral2 = avg_sigma_f2(:, 1);
-sigma_y_Integral2= avg_sigma_f2(:, 2);
-y_Plot_top = avg_y_Integral2 + sigma_y_Integral2;
-y_Plot_bottom = avg_y_Integral2 - sigma_y_Integral2;
+Avg_y_Integral2 = Avg_Sigma_f2(:, 1);
+Sigma_y_Integral2= Avg_Sigma_f2(:, 2);
+y_Plot_top = Avg_y_Integral2 + Sigma_y_Integral2;
+y_Plot_bottom = Avg_y_Integral2 - Sigma_y_Integral2;
 Area_Plot = fill([xIntegral2', fliplr(xIntegral2')], ...
     [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
-plot(xIntegral2, avg_y_Integral2, 'k-', 'LineWidth', 1.5)
-xlabel('x'); ylabel('y');
+plot(xIntegral2, Avg_y_Integral2, 'k-', 'LineWidth', 1.5)
+xlabel('x'); ylabel('yIntegral');
 set(gca, 'FontSize', 14); grid on; hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

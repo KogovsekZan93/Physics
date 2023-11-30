@@ -20,42 +20,42 @@ xDerivative2 = (linspace(-5, 70, 1000))';
 InputVariablesDistributionInfo = {{{xData, del_xData}, ux}, ...
 {{yData, del_yData}, uy}};
 
-acc = 2;
-FH_FindDerivativePropagation1 = ...
+Accuracy = 2;
+FunctionHandle_FindDerivativePropagation1 = ...
     @(DataVector)FindDerivativePropagation...
-    (DataVector, xDerivative1, 'Accuracy', acc);
-FH_FindDerivativePropagation2 = ...
+    (DataVector, xDerivative1, 'Accuracy', Accuracy);
+FunctionHandle_FindDerivativePropagation2 = ...
     @(DataVector)FindDerivativePropagation...
-    (DataVector, xDerivative2, 'Accuracy', acc);
+    (DataVector, xDerivative2, 'Accuracy', Accuracy);
 
 N_Rnd = power(10, 3);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-avg_sigma_f1 = FindOutputVariableAvgSigma...
+Avg_Sigma_f1 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
-    FH_FindDerivativePropagation1, N_Rnd);
-avg_sigma_f2 = FindOutputVariableAvgSigma...
+    FunctionHandle_FindDerivativePropagation1, N_Rnd);
+Avg_Sigma_f2 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
-    FH_FindDerivativePropagation2, N_Rnd);
+    FunctionHandle_FindDerivativePropagation2, N_Rnd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(1); clf; hold on;
-errorbar(xDerivative1, avg_sigma_f1(:, 1), avg_sigma_f1(:, 2), ...
-    'bo', 'MarkerSize', 10);
-xlabel('x'); ylabel('y');
+errorbar(xDerivative1, Avg_Sigma_f1(:, 1), Avg_Sigma_f1(:, 2), ...
+    'bx', 'MarkerSize', 10);
+xlabel('x'); ylabel('yDerivative');
 set(gca, 'FontSize', 14); grid on; hold off;
 
 figure(2); clf; hold on;
-avg_y_Derivative2 = avg_sigma_f2(:, 1);
-sigma_y_Derivative2= avg_sigma_f2(:, 2);
-y_Plot_top = avg_y_Derivative2 + sigma_y_Derivative2;
-y_Plot_bottom = avg_y_Derivative2 - sigma_y_Derivative2;
+Avg_y_Derivative2 = Avg_Sigma_f2(:, 1);
+Sigma_y_Derivative2= Avg_Sigma_f2(:, 2);
+y_Plot_top = Avg_y_Derivative2 + Sigma_y_Derivative2;
+y_Plot_bottom = Avg_y_Derivative2 - Sigma_y_Derivative2;
 Area_Plot = fill([xDerivative2', fliplr(xDerivative2')], ...
     [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
-plot(xDerivative2, avg_y_Derivative2, 'k-', 'LineWidth', 1.5)
-xlabel('x'); ylabel('y');
+plot(xDerivative2, Avg_y_Derivative2, 'k-', 'LineWidth', 1.5)
+xlabel('x'); ylabel('yDerivative');
 set(gca, 'FontSize', 14); grid on; hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
