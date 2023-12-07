@@ -1,4 +1,4 @@
-function [slope, intercept, varargout] = ...
+function [Slope, Intercept, varargout] = ...
     FindSimpleLinearRegressionCoefficients...
     (xData, yData, varargin)
 %% Tool for finding the slope and the intercept of the 
@@ -6,53 +6,66 @@ function [slope, intercept, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 10.17.2023
-% Last changed: 10.17.2023
+% Last changed: 12.7.2023
 % 
 %% Description
 % 
-% Given the input column vectors "xData" of the values "xData"(i) 
-% of the independent variable X and the column vector "yData" 
-% of values "yData"(i) of the dependent variable 
+% Given the input column vectors 'xData' of the values 'xData'(i) 
+% of the independent variable X and the column vector 'yData' 
+% of values 'yData'(i) of the dependent variable 
 % Y = f(X) = X * a + b, this function returns the estimated values 
-% for the a ("slope") and b ("intercept") parameters using simple 
-% linear regression of the data pairs ("xData"(i), "yData"(i)). 
-% Additionally, if no additional input parameters are supplied, the 
-% estimated variance of the "yData"(i) values can be obtained as 
-% the optional output parameter "variance_yData". If the optional 
-% input parameter "CovarianceMatrix", which is the covariance 
-% matrix of the values of the "yData" vector, is supplied, the 
-% optional output parameter is the "CovarMat_SlopeIntercept" 
-% matrix, which is the covariance matrix of the "slope" and 
-% "intercept" parameters. 
+% for the a ('Slope') and b ('Intercept') parameters using simple 
+% linear regression of the data points ('xData'(i), 'yData'(i)). 
+% Additionally, if no additional input parameters are provided, the 
+% estimated variance of the 'yData'(i) values can be obtained as 
+% the optional output parameter 'Variance_yData'. If the optional 
+% input parameter 'CovarianceMatrix', which is the covariance 
+% matrix of the values of the 'yData' vector, is provided, the 
+% optional output parameter is the 'CovarMat_SlopeIntercept' 
+% matrix, which is the covariance matrix of the 'Slope' and 
+% 'Intercept' parameters. 
 % 
 %% Variables
 % 
-% This function has the form of [slope, intercept, varargout] = ...
+% This function has the form of [Slope, Intercept, varargout] = ...
 % FindSimpleLinearRegressionCoefficients...
 % (xData, yData, varargin)
 % 
-% "xData" and "yData" are the vectors of the values of the 
+% 'xData' and 'yData' are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
-% respectively, of the linear function 
-% Y = f(X) = X * a + b ("yData" = f("xData")) where the a and the 
-% b parameters are to be estimated by this function by using 
-% simple linear regression. 
-% Both the "xData" vector and the "yData" vector must be 
-% column vectors of equal length and of real numbers. 
+% respectively, of the linear function Y = f(X) = X * a + b 
+% ('yData' = f('xData')) where the a and the b parameters are to 
+% be estimated by this function by using simple linear 
+% regression. 
+% Both the 'xData' vector and the 'yData' vector must be column 
+% vectors of equal length and of real numbers. 
 % 
-% "varargin" represents the additional input parameter 
-% "CovarMat_yData". "CovarMat_yData" is the covariance matrix 
-% of the values of the "yData" vector. It must be a matrix of real 
+% 'varargin' represents the additional input parameter 
+% 'CovarMat_yData'. 'CovarMat_yData' is the covariance matrix 
+% of the values of the 'yData' vector. It must be a matrix of real 
 % numbers. 
 % 
-% Both the "Slope" parameter and the "Intercept" parameter are 
-% estimates of the a parameter and b parameter, respectively, 
-% calculated by simple linear regression of the data pairs 
-% ("xData"(i), "yData"(i)) and, if supplied, by the taking into the 
-% account the covariance of the "yData"(i) values provided by 
-% the optional "CovarMat_yData" matrix. 
+% Both the 'Slope' parameter and the 'Intercept' parameter are 
+% estimates of the a parameter and the b parameter, 
+% respectively, calculated by simple linear regression of the data 
+% pairs ('xData'(i), 'yData'(i)) and, if provided, by taking into 
+% account the 'CovarMat_yData' covariance matrix of the 
+% 'yData'(i) values. 
 % 
-% varargout.........
+% 'varargout' represents the optional output parameter which is 
+% either the 'CovarMat_SlopeIntercept' parameter if the optional 
+% input parameter 'CovarMat_yData' is provided, or the 
+% 'Variance_yData' parameter if not. 
+%    -'CovarMat_SlopeIntercept' is the covariance matrix of the 
+%     'Slope' parameter and the 'Intercept' parameter. 
+%    -'Variance_yData' is the estimated variance of the 'yData'(i) 
+%     based on the assumptions that 
+%          (1) the function f: yData = f(xData) is linear, 
+%          (2) the data represented by the values 'xData'(i) have 
+%                zero variance, and 
+%          (3) the values of the variance of the data represented by 
+%                the 'yData'(i) values are equal to each other. 
+
 
 pars = inputParser;
 
@@ -85,20 +98,26 @@ length_xData = length(xData);
 
 H = [xData, ones(length_xData, 1)];
 
-
 if sum(sum(CovarMat_yData)) ~=0
     CovarMat_SlopeIntercept = inv((H' / CovarMat_yData) * H);
     varargout = {CovarMat_SlopeIntercept};
-    coefficients = ...
+    Coefficients = ...
         (CovarMat_SlopeIntercept * (H') / CovarMat_yData) * yData;
 else
-    coefficients =H \ yData;
-    variance_yData = (yData - H * coefficients) * ...
-        ((yData - H * coefficients)') / (length_xData - (2 - 1) - 1);
-    varargout = {variance_yData};
+% Based on the Chi2 distribution, the greatest probability density 
+% of the value of the 2 * J form ('yData' - 'H' * 'Coefficients') * 
+% (('yData' - 'H' * 'Coefficients')') / 'Variance_yData' lies at the 
+% value 'length_xData' - m - 1, where m is the number of 
+% determined parameters (in our case two ('Slope' and 
+% 'Intercept')) minus one (i.e. 'length_xData' - m - 1 = 
+% 'length_xData' - (2 - 1) - 1 = 'length_xData' - 2). 
+    Coefficients =H \ yData;
+    Variance_yData = (yData - H * Coefficients) * ...
+        ((yData - H * Coefficients)') / (length_xData - 2);
+    varargout = {Variance_yData};
 end
 
-slope = coefficients(1);
-intercept = coefficients(2);
+Slope = Coefficients(1);
+Intercept = Coefficients(2);
 
 end

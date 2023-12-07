@@ -6,7 +6,7 @@ function DrawSimpleLinearRegressionGraph...
 % 
 % Author: Žan Kogovšek
 % Date: 10.5.2023
-% Last changed: 11.30.2023
+% Last changed: 12.7.2023
 % 
 %% Description
 % 
@@ -20,7 +20,7 @@ function DrawSimpleLinearRegressionGraph...
 % regression method, this function plots in the figure window 
 % with the index 'Figure' the data points ('xData'(i), 'yData'(i)) and 
 % the mean estimated linear curve, determined by the function 
-% Y = fEstimateMean(X) = X * 'slope' + 'intercept' as well as 
+% Y = fEstimateMean(X) = X * 'Slope' + 'Intercept' as well as 
 % the area between the curves determined by the functions 
 % Y = fEstimateMean(X) - Std_ fEstimateMean(X) and 
 % Y = fEstimateMean(X) + Std_ fEstimateMean(X), respectively. 
@@ -45,10 +45,10 @@ function DrawSimpleLinearRegressionGraph...
 % 
 % 'xData' and 'yData' are the vectors of the values of the 
 % independent variable X and of the dependent variable Y, 
-% respectively, of the linear function 
-% Y = f(X) = X * a + b ('yData' = f('xData')) where the a and the 
-% b parameters are estimated by the parameters 'Slope' and 
-% 'Intercept', respectively, and their covariance matrix 
+% respectively, of the linear function Y = f(X) = X * a + b 
+% ('yData' = f('xData')) where the a and the b parameters are 
+% estimated by the parameters 'Slope' and 'Intercept', 
+% respectively, and their covariance matrix 
 % 'CovarMat_SlopeIntercept' using the simple linear regression 
 % method. 
 % Both the 'xData' vector and the 'yData' vector must be column 
@@ -146,7 +146,7 @@ parse(pars, Figure, xData, yData, Slope, Intercept, ...
 
 N = power(10, 4);
 
-Figure(Figure);
+figure(Figure);
 hold on;
 
 % In the following two lines, the pair of vectors which describe 
@@ -167,7 +167,7 @@ Std_y_Plot = sqrt(...
 y_Plot_top = y_Plot_Avg + Std_y_Plot;
 y_Plot_bottom = y_Plot_Avg - Std_y_Plot;
 
-Figure(Figure);
+figure(Figure);
 hold on;
 
 Area_Plot = fill...
