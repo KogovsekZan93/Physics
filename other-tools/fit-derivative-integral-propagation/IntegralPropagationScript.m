@@ -32,30 +32,30 @@ N_Rnd = power(10, 3);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Avg_Sigma_f1 = FindOutputVariableAvgStd...
+AvgStd_f1 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
     FunctionHandle_FindIntegralPropagation1, N_Rnd);
-Avg_Sigma_f2 = FindOutputVariableAvgStd...
+AvgStd_f2 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
     FunctionHandle_FindIntegralPropagation2, N_Rnd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(1); clf; hold on;
-errorbar(xIntegral1, Avg_Sigma_f1(:, 1), Avg_Sigma_f1(:, 2), ...
+errorbar(xIntegral1, AvgStd_f1(:, 1), AvgStd_f1(:, 2), ...
     'bo', 'MarkerSize', 10);
 xlabel('x'); ylabel('yIntegral');
 set(gca, 'FontSize', 14); grid on; hold off;
 
 figure(2); clf; hold on;
-Avg_y_Integral2 = Avg_Sigma_f2(:, 1);
-Sigma_y_Integral2= Avg_Sigma_f2(:, 2);
-y_Plot_top = Avg_y_Integral2 + Sigma_y_Integral2;
-y_Plot_bottom = Avg_y_Integral2 - Sigma_y_Integral2;
+Avg_yIntegral2 = AvgStd_f2(:, 1);
+Std_yIntegral2= AvgStd_f2(:, 2);
+y_Plot_top = Avg_yIntegral2 + Std_yIntegral2;
+y_Plot_bottom = Avg_yIntegral2 - Std_yIntegral2;
 Area_Plot = fill([xIntegral2', fliplr(xIntegral2')], ...
     [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
-plot(xIntegral2, Avg_y_Integral2, 'k-', 'LineWidth', 1.5)
+plot(xIntegral2, Avg_yIntegral2, 'k-', 'LineWidth', 1.5)
 xlabel('x'); ylabel('yIntegral');
 set(gca, 'FontSize', 14); grid on; hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

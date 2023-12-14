@@ -32,30 +32,30 @@ N_Rnd = power(10, 3);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Avg_Sigma_f1 = FindOutputVariableAvgStd...
+AvgStd_f1 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
     FunctionHandle_FindDerivativePropagation1, N_Rnd);
-Avg_Sigma_f2 = FindOutputVariableAvgStd...
+AvgStd_f2 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
     FunctionHandle_FindDerivativePropagation2, N_Rnd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(1); clf; hold on;
-errorbar(xDerivative1, Avg_Sigma_f1(:, 1), Avg_Sigma_f1(:, 2), ...
+errorbar(xDerivative1, AvgStd_f1(:, 1), AvgStd_f1(:, 2), ...
     'bx', 'MarkerSize', 10);
 xlabel('x'); ylabel('yDerivative');
 set(gca, 'FontSize', 14); grid on; hold off;
 
 figure(2); clf; hold on;
-Avg_y_Derivative2 = Avg_Sigma_f2(:, 1);
-Sigma_y_Derivative2= Avg_Sigma_f2(:, 2);
-y_Plot_top = Avg_y_Derivative2 + Sigma_y_Derivative2;
-y_Plot_bottom = Avg_y_Derivative2 - Sigma_y_Derivative2;
+Avg_yDerivative2 = AvgStd_f2(:, 1);
+Std_y_Derivative2= AvgStd_f2(:, 2);
+y_Plot_top = Avg_yDerivative2 + Std_y_Derivative2;
+y_Plot_bottom = Avg_yDerivative2 - Std_y_Derivative2;
 Area_Plot = fill([xDerivative2', fliplr(xDerivative2')], ...
     [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
-plot(xDerivative2, Avg_y_Derivative2, 'k-', 'LineWidth', 1.5)
+plot(xDerivative2, Avg_yDerivative2, 'k-', 'LineWidth', 1.5)
 xlabel('x'); ylabel('yDerivative');
 set(gca, 'FontSize', 14); grid on; hold off;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

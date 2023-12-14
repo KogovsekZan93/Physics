@@ -32,10 +32,10 @@ N_Rnd = power(10, 3);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-avg_sigma_f1 = FindOutputVariableAvgStd...
+AvgStd_f1 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
     FunctionHandle_FindFitPropagation1, N_Rnd);
-avg_sigma_f2 = FindOutputVariableAvgStd...
+AvgStd_f2 = FindOutputVariableAvgStd...
     (InputVariablesDistributionInfo, ...
     FunctionHandle_FindFitPropagation2, N_Rnd);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,21 +43,21 @@ avg_sigma_f2 = FindOutputVariableAvgStd...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(1); clf; hold on;
 plot(xData, yData, 'ro', 'MarkerSize', 10);
-errorbar(xMissing1, avg_sigma_f1(:, 1), avg_sigma_f1(:, 2), ...
+errorbar(xMissing1, AvgStd_f1(:, 1), AvgStd_f1(:, 2), ...
     'bo', 'MarkerSize', 10);
 xlabel('x'); ylabel('y'); legend('Data points', ...
     'Points estimated using ZFindFit function');
 set(gca, 'FontSize', 14); grid on; hold off;
 
 figure(2); clf; hold on;
-avg_y_Missing2 = avg_sigma_f2(:, 1);
-sigma_y_Missing2= avg_sigma_f2(:, 2);
-y_Plot_top = avg_y_Missing2 + sigma_y_Missing2;
-y_Plot_bottom = avg_y_Missing2 - sigma_y_Missing2;
+Avg_yMissing2 = AvgStd_f2(:, 1);
+Std_yMissing2= AvgStd_f2(:, 2);
+y_Plot_top = Avg_yMissing2 + Std_yMissing2;
+y_Plot_bottom = Avg_yMissing2 - Std_yMissing2;
 Area_Plot = fill([xMissing2', fliplr(xMissing2')], ...
     [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
-plot(xMissing2, avg_y_Missing2, 'k-', 'LineWidth', 1.5)
+plot(xMissing2, Avg_yMissing2, 'k-', 'LineWidth', 1.5)
 xlabel('x'); ylabel('y');
 plot(xData, yData, 'ro', 'MarkerSize', 10);
 set(gca, 'FontSize', 14); grid on; hold off;

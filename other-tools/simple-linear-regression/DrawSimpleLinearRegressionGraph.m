@@ -6,7 +6,7 @@ function DrawSimpleLinearRegressionGraph...
 % 
 % Author: Žan Kogovšek
 % Date: 10.5.2023
-% Last changed: 12.7.2023
+% Last changed: 12.14.2023
 % 
 %% Description
 % 
@@ -174,7 +174,7 @@ Area_Plot = fill...
     ([x_Plot', fliplr(x_Plot')], [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
 errorbar(xData, yData, Std_yData, 'ro');
-GetHorizontalErrorbar(xData, yData, Std_xData, Std_xData, 'ro');
+PlotHorizontalErrorbar(xData, yData, Std_xData, Std_xData, 'ro');
 plot(x_Plot, y_Plot_Avg, 'k-', 'LineWidth', 1.5)
 
 grid on;

@@ -1,4 +1,4 @@
-function hh = GetHorizontalErrorbar...
+function hh = PlotHorizontalErrorbar...
     (x_Data, y_Data, l_Error, u_Error, symbol)
 %GETHORIZONTALERRORBAR Horizontal Error bar plot. 
 %   GETHORIZONTALERRORBAR(X,Y,L,R) plots the graph of 
@@ -150,7 +150,6 @@ yb(7:9:end,:) = ytop;
 yb(8:9:end,:) = ybot;
 yb(9:9:end,:) = NaN;
 % end change
-
 
 [ls,col,mark,msg] = colstyle(symbol); 
 if ~isempty(msg), error(msg); end
