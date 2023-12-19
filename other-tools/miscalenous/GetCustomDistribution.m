@@ -7,33 +7,34 @@ N_ValuesInInterval, N_MaxRep)
 % 
 % Author: Žan Kogovšek
 % Date: 12.14.2023
-% Last changed: 12.14.2023
+% Last changed: 12.19.2023
 % 
 %% Description
 % 
 % Given the input vector 'IntervalLimits' of the lower and the 
 % upper limit of the interval ['IntervalLimits'(1), 'IntervalLimits'(2)] 
 % and the input number 'N_ValuesInInterval' of equally spaced 
-% values in the vector 'x_Spaced' = [x_1; x_2; ...; 
-% x_('N_ValuesInInterval' - 1); x_('N_ValuesInInterval')] in the 
+% values of the X variable in the vector 'x_Spaced' = [x_1; x_2; 
+% ...; x_('N_ValuesInInterval' - 1); x_('N_ValuesInInterval')] in the 
 % interval ['IntervalLimits'(1), 'IntervalLimits'(2)] as well as the 
 % input function handle 'handle_ProportionalPDF' of the function 
 % fProportionalPDF, which is proportional to the probability 
-% density function fPDF of the values in the interval 
-% ['IntervalLimits'(1), 'IntervalLimits'(2)], this function returns the 
-% vector 'DitributionWeighedValues' in which each of the values 
-% of the 'x_Spaced' vector is repeated the number of times 
-% which is proportional to the probability density function fPDF. 
+% density function fPDF of the values of the X variable in the 
+% interval ['IntervalLimits'(1), 'IntervalLimits'(2)], this function 
+% returns the vector 'DitributionWeighedValues' in which each of 
+% the values of the 'x_Spaced' vector is repeated the number of 
+% times which is proportional to the probability density function 
+% fPDF. 
 % The number of repetitions of the most probable value of the 
 % 'x_Spaced' vector is defined by the input 'N_MaxRep' number. 
 % By using the MATLAB function datasample on the 
 % 'DitributionWeighedValues' vector, the probability of each 
-% value of the 'x_Spaced' vector being returned is proportional 
-% to the fPDF probability density function. This way, random 
-% generation of values of a variable which has an arbitrary 
-% probability density function fPDF is possible, as long as the 
-% function fProportionalPDF, which is proportional to the fPDF 
-% function, can be defined. 
+% value 'x_Spaced'(i) of the 'x_Spaced' vector being returned is 
+% proportional to the fPDF probability density function value 
+% fPDF('x_Spaced'(i)). This way, random generation of values 
+% of a variable which has an arbitrary probability density function 
+% fPDF is possible, as long a function fProportionalPDF, which 
+% is proportional to the fPDF function, can be defined. 
 % 
 %% Variables
 % 
@@ -41,29 +42,43 @@ N_ValuesInInterval, N_MaxRep)
 % (handle_ProportionalPDF, IntervalLimits, ...
 % N_ValuesInInterval, N_MaxRep)
 % 
-% 'handle_ProportionalPDF' ....
+% 'handle_ProportionalPDF' is the function handle of the 
+% fProportionalPDF which is a function which is proportional to 
+% the fPDF probability density function: 
+% fProportionalPDF = a * fPDF, where a is an arbitrary positive 
+% real number. The fProportionalPDF function must be a 
+% function of a single argument which can be set as any value  
+% from the interval ['IntervalLimits'(1), 'IntervalLimits'(2)], and 
+% returns a nonnegative real number. 
 % 
-% 'IntervalLimits' .....
+% 'IntervalLimits' is the column vector of two values, 
+% 'IntervalLimits'(1) and 'IntervalLimits'(2), which are, 
+% respectively, the lower and the upper limit of the closed 
+% interval ['IntervalLimits'(1), 'IntervalLimits'(2)] over which the 
+% fPDF probability density function is defined. It must be a 
+% column vector of two real numbers, the second being greater 
+% than the first. 
 % 
-% 'N_ValuesInInterval' ...
+% 'N_ValuesInInterval' is the number of equally spaced values 
+% 'x_Spaced'(i) of the X variable from the ['IntervalLimits'(1), 
+% 'IntervalLimits'(2)] interval. The repetition number in the output 
+% 'DitributionWeighedValues' vector of each of the 
+% 'N_ValuesInInterval' equally spaced values 'x_Spaced'(i) of 
+% the ['IntervalLimits'(1), 'IntervalLimits'(2)] interval will be 
+% proportional to the fPDF('x_Spaced'(i)) value. It must be a 
+% natural number. 
 % 
-% 'N_MaxRep' ...
+% 'N_MaxRep' is the maximum number of repetitions of any 
+% given value 'x_Spaced'(i) in the 'DitributionWeighedValues' 
+% vector. Because the number of repetitions of any given value 
+% 'x_Spaced'(i) is proportional to the fPDF('x_Spaced'(i)) value 
+% of the probability density function fPDF for that same given 
+% value, the values with the greatest probability density will be 
+% repeated 'N_MaxRep'-number of times in the 
+% 'DitributionWeighedValues' vector. It must be a natural 
+% number. 
 % 
 % 'DitributionWeighedValues' ...
-% 
-% 'xData' and 'yData' are the vectors of the values of the 
-% independent variable X and of the dependent variable Y, 
-% respectively, of the linear function Y = f(X) = X * a + b 
-% ('yData' = f('xData')) where the a and the b parameters are to 
-% be estimated by this function by using simple linear 
-% regression. 
-% Both the 'xData' vector and the 'yData' vector must be column 
-% vectors of equal length and of real numbers. 
-% 
-% 'varargin' represents the additional input parameter 
-% 'CovarMat_yData'. 'CovarMat_yData' is the covariance matrix 
-% of the values of the 'yData' vector. It must be a matrix of real 
-% numbers. 
 
 
 pars = inputParser;
