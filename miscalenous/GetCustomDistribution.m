@@ -7,7 +7,7 @@ N_ValuesInInterval, N_MaxRep)
 % 
 % Author: Žan Kogovšek
 % Date: 12.14.2023
-% Last changed: 12.19.2023
+% Last changed: 12.24.2023
 % 
 %% Description
 % 
@@ -78,7 +78,23 @@ N_ValuesInInterval, N_MaxRep)
 % 'DitributionWeighedValues' vector. It must be a natural 
 % number. 
 % 
-% 'DitributionWeighedValues' ...
+% 'DitributionWeighedValues' is the column vector which 
+% contains the 'N_ValuesInInterval' equally spaced values 
+% 'x_Spaced'(i) of the X variable in the 
+% ['IntervalLimits'(1), 'IntervalLimits'(2)] interval. Each value 
+% 'x_Spaced'(i) is repeated in the 'DitributionWeighedValues' 
+% vector the number of times which is proportional to its fPDF 
+% probability density function value fPDF('x_Spaced'(i)) such 
+% that the greatest number of repetitions of any value of the 
+% 'x_Spaced' vector is 'N_MaxRep'. 
+% Despite the present description, the number 
+% 'NVec_Repeation'(i) of the repetitions of the 'x_Spaced'(i) 
+% value is not proportional to the fPDF('x_Spaced'(i)) value in 
+% general because the value RelativefPDF(i) = 
+% 'N_MaxRep' * (max(fPDF ('x_Spaced')) / fPDF('x_Spaced'(i))) 
+% is not an integer in general. Instead the number 
+% 'NVec_Repeation'(i) of repetitions of the 'x_Spaced'(i) value is 
+% the RelativefPDF(i) value rounded to the closest integer. 
 
 
 pars = inputParser;
@@ -114,22 +130,27 @@ N_ValuesInInterval, N_MaxRep);
 x_Spaced = (linspace...
     (IntervalLimits(1), IntervalLimits(2), N_ValuesInInterval))';
 
-y = zeros(N_ValuesInInterval, 1);
+% In the following block of code, the 'NVec_Repeation' vector is 
+% constructed. Each value 'NVec_Repeation'(i) of the 
+% 'NVec_Repeation' vector is the number of repetitions of the 
+% 'x_Spaced'(i) value in the 'DitributionWeighedValues' vector. 
+NVec_Repeation = zeros(N_ValuesInInterval, 1);
 for i=1 : N_ValuesInInterval
-    y(i) = handle_ProportionalPDF(x_Spaced(i));
+    NVec_Repeation(i) = handle_ProportionalPDF(x_Spaced(i));
 end
-y = y * N_MaxRep / max(y);
-y = round(y);
+NVec_Repeation = ...
+    NVec_Repeation * N_MaxRep / max(NVec_Repeation);
+NVec_Repeation = round(NVec_Repeation);
 
-length_DitributionWeighedValues = sum(y);
+length_DitributionWeighedValues = sum(NVec_Repeation);
 DitributionWeighedValues = ...
     zeros(length_DitributionWeighedValues, 1);
 
 RunningIndex = 1;
 for i=1 : N_ValuesInInterval
-    DitributionWeighedValues...
-        (RunningIndex : RunningIndex + y(i) - 1) = x_Spaced(i);
-    RunningIndex = RunningIndex + y(i);
+    DitributionWeighedValues(RunningIndex : ...
+        RunningIndex + NVec_Repeation(i) - 1) = x_Spaced(i);
+    RunningIndex = RunningIndex + NVec_Repeation(i);
 end
 
 end
