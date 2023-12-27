@@ -1,11 +1,11 @@
 function RndValues = GetRndValues...
-    (VariablesDistributionInfo, N_Rnd)
+    (InputVariablesDistributionInfo, N_Rnd)
 %% Tool for finding randomly generated values of 
 %% variables with prescribed distributions
 % 
 % Author: Žan Kogovšek
 % Date: 9.27.2023
-% Last changed: 11.27.2023
+% Last changed: 12.26.2023
 % 
 %% Description
 % 
@@ -23,7 +23,7 @@ function RndValues = GetRndValues...
 %% Variables
 % 
 % This function has the form of RndValues = GetRndValues...
-% (VariablesDistributionInfo, N_Rnd)
+% (InputVariablesDistributionInfo, N_Rnd)
 % 
 % 'InputVariablesDistributionInfo' is a horizontal cell array. Each 
 % 'InputVariablesDistributionInfo'{i} cell contains the information 
@@ -90,12 +90,14 @@ function RndValues = GetRndValues...
 
 pars = inputParser;
 
-paramName = 'VariablesDistributionInfo';
-errorMsg = '''VariablesDistributionInfo'' must be a horizontal cell.';
-Size_VariablesDistributionInfo = size(VariablesDistributionInfo);
+paramName = 'InputVariablesDistributionInfo';
+errorMsg = ...
+    '''InputVariablesDistributionInfo'' must be a horizontal cell.';
+Size_InputVariablesDistributionInfo = ...
+    size(InputVariablesDistributionInfo);
 validationFcn = @(x)assert(iscell(x) && ...
-    Size_VariablesDistributionInfo(1) == 1 && ...
-    length(Size_VariablesDistributionInfo) <= 2, errorMsg);
+    Size_InputVariablesDistributionInfo(1) == 1 && ...
+    length(Size_InputVariablesDistributionInfo) <= 2, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
 paramName = 'N_Rnd';
@@ -104,9 +106,9 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x) && ...
     mod(x,1) == 0 && x > 0, errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-parse(pars, VariablesDistributionInfo, N_Rnd);
+parse(pars, InputVariablesDistributionInfo, N_Rnd);
 
-length_Variables = length(VariablesDistributionInfo);
+length_Variables = length(InputVariablesDistributionInfo);
 RndValues = num2cell(zeros(length_Variables, 1));
 
 % Even though it is useful to think of the 'RndValues' matrix of 
@@ -118,35 +120,40 @@ RndValues = num2cell(zeros(length_Variables, 1));
 % the 'RndValues' vertical cell array to a matrix stacking the 
 % previously generated horizontal vectors vertically. 
 for i = 1 : length_Variables
-    if iscell(VariablesDistributionInfo{i}) == 0
+    if iscell(InputVariablesDistributionInfo{i}) == 0
         RndValues{i} = ...
-            (datasample(VariablesDistributionInfo{i}, N_Rnd))';
+            (datasample(InputVariablesDistributionInfo{i}, N_Rnd))';
     else
-        if ismatrix(VariablesDistributionInfo{i}{2}) && ...
-                ~isvector(VariablesDistributionInfo{i}{2})
-            RndValues{i} = (mvnrnd(VariablesDistributionInfo{i}{1}, ...
-                VariablesDistributionInfo{i}{2}, N_Rnd))';
+        if ismatrix(InputVariablesDistributionInfo{i}{2}) && ...
+                ~isvector(InputVariablesDistributionInfo{i}{2})
+            RndValues{i} = ...
+                (mvnrnd(InputVariablesDistributionInfo{i}{1}, ...
+                InputVariablesDistributionInfo{i}{2}, N_Rnd))';
         else
-            if VariablesDistributionInfo{i}{2} == 1
-                RndValues{i} = 2 * VariablesDistributionInfo{i}{1}{2} * ...
-                    (rand(length(VariablesDistributionInfo{i}{1}{1}), ...
-                    N_Rnd) - (1 / 2)) + VariablesDistributionInfo{i}{1}{1};
+            if InputVariablesDistributionInfo{i}{2} == 1
+                RndValues{i} = ...
+                    2 * InputVariablesDistributionInfo{i}{1}{2} * ...
+                    (rand(length(InputVariablesDistributionInfo{i}{1}{1}), ...
+                    N_Rnd) - (1 / 2)) + InputVariablesDistributionInfo{i}{1}{1};
             else
-                if VariablesDistributionInfo{i}{2} == 2
-                    RndValues{i} = VariablesDistributionInfo{i}{1}{1} + ...
-                        normrnd(0, VariablesDistributionInfo{i}{1}{2}, ...
-                        [length(VariablesDistributionInfo{i}{1}{1}), N_Rnd]);
+                if InputVariablesDistributionInfo{i}{2} == 2
+                    RndValues{i} = ...
+                        InputVariablesDistributionInfo{i}{1}{1} + ...
+                        normrnd(0, InputVariablesDistributionInfo{i}{1}{2}, ...
+                        [length(InputVariablesDistributionInfo{i}{1}{1}), N_Rnd]);
                 else
-                    if VariablesDistributionInfo{i}{2} == 3
+                    if InputVariablesDistributionInfo{i}{2} == 3
                         variance_Variable = ...
-                            VariablesDistributionInfo{i}{1}{2} * sqrt(12) / 2;
+                            InputVariablesDistributionInfo{i}{1}{2} * ...
+                            sqrt(12) / 2;
                         RndValues{i} = 2 * variance_Variable * ...
-                            (rand(length(VariablesDistributionInfo{i}{1}{1}), ...
+                            (rand...
+                            (length(InputVariablesDistributionInfo{i}{1}{1}), ...
                             N_Rnd) - (1 / 2)) + ...
-                            VariablesDistributionInfo{i}{1}{1};
+                            InputVariablesDistributionInfo{i}{1}{1};
                     else
                         error...
-                            ('''VariablesDistributionInfo''{%d} does not satisfy proper form.', i)
+                            ('''InputVariablesDistributionInfo''{%d} does not satisfy proper form.', i)
                     end
                 end
             end
