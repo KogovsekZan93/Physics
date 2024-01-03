@@ -41,7 +41,7 @@ if Value_V > 100
 else
     Validity = 1;
 end
-% If 'Validity' = 0, the 'Vec_f_Tutorial' vector is invalid and if 
+% If 'Validity' = 0, the 'Vec_f_Tutorial' vector is invalid, and if 
 % 'Validity' = 1, the 'Vec_f_Tutorial' vector is valid. 
 
 Vec_Ff_TutorialCombined = ...

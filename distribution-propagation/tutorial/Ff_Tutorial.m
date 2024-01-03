@@ -22,14 +22,14 @@ Vec_Figure = [23; 0];
 % window 23 while the variable represented by the second value 
 % of the 'Vec_f_Tutorial' vector is not to be plotted. 
 
-Vec_f_Tutorial(2) = Value_V;
+Value_V = Vec_f_Tutorial(2);
 
 if Value_V > 100
     Validity = 0;
 else
     Validity = 1;
 end
-% If 'Validity' = 0, the 'Vec_f_Tutorial' vector is invalid and if 
+% If 'Validity' = 0, the 'Vec_f_Tutorial' vector is invalid, and if 
 % 'Validity' = 1, the 'Vec_f_Tutorial' vector is valid. 
 
 Vec_Ff_Tutorial = [Vec_f_Tutorial; Vec_Figure; Validity];
