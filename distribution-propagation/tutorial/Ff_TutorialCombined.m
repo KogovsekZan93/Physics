@@ -5,7 +5,7 @@ function Vec_Ff_TutorialCombined = ...
 % 
 % Author: Žan Kogovšek
 % Date: 12.31.2023
-% Last changed: 12.31.2023
+% Last changed: 1.6.2024
 % 
 %% Description
 % 
@@ -46,6 +46,5 @@ end
 
 Vec_Ff_TutorialCombined = ...
     [Vec_f_Tutorial; Vec_Figure; Validity];
-
 
 end
