@@ -37,7 +37,7 @@ tutorial for them, the way they operate has to be inferred by
 studying their code and/or documentation. 
 
 
-# Installation of distribution-propagation
+# Installation of the distribution-propagation function package
 On the "Home" tab, in the Environment section, click the 
 "Set Path" button. The "Set Path" dialog box opens, listing all 
 folders in the search path. 
