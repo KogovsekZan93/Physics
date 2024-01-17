@@ -1,4 +1,4 @@
-function DitributionWeighedValues = GetCustomDistribution...
+function DistributionWeighedValues = GetCustomDistribution...
 (handle_ProportionalPDF, IntervalLimits, ...
 N_ValuesInInterval, N_MaxRep)
 %% Tool for creating a vector where the number of the 
@@ -7,7 +7,7 @@ N_ValuesInInterval, N_MaxRep)
 % 
 % Author: Žan Kogovšek
 % Date: 12.14.2023
-% Last changed: 1.13.2024
+% Last changed: 1.17.2024
 % 
 %% Description
 % 
@@ -21,14 +21,14 @@ N_ValuesInInterval, N_MaxRep)
 % fProportionalPDF, which is proportional to the probability 
 % density function fPDF of the values of the X variable in the 
 % interval ['IntervalLimits'(1), 'IntervalLimits'(2)], this function 
-% returns the vector 'DitributionWeighedValues' in which each of 
-% the values of the 'x_Spaced' vector is repeated the number of 
-% times which is proportional to the probability density function 
-% fPDF. 
+% returns the vector 'DistributionWeighedValues' in which each 
+% of the values of the 'x_Spaced' vector is repeated the number 
+% of times which is proportional to the probability density 
+% function fPDF. 
 % The number of repetitions of the most probable value of the 
 % 'x_Spaced' vector is defined by the input 'N_MaxRep' number. 
 % By using the MATLAB function datasample on the 
-% 'DitributionWeighedValues' vector, the probability of each 
+% 'DistributionWeighedValues' vector, the probability of each 
 % value 'x_Spaced'(i) of the 'x_Spaced' vector being returned is 
 % proportional to the fPDF probability density function value 
 % fPDF('x_Spaced'(i)). This way, random generation of values 
@@ -38,7 +38,7 @@ N_ValuesInInterval, N_MaxRep)
 % 
 %% Variables
 % 
-% DitributionWeighedValues = GetCustomDistribution...
+% DistributionWeighedValues = GetCustomDistribution...
 % (handle_ProportionalPDF, IntervalLimits, ...
 % N_ValuesInInterval, N_MaxRep)
 % 
@@ -62,27 +62,27 @@ N_ValuesInInterval, N_MaxRep)
 % 'N_ValuesInInterval' is the number of equally spaced values 
 % 'x_Spaced'(i) of the X variable from the ['IntervalLimits'(1), 
 % 'IntervalLimits'(2)] interval. The repetition number in the output 
-% 'DitributionWeighedValues' vector of each of the 
+% 'DistributionWeighedValues' vector of each of the 
 % 'N_ValuesInInterval' equally spaced values 'x_Spaced'(i) of 
 % the ['IntervalLimits'(1), 'IntervalLimits'(2)] interval will be 
 % proportional to the fPDF('x_Spaced'(i)) value. It must be a 
 % natural number. 
 % 
 % 'N_MaxRep' is the maximum number of repetitions of any 
-% given value 'x_Spaced'(i) in the 'DitributionWeighedValues' 
+% given value 'x_Spaced'(i) in the 'DistributionWeighedValues' 
 % vector. Because the number of repetitions of any given value 
 % 'x_Spaced'(i) is proportional to the fPDF('x_Spaced'(i)) value 
 % of the probability density function fPDF for that same given 
 % value, the values with the greatest probability density will be 
 % repeated 'N_MaxRep'-number of times in the 
-% 'DitributionWeighedValues' vector. It must be a natural 
+% 'DistributionWeighedValues' vector. It must be a natural 
 % number. 
 % 
-% 'DitributionWeighedValues' is the column vector which 
+% 'DistributionWeighedValues' is the column vector which 
 % contains the 'N_ValuesInInterval' equally spaced values 
 % 'x_Spaced'(i) of the X variable in the 
 % ['IntervalLimits'(1), 'IntervalLimits'(2)] interval. Each value 
-% 'x_Spaced'(i) is repeated in the 'DitributionWeighedValues' 
+% 'x_Spaced'(i) is repeated in the 'DistributionWeighedValues' 
 % vector the number of times which is proportional to its fPDF 
 % probability density function value fPDF('x_Spaced'(i)) such 
 % that the greatest number of repetitions of any value of the 
@@ -133,7 +133,7 @@ x_Spaced = (linspace...
 % In the following block of code, the 'NVec_Repetition' vector is 
 % constructed. Each value 'NVec_Repetition'(i) of the 
 % 'NVec_Repetition' vector is the number of repetitions of the 
-% 'x_Spaced'(i) value in the 'DitributionWeighedValues' vector. 
+% 'x_Spaced'(i) value in the 'DistributionWeighedValues' vector. 
 NVec_Repetition = zeros(N_ValuesInInterval, 1);
 for i=1 : N_ValuesInInterval
     NVec_Repetition(i) = handle_ProportionalPDF(x_Spaced(i));
@@ -142,13 +142,13 @@ NVec_Repetition = ...
     NVec_Repetition * N_MaxRep / max(NVec_Repetition);
 NVec_Repetition = round(NVec_Repetition);
 
-length_DitributionWeighedValues = sum(NVec_Repetition);
-DitributionWeighedValues = ...
-    zeros(length_DitributionWeighedValues, 1);
+length_DistributionWeighedValues = sum(NVec_Repetition);
+DistributionWeighedValues = ...
+    zeros(length_DistributionWeighedValues, 1);
 
 RunningIndex = 1;
 for i=1 : N_ValuesInInterval
-    DitributionWeighedValues(RunningIndex : ...
+    DistributionWeighedValues(RunningIndex : ...
         RunningIndex + NVec_Repetition(i) - 1) = x_Spaced(i);
     RunningIndex = RunningIndex + NVec_Repetition(i);
 end
