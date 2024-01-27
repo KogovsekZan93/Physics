@@ -22,6 +22,13 @@ distribution-propagation function package to provide information
 about the probability density function of the aforementioned 
 variable. 
 
+# MiscellaneousTestScript
+The MiscellaneousTestScript script is the test script which can 
+be used upon changing the code to check whether it still 
+performs as intended. If there are no error messages after 
+running the test script, it can be assumed, that the functions 
+perform as intended. 
+
 # Installation of the miscellaneous function package
 On the "Home" tab, in the Environment section, click the 
 "Set Path" button. The "Set Path" dialog box opens, listing all 

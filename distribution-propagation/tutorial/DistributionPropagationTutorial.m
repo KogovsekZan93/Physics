@@ -329,7 +329,7 @@ PVCorrCoeff = CovarMat_f_Tutorial(1, 2) / (Std_P * Std_V)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This completes the tutorial for the distribution-propagation 
+% This concludes the tutorial for the distribution-propagation 
 % function package. 
 % For further questions, the documentation and the code of the 
 % main two functions and their subfunctions should be referred 

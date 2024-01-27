@@ -304,7 +304,7 @@ clearvars -except xData yData xMissing yMissing; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This completes the tutorial for the ZFindFit function. 
+% This concludes the tutorial for the ZFindFit function. 
 % For further questions, the documentation and the code of the 
 % function and its subfunctions should be referred to. 
 

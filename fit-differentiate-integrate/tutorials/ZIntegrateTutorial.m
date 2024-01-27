@@ -483,7 +483,7 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This completes the tutorial for the functions 
+% This concludes the tutorial for the functions 
 % ZFindDefiniteIntegral and ZFindIndefiniteIntegral. For further 
 % questions, the documentation and the code of the functions 
 % and their subfunctions should be referred to. 

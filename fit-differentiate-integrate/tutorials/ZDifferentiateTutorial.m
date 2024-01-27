@@ -376,7 +376,7 @@ clearvars; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% This completes the tutorial for the ZFindDerivative function. 
+% This concludes the tutorial for the ZFindDerivative function. 
 % For further questions, the documentation and the code of the 
 % function and its subfunctions should be referred to. 
 

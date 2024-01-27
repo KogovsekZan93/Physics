@@ -6,7 +6,7 @@ function [Slope, Intercept, varargout] = ...
 % 
 % Author: Žan Kogovšek
 % Date: 10.17.2023
-% Last changed: 12.7.2023
+% Last changed: 1.27.2024
 % 
 %% Description
 % 
@@ -112,8 +112,8 @@ else
 % 'Intercept')) minus one (i.e. 'length_xData' - m - 1 = 
 % 'length_xData' - (2 - 1) - 1 = 'length_xData' - 2). 
     Coefficients =H \ yData;
-    Variance_yData = (yData - H * Coefficients) * ...
-        ((yData - H * Coefficients)') / (length_xData - 2);
+    Variance_yData = ((yData - H * Coefficients)') * ...
+        (yData - H * Coefficients) / (length_xData - 2);
     varargout = {Variance_yData};
 end
 

@@ -1,6 +1,6 @@
 % The test for the miscellaneous function package is 
 % passed if the command window is empty after running this 
-% script.
+% script. 
 
 
 clc;
