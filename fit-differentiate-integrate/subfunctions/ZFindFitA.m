@@ -5,7 +5,7 @@ function [yFitA, varargout] = ZFindFitA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.24.2023
+% Last changed: 2.10.2024
 % 
 %% Description
 % 
@@ -96,7 +96,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xData, xFitA);
 
 [FigureParameter, vararginBasic] = ...
-    SeparateAdditionalParameter(varargin, 'Figure');
+    SeparateOptionalParameter(varargin, 'Figure');
 
 [yFitA, Ipoints, Smatrix] = ZFindFitABasic...
     (xData, yData, xFitA, vararginBasic{:});

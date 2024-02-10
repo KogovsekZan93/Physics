@@ -1,12 +1,12 @@
 function DrawSimpleLinearRegressionGraph...
     (Figure, xData, yData, Slope, Intercept, ...
-    Std_xData, Std_yData, CovarMat_SlopeIntercept)
+    Std_yData, CovarMat_SlopeIntercept)
 %% Tool for plotting the data points, the simple linear 
 %% regression curve and its standard deviation area
 % 
 % Author: Žan Kogovšek
 % Date: 10.5.2023
-% Last changed: 12.14.2023
+% Last changed: 2.10.2024
 % 
 %% Description
 % 
@@ -29,15 +29,15 @@ function DrawSimpleLinearRegressionGraph...
 % The Std_ fEstimateMean(X) function is based on the 
 % parameters 'Slope' and 'Intercept', the 
 % 'CovarMat_SlopeIntercept' matrix, and the standard deviation 
-% of the data points, specified by the input column vectors 
-% 'Std_xData' and 'Std_yData'. 
+% of the values yData(i), specified by the input column vector 
+% 'Std_yData'. 
 % 
 %% Variables
 % 
 % This function has the form of 
 % DrawSimpleLinearRegressionGraph...
 % (Figure, xData, yData, Slope, Intercept, ...
-% Std_xData, Std_yData, CovarMat_SlopeIntercept)
+% Std_yData, CovarMat_SlopeIntercept)
 % 
 % 'Figure' is the integer which is the index of the figure window in 
 % which the figure described in Description is to be plotted. The 
@@ -67,12 +67,10 @@ function DrawSimpleLinearRegressionGraph...
 % Both the 'Slope' parameter and the 'Intercept' parameter 
 % must be scalars. 
 % 
-% The 'Std_xData' vector and the 'Std_yData' vector are the 
-% vectors of values 'Std_xData'(i) and 'Std_yData'(i), each of 
-% which is the standard deviation of the values 'xData'(i) and 
-% 'yData'(i), respectively. 
-% Both the 'Std_xData' vector and 'Std_yData' vector must be 
-% column vectors of real numbers. 
+% The 'Std_yData' vector is the vector of values 'Std_yData'(i), 
+% each of which is the standard deviation of the values 'yData'(i). 
+% The 'Std_yData' vector must be a column vector of real 
+% numbers. 
 % 
 % The 'CovarMat_SlopeIntercept' matrix is the covariance 
 % matrix of the estimated values of a and b, the mean of which is 
@@ -120,16 +118,9 @@ validationFcn = @(x)assert(isnumeric(x) && isscalar(x), ...
     errorMsg);
 addRequired(pars, paramName, validationFcn);
 
-paramName = 'sigma_xData';
+paramName = 'Std_yData';
 errorMsg = ...
-    '''sigma_xData'' must be a column vector of real numbers.';
-validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
-    isreal(x), errorMsg);
-addRequired(pars, paramName, validationFcn);
-
-paramName = 'sigma_yData';
-errorMsg = ...
-    '''sigma_yData'' must be a column vector of real numbers.';
+    '''Std_yData'' must be a column vector of real numbers.';
 validationFcn = @(x)assert(isnumeric(x) && iscolumn(x) && ...
     isreal(x), errorMsg);
 addRequired(pars, paramName, validationFcn);
@@ -142,7 +133,7 @@ validationFcn = @(x)assert(isnumeric(x) && ismatrix(x) && ...
 addRequired(pars, paramName, validationFcn);
 
 parse(pars, Figure, xData, yData, Slope, Intercept, ...
-    Std_xData, Std_yData, CovarMat_SlopeIntercept);
+    Std_yData, CovarMat_SlopeIntercept);
 
 N = power(10, 4);
 
@@ -174,7 +165,6 @@ Area_Plot = fill...
     ([x_Plot', fliplr(x_Plot')], [y_Plot_bottom', fliplr(y_Plot_top')], 'b');
 set(Area_Plot, 'facealpha', 0.5);
 errorbar(xData, yData, Std_yData, 'ro');
-PlotHorizontalErrorbar(xData, yData, Std_xData, Std_xData, 'ro');
 plot(x_Plot, y_Plot_Avg, 'k-', 'LineWidth', 1.5)
 
 grid on;

@@ -4,7 +4,7 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 % 
 % Author: Žan Kogovšek
 % Date: 8.14.2022
-% Last changed: 11.24.2023
+% Last changed: 2.10.2024
 % 
 %% Description
 % 
@@ -64,7 +64,7 @@ function yIndefiniteIntegral = ZFindIndefiniteIntegral...
 % values of f('xIntegral') - f('xIntegral'(1)). 
 
 
-[TypeList, TypeDeletedList] = SeparateAdditionalParameter...
+[TypeList, TypeDeletedList] = SeparateOptionalParameter...
     (varargin, 'Type');   % Separation of the 'Type' parameter from 
                                     % the other optional input parameters. 
 

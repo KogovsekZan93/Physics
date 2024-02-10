@@ -5,7 +5,7 @@ function yIndefiniteIntegralA = ZFindIndefiniteIntegralA...
 % 
 % Author: Žan Kogovšek
 % Date: 11.12.2022
-% Last changed: 11.24.2023
+% Last changed: 2.10.2024
 % 
 %% Description
 % 
@@ -78,7 +78,7 @@ addRequired(pars, paramName, validationFcn);
 parse(pars, xIntegralA);
 
 [FigureParameter, NonFigureParameters] = ...
-    SeparateAdditionalParameter(varargin, 'Figure');
+    SeparateOptionalParameter(varargin, 'Figure');
 
 [yIndefiniteIntegralA, Ipoints, Smatrix] = ZFindIntegralABasic...
     (xData, yData, xIntegralA, NonFigureParameters{:});
