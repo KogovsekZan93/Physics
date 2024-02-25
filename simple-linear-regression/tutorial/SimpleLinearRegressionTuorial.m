@@ -210,8 +210,8 @@ clear TData XData CovarMat_VX0 CovarMat_XData ...
 % curve, not taking into the account the values of the standard 
 % deviation of the values of the dependent variables. 
 % Run the following block of code to compare the runtimes of 
-% the FindSimpleLinearRegressionCoefficients function and the 
-% FindSimpleLinearRegressionCoefficientsFAST function. 
+% the FindSimpleLinearRegressionCoefficientsFAST function 
+% and the FindSimpleLinearRegressionCoefficients function. 
 
 TData = [0; 1; 3; 4; 7; 8; 10];
 XData = [1; 15; 20; 10; 18; 30; 32];

@@ -26,7 +26,7 @@ variable.
 The MiscellaneousTestScript script is the test script which can 
 be used upon changing the code to check whether it still 
 performs as intended. If there are no error messages after 
-running the test script, it can be assumed, that the functions 
+running the test script, it can be assumed that the functions 
 perform as intended. 
 
 # Installation of the miscellaneous function package
@@ -40,5 +40,5 @@ then click the "Select Folder" button thereby closing the "Add to
 path with Subfolders" dialog box. 
 Now, in the "Set Path" dialog box, click the "Save" button, and 
 then click the "Close" button. 
- 
+
 You have now completed the installation. 

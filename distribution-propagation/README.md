@@ -51,5 +51,5 @@ button in the "Set Path" dialog box.
 Now, select the "tutorial" folder (it should be at the bottom of the 
 list) and click the "Remove" button, then click the "Save" button, 
 and then click the "Close" button. 
- 
+
 You have now completed the installation. 

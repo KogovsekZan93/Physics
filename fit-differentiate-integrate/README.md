@@ -1,9 +1,9 @@
 # Welcome to the fit-differentiate-integrate function package
 Provided the data vectors "xData" and "yData" of some arbitrary 
-function f (Y = f(X), yData = f(xData)), this function package can 
-be used to estimate the values of either the function f, its definite 
-or indefinite integral, or its derivative at the desired values of the 
-X variable. 
+function f (Y = f(X), "yData" = f("xData")), this function package 
+can be used to estimate the values of either the function f, its 
+definite or indefinite integral, or its derivative at the desired 
+values of the X variable. 
 
 # The tutorials
 The tutorials folder provides the three tutorials for estimating the 
@@ -18,7 +18,7 @@ the fit-differentiate-integrate function package.
 The FitDifferentiateIntegrateTestScript script is the test script 
 which can be used upon changing the code to check whether it 
 still performs as intended. If there are no error messages after 
-running the test script, it can be assumed, that the functions 
+running the test script, it can be assumed that the functions 
 perform as intended. 
 
 # Subfunctions
@@ -43,5 +43,5 @@ button in the "Set Path" dialog box.
 Now, select the "tutorials" folder (it should be at the bottom of the 
 list) and click the "Remove" button, then click the "Save" button, 
 and then click the "Close" button. 
- 
+
 You have now completed the installation. 

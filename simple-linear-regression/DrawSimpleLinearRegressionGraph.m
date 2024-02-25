@@ -6,7 +6,7 @@ function DrawSimpleLinearRegressionGraph...
 % 
 % Author: Žan Kogovšek
 % Date: 10.5.2023
-% Last changed: 2.10.2024
+% Last changed: 2.20.2024
 % 
 %% Description
 % 
@@ -64,8 +64,8 @@ function DrawSimpleLinearRegressionGraph...
 % which are expressed by the parameters 'Slope' and 
 % 'Intercept', and their covariance matrix 
 % 'CovarMat_SlopeIntercept', can in principle be arbitrary. 
-% Both the 'Slope' parameter and the 'Intercept' parameter 
-% must be scalars. 
+% Both the 'Slope' parameter and the 'Intercept' parameter must 
+% be scalars. 
 % 
 % The 'Std_yData' vector is the vector of values 'Std_yData'(i), 
 % each of which is the standard deviation of the values 'yData'(i). 
