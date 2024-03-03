@@ -11,6 +11,15 @@ yData = yData(Indices);
 yDerivative = ZFindDerivative...
     (xData, yData, xDerivative, varargin{:});
 
-OutputVector = [yDerivative; zeros(length(yDerivative), 1); 1];
+% By setting the 'Validity' parameter to 1, all output vectors of the 
+% FindDerivativePropagation function will be considered valid. 
+Validity = 1;
+
+% By setting the second part of the output vector of the 
+% FindDerivativePropagation function as a vector of zeros, no 
+% distribution of any of the values of the 'yDerivative' vector will 
+% be plotted. 
+OutputVector = ...
+    [yDerivative; zeros(length(yDerivative), 1); Validity];
 
 end
