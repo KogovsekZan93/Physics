@@ -1,9 +1,10 @@
 # Welcome to the fit-derivative-integral-propagation function 
 package
-This function package contains three scripts which work as 
-examples as well as templates for the combined use of the 
-functions of the distribution-propagation function package and 
-the fit-differentiate-integrate function package. 
+This function package contains three scripts and three 
+associated functions which work as examples as well as 
+templates for the combined use of the functions of the 
+distribution-propagation function package and the 
+fit-differentiate-integrate function package. 
 
 For the use of the three scripts, the two mentioned function 
 packages must first be installed (instruction to do so are in the 
