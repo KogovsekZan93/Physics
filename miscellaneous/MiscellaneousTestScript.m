@@ -20,7 +20,7 @@ if sum(abs(DistributionWeighedValues - DistributionWeighedValuesStandard)) > pow
     fprintf('There is a problem with GetCustomDistribution: \nhandle_ProportionalPDF1\n')
 end
 
-handle_ProportionalPDF2 = @(x)rectangularPulse(x);
+handle_ProportionalPDF2 = @(x)RectangleFunction(x);
 IntervalLimits = [-5; 5];
 N_ValuesInInterval = 21;
 N_MaxRep = 2;
