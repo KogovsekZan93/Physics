@@ -1,41 +1,39 @@
 function [yIntegralA, varargout] = ZFindIntegralABasic...
     (xData, yData, xIntegralA, varargin)
-%% Numerical piecewise interpolation polynomial-based 
-%% indefinite integration tool
+%% Numerical piecewise interpolation polynomial-based indefinite 
+%% integration tool
 % 
 % Author: Žan Kogovšek
 % Date: 1.3.2023
-% Last changed: 11.1.2023
+% Last changed: 6.2.2023
 % 
 %% Description
 % 
-% Given the input vector 'xData' of the independent variable X 
-% and the input vector 'yData' of the values of the dependent 
-% variable Y of an arbitrary function Y = (df/dX)(X), this function 
-% returns the vector 'yIntegralA' of the estimated values of 
+% Given the input vector 'xData' of the independent variable X and the 
+% input vector 'yData' of the values of the dependent variable Y of an 
+% arbitrary function Y = (df/dX)(X), this function returns the vector 
+% 'yIntegralA' of the estimated values of 
 % f('xIntegralA') - f('xIntegralA'(1)), where 'xIntegralA' is the input 
-% vector of values of the X variable. The estimation is based on 
-% a piecewise interpolation polynomial of the data points 
-% represented by the pairs ('xData'(i), 'yData'(i)). 
+% vector of values of the X variable. The estimation is based on a 
+% piecewise interpolation polynomial of the data points represented by the 
+% pairs ('xData'(i), 'yData'(i)). 
 % 
 %% Variables
 % 
-% This function has the form of [yIntegralA, varargout] = 
+% This function has the form of [yIntegralA, varargout] = ...
 % ZFindIntegralABasic(xData, yData, xIntegralA, varargin)
 % 
-% 'xData' and 'yData' are the vectors of the values of the 
-% independent variable X and of the dependent variable Y, 
-% respectively, of an arbitrary function Y = (df/dX)(X) 
-% ('yData' = (df/dX)('xData')). 
-% Both the 'xData' vector and the 'yData' vector must be column 
-% vectors of equal length and of real numbers. The values of the 
-% 'xData' vector must be in ascending order. 
+% 'xData' and 'yData' are the vectors of the values of the independent 
+% variable X and of the dependent variable Y, respectively, of an 
+% arbitrary function Y = (df/dX)(X) ('yData' = (df/dX)('xData')). 
+% Both the 'xData' vector and the 'yData' vector must be column vectors of 
+% equal length and of real numbers. The values of the 'xData' vector must 
+% be in ascending order. 
 % 
-% 'xIntegralA' is the vector of the values of the independent 
-% variable X at which the values of the vector 
-% f('xIntegralA') - f('xIntegralA'(1)) is to be estimated. The 
-% 'xIntegralA' vector must be a column vector of real numbers. 
-% The values of the 'xIntegralA' vector must be in ascending 
+% 'xIntegralA' is the vector of the values of the independent variable X 
+% at which the values of the vector f('xIntegralA') - f('xIntegralA'(1)) 
+% is to be estimated. The 'xIntegralA' vector must be a column vector of 
+% real numbers. The values of the 'xIntegralA' vector must be in ascending 
 % order. 
 % 
 % 'varargin' represents the optional input parameters named 
@@ -94,8 +92,7 @@ parse(pars, varargin{:});
 PseudoAccuracy = pars.Results.PseudoAccuracy;
 Mode = pars.Results.Mode;
 
-[Ipoints, Smatrix] = GetIpointsSmatrix...
-    (xData, PseudoAccuracy + 1, Mode);
+[Ipoints, Smatrix] = GetIpointsSmatrix(xData, PseudoAccuracy + 1, Mode);
 varargout = {Ipoints, Smatrix};
 
 % In the following line, the EvaluateIpointsSmatrixIntegral 
