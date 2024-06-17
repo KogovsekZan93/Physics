@@ -16,7 +16,7 @@ clearvars; clc;   % Clearing variables and workspace is done at or near
                   % of clarity of this tutorial. 
 
 
-%                              Page 1
+%                                 Page 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -45,7 +45,7 @@ xlabel('t [s]'); ylabel('v [m / s]'); set(gca, 'FontSize', 14); grid on;
 clearvars; clc;
 
 
-%                              Page 2
+%                                 Page 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -78,7 +78,7 @@ legend('Actual', 'Estimated');
 clearvars; clc;
 
 
-%                              Page 3
+%                                 Page 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -124,7 +124,7 @@ clearvars; clc;
 % much less so outside of it. 
 
 
-%                              Page 4
+%                                 Page 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -164,7 +164,7 @@ legend('Actual', 'Estimated');
 clearvars; clc;
 
 
-%                              Page 5
+%                                 Page 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -212,7 +212,7 @@ set(gca, 'FontSize', 14); grid on;
 clearvars; clc;
 
 
-%                              Page 6
+%                                 Page 6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -254,7 +254,7 @@ legend('Actual', 'Estimated using default settings', ...
 clearvars; clc;
 
 
-%                              Page 7
+%                                 Page 7
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -305,7 +305,7 @@ legend('Actual', 'Estimated using default settings', ...
 clearvars; clc;
 
 
-%                              Page 8
+%                                 Page 8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -345,7 +345,7 @@ title('Regression polynomial');
 clearvars; clc;
 
 
-%                              Page 9
+%                                 Page 9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -354,5 +354,5 @@ clearvars; clc;
 % and its subfunctions should be referred to. 
 
 
-%                              Page 10
+%                                 Page 10
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

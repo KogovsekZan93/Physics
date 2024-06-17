@@ -15,7 +15,7 @@ clearvars; clc;   % Clearing variables and workspace is done at or near
                   % of clarity of this tutorial. 
 
 
-%                              Page 1
+%                                 Page 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -53,7 +53,7 @@ x_at_t_equals_8_s = DefiniteIntegral + 3;
 x_at_t_equals_8_s
 
 
-%                              Page 2
+%                                 Page 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -82,7 +82,7 @@ xlabel('t [s]'); ylabel('v [m / s]');
 clear all; clc;
 
 
-%                              Page 3
+%                                 Page 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -117,7 +117,7 @@ x_at_t_equals_8_s = DefiniteIntegral + 3   % Remember that the value of
 clearvars DefiniteIntegral;
 
 
-%                              Page 4
+%                                 Page 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -160,7 +160,7 @@ x_at_t_equals_8_s = DefiniteIntegral + 3
 clearvars DefiniteIntegral;
 
 
-%                              Page 5
+%                                 Page 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -203,7 +203,7 @@ legend('Estimated', 'Actual');
 clearvars -except TIntegral XEstimated TT XX_actual; clc;
 
 
-%                              Page 6
+%                                 Page 6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -286,7 +286,7 @@ clearvars -except Actual_value; clc;
 Actual_value   % Display the actual value of the definite integral. 
 
 
-%                              Page 7
+%                                 Page 7
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -353,7 +353,7 @@ legend('Estimated', 'Actual');
 clearvars; clc;
 
 
-%                              Page 8
+%                                 Page 8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -425,7 +425,7 @@ legend('Estimated', 'Actual');
 clearvars; clc;
 
 
-%                              Page 9
+%                                 Page 9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -435,5 +435,5 @@ clearvars; clc;
 % and their subfunctions should be referred to. 
 
 
-%                              Page 10
+%                                 Page 10
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

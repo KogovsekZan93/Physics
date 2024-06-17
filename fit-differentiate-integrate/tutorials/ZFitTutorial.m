@@ -12,7 +12,7 @@ clearvars; clc;   % Clearing variables and workspace is done at or near
                   % of clarity of this tutorial. 
 
 
-%                              Page 1
+%                                 Page 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -42,7 +42,7 @@ set(gca, 'FontSize', 14); grid on; hold off;
 clearvars -except xData yData xMissing yMissing; clc;
 
 
-%                              Page 2
+%                                 Page 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -107,7 +107,7 @@ clearvars -except xData yData xMissing ...
     yMissing1 yMissing2 yMissing3; clc;
 
 
-%                              Page 3
+%                                 Page 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -173,7 +173,7 @@ title('''Mode'' = 2');
 clearvars -except xData yData xMissing yMissing0 yMissing1 yMissing2; clc;
 
 
-%                              Page 4
+%                                 Page 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -207,7 +207,7 @@ title('''Type'' = ''''Spline''''');
 clearvars -except xData yData xMissing yMissingSpline; clc;
 
 
-%                              Page 5
+%                                 Page 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -250,7 +250,7 @@ title('''Type'' = ''''PolyFit''''');
 clearvars -except xData yData xMissing yMissingPolyFit; clc;
 
 
-%                              Page 6
+%                                 Page 6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -286,7 +286,7 @@ yMissing = ZFindFit(xData, yData, xMissing, ...
 clearvars -except xData yData xMissing yMissing; clc;
 
 
-%                              Page 7
+%                                 Page 7
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -295,5 +295,5 @@ clearvars -except xData yData xMissing yMissing; clc;
 % and its subfunctions should be referred to. 
 
 
-%                              Page 8
+%                                 Page 8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

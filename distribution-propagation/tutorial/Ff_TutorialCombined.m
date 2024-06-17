@@ -1,11 +1,9 @@
-function Vec_Ff_TutorialCombined = ...
-    Ff_TutorialCombined(Vec_Input)
-%% The combination of the f_Tutorial function and 
-%% the Ff_Tutorial function
+function Vec_Ff_TutorialCombined = Ff_TutorialCombined(Vec_Input)
+%% The combination of the f_Tutorial function and the Ff_Tutorial function
 % 
 % Author: Žan Kogovšek
 % Date: 12.31.2023
-% Last changed: 1.6.2024
+% Last changed: 6.17.2024
 % 
 %% Description
 % 
@@ -44,7 +42,6 @@ end
 % If 'Validity' = 0, the 'Vec_f_Tutorial' vector is invalid, and if 
 % 'Validity' = 1, the 'Vec_f_Tutorial' vector is valid. 
 
-Vec_Ff_TutorialCombined = ...
-    [Vec_f_Tutorial; Vec_Figure; Validity];
+Vec_Ff_TutorialCombined = [Vec_f_Tutorial; Vec_Figure; Validity];
 
 end

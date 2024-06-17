@@ -1,19 +1,17 @@
-function Vec_Ff_TutorialAlternative = ...
-    Ff_TutorialAlternative(Vec_Input, Vec_Figure)
-%% The incomplete alternative to the Ff_TutorialCombined 
-%% function
+function Vec_Ff_TutorialAlternative = Ff_TutorialAlternative...
+    (Vec_Input, Vec_Figure)
+%% The incomplete alternative to the Ff_TutorialCombined function
 % 
 % Author: Žan Kogovšek
 % Date: 12.31.2023
-% Last changed: 1.6.2024
+% Last changed: 6.17.2024
 % 
 %% Description
 % 
-% Given the column vectors 'Vec_Input' and 'Vec_Figure', this 
-% function returns the vector VVec_Ff_TutorialAlternative, which 
-% is the vector of the values of the variables of interest (P and 
-% V), appended by the 'Vec_Figure' vector and the 'Validity' 
-% number. 
+% Given the column vectors 'Vec_Input' and 'Vec_Figure', this function 
+% returns the vector VVec_Ff_TutorialAlternative, which is the vector of 
+% the values of the variables of interest (P and V), appended by the 
+% 'Vec_Figure' vector and the 'Validity' number. 
 
 Value_a = Vec_Input(1);
 Value_b = Vec_Input(2);
@@ -39,7 +37,6 @@ end
 % If 'Validity' = 0, the 'Vec_f_Tutorial' vector is invalid, and if 
 % 'Validity' = 1, the 'Vec_f_Tutorial' vector is valid. 
 
-Vec_Ff_TutorialAlternative = ...
-    [Vec_f_Tutorial; Vec_Figure; Validity];
+Vec_Ff_TutorialAlternative = [Vec_f_Tutorial; Vec_Figure; Validity];
 
 end
