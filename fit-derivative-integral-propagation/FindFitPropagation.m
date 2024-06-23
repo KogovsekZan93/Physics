@@ -1,5 +1,4 @@
-function OutputVector = FindFitPropagation...
-    (DataVector, xFit, varargin)
+function OutputVector = FindFitPropagation(DataVector, xFit, varargin)
 
 length_xData = length(DataVector) / 2;
 xData = DataVector(1 : length_xData);
@@ -15,9 +14,8 @@ yFit = ZFindFit(xData, yData, xFit, varargin{:});
 Validity = 1;
 
 % By setting the second part of the output vector of the 
-% FindFitPropagation function as a vector of zeros, no 
-% distribution of any of the values of the 'yFit' vector will be 
-% plotted. 
+% FindFitPropagation function as a vector of zeros, no distribution of any 
+% of the values of the 'yFit' vector will be plotted. 
 OutputVector = [yFit; zeros(length(yFit), 1); Validity];
 
 end
