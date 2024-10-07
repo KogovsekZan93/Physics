@@ -1,6 +1,5 @@
-% The test for the fit-differentiate-integrate function package is 
-% passed if the command window is empty after running this 
-% script. 
+% The test for the fit-differentiate-integrate function package is passed 
+% if the command window is empty after running this script. 
 
 
 clc;pause('on');pause('off');

@@ -38,7 +38,7 @@ operate has to be inferred by studying their code and/or documentation.
 On the "Home" tab, in the Environment section, click the "Set Path" 
 button. The "Set Path" dialog box opens, listing all folders in the search 
 path. 
-Now, click the "Add with Subfolders…" button in the dialog box. The "Add 
+Now, click the "Add with Subfolders..." button in the dialog box. The "Add 
 to path with Subfolders" dialog box opens. 
 Now, search the "distribution-propagation" folder by single-clicking it 
 and then click the "Select Folder" button thereby closing the "Add to path 
